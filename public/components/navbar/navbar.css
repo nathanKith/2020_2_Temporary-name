@@ -1,0 +1,35 @@
+.navbar{
+    display: flex;
+    height: 60px;
+    border: 1px #707070;
+    box-sizing: border-box;
+    padding: 10px 0 10px 0;
+    box-shadow: 0 0 1px;
+}
+.logIn{
+    height: 40px;
+    font-family: Montserrat;
+    font-size: 15px;
+    margin-left: 70%;
+    margin-right: 5%;
+    color: #F5486B;
+    background: white;
+    border-color: #F5486B;
+    border-width: 3px;
+    border-radius: 7px;
+    padding: 4px 20px;
+}
+.toggle{
+    margin-top: 4px;
+    border-color: white;
+    background: white;
+    box-shadow: white;
+    border-width: 0;
+}
+.label {
+    margin-top: 4px;
+    margin-left: 15px;
+}
+.back  {
+    background-color: red;
+}

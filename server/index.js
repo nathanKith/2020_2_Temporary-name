@@ -1,29 +1,23 @@
-const fs = require("fs")
-const http = require("http")
+'use strict';
 
-const server = http.createServer((req, res) => {
-    const path = `./public${req.url === '/' ? '/index.html' : req.url}`
+const express = require('express');
+const body = require('body-parser');
+const cookie = require('cookie-parser');
+const morgan = require('morgan');
+const path = require('path');
+const app = express();
 
-    fs.readFile(path, (err, file) => {
-        if (err) {
-            console.log('file read error', path, err);
-            res.write('error');
-            res.end();
+app.use(morgan('dev'));
+app.use(express.static(path.resolve(__dirname, '..', 'public')));
+app.use(body.json());
+app.use(cookie());
 
-            return;
-        }
+app.all('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/..', '/public', '/index.html'))
+});
 
-        console.log('file read', path);
+const port = 3000;
 
-        res.write(file);
-        res.end();
-    });
-})
-
-const port = 3000
-
-server.listen(port, (err) => {
-    if (err) {
-        console.log("cannot listen: ", err);
-    }
+app.listen(port,  () => {
+    console.log(`Server listening port ${port}`);
 });

@@ -9,30 +9,32 @@ export default class LandingHeader {
         const header = document.createElement('header');
         header.classList.add('header');
         this.#parent.appendChild(header);
-        this.#parent.appendChild(this.#createLeftSide());
-        this.#parent.appendChild(this.#createRightSide());
+        header.appendChild(this.#createLeftSide());
+        header.appendChild(this.#createRightSide());
     }
 
-    #createLeftSide() {
+    #createLeftSide = () => {
         const div = document.createElement('div');
         div.classList.add('header-left-side');
-        div.innerHTML += `<img src="../../images/classic_label.png" alt="габела"/>`;
+        div.innerHTML += `<img src="../../images/classic_label.png" class ="label" alt="габела"/>`;
 
         return div;
     }
 
-    #createRightSide() {
+    #createRightSide = () => {
         const div = document.createElement('div');
         div.classList.add('header-right-side');
         const loginLink = document.createElement('a');
 
         loginLink.href = '/login';
+        loginLink.innerHTML = 'Log in'
         loginLink.classList.add('login');
-        div.innerHTML += loginLink;
+        div.appendChild(loginLink);
 
         const toggle = document.createElement('button');
         toggle.classList.add('toggle-menu');
         toggle.innerHTML = `<img src="../../images/menu_icon.svg" alt="МЕНЮ"/>`;
+        div.appendChild(toggle);
 
         return div;
     }

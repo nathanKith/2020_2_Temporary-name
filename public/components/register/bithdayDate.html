@@ -5,10 +5,11 @@
     <title>Bithday</title>
     <link rel="stylesheet" href="register.css">
 </head>
-<body class="back">
+<body class="backg">
 <div class="formView">
     <form class="form">
-        <div class="cancel">
+        <div class="back">
+            <button class="arrow"><img src="../../img/left_arrow_gray.svg"></button>
             <button class="cancelButton"><img src="../../img/cancel_gray.svg" width="15px" height="15px"/>
             </button>
         </div>
@@ -19,12 +20,21 @@
             <p class="reg">Расскажите о себе.</p>
         </div>
         <div class="calendar"><img src="../../img/calendar.svg"></div>
-        <div class="cont">
-            <label class="yourNumber">Мой день рождения</label>
-            <div class="pass">
-                <input class="tel password" placeholder="Имя"/>
-            </div>
+
+        <label class="yourNumber">Мой день рождения</label>
+        <div class="birthday">
+            <select class="month" name="Месяц">
+
+                <option>Январь</option>
+            </select>
+            <select class="day" name="День">
+                <option>День</option>
+            </select>
+            <select class="year" name="Год">
+                <option>Год</option>
+            </select>
         </div>
+
         <div class="next">
             <button class="nextButton">Далее</button>
         </div>

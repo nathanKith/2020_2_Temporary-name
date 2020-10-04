@@ -1,7 +1,7 @@
 'use strict'
 
 
-import Registration from "./register.js";
+import Registration from "./Registration.js";
 
 function Main(){
     let reg = new Registration(document.getElementById('1'));

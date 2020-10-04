@@ -35,21 +35,32 @@ export default class Registration {
         form.appendChild(this.createLabel('yourNumber', 'Ваш номер телефона'));
         const numb = document.createElement('div');
         numb.classList.add('number');
-        numb.appendChild(this.createReadInput('+7','readonlyNum'));
-        numb.appendChild(this.createInput('tel', '999-999-99-99', 'numb'));
+        const tel =  this.createReadInput('+7','readonlyNum');
+        numb.appendChild(tel);
+        const number = this.createInput('tel', '999-999-99-99', 'numb');
+        number.required = true;
+        number.pattern = '\d[0-9][0-9]{9}';
+        numb.appendChild(number);
         form.appendChild(numb);
-        // form.appendChild(cont);
         const div = document.createElement("div");
         div.classList.add('pass');
-        div.appendChild(this.createInput('password','Пароль', 'password'))
+        const pass = this.createInput('password','Пароль', 'password');
+        pass.required = true;
+        div.appendChild(pass)
         form.appendChild(div);
         const div2 = document.createElement("div");
         div2.classList.add('pass');
-        div2.appendChild(this.createInput('password','Повторите пароль', 'password'))
+        const repeat = this.createInput('password','Повторите пароль', 'password');
+        repeat.required = true;
+        div2.appendChild(repeat);
         form.appendChild(div2);
         const nextButton = this.createElem('next','button', 'nextButton', 'Далее');
         nextButton.addEventListener('click', (evt) => {
-            this.renderSecStep();
+            if(pass.value === repeat.value) {
+                this.renderSecStep();
+            } else {
+                form.appendChild(this.createLabel('end-is-near','Пароли не совпадают'));
+            }
         });
         form.appendChild(nextButton);
     }
@@ -145,14 +156,13 @@ export default class Registration {
         const link = document.createElement('a');
         link.classList.add('skip');
         link.textContent = 'Пропустить';
+        link.addEventListener('click', (evt) => {
+            this.renderPhoto();
+        });
         form.appendChild(link);
-        form.appendChild(this.nameOfForm('Расскажите о себе'));
-        form.appendChild(this.nameOfForm('Поподробнее.'));
-        // form.appendChild(this.createLabel('nameFormText', 'Хобби'));
-        // const pass = document.createElement('div');
-        // pass.classList.add('pass');
-        // pass.appendChild(this.createInput('text', 'Гольф, йога, чтение книг', 'hobby'));
-        // form.appendChild(pass);
+        form.appendChild(this.casualNameOfForm('Расскажите о себе<br>' +
+            '<label class="podr">Поподробнее</label>', 'name'));
+        // form.appendChild(this.casualNameOfForm('Поподробнее.', 'name'));
         let [label, pass] = this.createFormText('nameFormText', 'Хобби', 'pass',
             'Гольф, йога, чтение книг', 'hobby');
         form.appendChild(label);
@@ -161,8 +171,114 @@ export default class Registration {
              'job');
         form.appendChild(label);
         form.appendChild(pass);
+        form.appendChild(this.createLabel('University', 'Высшее образование'));
+        const divUniv = document.createElement("div");
+        divUniv.classList.add('radio');
+        let radioEl = this.createRadio('radio-elems','radio-elem', 'Учусь', 'text', 'rad1');
+        divUniv.appendChild(radioEl);
+        radioEl = this.createRadio('radio-elems','radio-elem', 'Оконочил', 'text', 'rad2');
+        divUniv.appendChild(radioEl);
+        radioEl = this.createRadio('radio-elems','radio-elem', 'Нет', 'text', 'rad3');
+        divUniv.appendChild(radioEl);
+        form.appendChild(divUniv);
+        [label, pass] = this.createFormText('nameFormText', 'Я учусь', 'pass', 'МГТУ им. Н.Э.Баумана',
+            'education');
+        form.appendChild(label);
+        form.appendChild(pass);
+        [label, pass] = this.createFormText('nameFormText', 'Обо мне', 'pass', '',
+            'about');
+        form.appendChild(label);
+        form.appendChild(pass);
+        form.appendChild(this.createLabel('end-is-near','Почти готово!'));
+        const nextButton = this.createElem('next','button', 'nextButtonEnd', 'Далее');
+        nextButton.addEventListener('click', (evt) => {
+            this.renderPhoto();
+        });
+        form.appendChild(nextButton);
 
 
+    }
+
+    renderPhoto (){
+        this.#parent.innerHTML = '';
+        const Form = document.createElement('form');
+        Form.classList.add('form-photo');
+        const form = this.#parent.appendChild(Form);
+        form.appendChild(this.lastButtonsTop());
+        form.appendChild(this.createElem('label', 'img',
+            undefined, "../../img/small_white_label.png"));
+        form.appendChild(this.casualNameOfForm('Выберите лучшие<br>' +
+            '<label class="podr">фотографии.</label>', 'name-last'));
+        const photo = this.createInput('file','','photo');
+        photo.accept = 'image/jpeg,image/png';
+        photo.id = "file";
+        const label = document.createElement('label');
+        label.htmlFor = 'file';
+        const div = document.createElement('div');
+        div.classList.add('podr');
+        const img = document.createElement('img');
+        img.src = '../../img/camera.svg';
+        label.appendChild(img);
+        div.appendChild(photo)
+        div.appendChild(label);
+        form.appendChild(div);
+        const nextButton = this.createElem('next','button', 'endButton', 'Завершить!');
+        nextButton.addEventListener('click', (evt) => {
+            this.renderPhoto();
+        });
+        form.appendChild(nextButton);
+    }
+
+    casualNameOfForm(string, className) {
+        const div = document.createElement("div");
+        div.classList.add('label');
+
+        const p = document.createElement('p');
+        p.classList.add(className);
+        p.innerHTML = string;
+        div.appendChild(p)
+
+        return div;
+    }
+
+    createRadio(divClass, radioClass, text, textClass, id) {
+        const div = document.createElement('div');
+        div.classList.add(divClass);
+        const input = this.createInput('radio', '', radioClass);
+        input.name = 'education';
+        input.id = id;
+        div.appendChild(input);
+        const p = document.createElement('p');
+        p.classList.add(textClass);
+        p.textContent = text;
+        div.appendChild(p);
+        return div;
+    }
+    lastButtonsTop() {
+        const div = document.createElement('div');
+        div.classList.add('back');
+
+        const but = document.createElement('button');
+        but.classList.add('arrow-last');
+        div.appendChild(but)
+
+        const img2 = document.createElement('img');
+        img2.src = "../../img/left_arrow_white.svg";
+        but.appendChild(img2)
+
+        but.addEventListener('click', (evt) => {
+                this.renderInformation();
+        });
+
+        const button = document.createElement('button');
+        button.classList.add('last-cancelButton');
+        div.appendChild(button)
+
+        const img = document.createElement('img');
+        img.src = "../../img/white_cancel.svg";
+        button.appendChild(img)
+
+        return div;
     }
 
     createFormText(labelClass, nameLabel, divClass, placeholder, inputClasses) {

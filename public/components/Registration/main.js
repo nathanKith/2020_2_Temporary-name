@@ -4,7 +4,11 @@
 import Registration from "./Registration.js";
 
 function Main(){
-    let reg = new Registration(document.getElementById('1'));
+    const formView = document.getElementById('1');
+    const div = document.createElement('div');
+    div.classList.add('inner-formView');
+    formView.appendChild(div);
+    let reg = new Registration(div);
     reg.render();
 }
 

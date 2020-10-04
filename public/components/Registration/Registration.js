@@ -248,10 +248,11 @@ export default class Registration {
         input.name = 'education';
         input.id = id;
         div.appendChild(input);
-        const p = document.createElement('p');
-        p.classList.add(textClass);
-        p.textContent = text;
-        div.appendChild(p);
+        const label = document.createElement('label');
+        label.classList.add(textClass);
+        label.textContent = text;
+        label.htmlFor = id;
+        div.appendChild(label);
         return div;
     }
     lastButtonsTop() {

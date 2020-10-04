@@ -30,17 +30,23 @@ export default class Registration {
         form.appendChild(this.cancelButton());
         form.appendChild(this.createElem('label', 'img', undefined, "../../img/small_classic_label.png"));
         form.appendChild(this.nameOfForm('Регистрация'));
-        const cont = document.createElement('div');
-        cont.classList.add('cont')
-        cont.appendChild(this.createLabel('yourNumber', 'Ваш номер телефона'));
+        // const cont = document.createElement('div');
+        // cont.classList.add('cont')
+        form.appendChild(this.createLabel('yourNumber', 'Ваш номер телефона'));
         const numb = document.createElement('div');
         numb.classList.add('number');
         numb.appendChild(this.createReadInput('+7','readonlyNum'));
         numb.appendChild(this.createInput('tel', '999-999-99-99', 'numb'));
-        cont.appendChild(numb);
-        form.appendChild(cont);
-        form.appendChild(this.createPassword('pass', 'password', 'Пароль'));
-        form.appendChild(this.createPassword('pass', 'password', 'Повторите пароль'));
+        form.appendChild(numb);
+        // form.appendChild(cont);
+        const div = document.createElement("div");
+        div.classList.add('pass');
+        div.appendChild(this.createInput('password','Пароль', 'password'))
+        form.appendChild(div);
+        const div2 = document.createElement("div");
+        div2.classList.add('pass');
+        div2.appendChild(this.createInput('password','Повторите пароль', 'password'))
+        form.appendChild(div2);
         const nextButton = this.createElem('next','button', 'nextButton', 'Далее');
         nextButton.addEventListener('click', (evt) => {
             this.renderSecStep();
@@ -116,16 +122,62 @@ export default class Registration {
         const div = this.createElem('sex', 'button',
             'ButtonFemale', 'Женщина');
         div.firstChild.addEventListener('click', (evt) => {
-            alert('woman!');
+            this.renderInformation();
         });
         const man = document.createElement('button');
         man.classList.add('ButtonMale');
         man.textContent = 'Мужчина';
         div.appendChild(man);
         man.addEventListener('click', (evt) => {
-            alert('man');
+            this.renderInformation();
         });
         form.appendChild(div);
+    }
+
+    renderInformation() {
+        this.#parent.innerHTML = '';
+        const Form = document.createElement('form');
+        Form.classList.add('formInf');
+        const form = this.#parent.appendChild(Form);
+        form.appendChild(this.buttonsTop(4));
+        form.appendChild(this.createElem('label', 'img',
+            undefined, "../../img/small_classic_label.png"));
+        const link = document.createElement('a');
+        link.classList.add('skip');
+        link.textContent = 'Пропустить';
+        form.appendChild(link);
+        form.appendChild(this.nameOfForm('Расскажите о себе'));
+        form.appendChild(this.nameOfForm('Поподробнее.'));
+        // form.appendChild(this.createLabel('nameFormText', 'Хобби'));
+        // const pass = document.createElement('div');
+        // pass.classList.add('pass');
+        // pass.appendChild(this.createInput('text', 'Гольф, йога, чтение книг', 'hobby'));
+        // form.appendChild(pass);
+        let [label, pass] = this.createFormText('nameFormText', 'Хобби', 'pass',
+            'Гольф, йога, чтение книг', 'hobby');
+        form.appendChild(label);
+        form.appendChild(pass);
+        [label, pass] = this.createFormText('nameFormText', 'Я работаю', 'pass', 'Тренер по плаванию',
+             'job');
+        form.appendChild(label);
+        form.appendChild(pass);
+
+
+    }
+
+    createFormText(labelClass, nameLabel, divClass, placeholder, inputClasses) {
+        const label = this.createLabel(labelClass, nameLabel);
+        const pass = document.createElement('div');
+        pass.classList.add(divClass);
+        pass.appendChild(this.createTextArea(placeholder, inputClasses));
+        return [label, pass];
+    }
+
+    createTextArea(placeholder, inputClasses) {
+        const input = document.createElement('textarea');
+        input.placeholder = placeholder;
+        input.classList.add(inputClasses);
+        return input
     }
 
     buttonsTop(back) {
@@ -144,6 +196,9 @@ export default class Registration {
                 switch (back) {
                     case 3:
                         this.renderThirdStep();
+                        break;
+                    case 4:
+                        this.renderFourthStep();
                         break;
                     default:
                         this.render();

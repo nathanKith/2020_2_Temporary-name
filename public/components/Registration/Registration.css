@@ -262,8 +262,8 @@
     justify-content: space-between;
     display: flex;
     flex-direction: column;
-    width: 40vw;
-    height: 115vh;
+    width: 30vw;
+    height: 90vh;
     background-color: white;
     border-radius: 25px;
 }
@@ -531,15 +531,7 @@ skip:focus {
     margin-top: 10vh;
 }
 
-.formInf{
-    justify-content: space-between;
-    display: flex;
-    flex-direction: column;
-    width: 30vw;
-    height: 115vh;
-    background-color: white;
-    border-radius: 25px;
-}
+
 
 @font-face {
     font-family: Montserrat-Medium;
@@ -749,4 +741,10 @@ skip:focus {
     justify-content: center;
     align-items: center;
     margin-top: 10vh;
+}
+.inner-formInf {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4vh;
 }

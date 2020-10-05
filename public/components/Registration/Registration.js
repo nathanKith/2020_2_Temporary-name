@@ -122,6 +122,8 @@ export default class Registration {
 
     renderFourthStep() {
         this.#parent.innerHTML = '';
+        this.#parent.classList.remove('inner-formInf');
+        this.#parent.classList.add('inner-formView');
         const Form = document.createElement('form');
         Form.classList.add('form');
         const form = this.#parent.appendChild(Form);
@@ -147,6 +149,8 @@ export default class Registration {
 
     renderInformation() {
         this.#parent.innerHTML = '';
+        this.#parent.classList.remove('inner-formView');
+        this.#parent.classList.add('inner-formInf');
         const Form = document.createElement('form');
         Form.classList.add('formInf');
         const form = this.#parent.appendChild(Form);
@@ -162,12 +166,11 @@ export default class Registration {
         form.appendChild(link);
         form.appendChild(this.casualNameOfForm('Расскажите о себе<br>' +
             '<label class="podr">Поподробнее</label>', 'name'));
-        // form.appendChild(this.casualNameOfForm('Поподробнее.', 'name'));
-        let [label, pass] = this.createFormText('nameFormText', 'Хобби', 'pass',
-            'Гольф, йога, чтение книг', 'hobby');
-        form.appendChild(label);
-        form.appendChild(pass);
-        [label, pass] = this.createFormText('nameFormText', 'Я работаю', 'pass', 'Тренер по плаванию',
+        // let [label, pass] = this.createFormText('nameFormText', 'Хобби', 'pass',
+        //     'Гольф, йога, чтение книг', 'hobby');
+        // form.appendChild(label);
+        // form.appendChild(pass);
+        let [label, pass] = this.createFormText('nameFormText', 'Я работаю', 'pass', 'Тренер по плаванию',
              'job');
         form.appendChild(label);
         form.appendChild(pass);
@@ -185,7 +188,8 @@ export default class Registration {
             'education');
         form.appendChild(label);
         form.appendChild(pass);
-        [label, pass] = this.createFormText('nameFormText', 'Обо мне', 'pass', '',
+        [label, pass] = this.createFormText('nameFormText', 'Обо мне', 'pass',
+            'Обожаю гольф, играть на музыкальных инструментах',
             'about');
         form.appendChild(label);
         form.appendChild(pass);

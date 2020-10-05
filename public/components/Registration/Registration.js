@@ -237,7 +237,7 @@ export default class Registration {
 
     casualNameOfForm(string, className) {
         const div = document.createElement("div");
-        div.classList.add('label');
+        div.classList.add('small-label');
 
         const p = document.createElement('p');
         p.classList.add(className);
@@ -372,7 +372,7 @@ export default class Registration {
     }
     nameOfForm (string) {
         const div = document.createElement("div");
-        div.classList.add('label');
+        div.classList.add('small-label');
 
         const p = document.createElement('p');
         p.classList.add('reg');

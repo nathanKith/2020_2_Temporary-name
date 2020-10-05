@@ -166,10 +166,9 @@ export default class Registration {
         form.appendChild(link);
         form.appendChild(this.casualNameOfForm('Расскажите о себе<br>' +
             '<label class="podr">Поподробнее</label>', 'name'));
-        // let [label, pass] = this.createFormText('nameFormText', 'Хобби', 'pass',
-        //     'Гольф, йога, чтение книг', 'hobby');
-        // form.appendChild(label);
-        // form.appendChild(pass);
+        const div = document.createElement('div');
+        div.id = "education_univ";
+
         let [label, pass] = this.createFormText('nameFormText', 'Я работаю', 'pass', 'Тренер по плаванию',
              'job');
         form.appendChild(label);
@@ -177,17 +176,44 @@ export default class Registration {
         form.appendChild(this.createLabel('University', 'Высшее образование'));
         const divUniv = document.createElement("div");
         divUniv.classList.add('radio');
-        let radioEl = this.createRadio('radio-elems','radio-elem', 'Учусь', 'text', 'rad1');
+        const radioEl = this.createRadio('radio-elems','radio-elem', 'Учусь', 'text', 'rad1');
+        radioEl.addEventListener('click', (evt) => {
+            const div = document.getElementById('education_univ');
+            // let [specLabel, specPass] = this.createFormText('nameFormText', 'Я учусь', 'pass', 'МГТУ им. Н.Э.Баумана',
+            //     'education');
+            // div.appendChild(specPass);
+            // div.appendChild(specLabel);
+            div.innerHTML = '<label class="nameFormText">Я учусь</label>' +
+                '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education"></textarea></div>'
+        });
         divUniv.appendChild(radioEl);
-        radioEl = this.createRadio('radio-elems','radio-elem', 'Оконочил', 'text', 'rad2');
-        divUniv.appendChild(radioEl);
-        radioEl = this.createRadio('radio-elems','radio-elem', 'Нет', 'text', 'rad3');
-        divUniv.appendChild(radioEl);
+        const RadioEl = this.createRadio('radio-elems','radio-elem', 'Оконочил', 'text', 'rad2');
+        RadioEl.addEventListener('click', (evt) => {
+            const div = document.getElementById('education_univ');
+            div.innerHTML = '<label class="nameFormText">Я окончил</label>' +
+                '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education"></textarea></div>';
+        });
+        divUniv.appendChild(RadioEl);
+        const radioElem = this.createRadio('radio-elems','radio-elem', 'Нет', 'text', 'rad3');
+        radioElem.addEventListener('click', (evt) => {
+            const div = document.getElementById('education_univ');
+            div.innerHTML = '';
+        });
+        divUniv.appendChild(radioElem);
         form.appendChild(divUniv);
-        [label, pass] = this.createFormText('nameFormText', 'Я учусь', 'pass', 'МГТУ им. Н.Э.Баумана',
+        form.appendChild(div);
+        let [specLabel, specPass] = this.createFormText('nameFormText', 'Я учусь', 'pass', 'МГТУ им. Н.Э.Баумана',
             'education');
-        form.appendChild(label);
-        form.appendChild(pass);
+        div.appendChild(specLabel);
+        div.appendChild(specPass);
+        // specPass.addEventListener('click', (evt) => {
+        //     const inp = document.getElementsByName('education');
+        //     for (let i = 0; i < inp.length; ++i) {
+        //         if (inp[i].type == "radio" && inp[i].checked) {
+        //             alert("selected: " + inp[i].value);
+        //         }
+        //     }
+        // })
         [label, pass] = this.createFormText('nameFormText', 'Обо мне', 'pass',
             'Обожаю гольф, играть на музыкальных инструментах',
             'about');
@@ -220,6 +246,7 @@ export default class Registration {
         photo.id = "file";
         const label = document.createElement('label');
         label.htmlFor = 'file';
+        label.classList.add('out')
         const div = document.createElement('div');
         div.classList.add('podr');
         const img = document.createElement('img');

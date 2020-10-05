@@ -36,7 +36,7 @@
 .backg {
     background-color: wheat;
 }
-.label{
+.small-label{
     display: flex;
     justify-content: center;
 }

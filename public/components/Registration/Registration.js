@@ -28,7 +28,7 @@ export default class Registration {
         Form.classList.add('form');
         const form = this.#parent.appendChild(Form);
         form.appendChild(this.cancelButton());
-        form.appendChild(this.createElem('label', 'img', undefined, "../../img/small_classic_label.png"));
+        form.appendChild(this.createElem('small-label', 'img', undefined, "../../img/small_classic_label.png"));
         form.appendChild(this.nameOfForm('Регистрация'));
         // const cont = document.createElement('div');
         // cont.classList.add('cont')
@@ -71,7 +71,7 @@ export default class Registration {
         Form.classList.add('form');
         const form = this.#parent.appendChild(Form);
         form.appendChild(this.cancelButton());
-        form.appendChild(this.createElem('label', 'img', undefined, "../../img/small_classic_label.png"));
+        form.appendChild(this.createElem('small-label', 'img', undefined, "../../img/small_classic_label.png"));
         form.appendChild(this.nameOfForm('Расскажите о себе:'));
         const cont = document.createElement('div');
         cont.classList.add('cont')
@@ -91,7 +91,7 @@ export default class Registration {
         Form.classList.add('form');
         const form = this.#parent.appendChild(Form);
         form.appendChild(this.cancelButton());
-        form.appendChild(this.createElem('label', 'img', undefined, "../../img/small_classic_label.png"));
+        form.appendChild(this.createElem('small-label', 'img', undefined, "../../img/small_classic_label.png"));
         form.appendChild(this.nameOfForm('Расскажите о себе:'));
         form.appendChild(this.createElem('calendar', 'img', undefined, "../../img/calendar.svg"));
         form.appendChild(this.createLabel('yourNumber', 'Мой день рождения'));
@@ -128,7 +128,7 @@ export default class Registration {
         Form.classList.add('form');
         const form = this.#parent.appendChild(Form);
         form.appendChild(this.buttonsTop(3));
-        form.appendChild(this.createElem('label', 'img',
+        form.appendChild(this.createElem('small-label', 'img',
             undefined, "../../img/small_classic_label.png"));
         form.appendChild(this.nameOfForm('Расскажите о себе:'));
         form.appendChild(this.createLabel('yourNumber', 'Я...'));
@@ -155,7 +155,7 @@ export default class Registration {
         Form.classList.add('formInf');
         const form = this.#parent.appendChild(Form);
         form.appendChild(this.buttonsTop(4));
-        form.appendChild(this.createElem('label', 'img',
+        form.appendChild(this.createElem('small-label', 'img',
             undefined, "../../img/small_classic_label.png"));
         const link = document.createElement('a');
         link.classList.add('skip');
@@ -205,11 +205,13 @@ export default class Registration {
 
     renderPhoto (){
         this.#parent.innerHTML = '';
+        this.#parent.classList.remove('inner-formInf');
+        this.#parent.classList.add('inner-formView');
         const Form = document.createElement('form');
         Form.classList.add('form-photo');
         const form = this.#parent.appendChild(Form);
         form.appendChild(this.lastButtonsTop());
-        form.appendChild(this.createElem('label', 'img',
+        form.appendChild(this.createElem('small-label', 'img',
             undefined, "../../img/small_white_label.png"));
         form.appendChild(this.casualNameOfForm('Выберите лучшие<br>' +
             '<label class="podr">фотографии.</label>', 'name-last'));

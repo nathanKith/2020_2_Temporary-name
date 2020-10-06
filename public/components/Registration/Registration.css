@@ -166,7 +166,7 @@
 }
 .year {
     font-family: Montserrat-Light;
-    width: 4.5vw;
+    width: 4.7vw;
     margin-bottom: 2vh;
     text-align: center;
     border-radius: 5px;
@@ -491,4 +491,19 @@
 }
 .out {
     cursor: pointer;
+}
+.message {
+    color: #F5486B;
+    font-size: 1.8vh;
+    display: flex;
+    justify-content: center;
+    font-family: Montserrat-Light;
+
+}
+.message-last{
+    color: white;
+    font-size: 1.8vh;
+    display: flex;
+    justify-content: center;
+    font-family: Montserrat-Light;
 }

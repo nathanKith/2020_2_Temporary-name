@@ -85,3 +85,30 @@
     background-color: white;
     outline: none;
 }
+
+.next-photo {
+    position: absolute;
+    display: flex;
+    left: 210px;
+    bottom: 300px;
+}
+
+
+.prev-photo {
+    position: absolute;
+    display: flex;
+    right: 210px;
+    bottom: 300px;
+}
+
+.inner-prev-photo {
+    transform: scale(-1, 1);
+}
+
+.next-prev-photo {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

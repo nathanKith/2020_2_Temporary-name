@@ -16,7 +16,7 @@ export default class LandingHeader {
     #createLeftSide = () => {
         const div = document.createElement('div');
         div.classList.add('header-left-side');
-        div.innerHTML += `<img src="../../img/classic_label.png" class ="label" alt="габела"/>`;
+        div.innerHTML += `<img src="./../../img/classic_label.png" class ="label" alt="габела"/>`;
 
         return div;
     }

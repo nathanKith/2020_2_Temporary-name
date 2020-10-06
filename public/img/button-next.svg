@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="54" height="53" viewBox="0 0 54 53">
+  <defs>
+    <filter id="Эллипс_11" x="0" y="0" width="54" height="53" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Сгруппировать_430" data-name="Сгруппировать 430" transform="translate(9.165 8.833)">
+    <g transform="matrix(1, 0, 0, 1, -9.16, -8.83)" filter="url(#Эллипс_11)">
+      <ellipse id="Эллипс_11-2" data-name="Эллипс 11" cx="18" cy="17.5" rx="18" ry="17.5" transform="translate(9 9)" fill="#fff"/>
+    </g>
+    <g id="Сгруппировать_429" data-name="Сгруппировать 429" transform="translate(11.375 9.119)">
+      <path id="Контур_977" data-name="Контур 977" d="M75.98,6.8,64.434.449A3.275,3.275,0,0,0,62.917,0a1.334,1.334,0,0,0-1.4,1.489V15.223a1.332,1.332,0,0,0,1.395,1.487,3.245,3.245,0,0,0,1.51-.45L75.976,9.906A1.881,1.881,0,0,0,77.13,8.355,1.873,1.873,0,0,0,75.98,6.8Z" transform="translate(-61.52 0)" fill="#1877f2"/>
+    </g>
+  </g>
+</svg>

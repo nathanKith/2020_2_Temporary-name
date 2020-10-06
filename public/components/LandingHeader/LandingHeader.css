@@ -10,14 +10,14 @@
 }
 
 @font-face {
-    font-family: Montserrat;
+    font-family: Montserrat-Semibold;
     src: url(../../fonts/Montserrat-SemiBold.ttf)
 }
 
 .login{
     display: flex;
     height: 2.5em;
-    font-family: Montserrat;
+    font-family: Montserrat-Semibold;
     font-size: 20px;
     color: #F5486B;
     background: white;

@@ -230,8 +230,11 @@ export default class Registration {
         const div = document.createElement('div');
         div.id = "education_univ";
 
-        let [label, pass] = this.createFormText('nameFormText', 'Я работаю', 'pass', 'Тренер по плаванию',
+        let [label, pass] = this.createFormText('nameFormText', 'Я работаю', 'pass',
+            'Тренер по плаванию',
              'job');
+        pass.firstElementChild.id = 'job';
+        pass.firstElementChild.name = 'job';
         form.appendChild(label);
         form.appendChild(pass);
         form.appendChild(this.createLabel('University', 'Высшее образование'));
@@ -243,7 +246,7 @@ export default class Registration {
         radioEl.addEventListener('click', (evt) => {
             const div = document.getElementById('education_univ');
             div.innerHTML = '<label class="nameFormText">Я учусь</label>' +
-                '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education"></textarea></div>'
+                '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education" id="univer" name="univer"></textarea></div>'
         });
         divUniv.appendChild(radioEl);
 
@@ -251,7 +254,7 @@ export default class Registration {
         RadioEl.addEventListener('click', (evt) => {
             const div = document.getElementById('education_univ');
             div.innerHTML = '<label class="nameFormText">Я окончил</label>' +
-                '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education"></textarea></div>';
+                '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education" id="univer" name="univer"></textarea></div>';
         });
         divUniv.appendChild(RadioEl);
 
@@ -266,22 +269,26 @@ export default class Registration {
         form.appendChild(div);
         let [specLabel, specPass] = this.createFormText('nameFormText', 'Я учусь', 'pass', 'МГТУ им. Н.Э.Баумана',
             'education');
+        specPass.firstElementChild.id = 'univer';
+        specPass.firstElementChild.name = 'univer';
         div.appendChild(specLabel);
         div.appendChild(specPass);
 
         const [Label, aboutMe] = this.createFormText('nameFormText', 'Обо мне', 'pass',
             'Обожаю гольф, играть на музыкальных инструментах',
             'about');
-        form.appendChild(label);
-        form.appendChild(pass);
+        aboutMe.firstElementChild.id = "about";
+        aboutMe.firstElementChild.name = 'about';
+        form.appendChild(Label);
+        form.appendChild(aboutMe);
 
         form.appendChild(this.createLabel('end-is-near','Почти готово!'));
 
         const nextButton = this.createElem('next','button', 'nextButtonEnd', 'Далее');
         nextButton.addEventListener('click', (evt) => {
-            this.json.job = pass.firstChild.nodeValue;
-            this.json.education = specPass.firstChild.nodeValue;
-            this.json.aboutMe = aboutMe.firstChild.nodeValue;
+            this.json.job = document.getElementById('job').value;
+            this.json.education = document.getElementById('univer').value;
+            this.json.aboutMe = document.getElementById('about').value;
             this.renderPhoto();
         });
         form.appendChild(nextButton);
@@ -293,6 +300,7 @@ export default class Registration {
         this.#parent.classList.add('inner-formView');
         const Form = document.createElement('form');
         Form.classList.add('form-photo');
+        Form.method = "POST";
         const form = this.#parent.appendChild(Form);
 
         form.appendChild(this.lastButtonsTop());
@@ -364,7 +372,7 @@ export default class Registration {
             ajax.ajaxGet('/', {}).catch((err) => {
                 alert(err);
             });
-            // this.renderPhoto();
+            this.renderPhoto();
         });
         form.appendChild(nextButton);
     }

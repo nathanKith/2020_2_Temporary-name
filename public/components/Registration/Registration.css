@@ -267,7 +267,7 @@
     display: flex;
     flex-direction: column;
     width: 30vw;
-    height: 115vh;
+    height: 90vh;
     background-color: white;
     border-radius: 25px;
 }
@@ -397,6 +397,8 @@
     padding: 5px 10px;
     background-color: #1877F2;
     color: white;
+    border: 0;
+    outline: none;
     border-radius: 7px;
     font-size: 2.5vh;
     margin-bottom: 2vh;
@@ -423,6 +425,7 @@
     margin-left: 10px;
     margin-top: 10px;
     border: 0;
+    outline: none;
     background-color: #1F2041;
     color: #1F2041;
 }
@@ -430,6 +433,7 @@
     margin-top: 17px;
     margin-right: 12px;
     border: 0;
+    outline: none;
     background-color: #1F2041;
     color: #1F2041;
 }
@@ -443,7 +447,9 @@
     width: 12vw;
     padding: 5px 10px;
     background-color: white;
-    color: #1877F2;
+    color: #1F2041;
+    outline: none;
+    border: 0;
     border-radius: 7px;
     font-size: 2.5vh;
     margin-bottom: 10vh;

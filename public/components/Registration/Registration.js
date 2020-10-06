@@ -382,7 +382,6 @@ export default class Registration {
             ajax.ajaxGet(url + `/`, {}).catch((err) => {
                 alert(err);
             });
-            // this.renderPhoto();
         });
         link.appendChild(nextButton);
         form.appendChild(link);

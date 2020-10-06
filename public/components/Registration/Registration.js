@@ -1,8 +1,10 @@
 'use strict'
 
-import Ajax from '../../modules/ajax.js';
+
 import RegistrationData from "../../modules/registrationData.js";
 import ajax from "../../modules/ajax.js";
+
+const url = ``;
 
 const data = new Map([
     ["Январь", 31],
@@ -242,6 +244,7 @@ export default class Registration {
         const divUniv = document.createElement("div");
         divUniv.classList.add('radio');
 
+        const divOps = document.getElementById('education_univ');
         const radioEl = this.createRadio('radio-elems','radio-elem', 'Учусь', 'text', 'rad1');
         radioEl.addEventListener('click', (evt) => {
             const div = document.getElementById('education_univ');
@@ -287,7 +290,9 @@ export default class Registration {
         const nextButton = this.createElem('next','button', 'nextButtonEnd', 'Далее');
         nextButton.addEventListener('click', (evt) => {
             this.json.job = document.getElementById('job').value;
-            this.json.education = document.getElementById('univer').value;
+            if (document.getElementById('univer')){
+                this.json.education = document.getElementById('univer').value;
+            }
             this.json.aboutMe = document.getElementById('about').value;
             this.renderPhoto();
         });
@@ -301,6 +306,7 @@ export default class Registration {
         const Form = document.createElement('form');
         Form.classList.add('form-photo');
         Form.method = "POST";
+        Form.enctype = 'multipart/form-data';
         const form = this.#parent.appendChild(Form);
 
         form.appendChild(this.lastButtonsTop());
@@ -335,6 +341,10 @@ export default class Registration {
         message.classList.add('message-last');
         form.appendChild(message);
 
+        const link = document.createElement('a');
+        link.href = "/";
+        link.dataset.section = 'landing';
+        link.classList.add('link');
         const nextButton = this.createElem('next','button', 'endButton', 'Завершить!');
         nextButton.addEventListener('click', (evt) => {
             if (!photo.value) {
@@ -355,13 +365,13 @@ export default class Registration {
                 job:  this.json.job,
                 education:  this.json.education,
                 aboutMe:  this.json.aboutMe,
-                photo:  this.json.photo
+                photo:  this.json.photo,
             };
-            console.log(this.json);
-            ajax.ajaxPost('/signup', Json).
+            console.log(JSON.stringify(this.json));
+            ajax.ajaxPost(url + `/signup`, Json).
             then(({status, responseObject}) => {
-                if (status !== 200) {
-                    alert('Такой пользователь у зарегистрирован!');
+                if (status === 401) {
+                    alert('Такой пользователь уже зарегистрирован!');
                 }
                 if (status === 200 ) {
                     alert('Успешно зарегистрировались!');
@@ -369,12 +379,13 @@ export default class Registration {
             }).catch((err) => {
                 alert(err);
             });
-            ajax.ajaxGet('/', {}).catch((err) => {
+            ajax.ajaxGet(url + `/`, {}).catch((err) => {
                 alert(err);
             });
-            this.renderPhoto();
+            // this.renderPhoto();
         });
-        form.appendChild(nextButton);
+        link.appendChild(nextButton);
+        form.appendChild(link);
     }
 
     createMessage() {

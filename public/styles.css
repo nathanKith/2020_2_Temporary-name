@@ -1,5 +1,6 @@
 @import "./components/LandingHeader/LandingHeader.css";
 @import "./components/LandingContent/LandingContent.css";
+
 @import "./components/Feed/Feed.css";
 @import "./components/ProfileChatIcon/ProfileChatIcon.css";
 @import "./components/Profile/Proile.css";
@@ -100,3 +101,4 @@ body {
     background: rgba(0, 0, 0, .7);
     opacity: 1;
 }
+

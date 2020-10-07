@@ -5,6 +5,7 @@ import ProfileChatIcon from './components/ProfileChatIcon/ProfileChatIcon.js'
 import Profile from './components/Profile/Profile.js'
 import ajax from './modules/ajax.js';
 
+
 const application = document.getElementById('application')
 
 const router = {
@@ -112,6 +113,8 @@ function feedPage() {
     application.appendChild(background);
 }
 
+
+
 function other() {
     application.innerHTML = '';
 }
@@ -125,4 +128,4 @@ application.addEventListener('click', (evt) => {
     }
 });
 
-feedPage();
+landingPage();

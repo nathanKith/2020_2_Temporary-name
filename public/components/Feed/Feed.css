@@ -1,0 +1,119 @@
+.inner-feed-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: hidden;
+}
+
+.photos-cell {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.cell {
+    height: 4px;
+    width: 100%;
+    flex-grow: 1;
+    background-color: #1876f26e;
+    margin-right: 2px;
+    margin-left: 2px;
+    border-radius: 5px;
+}
+
+.cell-on {
+    background-color: #1877F2;
+}
+
+.profile-person {
+    height: 80%;
+    width: 55%;
+    border-radius: 25px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+}
+
+.profile-information {
+    position: absolute;
+    color: white;
+    font-family: Montserrat-Semibold;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-bottom: 20px;
+
+}
+#name {
+    font-size: 40px;
+}
+
+#age {
+    font-size: 40px;
+}
+
+#university-work {
+    font-size: 30px;
+}
+
+#about-me {
+    font-size: 20px;
+}
+
+.information-logo {
+    position: absolute;
+    left: 90%;
+    bottom: 5px;
+}
+
+.reactions {
+    display: flex;
+    flex-direction: row;
+    width: 66%;
+    justify-content: space-around;
+}
+
+.reaction-button {
+    border: none;
+    background-color: white;
+    outline: none;
+}
+
+.next-photo {
+    position: absolute;
+    display: flex;
+    left: 210px;
+    bottom: 300px;
+}
+
+.prev-photo {
+    position: absolute;
+    display: flex;
+    right: 210px;
+    bottom: 300px;
+}
+
+.inner-prev-photo {
+    transform: scale(-1, 1);
+}
+
+.next-prev-photo {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.next-prev-photo-button {
+    background-color: white;
+    outline: none;
+    border: none;
+}

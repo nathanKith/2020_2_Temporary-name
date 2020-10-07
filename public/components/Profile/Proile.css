@@ -1,0 +1,51 @@
+.profile {
+    display: flex;
+    background-color: #1F2041;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.inner-profile {
+    display: flex;
+    border-radius: 30px;
+    width: 80%;
+    height: 85%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+}
+
+.my-profile-information {
+    position: absolute;
+    color: white;
+    font-family: Montserrat-Semibold;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-bottom: 20px;
+}
+
+#my-name {
+    font-size: 40px;
+}
+
+#my-age {
+    font-size: 40px;
+}
+
+#my-university-work {
+    font-size: 30px;
+}
+
+#my-about-me {
+    font-size: 20px;
+}

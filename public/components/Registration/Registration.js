@@ -367,7 +367,7 @@ export default class Registration {
                 aboutMe:  this.json.aboutMe,
                 photo:  this.json.photo,
             };
-            console.log(JSON.stringify(this.json));
+
             ajax.ajaxPost(url + `/signup`, Json).
             then(({status, responseObject}) => {
                 if (status === 401) {

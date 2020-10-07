@@ -4,9 +4,11 @@ import Feed from './components/Feed/Feed.js';
 import ProfileChatIcon from './components/ProfileChatIcon/ProfileChatIcon.js'
 import Profile from './components/Profile/Profile.js'
 import Chats from './components/Chats/Chats.js';
+import Registration from "./components/Registration/Registration.js";
+import Authorization from "./components/Authorization/Authorization.js";
 import ajax from './modules/ajax.js';
 
-const backend = `http://95.163.213.222:8080`;
+const backend = `http://95.163.213.222:8080/api/v1`;
 
 
 const application = document.getElementById('application')
@@ -18,15 +20,11 @@ const router = {
     },
     signup: {
         href: '/signup',
-        open: other,
+        open: signupPage,
     },
     login: {
         href: '/login',
-        open: other,
-    },
-    profile: {
-        href: '/profile',
-        // open: ,
+        open: loginPage,
     },
     feed: {
         href: '/feed',
@@ -34,7 +32,7 @@ const router = {
     }
 }
 
-function landingPage() {
+export function landingPage() {
     application.innerHTML = '';
 
     document.body.classList.add('landing-body-background');
@@ -54,11 +52,12 @@ function landingPage() {
     div.appendChild(footer);
 }
 
-function feedPage() {
+export function feedPage() {
     application.innerHTML = '';
 
     const background = document.createElement('div');
     background.classList.add('feed-background');
+    application.appendChild(background);
 
     const container = document.createElement('div');
     container.classList.add('feed-container');
@@ -75,13 +74,14 @@ function feedPage() {
     feedSection.classList.add('feed-section');
     container.appendChild(feedSection);
 
-    ajax.ajaxGet('/feed', null)
+    ajax.ajaxGet(backend + '/feed', null)
         .then(({status, responseObject}) => {
             const feed = new Feed(feedSection);
             feed.data = responseObject;
             feed.render();
         })
         .catch((err) => {
+            alert('ПРИВЕТ ЭТО Я');
             alert(err);
         });
 
@@ -98,7 +98,7 @@ function feedPage() {
     profileButton.addEventListener('click', (evt) => {
         profileChatSection.innerHTML = '';
 
-        ajax.ajaxGet('/me', null)
+        ajax.ajaxGet(backend +'/me', null)
             .then(({status, responseObject}) => {
                 const profile = new Profile(profileChatSection);
                 profile.data = responseObject;
@@ -117,13 +117,52 @@ function feedPage() {
         chats.render();
     });
 
-    application.appendChild(background);
 }
 
-
-
-function other() {
+function signupPage() {
     application.innerHTML = '';
+    application.classList.add('registration-body-background');
+
+    const header = new LandingHeader(application);
+    header.render();
+
+    const div = document.createElement('div');
+    div.classList.add('formView');
+    application.appendChild(div);
+
+    const divFormView = document.createElement('div');
+    divFormView.classList.add('inner-formView');
+    div.appendChild(divFormView);
+
+    const registration = new Registration(divFormView);
+    registration.render();
+
+    const footer = document.createElement('footer');
+    footer.classList.add('landing-footer');
+    application.appendChild(footer);
+}
+
+export function loginPage() {
+    application.innerHTML = '';
+    application.classList.add('registration-body-background');
+
+    const header = new LandingHeader(application);
+    header.render();
+
+    const div = document.createElement('div');
+    div.classList.add('formView');
+    application.appendChild(div);
+
+    const divFormView = document.createElement('div');
+    divFormView.classList.add('inner-formView');
+    div.appendChild(divFormView);
+
+    const auth = new Authorization(divFormView);
+    auth.render();
+
+    const footer = document.createElement('footer');
+    footer.classList.add('landing-footer');
+    application.appendChild(footer);
 }
 
 application.addEventListener('click', (evt) => {
@@ -135,4 +174,4 @@ application.addEventListener('click', (evt) => {
     }
 });
 
-feedPage();
+landingPage();

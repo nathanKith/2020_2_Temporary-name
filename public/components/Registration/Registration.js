@@ -3,8 +3,9 @@
 
 import RegistrationData from "../../modules/registrationData.js";
 import ajax from "../../modules/ajax.js";
+import {loginPage} from "../../main.js";
 
-const url = ``;
+const url = `http://95.163.213.222:8080/api/v1`;
 
 const data = new Map([
     ["Январь", 31],
@@ -347,6 +348,7 @@ export default class Registration {
         link.classList.add('link');
         const nextButton = this.createElem('next','button', 'endButton', 'Завершить!');
         nextButton.addEventListener('click', (evt) => {
+            evt.preventDefault();
             if (!photo.value) {
                 message.innerHTML = 'Выберите фото';
                 return ;
@@ -376,6 +378,7 @@ export default class Registration {
                 if (status === 200 ) {
                     alert('Успешно зарегистрировались!');
                 }
+                loginPage();
             }).catch((err) => {
                 alert(err);
             });

@@ -3,22 +3,27 @@ const noop = () => {}
 class Ajax {
     ajaxGet = async (url, body = {}) => {
         const response = await fetch(url, {
+            credentials: 'include',
             method: 'GET',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+            },
         });
 
         const responseObjectJson = await response.json();
 
         return {
-            status: response.statusCode,
+            status: response.status,
             responseObject: responseObjectJson,
         };
     }
 
     ajaxPost = async (url, body = {}) => {
         const response = await fetch(url, {
+            credentials: 'include',
             method: 'POST',
             headers: {
-                'Content-type': 'application/json; charset=utf8',
+                'Content-type': 'application/json; charset=utf-8',
             },
             body: JSON.stringify(body),
         });
@@ -26,7 +31,7 @@ class Ajax {
         const responseObjectJson = await response.json();
 
         return {
-            status: response.statusCode,
+            status: response.status,
             responseObject: responseObjectJson,
         };
     }

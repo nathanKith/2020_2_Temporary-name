@@ -1,8 +1,9 @@
 'use strict'
 
 import ajax from "../../modules/ajax.js";
+import {feedPage} from "../../main.js";
 
-const url = '';
+const url = `http://95.163.213.222:8080/api/v1`;
 
 export default class Authorization {
     #parent
@@ -75,11 +76,12 @@ export default class Authorization {
                 then(({status, responseObject}) => {
                     if (status === 200) {
                         alert('Успешная авторизация');
+                        feedPage();
                     } else {
                         alert('Такого пользователя не существует');
                     }
                 }).catch((err) => {
-                alert(err);
+                    alert(err);
             });
 
         });

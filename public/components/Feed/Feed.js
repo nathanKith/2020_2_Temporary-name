@@ -1,3 +1,5 @@
+const backend = `http://95.163.213.222:8080`;
+
 export default class Feed {
     #parent
     #data
@@ -18,12 +20,12 @@ export default class Feed {
         const div = document.createElement('div');
         div.classList.add('inner-feed-section');
 
+        this.#parent.appendChild(div);
+
         div.appendChild(this.#createPhotosCell());
         div.appendChild(this.#createPersonProfile());
         div.appendChild(this.#createPreviousNextPhoto());
         div.appendChild(this.#createReactionButton());
-
-        this.#parent.appendChild(div);
     }
 
     #createPreviousNextPhoto = () => {
@@ -47,6 +49,8 @@ export default class Feed {
             buttonNext.innerHTML = `<img src="./../../img/button-next.svg" />`;
         }
 
+        const img = document.querySelector('#feedAvatar');
+
         buttonNext.addEventListener('click', (evt) => {
             this.#currentPhoto++;
             if (this.#currentPhoto === this.#data.linkImages.length - 1) {
@@ -55,6 +59,7 @@ export default class Feed {
             buttonPrev.innerHTML = `<img class="inner-prev-photo" src="./../../img/button-next.svg">`;
             document.getElementById(`cell-${this.#currentPhoto - 1}`).classList.remove('cell-on');
             document.getElementById(`cell-${this.#currentPhoto}`).classList.add('cell-on');
+            img.src = backend + this.#data.linkImages[this.#currentPhoto];
         });
 
         buttonPrev.addEventListener('click', (evt) => {
@@ -65,6 +70,7 @@ export default class Feed {
             buttonNext.innerHTML = `<img src="./../../img/button-next.svg"/>`;
             document.getElementById(`cell-${this.#currentPhoto + 1}`).classList.remove('cell-on');
             document.getElementById(`cell-${this.#currentPhoto}`).classList.add('cell-on');
+            img.src = backend + this.#data.linkImages[this.#currentPhoto];
         });
 
         next.appendChild(buttonNext);
@@ -118,13 +124,14 @@ export default class Feed {
         const div = this.#createDiv('profile-person');
 
         const currentImg = document.createElement('img');
-        currentImg.src = this.#data.linkImages[0];
+        currentImg.id = 'feedAvatar';
+        currentImg.src = backend + this.#data.linkImages[0];
         div.appendChild(currentImg);
 
         const profileInfo = this.#createDiv('profile-information');
         profileInfo.appendChild(this.#createSpan(
             'name',
-            `${this.#data.name}<span id="age">${this.#data.age}</span>`
+            `${this.#data.name} <span id="age">${this.#data.age}</span>`
         ));
         profileInfo.appendChild(this.#createSpan('university-work', `${this.#data.education === '' ? this.#data.job : this.#data.education}`));
         profileInfo.appendChild(this.#createSpan('about-me', `${this.#data.aboutMe}`));

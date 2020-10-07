@@ -102,6 +102,7 @@ export default class Authorization {
 
         const button = document.createElement('button');
         button.classList.add('cancelButton');
+        button.type = 'button';
         div.appendChild(button)
 
         const img = document.createElement('img');

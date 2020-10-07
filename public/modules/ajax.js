@@ -4,10 +4,6 @@ class Ajax {
     ajaxGet = async (url, body = {}) => {
         const response = await fetch(url, {
             method: 'GET',
-            headers: {
-                'Content-type': 'application/json; charset=utf8',
-            },
-            body: JSON.stringify(body),
         });
 
         const responseObjectJson = await response.json();

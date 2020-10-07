@@ -14,7 +14,12 @@ export default class Authorization {
         Form.classList.add('form');
         const form = this.#parent.appendChild(Form);
 
-        form.appendChild(this.cancelButton());
+        const back = document.createElement('a');
+        back.href = "/";
+        back.dataset.section = 'landing';
+        back.classList.add('link');
+        back.appendChild(this.cancelButton());
+        form.appendChild(back);
         form.appendChild(this.createElem('small-label', 'img', undefined, "../../img/small_classic_label.png"));
         form.appendChild(this.nameOfForm('Вход в MIAMI'));
         form.appendChild(this.createLabel('yourNumber', 'Ваш номер телефона'));

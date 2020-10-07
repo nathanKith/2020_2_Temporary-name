@@ -342,8 +342,8 @@ export default class Registration {
         form.appendChild(message);
 
         const link = document.createElement('a');
-        link.href = "/";
-        link.dataset.section = 'landing';
+        link.href = "/login";
+        link.dataset.section = 'login';
         link.classList.add('link');
         const nextButton = this.createElem('next','button', 'endButton', 'Завершить!');
         nextButton.addEventListener('click', (evt) => {
@@ -377,9 +377,6 @@ export default class Registration {
                     alert('Успешно зарегистрировались!');
                 }
             }).catch((err) => {
-                alert(err);
-            });
-            ajax.ajaxGet(url + `/`, {}).catch((err) => {
                 alert(err);
             });
         });
@@ -439,9 +436,15 @@ export default class Registration {
                 this.renderInformation();
         });
 
+        const link = document.createElement('a');
+        link.href = '/';
+        link.dataset.section = 'landing'
+        link.classList.add('link');
+
         const button = document.createElement('button');
         button.classList.add('last-cancelButton');
-        div.appendChild(button)
+        link.appendChild(button);
+        div.appendChild(link)
 
         const img = document.createElement('img');
         img.src = "../../img/white_cancel.svg";
@@ -492,13 +495,20 @@ export default class Registration {
                 }
         });
 
+        const link = document.createElement('a');
+        link.href = '/';
+        link.dataset.section = 'landing'
+        link.classList.add('link');
+
         const button = document.createElement('button');
         button.classList.add('cancelButton');
-        div.appendChild(button)
+        link.appendChild(button);
+
+        div.appendChild(link);
 
         const img = document.createElement('img');
         img.src = "../../img/cancel_gray.svg";
-        button.appendChild(img)
+        button.appendChild(img);
 
         return div;
     }
@@ -507,9 +517,15 @@ export default class Registration {
         const div = document.createElement('div');
         div.classList.add('cancel');
 
+        const link = document.createElement('a');
+        link.classList.add('link');
+        link.href = "/";
+        link.dataset.section = "landing";
+        div.appendChild(link);
+
         const button = document.createElement('button');
         button.classList.add('cancelButton');
-        div.appendChild(button)
+        link.appendChild(button)
 
         const img = document.createElement('img');
         img.src = "../../img/cancel_gray.svg";

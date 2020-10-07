@@ -20,8 +20,8 @@ export default class Profile {
         const profileInfo = this.#createDiv('my-profile-information');
         innerDiv.appendChild(profileInfo);
 
-        const nameAge = this.#createSpan('my-name', `${this.#data.profileName}  <span id="my-age">${this.#data.age}</span>`);
-        const universityWork = this.#createSpan('my-university-work', `${this.#data.universityWork}`);
+        const nameAge = this.#createSpan('my-name', `${this.#data.name}  <span id="my-age">${this.#data.age}</span>`);
+        const universityWork = this.#createSpan('my-university-work', `${this.#data.education === '' ? this.#data.job : this.#data.education}`);
         const aboutMe = this.#createSpan('my-about-me', `${this.#data.aboutMe}`);
 
         profileInfo.appendChild(nameAge);

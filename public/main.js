@@ -3,7 +3,10 @@ import LandingContent from './components/LandingContent/LandingContent.js';
 import Feed from './components/Feed/Feed.js';
 import ProfileChatIcon from './components/ProfileChatIcon/ProfileChatIcon.js'
 import Profile from './components/Profile/Profile.js'
+import Chats from './components/Chats/Chats.js';
 import ajax from './modules/ajax.js';
+
+const backend = `http://95.163.213.222:8080`;
 
 
 const application = document.getElementById('application')
@@ -27,7 +30,7 @@ const router = {
     },
     feed: {
         href: '/feed',
-        // open: ,
+        open: feedPage,
     }
 }
 
@@ -89,6 +92,9 @@ function feedPage() {
     profileChatSection.classList.add('profile-chat-section');
     container.appendChild(profileChatSection);
 
+    const chats = new Chats(profileChatSection);
+    chats.render();
+
     profileButton.addEventListener('click', (evt) => {
         profileChatSection.innerHTML = '';
 
@@ -107,7 +113,8 @@ function feedPage() {
     chatsButton.addEventListener('click', (evt) => {
         profileChatSection.innerHTML = '';
         feedSection.classList.remove('dark');
-        // пока класса нету
+
+        chats.render();
     });
 
     application.appendChild(background);
@@ -128,4 +135,4 @@ application.addEventListener('click', (evt) => {
     }
 });
 
-landingPage();
+feedPage();

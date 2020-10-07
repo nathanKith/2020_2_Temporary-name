@@ -1,0 +1,131 @@
+@font-face {
+    src: url(./../../fonts/Montserrat-Bold.ttf);
+    font-family: Montserrat-Bold;
+}
+
+@font-face {
+    src: url(./../../fonts/Montserrat-Regular.ttf);
+    font-family: Montserrat-Regular;
+}
+
+.chats-logo {
+    display: flex;
+    font-size: 35px;
+    color: #1877F2;
+    font-family: Montserrat-Bold;
+    align-items: center;
+    height: 12%;
+    margin-left: 7%;
+}
+
+.list-chats {
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color:  #1877F2;
+    width: 100%;
+    height: 88%;
+    border-radius: 35px;
+    border-bottom-left-radius: 0px;
+}
+
+.inner-list-chats {
+    height: 100%;
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-margin-right: 10px;
+    scroll-padding-right: 10px;
+}
+
+.inner-list-chats::-webkit-scrollbar {
+    width: 0px;
+}
+
+.chat {
+    display: flex;
+    flex-direction: row;
+    height: 18%;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    text-decoration: none;
+    /* border-bottom: 3px solid #4290f5;  НАВЕСИТЬ НА ВТОРУЮ ЧАСТЬ, ПОСЛЕ АВАТАРКИ КОТОРАЯ*/
+}
+
+.chat:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.chat-avatar {
+    display:flex;
+    height: 80%;
+    width: 25%;
+    padding-left: 5%;
+}
+
+.chat-avatar-photo {
+    border-radius: 50%;
+    height:100%;
+}
+
+.chat-info {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    justify-content: space-around;
+    height: 80%;
+    width: 65%;
+    border-bottom: 2px solid #4290f5;
+}
+
+.name-time {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+#name-chat {
+    font-family: Montserrat-Semibold;
+    font-size: 22px;
+}
+
+#time-chat {
+    font-family: Montserrat-Regular;
+    color: #5faafb;
+    font-size: 16px;
+    padding-right: 10%;
+}
+
+.last-message {
+    font-family: Montserrat-Regular;
+    width: 90%;
+    color:white;
+    font-size: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.message-number {
+    position: relative;
+}
+
+.inner-message-number {
+    font-family: Montserrat-Semibold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: absolute;
+    height: 23px;
+    width: 23px;
+    border-radius: 50%;
+    background-color: #f24e6a;
+    top: 70%;
+    right: 50%;
+    border: 3px solid #1877F2;
+}

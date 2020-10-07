@@ -43,13 +43,13 @@ export default class Feed {
         buttonPrev.innerHTML = '';
         buttonNext.innerHTML = '';
 
-        if (this.#data.photoNumber > 1) {
+        if (this.#data.linkImages.length > 1) {
             buttonNext.innerHTML = `<img src="./../../img/button-next.svg" />`;
         }
 
         buttonNext.addEventListener('click', (evt) => {
             this.#currentPhoto++;
-            if (this.#currentPhoto === this.#data.photoNumber - 1) {
+            if (this.#currentPhoto === this.#data.linkImages.length - 1) {
                 buttonNext.innerHTML = '';
             }
             buttonPrev.innerHTML = `<img class="inner-prev-photo" src="./../../img/button-next.svg">`;
@@ -103,7 +103,7 @@ export default class Feed {
     #createPhotosCell = () => {
         const div = this.#createDiv('photos-cell');
 
-        for (let i = 0; i < this.#data.photoNumber; ++i) {
+        for (let i = 0; i < this.#data.linkImages.length; ++i) {
             const cell = this.#createDiv('cell');
             cell.id = `cell-${i}`;
             div.appendChild(cell);
@@ -124,9 +124,9 @@ export default class Feed {
         const profileInfo = this.#createDiv('profile-information');
         profileInfo.appendChild(this.#createSpan(
             'name',
-            `${this.#data.profileName}<span id="age">${this.#data.age}</span>`
+            `${this.#data.name}<span id="age">${this.#data.age}</span>`
         ));
-        profileInfo.appendChild(this.#createSpan('university-work', `${this.#data.universityWork}`));
+        profileInfo.appendChild(this.#createSpan('university-work', `${this.#data.education === '' ? this.#data.job : this.#data.education}`));
         profileInfo.appendChild(this.#createSpan('about-me', `${this.#data.aboutMe}`));
         div.appendChild(profileInfo);
 

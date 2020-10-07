@@ -51,10 +51,10 @@ export default class Authorization {
         let message = this.createMessage();
         form.appendChild(message);
 
-        const link = document.createElement('a');
-        link.href = "/";
-        link.dataset.section = "landing";
-        link.classList.add('link');
+        // const link = document.createElement('a');
+        // link.href = "/feed";
+        // link.dataset.section = "feed";
+        // link.classList.add('link');
 
         const nextButton = this.createElem('next','button', 'nextButton', 'Далее');
 
@@ -85,9 +85,9 @@ export default class Authorization {
             });
 
         });
-        link.appendChild(nextButton);
+        // link.appendChild(nextButton);
 
-        form.appendChild(link);
+        form.appendChild(nextButton);
     }
 
     createMessage() {

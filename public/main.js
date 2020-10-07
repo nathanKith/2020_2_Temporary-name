@@ -54,6 +54,8 @@ export function landingPage() {
 
 export function feedPage() {
     application.innerHTML = '';
+    application.classList.remove('registration-body-background')
+    document.body.classList.remove('landing-body-background')
 
     const background = document.createElement('div');
     background.classList.add('feed-background');
@@ -81,7 +83,7 @@ export function feedPage() {
             feed.render();
         })
         .catch((err) => {
-            alert('ПРИВЕТ ЭТО Я');
+            console.log({err})
             alert(err);
         });
 

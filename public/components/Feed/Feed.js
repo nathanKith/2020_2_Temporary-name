@@ -37,6 +37,9 @@ export default class Feed {
         const buttonNext = document.createElement('button');
         buttonNext.type = 'button';
 
+        buttonNext.classList.add('next-prev-photo-button');
+        buttonPrev.classList.add('next-prev-photo-button');
+        
         buttonPrev.innerHTML = '';
         buttonNext.innerHTML = '';
 
@@ -49,6 +52,9 @@ export default class Feed {
             if (this.#currentPhoto === this.#data.photoNumber - 1) {
                 buttonNext.innerHTML = '';
             }
+            buttonPrev.innerHTML = `<img class="inner-prev-photo" src="./../../img/button-next.svg">`;
+            document.getElementById(`cell-${this.#currentPhoto - 1}`).classList.remove('cell-on');
+            document.getElementById(`cell-${this.#currentPhoto}`).classList.add('cell-on');
         });
 
         buttonPrev.addEventListener('click', (evt) => {
@@ -56,6 +62,9 @@ export default class Feed {
             if (this.#currentPhoto === 0) {
                 buttonPrev.innerHTML = '';
             }
+            buttonNext.innerHTML = `<img src="./../../img/button-next.svg"/>`;
+            document.getElementById(`cell-${this.#currentPhoto + 1}`).classList.remove('cell-on');
+            document.getElementById(`cell-${this.#currentPhoto}`).classList.add('cell-on');
         });
 
         next.appendChild(buttonNext);
@@ -96,11 +105,11 @@ export default class Feed {
 
         for (let i = 0; i < this.#data.photoNumber; ++i) {
             const cell = this.#createDiv('cell');
-            cell.id = 'cell-' + i.toString();
+            cell.id = `cell-${i}`;
             div.appendChild(cell);
         }
 
-        div.getElementById('cell-0').classList.add('cell-on');
+        div.querySelector('#cell-0').classList.add('cell-on');
 
         return div;
     }

@@ -13,10 +13,11 @@ app.use(body.json());
 app.use(cookie());
 
 const feedData = {
-    profileName: 'Кайя',
-    universityWork: 'МГТУ им. Баумана',
+    name: 'Кайя',
+    job: '',
+    education: 'МГТУ им. Баумана',
     age: 20,
-    aboutMe: 'Люблю письки и пиписьки. Дебил прост ооооотбитый ахаахаххах',
+    aboutMe: 'Очень разносторонний человек. Очень разносторонний человек. Очень разносторонний человек. Очень разносторонний человек.',
     photoNumber: 3,
     linkImages: [
         './../../img/pretty-girl.svg',

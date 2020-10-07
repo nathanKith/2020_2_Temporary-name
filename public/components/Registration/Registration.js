@@ -443,7 +443,9 @@ export default class Registration {
 
         const button = document.createElement('button');
         button.classList.add('last-cancelButton');
+        button.type = "button";
         link.appendChild(button);
+
         div.appendChild(link)
 
         const img = document.createElement('img');
@@ -502,6 +504,7 @@ export default class Registration {
 
         const button = document.createElement('button');
         button.classList.add('cancelButton');
+        button.type = 'button';
         link.appendChild(button);
 
         div.appendChild(link);
@@ -525,6 +528,7 @@ export default class Registration {
 
         const button = document.createElement('button');
         button.classList.add('cancelButton');
+        button.type = 'button';
         link.appendChild(button)
 
         const img = document.createElement('img');

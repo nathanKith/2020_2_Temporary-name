@@ -1,6 +1,10 @@
 @import "./components/LandingHeader/LandingHeader.css";
 @import "./components/LandingContent/LandingContent.css";
 
+@import "./components/Feed/Feed.css";
+@import "./components/ProfileChatIcon/ProfileChatIcon.css";
+@import "./components/Profile/Proile.css";
+
 body {
     margin: 0;
 }
@@ -34,3 +38,67 @@ body {
     background-color: white;
     box-sizing: border-box;
 }
+
+.feed-background {
+    display: flex;
+    background-color: #f5486b1f;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    z-index: -3;
+}
+
+.feed-container {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border-radius: 35px;
+    height: 87vh;
+    width: 85vw;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+}
+
+.settings {
+    position: relative;
+}
+
+.inner-settings {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+.feed-section {
+    width: 67%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.profile-chat-section {
+    display:flex;
+    flex-direction: column;
+    width: 33%;
+    border-radius: 30px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    justify-content: flex-end;
+    z-index: 3;
+}
+
+.dark::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 6;
+    background: rgba(0, 0, 0, .7);
+    opacity: 1;
+}
+

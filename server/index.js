@@ -12,8 +12,25 @@ app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(body.json());
 app.use(cookie());
 
-app.all('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/..', '/public', '/index.html'))
+const feedData = {
+    profileName: 'Кайя',
+    universityWork: 'МГТУ им. Баумана',
+    age: 20,
+    aboutMe: 'Люблю письки и пиписьки. Дебил прост ооооотбитый ахаахаххах',
+    photoNumber: 3,
+    linkImages: [
+        './../../img/pretty-girl.svg',
+        './../../img/pretty-girl.svg',
+        './../../img/pretty-girl.svg',
+    ]
+};
+
+app.get('/feed', (req, res) => {
+    res.json(feedData);
+});
+
+app.get('/me', (req, res) => {
+    res.json(feedData);
 });
 
 const port = 3000;

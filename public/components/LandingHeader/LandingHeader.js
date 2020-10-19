@@ -1,3 +1,4 @@
+
 export default class LandingHeader {
     #parent
 
@@ -41,3 +42,5 @@ export default class LandingHeader {
         return div;
     }
 }
+
+module.exports = LandingHeader;

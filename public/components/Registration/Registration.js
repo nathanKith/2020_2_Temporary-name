@@ -30,6 +30,7 @@ export default class Registration {
         this.#parent = parent
     }
     render() {
+        console.log('template', template())
         const Form = document.createElement('form');
         Form.classList.add('form');
         const form = this.#parent.appendChild(Form);
@@ -643,3 +644,5 @@ export default class Registration {
         return year;
     }
 }
+
+module.exports = Registration;

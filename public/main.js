@@ -1,13 +1,33 @@
-import LandingHeader from './components/LandingHeader/LandingHeader.js';
-import LandingContent from './components/LandingContent/LandingContent.js';
-import Feed from './components/Feed/Feed.js';
-import ProfileChatIcon from './components/ProfileChatIcon/ProfileChatIcon.js'
-import Profile from './components/Profile/Profile.js'
-import Chats from './components/Chats/Chats.js';
-import Registration from "./components/Registration/Registration.js";
-import Authorization from "./components/Authorization/Authorization.js";
-import ajax from './modules/ajax.js';
+import './styles.css';
+// import './components/LandingHeader/LandingHeader.css';
+// import './components/LandingContent/LandingContent.css';
+// import './components/Feed/Feed.css';
+// import './components/ProfileChatIcon/ProfileChatIcon.css';
+// import './components/Profile/Proile.css';
+// import './components/Chats/Chats.css';
+// import './components/Registration/Registration.css';
+// import './components/Authorization/Authorization.css';
 
+require('/public/components/LandingHeader/LandingHeader');
+require('/public/components/LandingContent/LandingContent');
+require('/public/components/Feed/Feed');
+require('/public/components/ProfileChatIcon/ProfileChatIcon');
+require('/public/components/Profile/Profile');
+require('/public/components/Chats/Chats');
+require('/public/components/Registration/Registration');
+require('/public/components/Authorization/Authorization');
+require('/public/modules/ajax.js');
+
+// import LandingHeader from './components/LandingHeader/LandingHeader.js';
+// import LandingContent from './components/LandingContent/LandingContent.js';
+// import Feed from './components/Feed/Feed.js';
+// import ProfileChatIcon from './components/ProfileChatIcon/ProfileChatIcon.js'
+// import Profile from './components/Profile/Profile.js'
+// import Chats from './components/Chats/Chats.js';
+// import Registration from "./components/Registration/Registration.js";
+// import Authorization from "./components/Authorization/Authorization.js";
+// import ajax from './modules/ajax.js';
+//
 const backend = `http://95.163.213.222:8080/api/v1`;
 
 

@@ -1,3 +1,5 @@
+import LandingHeader from "../LandingHeader/LandingHeader";
+
 export default class ProfileChatIcon {
     #parent
 
@@ -42,3 +44,4 @@ export default class ProfileChatIcon {
         return div;
     }
 }
+module.exports = ProfileChatIcon;

@@ -1,3 +1,5 @@
+import LandingHeader from "../LandingHeader/LandingHeader";
+
 export default class Profile {
 
     #parent
@@ -50,3 +52,4 @@ export default class Profile {
         return span;
     }
 }
+module.exports = Profile;

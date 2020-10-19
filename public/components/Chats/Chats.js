@@ -1,3 +1,5 @@
+import LandingHeader from "../LandingHeader/LandingHeader";
+
 export default class Chats {
     #parent
 
@@ -66,3 +68,4 @@ export default class Chats {
         return span;
     }
 }
+module.exports = Chats;

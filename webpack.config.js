@@ -42,7 +42,7 @@ module.exports = {
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.(png|jpe?g|gif)$/i,
+                test: /\.png$/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -70,6 +70,13 @@ module.exports = {
                     }
                 }
             },
+            {
+                test: /\.hbs/,
+                use: {
+                    loader: 'handlebars-loader'
+                },
+                exclude: /(node_modules)/
+            }
         ]
     },
 };

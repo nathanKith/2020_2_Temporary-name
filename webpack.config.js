@@ -2,7 +2,8 @@ let ExtractTextPlugin = require('extract-text-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 require("babel-polyfill");
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 
 module.exports = {
@@ -10,7 +11,18 @@ module.exports = {
         new MiniCssExtractPlugin({
         filename: 'bundle.css',
         }),
+
         new HtmlWebpackPlugin(),
+
+        new CopyPlugin({
+            patterns: [
+                {
+                    context: 'public/img/',
+                    from: '*',
+                    to: 'img/',
+                },
+            ],
+        }),
     ],
     entry: ['babel-polyfill','/public/main.js'],
     output: {
@@ -40,12 +52,13 @@ module.exports = {
                     },
                 ],
             },
-            { test: /\.svg$/,
+            {
+                test: /\.svg$/,
                 use: {
-                    loader:'file-loader',
-                    options: {
-                        name: `/img/[name].[ext]`,
-                    }
+                    loader:'svg-url-loader',
+                    // options: {
+                    //     name: `/img/[name].[ext]`,
+                    // }
                 }
             },
             {

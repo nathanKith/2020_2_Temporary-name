@@ -1,5 +1,5 @@
 
-export default class LandingHeader {
+export class LandingHeader {
     #parent
 
     constructor(parent) {
@@ -42,5 +42,3 @@ export default class LandingHeader {
         return div;
     }
 }
-
-module.exports = LandingHeader;

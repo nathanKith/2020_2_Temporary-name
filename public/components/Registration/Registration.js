@@ -3,7 +3,7 @@
 
 import RegistrationData from "../../modules/registrationData.js";
 import ajax from "../../modules/ajax.js";
-import {loginPage} from "../../main.js";
+// import {loginPage} from "../../main.js";
 
 const url = `http://95.163.213.222:8080/api/v1`;
 
@@ -23,7 +23,7 @@ const data = new Map([
 ]);
 
 
-export default class Registration {
+export class Registration {
     json = new RegistrationData();
     #parent
     constructor(parent) {
@@ -644,5 +644,3 @@ export default class Registration {
         return year;
     }
 }
-
-module.exports = Registration;

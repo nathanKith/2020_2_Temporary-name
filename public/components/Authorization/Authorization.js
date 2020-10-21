@@ -2,11 +2,11 @@
 
 import ajax from "../../modules/ajax.js";
 import {feedPage} from "../../main.js";
-import LandingHeader from "../LandingHeader/LandingHeader";
+import {LandingHeader} from "../LandingHeader/LandingHeader";
 
 const url = `http://95.163.213.222:8080/api/v1`;
 
-export default class Authorization {
+export class Authorization {
     #parent
     constructor(parent) {
         this.#parent = parent
@@ -177,4 +177,3 @@ export default class Authorization {
         return nextButton;
     }
 }
-module.exports = Authorization;

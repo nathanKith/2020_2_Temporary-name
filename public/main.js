@@ -1,12 +1,12 @@
-// import './styles.css';
-// import './components/LandingHeader/LandingHeader.css';
-// import './components/LandingContent/LandingContent.css';
-// import './components/Feed/Feed.css';
-// import './components/ProfileChatIcon/ProfileChatIcon.css';
-// import './components/Profile/Profile.css';
-// import './components/Chats/Chats.css';
-// import './components/Registration/Registration.css';
-// import './components/Authorization/Authorization.css';
+import './styles.css';
+import './components/LandingHeader/LandingHeader.css';
+import './components/LandingContent/LandingContent.css';
+import './components/Feed/Feed.css';
+import './components/ProfileChatIcon/ProfileChatIcon.css';
+import './components/Profile/Proile.css';
+import './components/Chats/Chats.css';
+import './components/Registration/Registration.css';
+import './components/Authorization/Authorization.css';
 
 // require('/public/components/LandingHeader/LandingHeader');
 // LandingContent = require('/public/components/LandingContent/LandingContent');
@@ -30,7 +30,10 @@ import ajax from './modules/ajax.js';
 
 const backend = `http://95.163.213.222:8080/api/v1`;
 
-
+let Body = document.getElementsByTagName('body')[0];
+let div = document.createElement('div');
+div.id = 'application';
+Body.appendChild(div);
 const application = document.getElementById('application')
 
 const router = {

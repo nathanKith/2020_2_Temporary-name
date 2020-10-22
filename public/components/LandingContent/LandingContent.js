@@ -1,4 +1,6 @@
-export default class LandingContent {
+import {LandingHeader} from "../LandingHeader/LandingHeader";
+
+export class LandingContent {
     #parent
 
     constructor(parent) {
@@ -40,3 +42,4 @@ export default class LandingContent {
         return span;
     }
 }
+

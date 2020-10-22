@@ -1,4 +1,6 @@
-export default class Chats {
+import {LandingHeader} from "../LandingHeader/LandingHeader";
+
+export class Chats {
     #parent
 
     constructor(parent) {

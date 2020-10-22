@@ -3,7 +3,9 @@
 
 import RegistrationData from "../../modules/registrationData.js";
 import ajax from "../../modules/ajax.js";
-import {loginPage} from "../../main.js";
+// import {loginPage} from "../../main.js";
+import template from './Templates/main.hbs';
+import Top from './Templates/Top.hbs'
 
 const url = `http://95.163.213.222:8080/api/v1`;
 
@@ -23,13 +25,25 @@ const data = new Map([
 ]);
 
 
-export default class Registration {
+export class Registration {
     json = new RegistrationData();
     #parent
     constructor(parent) {
         this.#parent = parent
     }
+    renderTop(name) {
+        this.#parent.innerHTML = '';
+        const Form = document.createElement('form');
+        Form.classList.add('form');
+        const form = this.#parent.appendChild(Form);
+
+        let top = Handlebars.render(Top('Регистрация'));
+        form.appendChild(top);
+
+    }
+
     render() {
+        console.log('template', template());
         const Form = document.createElement('form');
         Form.classList.add('form');
         const form = this.#parent.appendChild(Form);
@@ -94,6 +108,7 @@ export default class Registration {
                 this.json.telephone = number.value;
                 this.json.password = pass.value;
                 this.renderSecStep();
+                // this.renderTop('Регистрация');
             }
         });
         form.appendChild(nextButton);

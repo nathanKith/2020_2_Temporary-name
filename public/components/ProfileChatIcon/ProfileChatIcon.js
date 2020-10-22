@@ -1,4 +1,6 @@
-export default class ProfileChatIcon {
+import {LandingHeader} from "../LandingHeader/LandingHeader";
+
+export class ProfileChatIcon {
     #parent
 
     constructor(parent) {

@@ -1,4 +1,6 @@
-export default class Profile {
+import {LandingHeader} from "../LandingHeader/LandingHeader";
+
+export class Profile {
 
     #parent
     #data

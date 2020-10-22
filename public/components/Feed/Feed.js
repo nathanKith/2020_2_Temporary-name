@@ -1,6 +1,8 @@
+import {LandingHeader} from "../LandingHeader/LandingHeader";
+
 const backend = `http://95.163.213.222:8080`;
 
-export default class Feed {
+export class Feed {
     #parent
     #data
 

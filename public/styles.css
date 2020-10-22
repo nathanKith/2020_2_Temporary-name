@@ -1,11 +1,13 @@
-@import "./components/LandingHeader/LandingHeader.css";
-@import "./components/LandingContent/LandingContent.css";
-@import "./components/Feed/Feed.css";
-@import "./components/ProfileChatIcon/ProfileChatIcon.css";
-@import "./components/Profile/Proile.css";
-@import "./components/Chats/Chats.css";
-@import "./components/Registration/Registration.css";
-@import "./components/Authorization/Authorization.css";
+/*@import "./components/LandingHeader/LandingHeader.css";*/
+/*@import "./components/LandingContent/LandingContent.css";*/
+/*@import "./components/Feed/Feed.css";*/
+/*@import "./components/ProfileChatIcon/ProfileChatIcon.css";*/
+/*@import "./components/Profile/Proile.css";*/
+/*@import "./components/Chats/Chats.css";*/
+/*@import "./components/Registration/Registration.css";*/
+/*@import "./components/Authorization/Authorization.css";*/
+
+
 
 body {
     margin: 0;

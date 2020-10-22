@@ -1,25 +1,13 @@
-import './styles.css';
-import './components/LandingHeader/LandingHeader.css';
-import './components/LandingContent/LandingContent.css';
-import './components/Feed/Feed.css';
-import './components/ProfileChatIcon/ProfileChatIcon.css';
-import './components/Profile/Proile.css';
-import './components/Chats/Chats.css';
-import './components/Registration/Registration.css';
-import './components/Authorization/Authorization.css';
+// import './styles.css';
+// import './components/LandingContent/LandingContent.css';
+// import './components/Feed/Feed.css';
+// import './components/ProfileChatIcon/ProfileChatIcon.css';
+// import './components/Profile/Proile.css';
+// import './components/Chats/Chats.css';
+// import './components/Registration/Registration.css';
+// import './components/Authorization/Authorization.css';
 
-// require('/public/components/LandingHeader/LandingHeader');
-// LandingContent = require('/public/components/LandingContent/LandingContent');
-// Feed = require('/public/components/Feed/Feed');
-// ProfileChatIcon = require('/public/components/ProfileChatIcon/ProfileChatIcon');
-// Profile = require('/public/components/Profile/Profile');
-// Chats = require('/public/components/Chats/Chats');
-// Registration = require('/public/components/Registration/Registration');
-// Authorization = require('/public/components/Authorization/Authorization');
-// ajax = require('/public/modules/ajax.js').default;
-
-import {LandingHeader} from './components/LandingHeader/LandingHeader.js';
-import {LandingContent} from './components/LandingContent/LandingContent.js';
+import {LandingView} from './views/LandingView';
 import {Feed} from './components/Feed/Feed.js';
 import {ProfileChatIcon} from './components/ProfileChatIcon/ProfileChatIcon.js'
 import {Profile} from './components/Profile/Profile.js'
@@ -29,12 +17,11 @@ import {Authorization} from "./components/Authorization/Authorization.js";
 import ajax from './modules/ajax.js';
 
 const backend = `http://95.163.213.222:8080/api/v1`;
-
-let Body = document.getElementsByTagName('body')[0];
-let div = document.createElement('div');
-div.id = 'application';
-Body.appendChild(div);
-const application = document.getElementById('application')
+//
+// let div = document.createElement('div');
+// div.id = 'application';
+// document.body.appendChild(div);
+// const application = document.getElementById('application');
 
 const router = {
     landing: {
@@ -56,23 +43,7 @@ const router = {
 }
 
 export function landingPage() {
-    application.innerHTML = '';
-
-    document.body.classList.add('landing-body-background');
-
-    const div = document.createElement('div');
-    div.classList.add('landing-heart-background');
-    application.appendChild(div);
-
-    const header = new LandingHeader(div);
-    header.render();
-
-    const main = new LandingContent(div);
-    main.render();
-
-    const footer = document.createElement('footer');
-    footer.classList.add('landing-footer');
-    div.appendChild(footer);
+    (new LandingView()).render();
 }
 
 export function feedPage() {

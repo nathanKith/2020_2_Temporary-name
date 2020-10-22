@@ -5,14 +5,15 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
-
 module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
         filename: 'bundle.css',
         }),
 
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: './public/index.html',
+        }),
 
         new CopyPlugin({
             patterns: [
@@ -56,9 +57,9 @@ module.exports = {
                 test: /\.svg$/,
                 use: {
                     loader:'svg-url-loader',
-                    // options: {
-                    //     name: `/img/[name].[ext]`,
-                    // }
+                    options: {
+                        name: `/img/[name].[ext]`,
+                    }
                 }
             },
             {

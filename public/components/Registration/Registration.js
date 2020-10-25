@@ -3,9 +3,7 @@
 
 import RegistrationData from "../../modules/registrationData.js";
 import ajax from "../../modules/ajax.js";
-// import {loginPage} from "../../main.js";
-import template from './Templates/main.hbs';
-import Top from './Templates/Top.hbs'
+import {loginPage} from "../../main.js";
 
 const url = `http://95.163.213.222:8080/api/v1`;
 
@@ -25,25 +23,13 @@ const data = new Map([
 ]);
 
 
-export class Registration {
+export default class Registration {
     json = new RegistrationData();
     #parent
     constructor(parent) {
         this.#parent = parent
     }
-    renderTop(name) {
-        this.#parent.innerHTML = '';
-        const Form = document.createElement('form');
-        Form.classList.add('form');
-        const form = this.#parent.appendChild(Form);
-
-        let top = Handlebars.render(Top('Регистрация'));
-        form.appendChild(top);
-
-    }
-
     render() {
-        console.log('template', template());
         const Form = document.createElement('form');
         Form.classList.add('form');
         const form = this.#parent.appendChild(Form);
@@ -108,7 +94,6 @@ export class Registration {
                 this.json.telephone = number.value;
                 this.json.password = pass.value;
                 this.renderSecStep();
-                // this.renderTop('Регистрация');
             }
         });
         form.appendChild(nextButton);
@@ -250,7 +235,7 @@ export class Registration {
 
         let [label, pass] = this.createFormText('nameFormText', 'Я работаю', 'pass',
             'Тренер по плаванию',
-             'job');
+            'job');
         pass.firstElementChild.id = 'job';
         pass.firstElementChild.name = 'job';
         form.appendChild(label);
@@ -384,19 +369,98 @@ export class Registration {
                 aboutMe:  this.json.aboutMe,
                 photo:  this.json.photo,
             };
-
+            let photo_name;
             ajax.ajaxPost(url + `/signup`, Json).
             then(({status, responseObject}) => {
+                let string;
                 if (status === 401) {
-                    alert('Такой пользователь уже зарегистрирован!');
+                    // alert('Такой пользователь уже зарегистрирован!');
+                    string = new Promise((resolve, reject) => {
+                        reject('Такой пользователь уже зарегистрирован!');
+                    });
                 }
                 if (status === 200 ) {
                     alert('Успешно зарегистрировались!');
+                    string = new Promise((resolve, reject) => {
+                        resolve('Успешно зарегистрировались!');
+                    });
                 }
+                return string;
+                // loginPage();
+            }).then((string) => {
+                ajax.ajaxPostPhoto(url + '/upload', new FormData(Form), 'photo').
+                then(({status, responseObject}) => {
+                    if (status === 200 ) {
+                        alert('Успешно загрузили фото!');
+                        photo_name = new Promise((resolve, reject) => {
+                            resolve(JSON.stringify(responseObject));
+                            console.log(JSON.stringify(responseObject));
+                        });
+                        console.log(photo_name);
+                    } else {
+                        alert('Привет, Андрей!');
+                    }
+                    return photo_name;
+
+                }).then((photo_name) => {
+                    console.log(photo_name.toString());
+                    const link_photo = "http://95.163.213.222:8080/static/avatars/";
+                    console.log(link_photo + photo_name.replace('"', ''));
+                    const photoAdd = {
+                        telephone: this.json.telephone,
+                        link_image: link_photo + photo_name.replace('"', ''),
+                    }
+                    ajax.ajaxPost(url + '/add_photo', photoAdd).
+                    then(({status, responseObject}) => {
+                        if (status === 200 ) {
+                            alert('Добавили фото!');
+                        } else {
+                            alert('Привет, Андрей!');
+                        }
+
+                    }).catch((err) => {
+                        alert(err);
+                    });
+                });
+            }).catch((string) => {
+                alert(string);
+                alert('ZDES?')
                 loginPage();
-            }).catch((err) => {
-                alert(err);
             });
+
+
+            // let avat = ajax.ajaxPostPhoto(url + '/upload', new FormData(Form), 'photo').
+            //     then(({status, responseObject}) => {
+            //         if (status === 200 ) {
+            //             alert('Успешно загрузили фото!');
+            //             photo_name = new Promise((resolve, reject) => {
+            //                 resolve(JSON.stringify(responseObject));
+            //             });
+            //             console.log(photo_name);
+            //         } else {
+            //             alert('Привет, Андрей!');
+            //         }
+
+            //     }).catch((err) => {
+            //         alert(err);
+            //     });
+
+            //     console.log(avat);
+            //     const link_photo = 'http://95.163.213.222:8080/static/avatars/';
+            //     console.log(link_photo + avat);
+            //     const photoAdd = {
+            //         telephone: this.json.telephone,
+            //         link_image: link_photo + avat,
+            //     }
+            // let add = await ajax.ajaxPost(url + '/add_photo', photoAdd).
+            //     then(({status, responseObject}) => {
+            //         if (status === 200 ) {
+            //             alert('Добавили фото!');
+            //         } else {
+            //             alert('Привет, Андрей!');
+            //         }
+
+            //     })
         });
         link.appendChild(nextButton);
         form.appendChild(link);
@@ -451,7 +515,7 @@ export class Registration {
         but.appendChild(img2)
 
         but.addEventListener('click', (evt) => {
-                this.renderInformation();
+            this.renderInformation();
         });
 
         const link = document.createElement('a');
@@ -503,16 +567,16 @@ export class Registration {
         but.appendChild(img2)
 
         but.addEventListener('click', (evt) => {
-                switch (back) {
-                    case 3:
-                        this.renderThirdStep();
-                        break;
-                    case 4:
-                        this.renderFourthStep();
-                        break;
-                    default:
-                        this.render();
-                }
+            switch (back) {
+                case 3:
+                    this.renderThirdStep();
+                    break;
+                case 4:
+                    this.renderFourthStep();
+                    break;
+                default:
+                    this.render();
+            }
         });
 
         const link = document.createElement('a');

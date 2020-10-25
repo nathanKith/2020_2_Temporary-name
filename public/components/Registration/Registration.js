@@ -1,6 +1,6 @@
 'use strict'
 
-
+import './Registration.css';
 import RegistrationData from "../../modules/registrationData.js";
 import ajax from "../../modules/ajax.js";
 // import {loginPage} from "../../main.js";

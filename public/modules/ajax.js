@@ -1,5 +1,3 @@
-const noop = () => {}
-
 class Ajax {
     ajaxGet = async (url, body = {}) => {
         const response = await fetch(url, {
@@ -26,6 +24,21 @@ class Ajax {
                 'Content-type': 'application/json; charset=utf-8',
             },
             body: JSON.stringify(body),
+        });
+
+        const responseObjectJson = await response.json();
+
+        return {
+            status: response.status,
+            responseObject: responseObjectJson,
+        };
+    }
+
+    ajaxPostPhoto = async (url, body = {}, name) => {
+        const response = await fetch(url, {
+            credentials: 'include',
+            method: 'POST',
+            body: body,
         });
 
         const responseObjectJson = await response.json();

@@ -1,12 +1,3 @@
-// import './styles.css';
-// import './components/LandingContent/LandingContent.css';
-// import './components/Feed/Feed.css';
-// import './components/ProfileChatIcon/ProfileChatIcon.css';
-// import './components/Profile/Proile.css';
-// import './components/Chats/Chats.css';
-// import './components/Registration/Registration.css';
-// import './components/Authorization/Authorization.css';
-
 import {LandingView} from './views/LandingView';
 import {Feed} from './components/Feed/Feed.js';
 import {ProfileChatIcon} from './components/ProfileChatIcon/ProfileChatIcon.js'
@@ -15,13 +6,11 @@ import {Chats} from './components/Chats/Chats.js';
 import {Registration} from "./components/Registration/Registration.js";
 import {Authorization} from "./components/Authorization/Authorization.js";
 import ajax from './modules/ajax.js';
+import {LandingController} from "./controllers/LandingController";
+
+const application = document.querySelector('#application');
 
 const backend = `http://95.163.213.222:8080/api/v1`;
-//
-// let div = document.createElement('div');
-// div.id = 'application';
-// document.body.appendChild(div);
-// const application = document.getElementById('application');
 
 const router = {
     landing: {
@@ -42,8 +31,12 @@ const router = {
     }
 }
 
+const landingView = new LandingView(application);
+
+const landingController = new LandingController(landingView);
+
 export function landingPage() {
-    (new LandingView()).render();
+    landingController.control();
 }
 
 export function feedPage() {

@@ -2,6 +2,7 @@ import {BaseView} from './BaseView';
 import {RegistrationTop} from "../components/RegistrationTop/Top";
 import {RegistrationContent} from "../components/RegistrationContent/RegistrationContent";
 import {RegistrationButton} from "../components/RegistrationButton/RegistrationButton";
+import './../components/Registration/Registration.css'
 
 
 export class RegistrationView extends BaseView {

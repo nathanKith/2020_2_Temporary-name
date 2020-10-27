@@ -7,6 +7,8 @@ import {Registration} from "./components/Registration/Registration.js";
 import {Authorization} from "./components/Authorization/Authorization.js";
 import ajax from './modules/ajax.js';
 import {LandingController} from "./controllers/LandingController";
+import {LandingHeader} from "./components/LandingHeader/LandingHeader";
+import {RegistrationView} from "./views/RegistrationView";
 
 const application = document.querySelector('#application');
 
@@ -112,8 +114,8 @@ function signupPage() {
     application.innerHTML = '';
     application.classList.add('registration-body-background');
 
-    const header = new LandingHeader(application);
-    header.render();
+    const header = new LandingHeader(application).render();
+
 
     const div = document.createElement('div');
     div.classList.add('formView');
@@ -123,8 +125,9 @@ function signupPage() {
     divFormView.classList.add('inner-formView');
     div.appendChild(divFormView);
 
-    const registration = new Registration(divFormView);
-    registration.render();
+    (new RegistrationView(divFormView)).render();
+    // const registration = new Registration(divFormView);
+    // registration.render();
 
     const footer = document.createElement('footer');
     footer.classList.add('landing-footer');
@@ -135,8 +138,7 @@ export function loginPage() {
     application.innerHTML = '';
     application.classList.add('registration-body-background');
 
-    const header = new LandingHeader(application);
-    header.render();
+    const header = new LandingHeader(application).render();
 
     const div = document.createElement('div');
     div.classList.add('formView');

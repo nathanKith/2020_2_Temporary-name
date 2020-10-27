@@ -24,6 +24,7 @@
     outline: none;
     background-color: white;
     color: white;
+    cursor: pointer;
 }
 .cancelButton:active{
     border: 0;

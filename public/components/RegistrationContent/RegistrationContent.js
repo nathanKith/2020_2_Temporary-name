@@ -15,7 +15,7 @@ export class RegistrationContent {
         this.#parent = parent
     }
 
-    render(name) {
+    async render(name) {
         switch (name) {
             case 'FirstStep':
                 this.#parent.innerHTML += FirstStep();
@@ -32,34 +32,12 @@ export class RegistrationContent {
             case 'AboutMe':
                 this.#parent.innerHTML += AboutMePart1();
                 // this.#parent.innerHTML += AboutMe();
-               (new Education(this.#parent)).render().then(([label, div, divsec]) => {
+               await (new Education(this.#parent)).render()
+                   .then(([label, div, divsec]) => {
                     this.#parent.append(label,div, divsec);
-            });
-                this.#parent.innerHTML += AboutMePart2();
-                // this.#parent.append(((new Education(this.#parent)).render()));
-
-
-                    // document.getElementById('radio1').addEventListener('click', (evt) => {
-                    //     console.log('1');
-                    //     const div = document.getElementById('education_univ');
-                    //     div.innerHTML = '<label class="nameFormText">Я учусь</label>' +
-                    //         '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education" id="univer" name="univer"></textarea></div>'
-                    // });
-                    //
-                    // document.getElementById('radio2').addEventListener('click', (evt) => {
-                    //     console.log('2');
-                    //     const div = document.getElementById('education_univ');
-                    //     div.innerHTML = '<label class="nameFormText">Я окончил</label>' +
-                    //         '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education" id="univer" name="univer"></textarea></div>';
-                    // });
-                    //
-                    // document.getElementById('radio3').addEventListener('click', (evt) => {
-                    //     console.log('3');
-                    //     const div = document.getElementById('education_univ');
-                    //     div.innerHTML = '';
-                    // });
-
-
+                    }).then( () => {
+                    this.#parent.insertAdjacentHTML('beforeend', AboutMePart2());
+               });
                 break;
             case 'Photo':
                 this.#parent.classList.remove('inner-formInf');

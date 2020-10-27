@@ -2,18 +2,14 @@ export class Education {
     _form
 
     constructor(parent) {
-        // this._form = docu;
     }
 
     async render() {
         const div = document.createElement('div');
         div.id = "education_univ";
 
-        // this._form.appendChild(this.createLabel('University', 'Высшее образование'));
-
         const divUniv = document.createElement("div");
         divUniv.classList.add('radio');
-
 
         const radioEl = this.createRadio('radio-elems', 'radio-elem', 'Учусь', 'text', 'rad1');
         divUniv.appendChild(radioEl);
@@ -25,37 +21,26 @@ export class Education {
         divUniv.appendChild(radioElem);
 
 
-        // this._form.appendChild(divUniv);
-        // this._form.appendChild(div);
-
              await radioEl.addEventListener('click', (evt) => {
-                console.log('1');
                 const div = document.getElementById('education_univ');
                 div.innerHTML = '<label class="nameFormText">Я учусь</label>' +
                     '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education" id="univer" name="univer"></textarea></div>'
             });
 
             await RadioEl.addEventListener('click', (evt) => {
-                console.log('2');
                 const div = document.getElementById('education_univ');
                 div.innerHTML = '<label class="nameFormText">Я окончил</label>' +
                     '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education" id="univer" name="univer"></textarea></div>';
             });
 
             await radioElem.addEventListener('click', (evt) => {
-                console.log('3');
                 const div = document.getElementById('education_univ');
                 div.innerHTML = '';
             });
 
-
-
-
-
         div.innerHTML = '<label class="nameFormText">Я учусь</label>' +
             '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education" id="univer" name="univer"></textarea></div>';
 
-        // return this._form;
         return [this.createLabel('University', 'Высшее образование'), divUniv, div];
 
     }

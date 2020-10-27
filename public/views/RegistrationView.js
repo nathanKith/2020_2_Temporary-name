@@ -38,10 +38,16 @@ export class RegistrationView extends BaseView {
         (new RegistrationContent(form)).render('Name');
         (new RegistrationButton(form)).render();
 
-        const button = document.getElementById('nextButton')
+        const button = document.getElementById('nextButton');
         button.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.renderBirth();
+        });
+
+        const back = document.getElementById('arrow');
+        back.addEventListener('click', (evt) => {
+            evt.preventDefault();
+            this.render();
         });
     }
 
@@ -61,10 +67,18 @@ export class RegistrationView extends BaseView {
             evt.preventDefault();
             this.renderSex();
         });
+
+        const back = document.getElementById('arrow');
+        back.addEventListener('click', (evt) => {
+            evt.preventDefault();
+            this.renderName();
+        });
     }
 
     renderSex = () => {
         this._app.innerHTML = '';
+        this._app.classList.remove('inner-formInf');
+        this._app.classList.add('inner-formView');
 
         const Form = document.createElement('form');
         Form.classList.add('form');
@@ -84,6 +98,12 @@ export class RegistrationView extends BaseView {
             evt.preventDefault();
             this.renderAboutMe();
         });
+
+        const back = document.getElementById('arrow');
+        back.addEventListener('click', (evt) => {
+            evt.preventDefault();
+            this.renderBirth();
+        })
     }
 
     renderAboutMe = () => {
@@ -97,10 +117,23 @@ export class RegistrationView extends BaseView {
         const form = this._app.appendChild(Form);
 
         (new RegistrationTop(form)).render('TopAbout');
-        (new RegistrationContent(form)).render('AboutMe');
-        (new RegistrationButton(form)).render();
+        (new RegistrationContent(form)).render('AboutMe')
+            .then( () => {
+                (new RegistrationButton(form)).render();
 
-        const button = document.getElementById('nextButton')
+                const button = document.getElementById('nextButton')
+                button.addEventListener('click', (evt) => {
+                    evt.preventDefault();
+                    this.renderPhoto();
+                });
+            });
+        const back = document.getElementById('arrow');
+        back.addEventListener('click', (evt) => {
+            evt.preventDefault();
+            this.renderSex();
+        })
+
+        const button = document.getElementById('skip')
         button.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.renderPhoto();
@@ -111,5 +144,11 @@ export class RegistrationView extends BaseView {
         this._app.innerHTML = '';
 
         (new RegistrationContent(this._app)).render('Photo');
+
+        const back = document.getElementById('arrow');
+        back.addEventListener('click', (evt) => {
+            evt.preventDefault();
+            this.renderAboutMe();
+        })
     }
 }

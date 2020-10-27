@@ -32,18 +32,19 @@ export class RegistrationModel extends UserModel{
         return ['', true];
     }
 
+    validationName(name) {
+        if (name === '') {
+            return ['Введите имя', false];
+        }
+        return ['', true];
+    }
+
     setName (name) {
         let [message, result] = this.validationName(name);
         if (!result) {
             return [message, result];
         }
         this.name = name;
-    }
-
-    validationName(name) {
-        if (name === '') {
-            return ['Введите имя', false];
-        }
         return ['', true];
     }
 

@@ -29,7 +29,7 @@ export class RegistrationView extends BaseView {
             evt.preventDefault();
             const number = document.getElementById('number');
             const mes = document.getElementById('mes');
-            const [message, result] = this.model.setTelephonePassword(number, number.validity.valid,
+            const [message, result] = this.model.setTelephonePassword(number.value, number.validity.valid,
                 document.getElementById('password').value,
                 document.getElementById('repeat-password').value);
             if (!result) {
@@ -55,7 +55,7 @@ export class RegistrationView extends BaseView {
         button.addEventListener('click', (evt) => {
             evt.preventDefault();
             const mes = document.getElementById('mes');
-            const [message, result] = this.model.setName(document.getElementById('miami-name'));
+            const [message, result] = this.model.setName(document.getElementById('miami-name').value);
             if (!result) {
                 mes.innerHTML = message;
                 return;

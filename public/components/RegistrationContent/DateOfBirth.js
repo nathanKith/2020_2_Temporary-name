@@ -45,6 +45,7 @@ export class DateOfBirth {
 
     createSelectMonth(classSelect, name, values ) {
         const month = document.createElement('select');
+        month.id = 'month';
         month.classList.add(classSelect);
         month.name = name;
         for (let item of values) {
@@ -58,6 +59,7 @@ export class DateOfBirth {
 
     createSelectDaysByMonth(classSelect, name, month) {
         const day = document.createElement('select');
+        day.id = 'day';
         day.classList.add(classSelect);
         day.name = name;
         for (let i = 0; i < month; ++i) {
@@ -74,6 +76,7 @@ export class DateOfBirth {
         const year = document.createElement('select');
         year.classList.add(classSelect);
         year.name = name;
+        year.id = 'year';
 
         for (let i = 2004; i > 1930; --i) {
             const option = document.createElement('option');

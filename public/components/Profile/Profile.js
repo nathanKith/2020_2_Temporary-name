@@ -1,6 +1,4 @@
-import {LandingHeader} from "../LandingHeader/LandingHeader";
-
-export class Profile {
+export default class Profile {
 
     #parent
     #data
@@ -18,7 +16,7 @@ export class Profile {
         const innerDiv = this.#createDiv('inner-profile');
         div.appendChild(innerDiv);
 
-        innerDiv.innerHTML += `<img src="${this.#data.linkImages? this.#data.linkImages[0]: './../../img/pretty-girl.svg'}">`;
+        innerDiv.innerHTML += `<img src="${this.#data.linkImages[0].trim()}">`;
 
         const profileInfo = this.#createDiv('my-profile-information');
         innerDiv.appendChild(profileInfo);

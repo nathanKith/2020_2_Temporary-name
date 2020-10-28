@@ -8,9 +8,12 @@ import {RegistrationModel} from "../models/RegistrationModel";
 
 export class RegistrationView extends BaseView {
     model
-    constructor(app, model = new RegistrationModel()) {
+    listenerRegistration
+
+    constructor(app, model = new RegistrationModel(), listenerRegistration) {
         super(app);
         this.model = model;
+        this.listenerRegistration = listenerRegistration;
     }
 
     render = () => {
@@ -178,5 +181,15 @@ export class RegistrationView extends BaseView {
             evt.preventDefault();
             this.renderAboutMe();
         })
+
+        const button = document.getElementById('end');
+        button.addEventListener('click', this.listenerRegistration);
+        // button.addEventListener('click', {handleEvent: this.listenerRegistration,
+        //     model: this.model});
+        // button.addEventListener('click',this.listenerRegistration.bind(this.model));
+        // button.addEventListener('click', (evt) => {
+        //     evt.preventDefault();
+        //     this.listenerRegistration(this.model);
+        // });
     }
 }

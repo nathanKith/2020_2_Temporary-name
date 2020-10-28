@@ -7,7 +7,6 @@ export class RegistrationButton {
         this.#parent = parent;
     }
     render() {
-        // this.#parent.innerHTML += Button();
         this.#parent.insertAdjacentHTML('beforeend', Button());
     }
 }

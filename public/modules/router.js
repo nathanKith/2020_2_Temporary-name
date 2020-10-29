@@ -16,7 +16,13 @@ export class Router {
             return this.#getCurrentPath === route.url;
         }, this);
 
-        route.callback.call(this);
+        if (route === undefined) {
+            return this.#routes.find((route) => {
+                return route.url === '/';
+            }, this).callback.call(this);
+        }
+
+        return route.callback.call(this);
     }
 
     add = (url, callback) => {

@@ -1,4 +1,4 @@
-export default class Profile {
+export class Profile {
 
     #parent
     #data

@@ -3,11 +3,17 @@ import {RegistrationTop} from "../components/RegistrationTop/Top";
 import {RegistrationContent} from "../components/RegistrationContent/RegistrationContent";
 import {RegistrationButton} from "../components/RegistrationButton/RegistrationButton";
 import './../components/Registration/Registration.css'
+import {RegistrationModel} from "../models/RegistrationModel";
 
 
 export class RegistrationView extends BaseView {
-    constructor(app = document.getElementById('application')) {
+    model
+    listenerRegistration
+
+    constructor(app, model = new RegistrationModel(), listenerRegistration) {
         super(app);
+        this.model = model;
+        this.listenerRegistration = listenerRegistration;
     }
 
     render = () => {
@@ -24,6 +30,15 @@ export class RegistrationView extends BaseView {
         const button = document.getElementById('nextButton')
         button.addEventListener('click', (evt) => {
             evt.preventDefault();
+            const number = document.getElementById('number');
+            const mes = document.getElementById('mes');
+            const [message, result] = this.model.setTelephonePassword(number.value, number.validity.valid,
+                document.getElementById('password').value,
+                document.getElementById('repeat-password').value);
+            if (!result) {
+                mes.innerHTML = message;
+                return;
+            }
             this.renderName();
         })
     }
@@ -42,6 +57,12 @@ export class RegistrationView extends BaseView {
         const button = document.getElementById('nextButton');
         button.addEventListener('click', (evt) => {
             evt.preventDefault();
+            const mes = document.getElementById('mes');
+            const [message, result] = this.model.setName(document.getElementById('miami-name').value);
+            if (!result) {
+                mes.innerHTML = message;
+                return;
+            }
             this.renderBirth();
         });
 
@@ -66,6 +87,9 @@ export class RegistrationView extends BaseView {
         const button = document.getElementById('nextButton')
         button.addEventListener('click', (evt) => {
             evt.preventDefault();
+            this.model.setDay(document.getElementById('day').value);
+            this.model.setMonth(document.getElementById('month').value);
+            this.model.setYear(document.getElementById('year').value);
             this.renderSex();
         });
 
@@ -91,12 +115,14 @@ export class RegistrationView extends BaseView {
         const button = document.getElementById('female')
         button.addEventListener('click', (evt) => {
             evt.preventDefault();
+            this.model.setSex('female');
             this.renderAboutMe();
         });
 
         const button2 = document.getElementById('male')
         button2.addEventListener('click', (evt) => {
             evt.preventDefault();
+            this.model.setSex('male');
             this.renderAboutMe();
         });
 
@@ -125,6 +151,9 @@ export class RegistrationView extends BaseView {
                 const button = document.getElementById('nextButton')
                 button.addEventListener('click', (evt) => {
                     evt.preventDefault();
+                    this.model.setAboutMe(document.getElementById('job').value,
+                        document.getElementById('univer'),
+                        document.getElementById('about').value);
                     this.renderPhoto();
                 });
             });
@@ -144,6 +173,7 @@ export class RegistrationView extends BaseView {
     renderPhoto = () => {
         this._app.innerHTML = '';
 
+        console.log(this.model.Json());
         (new RegistrationContent(this._app)).render('Photo');
 
         const back = document.getElementById('arrow');
@@ -151,5 +181,15 @@ export class RegistrationView extends BaseView {
             evt.preventDefault();
             this.renderAboutMe();
         })
+
+        const button = document.getElementById('end');
+        button.addEventListener('click', this.listenerRegistration);
+        // button.addEventListener('click', {handleEvent: this.listenerRegistration,
+        //     model: this.model});
+        // button.addEventListener('click',this.listenerRegistration.bind(this.model));
+        // button.addEventListener('click', (evt) => {
+        //     evt.preventDefault();
+        //     this.listenerRegistration(this.model);
+        // });
     }
 }

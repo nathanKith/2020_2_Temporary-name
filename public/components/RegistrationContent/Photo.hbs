@@ -1,4 +1,4 @@
-<form class="form-photo" method="POST" enctype="multipart/form-data">
+<form class="form-photo" method="POST" enctype="multipart/form-data" id="form-photo">
     <div class="back">
         <a class="arrow-last" id="arrow"><img src="/img/left_arrow_white.svg"></a>
         <a href="/" class="last-cancelButton" data-section="landing" class="link">
@@ -7,8 +7,10 @@
     </div>
     <div class="small-label"><img class="undefined" src="/img/small_white_label.png"></div>
     <div class="small-label"><p class="name-last">Выберите лучшие<br><label class="podr">фотографии.</label></p></div>
-    <div class="podr"><input type="file" placeholder="" class="photo" accept="image/jpeg,image/png" id="file"
-                             name="photo"><label for="file" class="out"><img src="/img/camera.svg"></label></div>
+    <div class="podr">
+        <input type="file" placeholder="" class="photo" accept="image/jpeg,image/png" id="file"
+                             name="photo"><label for="file" class="out"><img src="/img/camera.svg"></label>
+    </div>
     <div id="mes" class="message-last"></div>
     <div class="next">
         <a href="/login" class="endButton" data-section="login" class="link" id="end">

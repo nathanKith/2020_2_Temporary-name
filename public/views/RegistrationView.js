@@ -206,7 +206,7 @@ export class RegistrationView extends BaseView {
         })
 
         const button = document.getElementById('end');
-        button.addEventListener('click', this.listenerRegistration);
+        // button.addEventListener('click', this.listenerRegistration);
         // button.addEventListener('click', {handleEvent: this.listenerRegistration,
         //     model: this.model});
         // button.addEventListener('click',this.listenerRegistration.bind(this.model));
@@ -214,6 +214,7 @@ export class RegistrationView extends BaseView {
         //     evt.preventDefault();
         //     this.listenerRegistration(this.model);
         // });
+        button.onclick = this.listenerRegistration;
     }
 
     validationAboutMe (univer) {

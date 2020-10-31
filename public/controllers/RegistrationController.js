@@ -9,11 +9,11 @@ export class RegistrationController {
         this.RegAuthModel = registrationModel;
         this.registrationView = registrationView;
         this.registrationView.model = this.RegAuthModel;
-        this.registrationView.listenerRegistration = this.listenerRegistration.
-        bind(this.listenerRegistration, this.RegAuthModel)
+        this.registrationView.listenerRegistration = this.listenerRegistration
+                                                         .bind(this.listenerRegistration, this.RegAuthModel);
     }
 
-    control(){
+    control() {
         this.registrationView.render();
     }
 
@@ -36,8 +36,8 @@ export class RegistrationController {
         await model.registration(document.getElementById('form-photo'))
             .catch( (err) => {
                 console.log(err.message);
-                // const endButton = document.getElementById('end');
-                // endButton.href = '/';
+                const endButton = document.getElementById('end');
+                endButton.href = '/';
                 //redirect
             })
         console.log(mes);

@@ -3,7 +3,7 @@ import {backend} from '../modules/url';
 import {UserModel} from "./UserModel";
 import {feedPage} from "../main";
 
-export class RegistrationModel extends UserModel{
+export class RegAuthModel extends UserModel{
     constructor() {
         super();
     }
@@ -86,12 +86,6 @@ export class RegistrationModel extends UserModel{
         return ['', true];
     }
 
-    validationAboutMe (univer) {
-        if (univer) {
-            return univer.value;
-        }
-        return null;
-    }
 
     validationPhoto(photo) {
         if (!photo) {
@@ -101,9 +95,8 @@ export class RegistrationModel extends UserModel{
     }
 
     setAboutMe (job, univer, aboutMe) {
-        const nameOfUniver = this.validationAboutMe(univer);
-        if (nameOfUniver) {
-            this.education = nameOfUniver;
+        if (univer) {
+            this.education = univer;
         }
         this.job = job;
         this.aboutMe = aboutMe;
@@ -181,19 +174,19 @@ export class RegistrationModel extends UserModel{
                     }
                     ajax.post(backend.addPhoto, photoAdd)
                         .then(({status, responseObject}) => {
-                        if (status === 200 ) {
-                            alert('Добавили фото!');
-                        } else {
-                            throw new Error(`${status} error adding: cannot add photo on back`)
-                        }
+                            if (status === 200 ) {
+                                alert('Добавили фото!');
+                            } else {
+                                throw new Error(`${status} error adding: cannot add photo on back`)
+                            }
                         });
-                        // }).catch((err) => {
-                        //     console.log(err.message);
-                        // });
+                    // }).catch((err) => {
+                    //     console.log(err.message);
+                    // });
                 })
             });
-            // .catch( (err) => {
-            //     console.log(err.message);
-            // })
+        // .catch( (err) => {
+        //     console.log(err.message);
+        // })
     }
 }

@@ -1,6 +1,16 @@
 export class FeedController {
-    constructor() {
+    #userModel
+    #feedListModel
+
+    constructor(userModel, feedModel) {
         
     }
 
+    #makeContext = () => {
+
+    }
+
+    async control() {
+
+    }
 }

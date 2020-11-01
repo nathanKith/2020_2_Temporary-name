@@ -12,6 +12,8 @@ import {RegistrationView} from "./views/RegistrationView";
 import {Router} from "./modules/router";
 import {RegAuthModel} from "./models/RegAuthModel";
 import {RegistrationController} from "./controllers/RegistrationController";
+import {AuthorizationView} from "./views/AuthorizationView";
+import {AuthorizationController} from "./controllers/AuthorizationController";
 
 const application = document.querySelector('#application');
 //
@@ -38,11 +40,16 @@ const application = document.querySelector('#application');
 
 const landingView = new LandingView(application);
 const registrationView = new RegistrationView(application);
+const authorizationView = new AuthorizationView(application);
 
 const regAuthModel = new RegAuthModel();
+const authorizationModel = new RegAuthModel();
 
 const landingController = new LandingController(landingView);
 const registrationController = new RegistrationController(registrationView, regAuthModel);
+const authorizationController = new AuthorizationController(authorizationView, authorizationModel);
+
+let router = new Router();
 
 const doLanding = () => {
     landingController.control();
@@ -52,10 +59,16 @@ const doRegistration = () => {
     registrationController.control();
 }
 
-const router = new Router();
+const doAuthorization = () => {
+    authorizationController.router = router;
+    authorizationController.control();
+}
+
+
 
 router.add('/', doLanding);
 router.add('/signup', doRegistration);
+router.add('/login', doAuthorization);
 
 router.start();
 

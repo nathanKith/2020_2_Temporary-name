@@ -1,9 +1,11 @@
 import {RegAuthModel} from "../models/RegAuthModel";
 import {RegistrationView} from "../views/RegistrationView";
+import {Router} from "../modules/router";
 
 export class AuthorizationController {
     authorizationView
     authorizationModel
+    router
     constructor(authorizationView, authorizationModel) {
         this.authorizationModel = authorizationModel;
         this.authorizationView = authorizationView;
@@ -20,6 +22,11 @@ export class AuthorizationController {
         console.log('aaaa');
         let mes;
         mes = document.getElementById('mes');
+        const telephone = document.getElementById('number');
+        if (!telephone.validity.valid) {
+            mes.innerHTML = 'Неверно введен номер телефона';
+            return;
+        }
         const [message, result] = model.setTelephonePasswordAuth
                                         (document.getElementById('number').value,
                                          document.getElementById('password').value);
@@ -30,11 +37,12 @@ export class AuthorizationController {
         }
         console.log(mes);
         await model.authorization()
+            .then( () => {
+                //redirect on feed
+            })
             .catch( (err) => {
                 console.log(err.message);
-                // const endButton = document.getElementById('end');
-                // endButton.href = '/';
-                //redirect '/'
+                this.router.redirect('/');
             })
         console.log(mes);
     }

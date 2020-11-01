@@ -48,9 +48,10 @@ export class RegAuthModel extends UserModel{
                 } else {
                     alert('Такого пользователя не существует');
                 }
-            }).catch((err) => {
-                console.log(err.message);
-            });
+            })
+            // .catch((err) => {
+            //     console.log(err.message);
+            // });
     }
 
     JsonAuth() {

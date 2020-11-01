@@ -174,19 +174,19 @@ export class RegAuthModel extends UserModel{
                     }
                     ajax.post(backend.addPhoto, photoAdd)
                         .then(({status, responseObject}) => {
-                            if (status === 200 ) {
-                                alert('Добавили фото!');
-                            } else {
-                                throw new Error(`${status} error adding: cannot add photo on back`)
-                            }
+                        if (status === 200 ) {
+                            alert('Добавили фото!');
+                        } else {
+                            throw new Error(`${status} error adding: cannot add photo on back`)
+                        }
                         });
-                    // }).catch((err) => {
-                    //     console.log(err.message);
-                    // });
+                        // }).catch((err) => {
+                        //     console.log(err.message);
+                        // });
                 })
             });
-        // .catch( (err) => {
-        //     console.log(err.message);
-        // })
+            // .catch( (err) => {
+            //     console.log(err.message);
+            // })
     }
 }

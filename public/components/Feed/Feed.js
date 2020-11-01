@@ -1,6 +1,4 @@
-import {LandingHeader} from "../LandingHeader/LandingHeader";
-
-const backend = `http://95.163.213.222:8080`;
+import {backend} from "../../modules/url";
 
 export class Feed {
     #parent
@@ -61,7 +59,7 @@ export class Feed {
             buttonPrev.innerHTML = `<img class="inner-prev-photo" src="./../../img/button-next.svg">`;
             document.getElementById(`cell-${this.#currentPhoto - 1}`).classList.remove('cell-on');
             document.getElementById(`cell-${this.#currentPhoto}`).classList.add('cell-on');
-            img.src = backend + this.#data.linkImages[this.#currentPhoto];
+            img.src = backend.avatar(this.#data.linkImages[this.#currentPhoto]);
         });
 
         buttonPrev.addEventListener('click', (evt) => {

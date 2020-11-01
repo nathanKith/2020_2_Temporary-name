@@ -3,25 +3,47 @@ import {RegistrationTop} from "../components/RegistrationTop/Top";
 import {RegistrationContent} from "../components/RegistrationContent/RegistrationContent";
 import {RegistrationButton} from "../components/RegistrationButton/RegistrationButton";
 import './../components/Registration/Registration.css'
-import {RegistrationModel} from "../models/RegistrationModel";
+import {RegAuthModel} from "../models/RegAuthModel";
+import {LandingHeader} from "../components/LandingHeader/LandingHeader";
+import {RegistrationController} from "../controllers/RegistrationController";
 
 
 export class RegistrationView extends BaseView {
     model
     listenerRegistration
+    divFormView
 
-    constructor(app, model = new RegistrationModel(), listenerRegistration) {
+    constructor(app) {
         super(app);
-        this.model = model;
-        this.listenerRegistration = listenerRegistration;
+    }
+
+    renderBase = () => {
+        this._app.innerHTML = '';
+        this._app.classList.add('registration-body-background');
+
+        const header = new LandingHeader(this._app).render();
+
+        const div = document.createElement('div');
+        div.classList.add('formView');
+        this._app.appendChild(div);
+
+        const divFormView = document.createElement('div');
+        divFormView.classList.add('inner-formView');
+        div.appendChild(divFormView);
+
+        const footer = document.createElement('footer');
+        footer.classList.add('landing-footer');
+        this._app.appendChild(footer);
+
+        return divFormView;
     }
 
     render = () => {
-        this._app.innerHTML = '';
+        this.divFormView = this.renderBase();
 
         const Form = document.createElement('form');
         Form.classList.add('form');
-        const form = this._app.appendChild(Form);
+        const form = this.divFormView.appendChild(Form);
 
         (new RegistrationTop(form)).render('TopBegin','Регистрация');
         (new RegistrationContent(form)).render('FirstStep');
@@ -44,11 +66,11 @@ export class RegistrationView extends BaseView {
     }
 
     renderName = () => {
-        this._app.innerHTML = '';
+        this.divFormView.innerHTML = '';
 
         const Form = document.createElement('form');
         Form.classList.add('form');
-        const form = this._app.appendChild(Form);
+        const form = this.divFormView.appendChild(Form);
 
         (new RegistrationTop(form)).render('Top','Расскажите о себе:');
         (new RegistrationContent(form)).render('Name');
@@ -74,11 +96,11 @@ export class RegistrationView extends BaseView {
     }
 
     renderBirth = () => {
-        this._app.innerHTML = '';
+        this.divFormView.innerHTML = '';
 
         const Form = document.createElement('form');
         Form.classList.add('form');
-        const form = this._app.appendChild(Form);
+        const form = this.divFormView.appendChild(Form);
 
         (new RegistrationTop(form)).render('Top','Расскажите о себе:');
         (new RegistrationContent(form)).render('DateOfBirth');
@@ -101,13 +123,13 @@ export class RegistrationView extends BaseView {
     }
 
     renderSex = () => {
-        this._app.innerHTML = '';
-        this._app.classList.remove('inner-formInf');
-        this._app.classList.add('inner-formView');
+        this.divFormView.innerHTML = '';
+        this.divFormView.classList.remove('inner-formInf');
+        this.divFormView.classList.add('inner-formView');
 
         const Form = document.createElement('form');
         Form.classList.add('form');
-        const form = this._app.appendChild(Form);
+        const form = this.divFormView.appendChild(Form);
 
         (new RegistrationTop(form)).render('Top','Расскажите о себе:');
         (new RegistrationContent(form)).render('Sex');
@@ -134,14 +156,14 @@ export class RegistrationView extends BaseView {
     }
 
     renderAboutMe = () => {
-        this._app.innerHTML = '';
+        this.divFormView.innerHTML = '';
 
-        this._app.classList.remove('inner-formView');
-        this._app.classList.add('inner-formInf');
+        this.divFormView.classList.remove('inner-formView');
+        this.divFormView.classList.add('inner-formInf');
 
         const Form = document.createElement('form');
         Form.classList.add('formInf');
-        const form = this._app.appendChild(Form);
+        const form = this.divFormView.appendChild(Form);
 
         (new RegistrationTop(form)).render('TopAbout');
         (new RegistrationContent(form)).render('AboutMe')
@@ -151,8 +173,9 @@ export class RegistrationView extends BaseView {
                 const button = document.getElementById('nextButton')
                 button.addEventListener('click', (evt) => {
                     evt.preventDefault();
+                    let education = this.validationAboutMe( document.getElementById('univer'));
                     this.model.setAboutMe(document.getElementById('job').value,
-                        document.getElementById('univer'),
+                        education,
                         document.getElementById('about').value);
                     this.renderPhoto();
                 });
@@ -171,10 +194,10 @@ export class RegistrationView extends BaseView {
     }
 
     renderPhoto = () => {
-        this._app.innerHTML = '';
+        this.divFormView.innerHTML = '';
 
         console.log(this.model.Json());
-        (new RegistrationContent(this._app)).render('Photo');
+        (new RegistrationContent(this.divFormView)).render('Photo');
 
         const back = document.getElementById('arrow');
         back.addEventListener('click', (evt) => {
@@ -183,7 +206,7 @@ export class RegistrationView extends BaseView {
         })
 
         const button = document.getElementById('end');
-        button.addEventListener('click', this.listenerRegistration);
+        // button.addEventListener('click', this.listenerRegistration);
         // button.addEventListener('click', {handleEvent: this.listenerRegistration,
         //     model: this.model});
         // button.addEventListener('click',this.listenerRegistration.bind(this.model));
@@ -191,5 +214,13 @@ export class RegistrationView extends BaseView {
         //     evt.preventDefault();
         //     this.listenerRegistration(this.model);
         // });
+        button.onclick = this.listenerRegistration;
+    }
+
+    validationAboutMe (univer) {
+        if (univer) {
+            return univer.value;
+        }
+        return null;
     }
 }

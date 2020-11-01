@@ -9,37 +9,55 @@ import ajax from './modules/ajax.js';
 import {LandingController} from "./controllers/LandingController";
 import {LandingHeader} from "./components/LandingHeader/LandingHeader";
 import {RegistrationView} from "./views/RegistrationView";
+import {Router} from "./modules/router";
+import {RegAuthModel} from "./models/RegAuthModel";
+import {RegistrationController} from "./controllers/RegistrationController";
 
 const application = document.querySelector('#application');
-
-const backend = `http://95.163.213.222:8080/api/v1`;
-
-const router = {
-    landing: {
-        href: '/',
-        open: landingPage,
-    },
-    signup: {
-        href: '/signup',
-        open: signupPage,
-    },
-    login: {
-        href: '/login',
-        open: loginPage,
-    },
-    feed: {
-        href: '/feed',
-        open: feedPage,
-    }
-}
+//
+// const backend = `http://95.163.213.222:8080/api/v1`;
+//
+// const router = {
+//     landing: {
+//         href: '/',
+//         open: landingPage,
+//     },
+//     signup: {
+//         href: '/signup',
+//         open: signupPage,
+//     },
+//     login: {
+//         href: '/login',
+//         open: loginPage,
+//     },
+//     feed: {
+//         href: '/feed',
+//         open: feedPage,
+//     }
+// }
 
 const landingView = new LandingView(application);
+const registrationView = new RegistrationView(application);
+
+const regAuthModel = new RegAuthModel();
 
 const landingController = new LandingController(landingView);
+const registrationController = new RegistrationController(registrationView, regAuthModel);
 
-export function landingPage() {
+const doLanding = () => {
     landingController.control();
 }
+
+const doRegistration = () => {
+    registrationController.control();
+}
+
+const router = new Router();
+
+router.add('/', doLanding);
+router.add('/signup', doRegistration);
+
+router.start();
 
 export function feedPage() {
     application.innerHTML = '';
@@ -156,13 +174,13 @@ export function loginPage() {
     application.appendChild(footer);
 }
 
-application.addEventListener('click', (evt) => {
-    const {target} = evt;
-
-    if (target instanceof HTMLAnchorElement) {
-        evt.preventDefault();
-        router[target.dataset.section].open();
-    }
-});
-
-landingPage();
+// application.addEventListener('click', (evt) => {
+//     const {target} = evt;
+//
+//     if (target instanceof HTMLAnchorElement) {
+//         evt.preventDefault();
+//         router[target.dataset.section].open();
+//     }
+// });
+//
+// landingPage();

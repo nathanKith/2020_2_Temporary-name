@@ -1,11 +1,13 @@
 import {BaseView} from './BaseView';
-import {RegistrationModel} from "../models/RegAuthModel";
+import {RegAuthModel} from "../models/RegAuthModel";
 import {AuthorizationContent} from "../components/AuthorizationContent/AuthorizationContent";
 import {LandingHeader} from "../components/LandingHeader/LandingHeader";
 
 export class AuthorizationView extends BaseView {
     model
     divFormView
+    listenerAuthorization
+
     constructor(app) {
         super(app);
     }
@@ -39,5 +41,8 @@ export class AuthorizationView extends BaseView {
         const form = this.divFormView.appendChild(Form);
 
         (new AuthorizationContent(form)).render();
+
+        const button = document.getElementById('next');
+        button.addEventListener('click', this.listenerAuthorization);
     }
 }

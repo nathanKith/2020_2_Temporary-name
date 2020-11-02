@@ -16,20 +16,8 @@ export class UserModel {
     #linkImages
     #age
 
-    constructor() {
-        this.#id = null;
-        this.#name = null;
-        this.#telephone = null;
-        this.#password = null;
-        this.#day = null;
-        this.#month = null;
-        this.#year = null;
-        this.#sex = null;
-        this.#job = null;
-        this.#education = null;
-        this.#aboutMe = null;
-        this.#linkImages = null;
-        this.#age = null;
+    constructor(data = {}) {
+        this.#fillUserData(data)
     }
 
     get id() {
@@ -136,24 +124,11 @@ export class UserModel {
         this.#password = data['password'];
     }
 
-    async getMe() {
+    async update() {
         await ajax.get(backend.me)
             .then(({status, responseObject}) => {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /me`);
-                }
-                this.#fillUserData(responseObject);
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
-    }
-
-    async getFeed() {
-        await ajax.get(backend.feed)
-            .then(({status, responseObject}) => {
-                if (status === 401) {
-                    throw new Error(`${status} unauthorized: cannot get json on url /feed`);
                 }
                 this.#fillUserData(responseObject);
             })

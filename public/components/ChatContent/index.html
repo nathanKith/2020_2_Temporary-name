@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>feed</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="feed-background">
+        <div class="feed-container">
+            <div class="settings">
+                <a href="#"><img class="inner-settings" src="./img/configuration.svg" /></a>
+            </div>
+
+            <div class="feed-section">
+                <div class="inner-feed-section">
+                    <div class="photos-cell">
+                        <div class="cell"></div>
+                        <div class="cell cell-on"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="./img/pretty-girl.svg" />
+                        <div class="profile-information">
+                            <span id="name">Кайя <span id="age">20</span></span>
+                            <span id="university-work">МГТУ им. Баумана</span>
+                            <span id="about-me">Технарь, учусь всякому разному. Передаю всем привет. Всех люблю. Делаю
+                                стрижку бесплатно, недорого, дешево сердито, очень богато.</span>
+                        </div>
+                        <div class="information-logo">
+                            <a href="#"><img src="./img/info.svg" /></a>
+                        </div>
+                    </div>
+                    <div class="next-prev-photo">
+                        <div class="prev-photo">
+                            <a href="#"><img class="inner-prev-photo" src="./img/button-next.svg"></a>
+                        </div>
+                        <div class="next-photo">
+                            <a href="#"><img src="./img/button-next.svg" /></a>
+                        </div>
+                    </div>
+                    <div class="reaction">
+                        <button class="reaction-button"><img src="./img/go-back-arrow.svg" /></button>
+                        <button class="reaction-button"><img src="./img/cancel.svg" /></button>
+                        <button class="reaction-button"><img src="./img/like.svg" /></button>
+                        <button class="reaction-button"><img src="./img/super-like.svg" /></button>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-chat-icons">
+                <div class="profile-icon">
+                    <button class="profile-icon-button"><img src="./img/profile.svg"></button>
+                </div>
+                <div class="chats-icon">
+                    <button class="chats-icon-button"><img src="./img/chats.svg"></button>
+                </div>
+            </div>
+
+            <div class="profile-chat-section" id="profile-chat-section">
+                <div class="chats-logo">
+                    <span>Сообщения</span>
+                </div>
+                <div class="chat__box">
+                    <div class="chat__box__top">
+                        <div class="chat__box__top__left">
+                            <div class="chat__box__top__left__avatar">
+                                <img class="chat__box__top__left__avatar__photo" src="./img/pretty-girl.svg">
+                            </div>
+                            <span class="chat__box__top__left__name">Кайя</span>
+                        </div>
+                        <div class="chat__box__top__right">
+                            <button type="button" class="chat__box__top__right__button">
+                                <img src="./img/left_arrow_white.svg"/>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chat__box__text-area">
+                        <div class="chat__box__inner-text-area">
+                            <div class="chat__box__text-area__my">
+                                <div class="chat__box__text-area__my-message chat__box__text-area__my-message-color">Привет, красотка!;)
+                                Или как вас там зовут на диком западе, в прочем, не важно
+                                    Или как вас там зовут на диком западе, в прочем, не важно
+                                    Или как вас там зовут на диком западе, в прочем, не важно
+                                    Или как вас там зовут на диком западе, в прочем, не важно
+                                    Или как вас там зовут на диком западе, в прочем, не важно
+                                    Или как вас там зовут на диком западе, в прочем, не важно
+                                    Или как вас там зовут на диком западе, в прочем, не важно
+                                    Или как вас там зовут на диком западе, в прочем, не важно
+                                </div>
+                            </div>
+                            <div class="chat__box__text-area__my">
+                                <span class="chat__box__text-area__date">7:26</span>
+                            </div>
+                            <div class="chat__box__text-area__other">
+                                <div class="chat__box__text-area__other-message chat__box__text-area__other-message-color">
+                                    Вау, какой подкат, трахни плез!
+                                </div>
+                                <span class="chat__box__text-area__date">7:26</span>
+                            </div>
+                            <div class="chat__box__text-area__my">
+                                <div class="chat__box__text-area__my-message chat__box__text-area__my-message-color">
+                                    Прости я не такой, меня интересует только любовь!!!!!
+                                </div>
+                            </div>
+                            <div class="chat__box__text-area__my">
+                                <span class="chat__box__text-area__date">7:26</span>
+                            </div>
+                            <div class="chat__box__text-area__other">
+                                <div class="chat__box__text-area__other-message chat__box__text-area__other-message-color">
+                                    Нет, пожалуйста, не удаляй из пар ,
+                                    хаха разрабы молодцы не добавили возможность, удалить, лох!
+                                </div>
+                                <span class="chat__box__text-area__date">7:26</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat__box__message-box">
+                        <textarea class="chat__box__message-box__message chat__box__message-box__message__font" placeholder="Сообщение"></textarea>
+                        <button type="button" class="chat__box__message-box__message__send">
+                            <img class="chat__box__message-box__message__send__but" src="./img/send.svg"/>
+                        </button>
+                    </div>
+<!--                    <div class="inner-list-chats">-->
+<!--                        <a class="chat" href="#">-->
+<!--                            <div class="chat-avatar">-->
+<!--                                <img class="chat-avatar-photo" src="./img/pretty-girl.svg">-->
+<!--                                <div id="message-number" class="message-number">-->
+<!--                                    <div class="inner-message-number">3</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="chat-info">-->
+<!--                                <div class="name-time">-->
+<!--                                    <span id="name-chat">Кайя</span>-->
+<!--                                    <span id="time-chat">04:20</span>-->
+<!--                                </div>-->
+<!--                                <div class="last-message">-->
+<!--                                    <span id="last-message">Я же говорил тебе там какая-то шняга чел. Я же говорил тебе-->
+<!--                                        там какая-то шняга чел. Я же говорил тебе там какая-то шняга чел.</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </a>-->
+                    </div>
+                </div>
+
+                <!-- <div class="profile">
+                    <div class="inner-profile">
+                        <img src="./img/pretty-girl.svg" />
+                        <div class="my-profile-information">
+                            <span id="name">Кайя <span id="age">20</span></span>
+                            <span id="university-work">МГТУ им. Баумана</span>
+                            <span id="about-me">Технарь, учусь всякому разному. Передаю всем привет. Всех люблю. Делаю
+                                    стрижку бесплатно, недорого, дешево сердито, очень богато.</span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

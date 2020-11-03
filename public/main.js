@@ -9,12 +9,16 @@ import {ajax} from './modules/ajax.js';
 import {LandingController} from "./controllers/LandingController";
 import {LandingHeader} from "./components/LandingHeader/LandingHeader";
 import {RegistrationView} from "./views/RegistrationView";
-import {Router} from './modules/router';
+import {Router} from "./modules/router";
+import {RegAuthModel} from "./models/RegAuthModel";
+import {RegistrationController} from "./controllers/RegistrationController";
+import {AuthorizationView} from "./views/AuthorizationView";
+import {AuthorizationController} from "./controllers/AuthorizationController";
 
 const application = document.querySelector('#application');
-
-const backend = `http://95.163.213.222:8080/api/v1`;
-
+//
+// const backend = `http://95.163.213.222:8080/api/v1`;
+//
 // const router = {
 //     landing: {
 //         href: '/',
@@ -35,21 +39,37 @@ const backend = `http://95.163.213.222:8080/api/v1`;
 // }
 
 const landingView = new LandingView(application);
+const registrationView = new RegistrationView(application);
+const authorizationView = new AuthorizationView(application);
+
+const regAuthModel = new RegAuthModel();
+const authorizationModel = new RegAuthModel();
 
 const landingController = new LandingController(landingView);
-
-function doLanding() {
-    landingController.control();
-}
-
-function doRegistration() {
-
-}
+const registrationController = new RegistrationController(registrationView, regAuthModel);
+const authorizationController = new AuthorizationController(authorizationView, authorizationModel);
 
 export const router = new Router();
 
+const doLanding = () => {
+    landingController.control();
+}
+
+const doRegistration = () => {
+    registrationController.control();
+}
+
+const doAuthorization = () => {
+    authorizationController.router = router;
+    authorizationController.control();
+}
+
+
+
 router.add('/', doLanding);
-router.add('/signup', signupPage);
+router.add('/signup', doRegistration);
+router.add('/login', doAuthorization);
+
 
 router.start();
 
@@ -126,8 +146,8 @@ function signupPage() {
     application.innerHTML = '';
     application.classList.add('registration-body-background');
 
-    const header = new LandingHeader(application);
-    header.render();
+    const header = new LandingHeader(application).render();
+
 
     const div = document.createElement('div');
     div.classList.add('formView');
@@ -137,8 +157,9 @@ function signupPage() {
     divFormView.classList.add('inner-formView');
     div.appendChild(divFormView);
 
-    const registration = new Registration(divFormView);
-    registration.render();
+    (new RegistrationView(divFormView)).render();
+    // const registration = new Registration(divFormView);
+    // registration.render();
 
     const footer = document.createElement('footer');
     footer.classList.add('landing-footer');
@@ -149,8 +170,7 @@ export function loginPage() {
     application.innerHTML = '';
     application.classList.add('registration-body-background');
 
-    const header = new LandingHeader(application);
-    header.render();
+    const header = new LandingHeader(application).render();
 
     const div = document.createElement('div');
     div.classList.add('formView');

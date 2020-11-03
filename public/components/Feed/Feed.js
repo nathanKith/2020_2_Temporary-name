@@ -26,6 +26,10 @@ export class Feed {
         div.appendChild(this.#createPersonProfile());
         div.appendChild(this.#createPreviousNextPhoto());
         div.appendChild(this.#createReactionButton());
+
+        const buttons = document.getElementsByClassName('reaction-button');
+        buttons[1].addEventListener(this.#data.dislike.type, this.#data.dislike.listener);
+        buttons[2].addEventListener(this.#data.like.type, this.#data.like.listener);
     }
 
     #createPreviousNextPhoto = () => {
@@ -96,9 +100,9 @@ export class Feed {
             const button = document.createElement('button');
             button.classList.add('reaction-button');
             button.innerHTML += `<img src="${imgSrc}">`;
-            button.addEventListener('click', (evt) => {
-                this.#currentPhoto = 0;
-            })
+            // button.addEventListener('click', (evt) => {
+            //     this.#currentPhoto = 0;
+            // })
 
             div.appendChild(button);
         });

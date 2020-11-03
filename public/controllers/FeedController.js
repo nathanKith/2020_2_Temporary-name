@@ -1,6 +1,3 @@
-import {ajax} from '../modules/ajax';
-import {backend} from '../modules/url';
-
 export class FeedController {
     #view
     #profile
@@ -15,14 +12,28 @@ export class FeedController {
     }
 
     async update() {
-        await this.#profile.update();
-        await this.#chats.update();
         await this.#feed.update();
+        await this.#chats.update();
+        await this.#profile.update();
     }
 
     #makeContext() {
         return {
-
+            profile: {
+                id: this.#profile.id,
+                name: this.#profile.name,
+                job: this.#profile.job,
+                education: this.#profile.education,
+                aboutMe: this.#profile.aboutMe,
+                linkImages: this.#profile.linkImages,
+                age: this.#profile.age,
+            },
+            chats: {
+                // TODO: допилить чаты
+            },
+            feed: {
+                feed: this.#feed.userList,
+            }
         };
     }
 

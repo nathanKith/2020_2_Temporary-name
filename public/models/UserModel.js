@@ -109,7 +109,7 @@ export class UserModel {
     }
 
     #fillUserData(data) {
-        this.#id = data['account_id'];
+        this.#id = data['id'];
         this.#telephone = data['telephone'];
         this.#education = data['education'];
         this.#job = data['job'];
@@ -117,7 +117,7 @@ export class UserModel {
         this.#sex = data['sex'];
         this.#linkImages = data['linkImages'];
         this.#name = data['name'];
-        this.#age = data['age'];
+        this.#age = data['date_birth'];
         this.#day = data['day'];
         this.#month = data['month'];
         this.#year = data['year'];

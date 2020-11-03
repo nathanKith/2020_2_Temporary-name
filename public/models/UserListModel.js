@@ -3,16 +3,20 @@ import {ajax} from '../modules/ajax';
 import {backend} from '../modules/url';
 
 export class UserListModel {
-    #userListModel
+    #userList
     #userListJson
 
     constructor() {
         this.#userListJson = null;
-        this.#userListModel = [];
+        this.#userList = [];
     }
 
     async update() {
         this.#getUsers();
+    }
+
+    get userList() {
+        return this.#userList;
     }
 
     async #getUsers() {
@@ -21,7 +25,7 @@ export class UserListModel {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /feed`);
                 }
-                this.#userListJson = responseObject;
+                this.#userListJson = responseObject['data'];
                 this.#parseJson();
             })
             .catch((err) => {
@@ -30,6 +34,9 @@ export class UserListModel {
     }
 
     #parseJson() {
-        // TODO: отладить с Андреем
+        this.#userListJson.forEach((userJson) => {
+            const user = new UserModel(userJson);
+            this.#userList.push(user);
+        });
     }
 }

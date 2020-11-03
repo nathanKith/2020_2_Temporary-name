@@ -31,6 +31,14 @@ class Backend {
         return this.#url + this.#api + '/login';
     }
 
+    get like() {
+        return this.#url + this.#api + '/like';
+    }
+
+    get dislike() {
+        return this.#url + this.#api + '/dislike';
+    }
+
     avatar = (name) => {
         return this.#url + name;
     }

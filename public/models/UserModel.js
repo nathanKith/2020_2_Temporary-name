@@ -16,20 +16,8 @@ export class UserModel {
     #linkImages
     #age
 
-    constructor() {
-        this.#id = null;
-        this.#name = null;
-        this.#telephone = null;
-        this.#password = null;
-        this.#day = null;
-        this.#month = null;
-        this.#year = null;
-        this.#sex = null;
-        this.#job = null;
-        this.#education = null;
-        this.#aboutMe = null;
-        this.#linkImages = null;
-        this.#age = null;
+    constructor(data = {}) {
+        this.#fillUserData(data)
     }
 
     get id() {
@@ -121,7 +109,7 @@ export class UserModel {
     }
 
     #fillUserData(data) {
-        this.#id = data['account_id'];
+        this.#id = data['id'];
         this.#telephone = data['telephone'];
         this.#education = data['education'];
         this.#job = data['job'];
@@ -129,31 +117,18 @@ export class UserModel {
         this.#sex = data['sex'];
         this.#linkImages = data['linkImages'];
         this.#name = data['name'];
-        this.#age = data['age'];
+        this.#age = data['date_birth'];
         this.#day = data['day'];
         this.#month = data['month'];
         this.#year = data['year'];
         this.#password = data['password'];
     }
 
-    async getMe() {
+    async update() {
         await ajax.get(backend.me)
             .then(({status, responseObject}) => {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /me`);
-                }
-                this.#fillUserData(responseObject);
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
-    }
-
-    async getFeed() {
-        await ajax.get(backend.feed)
-            .then(({status, responseObject}) => {
-                if (status === 401) {
-                    throw new Error(`${status} unauthorized: cannot get json on url /feed`);
                 }
                 this.#fillUserData(responseObject);
             })

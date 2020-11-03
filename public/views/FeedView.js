@@ -32,7 +32,7 @@ export class FeedView extends BaseView{
         feedSection.classList.add('feed-section');
         container.appendChild(feedSection);
 
-        const feed = new Feed(container);
+        const feed = new Feed(feedSection);
         feed.data = this._context['feed'];
         feed.render();
 
@@ -61,5 +61,13 @@ export class FeedView extends BaseView{
 
             chats.render();
         });
+    }
+
+    rerenderFeed() {
+        const feedSection = document.getElementsByClassName('feed-section');
+        feedSection[0].innerHTML = '';
+        const feed = new Feed(feedSection);
+        feed.data = this._context['feed'];
+        feed.render();
     }
 }

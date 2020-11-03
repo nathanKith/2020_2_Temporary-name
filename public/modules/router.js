@@ -13,7 +13,6 @@ export class Router {
 
     start = () => {
         const route = this.#routes.find((route) => {
-            console.log(route);
             return this.#getCurrentPath() === route.url;
         }, this);
 

@@ -5,7 +5,7 @@ import {Profile} from './components/Profile/Profile.js'
 import {Chats} from './components/Chats/Chats.js';
 import {Registration} from "./components/Registration/Registration.js";
 import {Authorization} from "./components/Authorization/Authorization.js";
-import ajax from './modules/ajax.js';
+import {ajax} from './modules/ajax.js';
 import {LandingController} from "./controllers/LandingController";
 import {LandingHeader} from "./components/LandingHeader/LandingHeader";
 import {RegistrationView} from "./views/RegistrationView";
@@ -49,7 +49,7 @@ const landingController = new LandingController(landingView);
 const registrationController = new RegistrationController(registrationView, regAuthModel);
 const authorizationController = new AuthorizationController(authorizationView, authorizationModel);
 
-let router = new Router();
+export const router = new Router();
 
 const doLanding = () => {
     landingController.control();
@@ -69,6 +69,7 @@ const doAuthorization = () => {
 router.add('/', doLanding);
 router.add('/signup', doRegistration);
 router.add('/login', doAuthorization);
+
 
 router.start();
 

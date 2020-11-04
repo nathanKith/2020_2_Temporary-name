@@ -33,6 +33,7 @@ class Backend {
         return this.#url + this.#api + '/login';
     }
 
+
     get chatId() {
         return this.#url + this.#api + '/chats/';
     }
@@ -43,6 +44,14 @@ class Backend {
 
     get websocket() {
         return this.#websocket + this.#api + '/entry';
+
+    get like() {
+        return this.#url + this.#api + '/like';
+    }
+
+    get dislike() {
+        return this.#url + this.#api + '/dislike';
+
     }
 
     avatar = (name) => {

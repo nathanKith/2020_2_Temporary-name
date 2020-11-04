@@ -9,6 +9,7 @@ export class LandingView extends BaseView {
     }
 
     render = () => {
+        this._app.classList.remove('registration-body-background');
         this._app.innerHTML = '';
         document.body.classList.add('landing-body-background');
 

@@ -1,11 +1,11 @@
 import {RegAuthModel} from "../models/RegAuthModel";
 import {RegistrationView} from "../views/RegistrationView";
-import {Router} from "../modules/router";
+import {router} from "../main";
 
 export class AuthorizationController {
     authorizationView
     authorizationModel
-    router
+
     constructor(authorizationView, authorizationModel) {
         this.authorizationModel = authorizationModel;
         this.authorizationView = authorizationView;
@@ -42,7 +42,7 @@ export class AuthorizationController {
             })
             .catch( (err) => {
                 console.log(err.message);
-                this.router.redirect('/');
+                router.redirect('/');
             })
         console.log(mes);
     }

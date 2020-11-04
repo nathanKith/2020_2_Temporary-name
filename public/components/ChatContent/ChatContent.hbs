@@ -1,0 +1,29 @@
+<div class="chats-logo">
+    <span>Сообщения</span>
+</div>
+<div class="chat__box" id="chat-box">
+    <div class="chat__box__top">
+        <div class="chat__box__top__left">
+            <div class="chat__box__top__left__avatar">
+                <img class="chat__box__top__left__avatar__photo" src="{{path_photo}}" alt="./img/pretty-girl.svg">
+            </div>
+            <span class="chat__box__top__left__name">{{nameUser}}</span>
+        </div>
+        <div class="chat__box__top__right">
+            <button type="button" class="chat__box__top__right__button">
+                <img src="./img/left_arrow_white.svg"/>
+            </button>
+        </div>
+    </div>
+    <div class="chat__box__text-area">
+        <div class="chat__box__inner-text-area" id="chat-box-text-area">
+
+        </div>
+    </div>
+    <div class="chat__box__message-box">
+        <textarea class="chat__box__message-box__message chat__box__message-box__message__font" placeholder="Сообщение" id="message"></textarea>
+        <button type="button" class="chat__box__message-box__message__send" id="send">
+            <img class="chat__box__message-box__message__send__but" src="./img/send.svg"/>
+        </button>
+    </div>
+</div>

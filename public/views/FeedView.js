@@ -44,6 +44,7 @@ export class FeedView extends BaseView{
         container.appendChild(profileChatSection);
 
         const chats = new Chats(profileChatSection);
+        chats.data = this._context['chats'];
         chats.render();
 
         profileButton.addEventListener('click', (evt) => {

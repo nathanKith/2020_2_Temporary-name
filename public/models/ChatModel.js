@@ -4,6 +4,7 @@ import {backend} from "../modules/url";
 import {ChatMyMessage} from "../components/ChatContent/ChatMyMessage.hbs";
 
 export class ChatModel {
+    #user_id
     #partner
     #id
     #messages
@@ -11,6 +12,10 @@ export class ChatModel {
 
     constructor(data = {}) {
         this.#fillChatData(data);
+    }
+
+    set user_id(user) {
+        this.#user_id = user;
     }
 
     get partner() {
@@ -38,6 +43,7 @@ export class ChatModel {
     }
 
     #fillChatData(data) {
+        this.#user_id = null;
         this.#id = data['id'];
         this.#partner = new UserModel(data['partner']);
         this.#messages = data['messages'];
@@ -45,8 +51,9 @@ export class ChatModel {
 
     listenerSend(message, delivery) {
         const mes = {
-            message_text: message,
-            time_delivery: delivery,
+            user_id: this.#user_id,
+            message: message,
+            timeDelivery: delivery,
         }
         this.#websocket.send(JSON.stringify(mes));
     }

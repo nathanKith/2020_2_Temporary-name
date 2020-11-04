@@ -9,12 +9,16 @@ import {backend} from "../../modules/url";
 export class ChatContent {
     #parent
     chatModel
-    constructor(parent) {
+    constructor(parent, chatModel) {
         this.#parent = parent;
+        this.chatModel = chatModel;
         this.chatModel.websocket = new WebSocket(backend.websocket);
+        this.chatModel.update();
     }
     render = () => {
-        // this.chatModel.update();
+        this.#parent.innerHTML = '';
+
+
         this.#parent.insertAdjacentElement('beforeend', new ChatContentHbs(
             {
                 path_photo: this.chatModel.partner().linkImages[0],

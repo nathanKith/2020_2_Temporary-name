@@ -1,5 +1,6 @@
 import {RegAuthModel} from "../models/RegAuthModel";
 import {RegistrationView} from "../views/RegistrationView";
+import {router} from "../main";
 
 export class RegistrationController {
     RegAuthModel
@@ -34,10 +35,12 @@ export class RegistrationController {
         console.log(mes);
 
         await model.registration(document.getElementById('form-photo'))
+            .then( () => {
+                router.redirect('/login');
+            } )
             .catch( (err) => {
                 console.log(err.message);
-                const endButton = document.getElementById('end');
-                endButton.href = '/';
+                router.redirect('/');
                 //redirect
             })
         console.log(mes);

@@ -9,11 +9,11 @@ export class FeedController {
 
     #currentUserFeed
 
-    constructor(feedView, userModel, feedListModel, chatModel) {
+    constructor(feedView, userModel, feedListModel, chatListModel) {
         this.#view = feedView;
         this.#profile = userModel;
         this.#feed = feedListModel;
-        this.#chats = chatModel;
+        this.#chats = chatListModel;
 
         this.#currentUserFeed = 0;
     }
@@ -37,6 +37,8 @@ export class FeedController {
             },
             chats: {
                 // TODO: допилить чаты
+                chats: this.#chats.chatList,
+                user_id: this.#profile.id,
             },
             feed: {
                 feed: this.#feed.userList[this.#currentUserFeed],

@@ -39,6 +39,7 @@ export class AuthorizationController {
         await model.authorization()
             .then( () => {
                 //redirect on feed
+                router.redirect('/feed');
             })
             .catch( (err) => {
                 console.log(err.message);

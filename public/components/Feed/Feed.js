@@ -1,4 +1,5 @@
 import {backend} from "../../modules/url";
+import './Feed.css';
 
 export class Feed {
     #parent
@@ -17,6 +18,7 @@ export class Feed {
 
     // прокинут feed-section
     render = () => {
+        console.log(this.#data);
         const div = document.createElement('div');
         div.classList.add('inner-feed-section');
 
@@ -28,8 +30,8 @@ export class Feed {
         div.appendChild(this.#createReactionButton());
 
         const buttons = document.getElementsByClassName('reaction-button');
-        buttons[1].addEventListener(this.#data.dislike.type, this.#data.dislike.listener);
-        buttons[2].addEventListener(this.#data.like.type, this.#data.like.listener);
+        buttons[1].addEventListener(this.#data.event.dislike.type, this.#data.event.dislike.listener);
+        buttons[2].addEventListener(this.#data.event.like.type, this.#data.event.like.listener);
     }
 
     #createPreviousNextPhoto = () => {
@@ -49,7 +51,7 @@ export class Feed {
         buttonPrev.innerHTML = '';
         buttonNext.innerHTML = '';
 
-        if (this.#data.linkImages.length > 1) {
+        if (this.#data.feed.linkImages.length > 1) {
             buttonNext.innerHTML = `<img src="./../../img/button-next.svg" />`;
         }
 
@@ -57,13 +59,13 @@ export class Feed {
 
         buttonNext.addEventListener('click', (evt) => {
             this.#currentPhoto++;
-            if (this.#currentPhoto === this.#data.linkImages.length - 1) {
+            if (this.#currentPhoto === this.#data.feed.linkImages.length - 1) {
                 buttonNext.innerHTML = '';
             }
             buttonPrev.innerHTML = `<img class="inner-prev-photo" src="./../../img/button-next.svg">`;
             document.getElementById(`cell-${this.#currentPhoto - 1}`).classList.remove('cell-on');
             document.getElementById(`cell-${this.#currentPhoto}`).classList.add('cell-on');
-            img.src = backend.avatar(this.#data.linkImages[this.#currentPhoto]);
+            img.src = backend.avatar(this.#data.feed.linkImages[this.#currentPhoto]);
         });
 
         buttonPrev.addEventListener('click', (evt) => {
@@ -74,7 +76,7 @@ export class Feed {
             buttonNext.innerHTML = `<img src="./../../img/button-next.svg"/>`;
             document.getElementById(`cell-${this.#currentPhoto + 1}`).classList.remove('cell-on');
             document.getElementById(`cell-${this.#currentPhoto}`).classList.add('cell-on');
-            img.src = backend + this.#data.linkImages[this.#currentPhoto];
+            img.src = backend + this.#data.feed.linkImages[this.#currentPhoto];
         });
 
         next.appendChild(buttonNext);
@@ -113,7 +115,7 @@ export class Feed {
     #createPhotosCell = () => {
         const div = this.#createDiv('photos-cell');
 
-        for (let i = 0; i < this.#data.linkImages.length; ++i) {
+        for (let i = 0; i < this.#data.feed.linkImages.length; ++i) {
             const cell = this.#createDiv('cell');
             cell.id = `cell-${i}`;
             div.appendChild(cell);
@@ -129,16 +131,16 @@ export class Feed {
 
         const currentImg = document.createElement('img');
         currentImg.id = 'feedAvatar';
-        currentImg.src = backend + this.#data.linkImages[0];
+        currentImg.src = backend + this.#data.feed.linkImages[0];
         div.appendChild(currentImg);
 
         const profileInfo = this.#createDiv('profile-information');
         profileInfo.appendChild(this.#createSpan(
             'name',
-            `${this.#data.name} <span id="age">${this.#data.age}</span>`
+            `${this.#data.feed.name} <span id="age">${this.#data.feed.age}</span>`
         ));
-        profileInfo.appendChild(this.#createSpan('university-work', `${this.#data.education === '' ? this.#data.job : this.#data.education}`));
-        profileInfo.appendChild(this.#createSpan('about-me', `${this.#data.aboutMe}`));
+        profileInfo.appendChild(this.#createSpan('university-work', `${this.#data.feed.education === '' ? this.#data.feed.job : this.#data.feed.education}`));
+        profileInfo.appendChild(this.#createSpan('about-me', `${this.#data.feed.aboutMe}`));
         div.appendChild(profileInfo);
 
         const infoLogo = this.#createDiv('information-logo');

@@ -47,6 +47,7 @@ export class RegAuthModel extends UserModel{
                     // feedPage();
                 } else {
                     alert('Такого пользователя не существует');
+                    throw new Error(`${status} error auth: have not this user`);
                 }
             })
             // .catch((err) => {
@@ -163,7 +164,7 @@ export class RegAuthModel extends UserModel{
                             });
                             console.log(photo_name);
                         } else {
-                            photo_name = throw new Error(`${status} error upload: cannot upload file on back`);
+                          throw new Error(`${status} error upload: cannot upload file on back`);
                         }
                         return photo_name;
                     }).then ( (photo_name) => {
@@ -171,7 +172,7 @@ export class RegAuthModel extends UserModel{
                     console.log(link_photo + photo_name.replace('"', ''));
                     const photoAdd = {
                         telephone: this.telephone,
-                        link_image: link_photo + photo_name.replace('"', ''),
+                        linkImages: link_photo + photo_name.replace('"', ''), 
                     }
                     ajax.post(backend.addPhoto, photoAdd)
                         .then(({status, responseObject}) => {

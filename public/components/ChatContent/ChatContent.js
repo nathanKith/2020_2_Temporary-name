@@ -2,7 +2,7 @@ import {ChatContentHbs} from './ChatContent.hbs'
 import {ChatMyMessage} from './ChatMyMessage.hbs'
 import {ChatModel} from "../../models/ChatModel";
 import {ChatOtherMessage} from './ChatOtherMessage.hbs'
-import './styles.css'
+import './ChatContent.css';
 import {backend} from "../../modules/url";
 
 //parent = profile-chat-section

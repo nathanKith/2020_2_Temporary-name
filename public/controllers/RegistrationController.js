@@ -37,7 +37,7 @@ export class RegistrationController {
         await model.registration(document.getElementById('form-photo'))
             .then( () => {
                 router.redirect('/login');
-            } )
+            })
             .catch( (err) => {
                 console.log(err.message);
                 router.redirect('/');

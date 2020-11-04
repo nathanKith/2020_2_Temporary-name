@@ -4,6 +4,7 @@ require("babel-polyfill");
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const path = require('path');
 
 module.exports = {
     plugins: [
@@ -27,7 +28,7 @@ module.exports = {
     ],
     entry: ['babel-polyfill','/public/main.js'],
     output: {
-        filename: 'bundle.js'
+        filename: 'bundle.js',
     },
     module: {
         rules:  [

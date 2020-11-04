@@ -20,9 +20,11 @@ export class Chats {
         const listChats = this.#createDiv('list-chats');
         const innerListChats = this.#createDiv('inner-list-chats');
 
-        this.#data.chats.forEach( (chat) => {
-            innerListChats.appendChild(this.#createChat(chat));
-        } );
+        if(this.#data.chats){
+            this.#data.chats.forEach( (chat) => {
+                innerListChats.appendChild(this.#createChat(chat));
+            } );
+        }
         // for (let i = 0; i < 10; ++i) {
         //     innerListChats.appendChild(this.#createChat());
         // }

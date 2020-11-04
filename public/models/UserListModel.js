@@ -12,11 +12,11 @@ export class UserListModel {
     }
 
     async update() {
-        this.#getUsers();
+        await this.#getUsers();
     }
 
     get userList() {
-        return this.#userList;
+        return this.#userList;   
     }
 
     async #getUsers() {
@@ -25,7 +25,7 @@ export class UserListModel {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /feed`);
                 }
-                this.#userListJson = responseObject['data'];
+                this.#userListJson = responseObject['user_feed'];
                 this.#parseJson();
             })
             .catch((err) => {

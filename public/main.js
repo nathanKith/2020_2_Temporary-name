@@ -82,7 +82,7 @@ const doFeed = () => {
 router.add('/', doLanding);
 router.add('/signup', doRegistration);
 router.add('/login', doAuthorization);
-router.add('/feed', doFeed());
+router.add('/feed', doFeed);
 
 
 router.start();

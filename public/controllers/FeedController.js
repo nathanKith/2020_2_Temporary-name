@@ -84,8 +84,15 @@ export class FeedController {
     }
 
     async control() {
-        await this.update();
-        this.#view.context = this.#makeContext();
-        this.#view.render();
+        // try {
+            await this.update()
+            .then(() => {
+                this.#view.context = this.#makeContext();
+                this.#view.render();
+            });
+
+        // } catch (err) {
+        //     console.log(err.message);
+        // }
     }
 }

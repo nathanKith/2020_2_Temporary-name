@@ -8,11 +8,10 @@ import {backend} from "../../modules/url";
 //parent = profile-chat-section
 export class ChatContent {
     #parent
-    #websocket
     chatModel
     constructor(parent) {
         this.#parent = parent;
-        this.#websocket = new WebSocket(backend.websocket);
+        this.chatModel.websocket = new WebSocket(backend.websocket);
     }
     render = () => {
         // this.chatModel.update();
@@ -49,7 +48,7 @@ export class ChatContent {
         //     message_text: 'Hei, wanna bang?',
         //     time_delivery: '7:27',
         // }));
-        this.#websocket.onmessage = ( ({data}) => {
+        this.chatModel.websocket.onmessage = ( ({data}) => {
             messages.insertAdjacentElement('beforeend',new ChatOtherMessage({
                 message_text: data.message,
                 time_delivery: data.timeDelivery,
@@ -58,16 +57,15 @@ export class ChatContent {
 
         const button = document.getElementById('send');
         button.addEventListener('click', (evt) => {
+            if (!this.chatModel.validationMessage(document.getElementById('message').value)) {
+                return;
+            }
             const delivery = (new Date()).toString();
             messages.insertAdjacentElement('beforeend', new ChatMyMessage({
                 message_text: document.getElementById('message').value,
                 time_delivery: delivery,
             }));
-            const mes = {
-                message_text: document.getElementById('message').value,
-                time_delivery: delivery,
-            }
-            this.#websocket.send(mes);
+            this.chatModel.listenerSend( document.getElementById('message').value, delivery);
         })
 
     }

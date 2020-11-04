@@ -1,11 +1,14 @@
 import {UserModel} from "./UserModel";
 import {ajax} from "../modules/ajax";
 import {backend} from "../modules/url";
+import {ChatMyMessage} from "../components/ChatContent/ChatMyMessage.hbs";
 
 export class ChatModel {
     #partner
     #id
     #messages
+    #websocket
+
     constructor(data = {}) {
         this.#fillChatData(data);
     }
@@ -16,6 +19,10 @@ export class ChatModel {
 
     get messages() {
         return this.#messages;
+    }
+
+    get websocket() {
+        return this.#websocket;
     }
 
     async update() {
@@ -34,6 +41,18 @@ export class ChatModel {
         this.#id = data['id'];
         this.#partner = new UserModel(data['partner']);
         this.#messages = data['messages'];
+    }
+
+    listenerSend(message, delivery) {
+        const mes = {
+            message_text: message,
+            time_delivery: delivery,
+        }
+        this.#websocket.send(JSON.stringify(mes));
+    }
+
+    validationMessage(message) {
+        return message.replace(/ /g, '') ? null : message;
     }
 }
 // const chat = {

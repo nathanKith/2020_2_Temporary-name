@@ -1,4 +1,5 @@
 import {LandingHeader} from "../LandingHeader/LandingHeader";
+import './ProfileChatIcon.css';
 
 export class ProfileChatIcon {
     #parent

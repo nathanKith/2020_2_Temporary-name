@@ -1,3 +1,5 @@
+import './styles.css';
+
 import {LandingView} from './views/LandingView';
 import {Feed} from './components/Feed/Feed.js';
 import {ProfileChatIcon} from './components/ProfileChatIcon/ProfileChatIcon.js'
@@ -14,6 +16,11 @@ import {RegAuthModel} from "./models/RegAuthModel";
 import {RegistrationController} from "./controllers/RegistrationController";
 import {AuthorizationView} from "./views/AuthorizationView";
 import {AuthorizationController} from "./controllers/AuthorizationController";
+import {FeedView} from "./views/FeedView";
+import {UserModel} from "./models/UserModel";
+import {UserListModel} from "./models/UserListModel";
+import {ChatListModel} from "./models/ChatListModel";
+import {FeedController} from "./controllers/FeedController";
 
 const application = document.querySelector('#application');
 //
@@ -41,13 +48,18 @@ const application = document.querySelector('#application');
 const landingView = new LandingView(application);
 const registrationView = new RegistrationView(application);
 const authorizationView = new AuthorizationView(application);
+const feedView = new FeedView(application);
 
 const regAuthModel = new RegAuthModel();
 const authorizationModel = new RegAuthModel();
+const userModel = new UserModel();
+const userListModel = new UserListModel();
+const chatListModel = new ChatListModel();
 
 const landingController = new LandingController(landingView);
 const registrationController = new RegistrationController(registrationView, regAuthModel);
 const authorizationController = new AuthorizationController(authorizationView, authorizationModel);
+const feedController = new FeedController(feedView, userModel, userListModel, chatListModel);
 
 export const router = new Router();
 
@@ -60,8 +72,11 @@ const doRegistration = () => {
 }
 
 const doAuthorization = () => {
-    authorizationController.router = router;
     authorizationController.control();
+}
+
+const doFeed = () => {
+    feedController.control();
 }
 
 
@@ -69,6 +84,7 @@ const doAuthorization = () => {
 router.add('/', doLanding);
 router.add('/signup', doRegistration);
 router.add('/login', doAuthorization);
+router.add('/feed', doFeed);
 
 
 router.start();

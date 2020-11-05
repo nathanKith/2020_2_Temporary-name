@@ -44,7 +44,8 @@ class Backend {
 
     get websocket() {
         return this.#websocket + this.#api + '/entry';
-
+    }
+    
     get like() {
         return this.#url + this.#api + '/like';
     }

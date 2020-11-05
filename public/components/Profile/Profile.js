@@ -1,3 +1,5 @@
+import './Profile.css';
+
 export class Profile {
 
     #parent

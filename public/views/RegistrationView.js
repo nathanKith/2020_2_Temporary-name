@@ -18,6 +18,7 @@ export class RegistrationView extends BaseView {
     }
 
     renderBase = () => {
+        document.body.classList.add('landing-body-background');
         this._app.innerHTML = '';
         this._app.classList.add('registration-body-background');
 

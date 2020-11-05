@@ -67,6 +67,7 @@ export class Router {
         });
 
         window.addEventListener('popstate', () => {
+            console.log('')
             this.start();
         });
 

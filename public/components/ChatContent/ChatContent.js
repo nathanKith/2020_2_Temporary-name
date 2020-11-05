@@ -2,19 +2,23 @@ import {ChatContentHbs} from './ChatContent.hbs'
 import {ChatMyMessage} from './ChatMyMessage.hbs'
 import {ChatModel} from "../../models/ChatModel";
 import {ChatOtherMessage} from './ChatOtherMessage.hbs'
-import './styles.css'
+import './ChatContent.css';
 import {backend} from "../../modules/url";
 
 //parent = profile-chat-section
 export class ChatContent {
     #parent
     chatModel
-    constructor(parent) {
+    constructor(parent, chatModel) {
         this.#parent = parent;
+        this.chatModel = chatModel;
         this.chatModel.websocket = new WebSocket(backend.websocket);
+        this.chatModel.update();
     }
     render = () => {
-        // this.chatModel.update();
+        this.#parent.innerHTML = '';
+
+
         this.#parent.insertAdjacentElement('beforeend', new ChatContentHbs(
             {
                 path_photo: this.chatModel.partner().linkImages[0],

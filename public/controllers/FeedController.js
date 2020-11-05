@@ -9,11 +9,11 @@ export class FeedController {
 
     #currentUserFeed
 
-    constructor(feedView, userModel, feedListModel, chatModel) {
+    constructor(feedView, userModel, feedListModel, chatListModel) {
         this.#view = feedView;
         this.#profile = userModel;
         this.#feed = feedListModel;
-        this.#chats = chatModel;
+        this.#chats = chatListModel;
 
         this.#currentUserFeed = 0;
     }
@@ -37,6 +37,8 @@ export class FeedController {
             },
             chats: {
                 // TODO: допилить чаты
+                chats: this.#chats.chatList,
+                user_id: this.#profile.id,
             },
             feed: {
                 feed: this.#feed.userList[this.#currentUserFeed],
@@ -72,8 +74,15 @@ export class FeedController {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /like`);
                 }
-                this.#currentUserFeed++;
-                this.#view.context.feed.currentUserFeed = this.#currentUserFeed;
+
+                if (this.#currentUserFeed === this.#feed.userList.length - 1) {
+                    this.#currentUserFeed = 0;
+                    this.#feed.update();
+                } else {
+                    this.#currentUserFeed++;
+                }
+                
+                this.#view.context = this.#makeContext();
                 this.#view.rerenderFeed();
             })
             .catch((err) => {
@@ -82,8 +91,10 @@ export class FeedController {
     }
 
     async control() {
-        await this.update();
-        this.#view.context = this.#makeContext();
-        this.#view.render();
+        await this.update()
+            .then(() => {
+                this.#view.context = this.#makeContext();
+                this.#view.render();
+            });
     }
 }

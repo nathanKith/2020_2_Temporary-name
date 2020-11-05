@@ -1,5 +1,6 @@
 import {LandingHeader} from "../LandingHeader/LandingHeader";
 import {ChatContent} from "../ChatContent/ChatContent";
+import './Chats.css';
 
 export class Chats {
     #parent

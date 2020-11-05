@@ -19,9 +19,7 @@ export class AuthorizationController {
     }
 
     async listenerAuthorization(model) {
-        console.log('aaaa');
-        let mes;
-        mes = document.getElementById('mes');
+        const mes = document.getElementById('mes');
         const telephone = document.getElementById('number');
         if (!telephone.validity.valid) {
             mes.innerHTML = 'Неверно введен номер телефона';
@@ -32,10 +30,8 @@ export class AuthorizationController {
                                          document.getElementById('password').value);
         if (!result) {
             mes.innerHTML = message;
-            console.log(message);
             return false;
         }
-        console.log(mes);
         await model.authorization()
             .then( () => {
                 //redirect on feed
@@ -43,8 +39,8 @@ export class AuthorizationController {
             })
             .catch( (err) => {
                 console.log(err.message);
-                router.redirect('/');
+                mes.innerHTML = 'Неверный пароль';
+                // router.redirect('/');
             })
-        console.log(mes);
     }
 }

@@ -15,7 +15,7 @@ app.use(body.json());
 app.use(cookie());
 
 app.all('*', function(req, res, next) {
-    res.send(path.resolve(__dirname, '..', 'dist'));
+    res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
 });
 
 

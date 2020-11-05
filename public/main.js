@@ -1,3 +1,5 @@
+import './styles.css';
+
 import {LandingView} from './views/LandingView';
 import {Feed} from './components/Feed/Feed.js';
 import {ProfileChatIcon} from './components/ProfileChatIcon/ProfileChatIcon.js'

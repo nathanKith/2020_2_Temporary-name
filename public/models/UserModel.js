@@ -131,9 +131,19 @@ export class UserModel {
                     throw new Error(`${status} unauthorized: cannot get json on url /me`);
                 }
                 this.#fillUserData(responseObject);
+                this.#validateImages();
             })
             .catch((err) => {
                 console.log(err.message);
             });
+    }
+
+    #validateImages() {
+        this.#linkImages = this.#linkImages.map((link) => {
+            if (link.startsWith('.')) {
+                return link.substr(1);
+            }
+            return link;
+        });
     }
 }

@@ -52,16 +52,6 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
 }
 
-.settings {
-    position: relative;
-}
-
-.inner-settings {
-    position: absolute;
-    left: 20px;
-    top: 20px;
-}
-
 .feed-section {
     width: 67%;
     display: flex;

@@ -9,6 +9,6 @@ export class LandingContent {
     }
 
     render() {
-        this.#parent.innerHTML += landingContent();
+        this.#parent.insertAdjacentHTML('afterbegin', landingContent());
     }
 }

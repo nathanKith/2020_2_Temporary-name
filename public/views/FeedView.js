@@ -1,8 +1,9 @@
 import {BaseView} from './BaseView';
 import {Feed} from '../components/Feed/Feed';
 import {ProfileChatIcon} from "../components/ProfileChatIcon/ProfileChatIcon";
-import {Chats} from "../components/Chats/Chats";
-import {Profile} from "../components/Profile/Profile";
+import {Chats} from '../components/Chats/Chats';
+import {Profile} from '../components/Profile/Profile';
+import {Settings} from '../components/Settings/Settings';
 
 export class FeedView extends BaseView{
     constructor(app = document.getElementById('application')) {
@@ -25,8 +26,12 @@ export class FeedView extends BaseView{
 
         const settings = document.createElement('div');
         settings.classList.add('settings');
-        settings.innerHTML += `<a href="#"><img class="inner-settings" src="../img/configuration.svg"/></a>`;
+        settings.insertAdjacentHTML('afterbegin', `<div class="inner-settings"><img src="../img/configuration.svg"/></div>`);
         container.appendChild(settings);
+
+        settings
+            .getElementsByClassName('inner-settings')[0]
+            .addEventListener('click', this.#renderSettings.bind(this));
 
         const feedSection = document.createElement('div');
         feedSection.classList.add('feed-section');
@@ -62,6 +67,40 @@ export class FeedView extends BaseView{
 
             chats.render();
         });
+    }
+
+    #renderSettings(evt) {
+        console.log('aaaa');
+        evt.preventDefault();
+        document
+            .getElementsByClassName('inner-settings')[0]
+            .removeEventListener('click', this.#renderSettings);
+
+        const settingsDiv = document.getElementsByClassName('settings')[0];
+        settingsDiv.innerHTML = '';
+        const settings = new Settings(settingsDiv);
+        settings.data = this._context['settings'].settings;
+        settings.render();
+
+        document
+            .getElementsByClassName('inner-settings')[0]
+            .addEventListener('click', this.#renderBackSettings.bind(this));
+    }
+
+    #renderBackSettings(evt) {
+        console.log('aaaa22');
+        evt.preventDefault();
+        document
+            .getElementsByClassName('inner-settings')[0]
+            .removeEventListener('click', this.#renderBackSettings.bind(this));
+
+        const settingsDiv = document.getElementsByClassName('settings')[0];
+        settingsDiv.innerHTML = '';
+        settingsDiv.insertAdjacentHTML('afterbegin', `<div class="inner-settings"><img src="../img/configuration.svg"/></div>`);
+
+        document
+            .getElementsByClassName('inner-settings')[0]
+            .addEventListener('click', this.#renderSettings.bind(this));
     }
 
     rerenderFeed() {

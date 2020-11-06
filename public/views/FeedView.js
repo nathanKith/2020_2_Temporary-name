@@ -26,7 +26,7 @@ export class FeedView extends BaseView{
 
         const settings = document.createElement('div');
         settings.classList.add('settings');
-        settings.insertAdjacentHTML('afterbegin', `<div class="inner-settings"><img src="../img/configuration.svg"/></div>`);
+        settings.insertAdjacentHTML('afterbegin', `<div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>`);
         container.appendChild(settings);
 
         settings
@@ -70,11 +70,14 @@ export class FeedView extends BaseView{
     }
 
     #renderSettings(evt) {
-        console.log('aaaa');
         evt.preventDefault();
         document
             .getElementsByClassName('inner-settings')[0]
             .removeEventListener('click', this.#renderSettings);
+
+        document
+            .getElementsByClassName('feed-container')[0]
+            .classList.add('dark');
 
         const settingsDiv = document.getElementsByClassName('settings')[0];
         settingsDiv.innerHTML = '';
@@ -87,20 +90,33 @@ export class FeedView extends BaseView{
             .addEventListener('click', this.#renderBackSettings.bind(this));
     }
 
+    #popupRenderBackSettings(evt) {
+        evt.preventDefault();
+        if (evt.target.id === 'settings') {
+            return;
+        }
+        this.#renderSettings(evt);
+    }
+
     #renderBackSettings(evt) {
-        console.log('aaaa22');
         evt.preventDefault();
         document
             .getElementsByClassName('inner-settings')[0]
             .removeEventListener('click', this.#renderBackSettings.bind(this));
 
+        document
+            .getElementsByClassName('feed-container')[0]
+            .classList.remove('dark');
+
         const settingsDiv = document.getElementsByClassName('settings')[0];
         settingsDiv.innerHTML = '';
-        settingsDiv.insertAdjacentHTML('afterbegin', `<div class="inner-settings"><img src="../img/configuration.svg"/></div>`);
+        settingsDiv.insertAdjacentHTML('afterbegin', `<div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>`);
 
         document
             .getElementsByClassName('inner-settings')[0]
             .addEventListener('click', this.#renderSettings.bind(this));
+        
+        // document.addEventListener('click', this.#popupRenderBackSettings.bind(this));
     }
 
     rerenderFeed() {

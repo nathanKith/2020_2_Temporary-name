@@ -5,6 +5,7 @@
 
 .settings {
     position: relative;
+    z-index: 99;
 }
 
 .inner-settings {
@@ -12,6 +13,7 @@
     left: 20px;
     top: 20px;
     cursor: pointer;
+    z-index: 100;
 }
 
 .settings-open {

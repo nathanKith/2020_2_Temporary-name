@@ -52,6 +52,18 @@ export class FeedController {
                         listener: this.dislikeListener.bind(this),
                     }
                 }
+            },
+            settings: {
+                settings: {
+                    id:         this.#profile.id,
+                    telephone:  '928-709-58-32',
+                    name:       this.#profile.name,
+                    job:        this.#profile.job,
+                    education:  this.#profile.education,
+                    aboutMe:    this.#profile.aboutMe,
+                    linkImages: this.#profile.linkImages,
+                    age:        this.#profile.age,
+                }
             }
         };
     }

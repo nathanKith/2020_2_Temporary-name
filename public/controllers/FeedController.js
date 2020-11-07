@@ -106,6 +106,7 @@ export class FeedController {
         await this.update()
             .then(() => {
                 this.#view.context = this.#makeContext();
+                console.log(this.#view.context);
                 this.#view.render();
             });
     }

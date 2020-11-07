@@ -65,7 +65,7 @@ export class Feed {
             buttonPrev.innerHTML = `<img class="inner-prev-photo" src="./../../img/button-next.svg">`;
             document.getElementById(`cell-${this.#currentPhoto - 1}`).classList.remove('cell-on');
             document.getElementById(`cell-${this.#currentPhoto}`).classList.add('cell-on');
-            img.src = backend.avatar(this.#data.feed.linkImages[this.#currentPhoto]);
+            img.src = this.#data.feed.linkImages[this.#currentPhoto];
         });
 
         buttonPrev.addEventListener('click', (evt) => {
@@ -76,7 +76,7 @@ export class Feed {
             buttonNext.innerHTML = `<img src="./../../img/button-next.svg"/>`;
             document.getElementById(`cell-${this.#currentPhoto + 1}`).classList.remove('cell-on');
             document.getElementById(`cell-${this.#currentPhoto}`).classList.add('cell-on');
-            img.src = backend.avatar(this.#data.feed.linkImages[this.#currentPhoto]);
+            img.src = this.#data.feed.linkImages[this.#currentPhoto];
         });
 
         next.appendChild(buttonNext);
@@ -131,7 +131,7 @@ export class Feed {
 
         const currentImg = document.createElement('img');
         currentImg.id = 'feedAvatar';
-        currentImg.src = backend.avatar(this.#data.feed.linkImages[0]);
+        currentImg.src = this.#data.feed.linkImages[0];
         div.appendChild(currentImg);
 
         const profileInfo = this.#createDiv('profile-information');

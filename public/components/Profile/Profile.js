@@ -19,12 +19,12 @@ export class Profile {
         const innerDiv = this.#createDiv('inner-profile');
         div.appendChild(innerDiv);
 
-        innerDiv.innerHTML += `<img src="${backend.avatar(this.#data.linkImages[0].trim())}">`;
+        innerDiv.innerHTML += `<img src="${this.#data.linkImages[0].trim()}">`;
 
         const profileInfo = this.#createDiv('my-profile-information');
-        innerDiv.appendChild(profileInfo);
+        div.appendChild(profileInfo);
 
-        const nameAge = this.#createSpan('my-name', `${this.#data.name}  <span id="my-age">${this.#data.date_birth}</span>`);
+        const nameAge = this.#createSpan('my-name', `${this.#data.name}  <span id="my-age">${this.#data.age}</span>`);
         const universityWork = this.#createSpan('my-university-work', `${this.#data.education === '' ? this.#data.job : this.#data.education}`);
         const aboutMe = this.#createSpan('my-about-me', `${this.#data.aboutMe}`);
 

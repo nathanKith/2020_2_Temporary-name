@@ -108,6 +108,14 @@ export class UserModel {
         return this.#linkImages;
     }
 
+    get age() {
+        return this.#age;
+    }
+
+    set age(age) {
+        this.#age = age;
+    }
+
     #fillUserData(data) {
         this.#id = data['id'];
         this.#telephone = data['telephone'];
@@ -130,6 +138,7 @@ export class UserModel {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /me`);
                 }
+                console.log(responseObject);
                 this.#fillUserData(responseObject);
                 this.#validateImages();
             })

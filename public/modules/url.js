@@ -55,6 +55,14 @@ class Backend {
 
     }
 
+    get commentsById() {
+        return this.#url + this.#api + '/comments/';
+    }
+
+    get comment() {
+        return this.#url + this.#api + '/comment'
+    }
+
     avatar = (name) => {
         return this.#url + name;
     }

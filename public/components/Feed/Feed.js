@@ -144,6 +144,7 @@ export class Feed {
         div.appendChild(profileInfo);
 
         const infoLogo = this.#createDiv('information-logo');
+        infoLogo.id = 'information-logo';
 
         const link = document.createElement('a');
         link.href = '#';

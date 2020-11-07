@@ -27,7 +27,7 @@ export class CommentListModel {
                     throw new Error(`${status} error`);
                 }
                 this.#commentsListJson = responseObject['data'].comments;
-                 this.#parseJson();
+                this.#parseJson();
             } )
             .catch((err) => {
                 console.log(err.message);

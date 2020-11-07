@@ -118,7 +118,7 @@ export class FeedController {
             return;
         }
 
-        await ajax.post('/settings', data)
+        await ajax.post(backend.settings, data)
             .then(({status, responseObject}) => {
                 if (status === 400) {
                     throw new Error(`${status} settings error: bad request to server on /settings`);

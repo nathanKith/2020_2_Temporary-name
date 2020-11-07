@@ -57,6 +57,10 @@ class Backend {
         return this.#url + this.#api + '/logout';
     }
 
+    get settings() {
+        return this.#url + this.#api + '/settings';
+    }
+
     avatar = (name) => {
         return this.#url + name;
     }

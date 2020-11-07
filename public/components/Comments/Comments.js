@@ -20,19 +20,18 @@ export class Comments {
         this.#parent.insertAdjacentHTML('beforeend', CommentsHbs());
         const comments = document.getElementById('comments');
         this.#data.comments.forEach( (comment) => {
-            const user = this.#data.users.filter( (user) => user.id === comment.id )
             comments.insertAdjacentHTML('beforeend', CommentsComment({
                 commentText: comment.commentText,
-                avatar: user[0].linkImages[0],
-                name: user[0].name,
+                avatar: comment.user.linkImages[0],
+                name: comment.user.name,
                 timeDelivery: comment.timeDelivery,
             }));
-        } )
-
-
-
+        });
+        comments.insertAdjacentHTML('beforeend', CommentsSend());
     }
 }
+
+
 // {
 //     data: {
 //         comments: [

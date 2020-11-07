@@ -5,6 +5,7 @@ import './Chats.css';
 export class Chats {
     #parent
     #data
+    listenerBack
 
     constructor(parent) {
         this.#parent = parent;
@@ -65,6 +66,9 @@ export class Chats {
             const chatContent = new ChatContent(this.#parent, Chat);
             chatContent.chatModel.user_id = this.#data['user_id'];
             chatContent.render();
+            document
+                .getElementById('back')
+                .addEventListener('click', this.listenerBack);
         });
 
         return chat;

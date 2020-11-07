@@ -4,6 +4,7 @@ import {ChatModel} from "../../models/ChatModel";
 import ChatOtherMessage from './ChatOtherMessage.hbs'
 import './ChatContent.css';
 import {backend} from "../../modules/url";
+import {Chats} from "../Chats/Chats";
 
 //parent = profile-chat-section
 export class ChatContent {
@@ -41,19 +42,8 @@ export class ChatContent {
                 }
         });
 
-        // this.#parent.insertAdjacentElement('beforeend', new ChatContentHbs({path_photo: './img/pretty-girl.svg',
-        //     nameUser: 'Кайя'}));
-        //
-        // messages.insertAdjacentElement('beforeend', new ChatMyMessage({
-        //     message_text: 'Hei, pretty girl!',
-        //     time_delivery: '7:26'
-        // }));
-        // messages.insertAdjacentElement('beforeend',new ChatOtherMessage({
-        //     message_text: 'Hei, wanna bang?',
-        //     time_delivery: '7:27',
-        // }));
         this.chatModel.websocket.onmessage = ( ({data}) => {
-            messages.insertAdjacentElement('beforeend',new ChatOtherMessage({
+            messages.insertAdjacentHTML('beforeend',ChatOtherMessage({
                 message_text: data.message,
                 time_delivery: data.timeDelivery,
             }));
@@ -65,12 +55,13 @@ export class ChatContent {
                 return;
             }
             const delivery = (new Date()).toString();
-            messages.insertAdjacentElement('beforeend', new ChatMyMessage({
+            messages.insertAdjacentHTML('beforeend', ChatMyMessage({
                 message_text: document.getElementById('message').value,
                 time_delivery: delivery,
             }));
             this.chatModel.listenerSend( document.getElementById('message').value, delivery);
         })
+
 
     }
 }

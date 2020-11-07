@@ -1,7 +1,7 @@
-import {ChatContentHbs} from './ChatContent.hbs'
-import {ChatMyMessage} from './ChatMyMessage.hbs'
+import ChatContentHbs from './ChatContent.hbs'
+import ChatMyMessage from './ChatMyMessage.hbs'
 import {ChatModel} from "../../models/ChatModel";
-import {ChatOtherMessage} from './ChatOtherMessage.hbs'
+import ChatOtherMessage from './ChatOtherMessage.hbs'
 import './ChatContent.css';
 import {backend} from "../../modules/url";
 
@@ -19,22 +19,22 @@ export class ChatContent {
         this.#parent.innerHTML = '';
 
 
-        this.#parent.insertAdjacentElement('beforeend', new ChatContentHbs(
+        this.#parent.insertAdjacentHTML('beforeend', ChatContentHbs(
             {
-                path_photo: this.chatModel.partner().linkImages[0],
-                nameUser: this.chatModel.partner().name,
+                path_photo: this.chatModel.partner.linkImages[0],
+                nameUser: this.chatModel.partner.name,
             }));
 
         const messages = document.getElementById('chat-box-text-area');
 
         this.chatModel.messages.forEach( (message) => {
-                if (message.user_id === this.chatModel.partner().id) {
-                    messages.insertAdjacentElement('beforeend',new ChatOtherMessage({
+                if (message.user_id === this.chatModel.partner.id) {
+                    messages.insertAdjacentHTML('beforeend', ChatOtherMessage({
                         message_text: message.message,
                         time_delivery: message.timeDelivery,
                     }));
                 } else {
-                    messages.insertAdjacentElement('beforeend', new ChatMyMessage({
+                    messages.insertAdjacentHTML('beforeend', ChatMyMessage({
                         message_text: message.message,
                         time_delivery: message.timeDelivery,
                     }));

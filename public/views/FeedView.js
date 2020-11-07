@@ -82,7 +82,7 @@ export class FeedView extends BaseView{
         const settingsDiv = document.getElementsByClassName('settings')[0];
         settingsDiv.innerHTML = '';
         const settings = new Settings(settingsDiv);
-        settings.data = this._context['settings'].settings;
+        settings.data = this._context['settings'];
         settings.render();
 
         document
@@ -120,8 +120,8 @@ export class FeedView extends BaseView{
     }
 
     rerenderFeed() {
-        const feedSection = document.getElementsByClassName('feed-section');
-        feedSection[0].innerHTML = '';
+        const feedSection = document.getElementsByClassName('feed-section')[0];
+        feedSection.innerHTML = '';
         const feed = new Feed(feedSection);
         feed.data = this._context['feed'];
         feed.render();

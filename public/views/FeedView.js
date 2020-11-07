@@ -98,6 +98,23 @@ export class FeedView extends BaseView{
         this.#renderSettings(evt);
     }
 
+    rerenderSettings() {
+        const err = document.getElementById('error');
+        err.innerText = this._context['settings'].validate.passwords.message;
+    }
+
+    getSettingsData() {
+        return {
+            telephone: document.getElementById('account-tel').value,
+            password: document.getElementById('password').value,
+            repeatPassword: document.getElementById('repeat-password').value,
+            name: document.getElementById('settings-name').value,
+            education: document.getElementById('education').value,
+            job: document.getElementById('job').value,
+            aboutMe: document.getElementById('aboutMe').value,
+        };
+    }
+
     #renderBackSettings(evt) {
         evt.preventDefault();
         document

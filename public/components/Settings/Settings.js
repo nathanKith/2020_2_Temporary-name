@@ -15,5 +15,12 @@ export class Settings {
 
     render() {
         this.#parent.insertAdjacentHTML('afterbegin', settingsTemplate(this.#data.settings));
+
+        document
+            .getElementById('save-button')
+            .addEventListener(this.#data.event.save.type, this.#data.event.save.listener);
+        document
+            .getElementById('logout')
+            .addEventListener(this.#data.event.logout.type, this.#data.event.logout.listener);
     }
 }

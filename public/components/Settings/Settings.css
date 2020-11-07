@@ -126,7 +126,22 @@ textarea {
 
 .logout {
     color: #f24e6a;
-    text-decoration: none;
+    background-color: white;
+    font-family: Montserrat-Semibold;
+    font-size: 20px;
+    outline: none;
+    border: none;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.error {
+    color: #f24e6a;
+    font-family: Montserrat-Semibold;
+    font-size: 20px;
+    width: 100%;
+    height: 100%;
 }
 
 .save-button {

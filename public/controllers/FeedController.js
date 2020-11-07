@@ -1,5 +1,6 @@
 import {ajax} from '../modules/ajax';
 import {backend} from '../modules/url';
+import {router} from "../main";
 
 export class FeedController {
     #view
@@ -56,13 +57,28 @@ export class FeedController {
             settings: {
                 settings: {
                     id:         this.#profile.id,
-                    telephone:  '928-709-58-32',
+                    telephone:  this.#profile.telephone,
                     name:       this.#profile.name,
                     job:        this.#profile.job,
                     education:  this.#profile.education,
                     aboutMe:    this.#profile.aboutMe,
                     linkImages: this.#profile.linkImages,
                     age:        this.#profile.age,
+                },
+                event: {
+                    logout: {
+                        type: 'click',
+                        listener: this.logoutListener.bind(this),
+                    },
+                    save: {
+                        type: 'click',
+                        listener: this.editUserListener.bind(this),
+                    }
+                },
+                validate: {
+                    passwords: {
+                        message: '',
+                    }
                 }
             }
         };
@@ -76,6 +92,44 @@ export class FeedController {
     async dislikeListener(evt) {
         evt.preventDefault();
         await this.#likeDislikeAjax(backend.dislike);
+    }
+
+    async logoutListener(evt) {
+        evt.preventDefault();
+        await ajax.post(backend.logout, {})
+            .then(({status, responseObject}) => {
+                if (status === 500 || status === 401) {
+                    throw new Error(`${status} logout error`);
+                }
+                router.redirect('/');
+            })
+            .catch((err) => {
+                console.log(err.message);
+                router.redirect('/');
+            });
+    }
+
+    async editUserListener(evt) {
+        evt.preventDefault();
+        const data = this.#view.getSettingsData();
+        if (data.password !== data.repeatPassword) {
+            this.#view.context.settings.validate.passwords.message = 'Пароли не совпадают';
+            this.#view.rerenderSettings();
+            return;
+        }
+
+        await ajax.post('/settings', data)
+            .then(({status, responseObject}) => {
+                if (status === 400) {
+                    throw new Error(`${status} settings error: bad request to server on /settings`);
+                }
+                if (status === 401) {
+                    throw new Error(`${status} unauthorized: cannot post json on /settings`);
+                }
+            })
+            .catch((err) => {
+                console.log()
+            });
     }
 
     async #likeDislikeAjax(url) {

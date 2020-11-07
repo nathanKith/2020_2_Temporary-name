@@ -54,7 +54,7 @@ export class Chats {
                                 ${Chat.messages[Chat.messages.length - 1].timeDelivery}</span>`;
         information.appendChild(nameTime);
         const lastMessage = this.#createDiv('last-message');
-        lastMessage.innerHTML = `<span id="last-message">${Chat.messages[Chat.messages.length - 1]}</span>`;
+        lastMessage.innerHTML = `<span id="last-message">${Chat.messages[Chat.messages.length - 1].message}</span>`;
         information.appendChild(lastMessage);
 
         chat.appendChild(avatar);
@@ -62,9 +62,9 @@ export class Chats {
 
         chat.addEventListener('click', (evt) => {
             evt.preventDefault();
-            const ChatContent = new ChatContent(this.#parent, Chat);
-            ChatContent.chatModel.user_id = this.#data['user_id'];
-            ChatContent.render();
+            const chatContent = new ChatContent(this.#parent, Chat);
+            chatContent.chatModel.user_id = this.#data['user_id'];
+            chatContent.render();
         });
 
         return chat;

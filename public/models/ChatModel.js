@@ -30,6 +30,10 @@ export class ChatModel {
         return this.#websocket;
     }
 
+    set websocket(websocket) {
+        this.#websocket = websocket;
+    }
+
     async update() {
         await ajax.get(backend.chatId + this.#id)
             .then( ({status,responseObject}) => {

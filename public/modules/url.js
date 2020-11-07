@@ -57,6 +57,9 @@ class Backend {
         return this.#url + this.#api + '/logout';
     }
 
+    get settings() {
+        return this.#url + this.#api + '/settings';
+    }
     get commentsById() {
         return this.#url + this.#api + '/comments/';
     }

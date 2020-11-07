@@ -49,6 +49,7 @@ export class FeedView extends BaseView{
         container.appendChild(profileChatSection);
 
         const chats = new Chats(profileChatSection);
+        chats.listenerBack = this.#renderBackChats.bind(this);
         chats.data = this._context['chats'];
         chats.render();
 
@@ -65,6 +66,7 @@ export class FeedView extends BaseView{
             profileChatSection.innerHTML = '';
             feedSection.classList.remove('dark');
 
+            chats.data = this._context['chats'];
             chats.render();
         });
     }
@@ -134,6 +136,15 @@ export class FeedView extends BaseView{
             .addEventListener('click', this.#renderSettings.bind(this));
         
         // document.addEventListener('click', this.#popupRenderBackSettings.bind(this));
+    }
+
+    #renderBackChats() {
+        const profileChatSection = document
+            .getElementsByClassName('profile-chat-section')[0];
+        profileChatSection.innerHTML = '';
+        const chats = new Chats(profileChatSection);
+        chats.data = this._context['chats'];
+        chats.render();
     }
 
     rerenderFeed() {

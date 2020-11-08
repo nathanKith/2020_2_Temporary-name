@@ -13,11 +13,13 @@ export class Chats {
 
     set data(data) {
         this.#data = data;
+        console.log('сеттер data chats');
+        console.log(this.#data);
     }
 
     render() {
         const logo = this.#createDiv('chats-logo');
-        logo.innerHTML = `<span>Сообщения</span>`;
+        logo.insertAdjacentHTML('afterbegin', `<span>Сообщения</span>`);
 
         const listChats = this.#createDiv('list-chats');
         const innerListChats = this.#createDiv('inner-list-chats');
@@ -38,12 +40,14 @@ export class Chats {
     }
 
     #createChat = (Chat) => {
+        console.log('метод createChat');
+        console.log(Chat);
         const chat = document.createElement('a');
         chat.href = '#';
         chat.classList.add('chat');
 
         const avatar = this.#createDiv('chat-avatar');
-        avatar.innerHTML = `<img class="chat-avatar-photo" src="${Chat.partner.linkImages[0]}">`;
+        avatar.insertAdjacentHTML('afterbegin', `<img class="chat-avatar-photo" src="${Chat.partner.linkImages[0]}">`);
         // const numberMessage = this.#createDiv('message-number');
         // numberMessage.id = 'message-number';
         // numberMessage.innerHTML = `<div class="inner-message-number">3</div>`;
@@ -51,18 +55,19 @@ export class Chats {
 
         const information = this.#createDiv('chat-info');
         const nameTime = this.#createDiv('name-time');
-        nameTime.innerHTML = `<span id="name-chat">${Chat.partner.name}</span><span id="time-chat">
-                                ${Chat.messages[Chat.messages.length - 1].timeDelivery}</span>`;
+        nameTime.insertAdjacentHTML('afterbegin', `<span id="name-chat">${Chat.partner.name}</span><span id="time-chat">${Chat.messages[Chat.messages.length - 1].timeDelivery}</span>`);
         information.appendChild(nameTime);
         const lastMessage = this.#createDiv('last-message');
-        lastMessage.innerHTML = `<span id="last-message">${Chat.messages[Chat.messages.length - 1].message}</span>`;
+        lastMessage.insertAdjacentHTML('afterbegin', `<span id="last-message">${Chat.messages[Chat.messages.length - 1].message}</span>`);
         information.appendChild(lastMessage);
 
         chat.appendChild(avatar);
         chat.appendChild(information);
 
-        chat.addEventListener('click', (evt) => {
+        chat.addEventListener('click', async (evt) => {
             evt.preventDefault();
+            this.#parent.innerHTML = '';
+            await Chat.update();
             const chatContent = new ChatContent(this.#parent, Chat);
             chatContent.chatModel.user_id = this.#data['user_id'];
             chatContent.render();

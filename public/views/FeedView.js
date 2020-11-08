@@ -156,9 +156,11 @@ export class FeedView extends BaseView{
         // document.addEventListener('click', this.#popupRenderBackSettings.bind(this));
     }
 
-    #renderBackChats() {
+    #renderBackChats(evt) {
+        evt.preventDefault();
         const profileChatSection = document
             .getElementsByClassName('profile-chat-section')[0];
+
         profileChatSection.innerHTML = '';
         const chats = new Chats(profileChatSection);
         chats.data = this._context['chats'];

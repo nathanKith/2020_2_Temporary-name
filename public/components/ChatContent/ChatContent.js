@@ -19,7 +19,6 @@ export class ChatContent {
     render = () => {
         this.#parent.innerHTML = '';
 
-
         this.#parent.insertAdjacentHTML('beforeend', ChatContentHbs(
             {
                 path_photo: this.chatModel.partner.linkImages[0],

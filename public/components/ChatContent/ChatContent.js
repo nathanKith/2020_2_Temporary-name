@@ -13,8 +13,8 @@ export class ChatContent {
     constructor(parent, chatModel) {
         this.#parent = parent;
         this.chatModel = chatModel;
-        this.chatModel.websocket = new WebSocket(backend.websocket);
-        this.chatModel.update();
+        // this.chatModel.WebSocket();
+        // this.chatModel.update();
     }
     render = () => {
         this.#parent.innerHTML = '';
@@ -26,7 +26,8 @@ export class ChatContent {
             }));
 
         const messages = document.getElementById('chat-box-text-area');
-
+            
+        if (this.chatModel.messages) {
         this.chatModel.messages.forEach( (message) => {
                 if (message.user_id === this.chatModel.partner.id) {
                     messages.insertAdjacentHTML('beforeend', ChatOtherMessage({
@@ -40,20 +41,23 @@ export class ChatContent {
                     }));
                 }
         });
+        }
 
         this.chatModel.websocket.onmessage = ( ({data}) => {
-            messages.insertAdjacentHTML('beforeend',ChatOtherMessage({
-                message_text: data.message,
-                time_delivery: data.timeDelivery,
+            const dataJSON = JSON.parse(data);
+            messages.insertAdjacentHTML('beforeend', ChatOtherMessage({
+                message_text: dataJSON.message,
+                time_delivery: dataJSON.timeDelivery,
             }));
         });
 
         const button = document.getElementById('send');
         button.addEventListener('click', (evt) => {
+            console.log(this.chatModel.validationMessage(document.getElementById('message').value));
             if (!this.chatModel.validationMessage(document.getElementById('message').value)) {
                 return;
             }
-            const delivery = (new Date()).toString();
+            const delivery = (new Date().getHours() + ':' + new Date().getMinutes()).toString();
             messages.insertAdjacentHTML('beforeend', ChatMyMessage({
                 message_text: document.getElementById('message').value,
                 time_delivery: delivery,

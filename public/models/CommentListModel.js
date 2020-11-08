@@ -37,6 +37,7 @@ export class CommentListModel {
     }
 
     #parseJson() {
+        this.#commentsList = [];
         this.#commentsListJson.forEach((commentJson) => {
             const comment = new CommentModel(commentJson);
             this.#commentsList.push(comment);

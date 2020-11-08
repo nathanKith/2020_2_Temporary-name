@@ -31,12 +31,11 @@
 
 .my-profile-information {
     color: white;
-    /* width: 80%; */
+    width: 75%;
     font-family: Montserrat-Semibold;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 5%;
 }
 
 #my-name {
@@ -53,4 +52,16 @@
 
 #my-about-me {
     font-size: 20px;
+}
+
+.comments-logo {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: 5%;
+}
+
+#profile-comments {
+    cursor: pointer;
 }

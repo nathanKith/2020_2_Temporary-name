@@ -37,7 +37,7 @@ export class ChatListModel {
 
     #parseJson() {
         this.#chatListJson.forEach((chatJson) => {
-            const chat = new ChatModel(chatJson)
+            const chat = new ChatModel(chatJson);
             this.#chatList.push(chat);
         });
     }

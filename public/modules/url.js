@@ -42,7 +42,7 @@ class Backend {
     }
 
     get websocket() {
-        return this.#websocket + this.#api + '/entry';
+        return this.#websocket + this.#api + '/gochat';
     }
     
     get like() {

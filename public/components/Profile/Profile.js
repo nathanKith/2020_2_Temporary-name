@@ -28,9 +28,14 @@ export class Profile {
         const universityWork = this.#createSpan('my-university-work', `${this.#data.education === '' ? this.#data.job : this.#data.education}`);
         const aboutMe = this.#createSpan('my-about-me', `${this.#data.aboutMe}`);
 
+        const infoLogo = this.#createDiv('comments-logo');
+        infoLogo.insertAdjacentHTML('afterbegin', `<img id="profile-comments" src="../../img/info.svg">`);
+
         profileInfo.appendChild(nameAge);
         profileInfo.appendChild(universityWork);
         profileInfo.appendChild(aboutMe);
+        
+        div.appendChild(infoLogo);
 
         this.#parent.appendChild(div);
     }

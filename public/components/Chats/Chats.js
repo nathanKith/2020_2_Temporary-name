@@ -68,6 +68,7 @@ export class Chats {
             evt.preventDefault();
             this.#parent.innerHTML = '';
             await Chat.update();
+            await Chat.WebSocket();
             const chatContent = new ChatContent(this.#parent, Chat);
             chatContent.chatModel.user_id = this.#data['user_id'];
             chatContent.render();

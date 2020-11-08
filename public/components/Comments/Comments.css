@@ -47,6 +47,9 @@
     padding-bottom: 1vh;
     margin-bottom: 1%;
     margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .inner__profile__other__comment-color {
     background-color: #1877F2;

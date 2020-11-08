@@ -34,6 +34,14 @@ export class ChatModel {
         this.#websocket = websocket;
     }
 
+    async WebSocket() {
+        this.#websocket =  await new WebSocket(backend.websocket);
+    }
+
+    // async updateWebsocket() {
+    //     await new WebSocket(backend.websocket);
+    // }
+
     async update() {
         await ajax.get(backend.chatId + this.#id)
             .then( ({status,responseObject}) => {
@@ -56,6 +64,7 @@ export class ChatModel {
     listenerSend(message, delivery) {
         const mes = {
             user_id: this.#user_id,
+            chat_id: this.#id,
             message: message,
             timeDelivery: delivery,
         }
@@ -63,9 +72,10 @@ export class ChatModel {
     }
 
     validationMessage(message) {
-        return message.replace(/ /g, '') ? null : message;
+        return message.replaceAll(' ', '') === '' ? null : message;
     }
 }
+
 // const chat = {
 //     id: 2,
 //     partner: 'UserModel',

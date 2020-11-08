@@ -169,10 +169,10 @@ export class RegAuthModel extends UserModel{
                         return photo_name;
                     }).then ( (photo_name) => {
                     const link_photo = "http://95.163.213.222:8080/static/avatars/";
-                    console.log(link_photo + photo_name.replace('"', ''));
+                    console.log(link_photo + photo_name.replaceAll('"', ''));
                     const photoAdd = {
                         telephone: this.telephone,
-                        linkImages: link_photo + photo_name.replace('"', ''), 
+                        linkImages: link_photo + photo_name.replaceAll('"', ''), 
                     }
                     ajax.post(backend.addPhoto, photoAdd)
                         .then(({status, responseObject}) => {

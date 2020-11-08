@@ -76,9 +76,7 @@ export class FeedView extends BaseView{
         informationLogo.addEventListener(this._context['comments'].event.getComments.type,
                                          this._context['comments'].event.getComments.listener);
 
-        const sendComments = document.getElementById('send-comment');
-        sendComments.addEventListener(this._context['comments'].event.sendComment.type,
-                                      this._context['comments'].event.sendComment.listener);
+        
     }
 
     renderComments() {
@@ -86,6 +84,9 @@ export class FeedView extends BaseView{
         const comments = new Comments(profileChatSection);
         comments.data = this._context['comments'].comments.commentsList;
         comments.render();
+        const sendComments = document.getElementById('send-comment');
+        sendComments.addEventListener(this._context['comments'].event.sendComment.type,
+                                      this._context['comments'].event.sendComment.listener);
     }
 
     #renderSettings(evt) {

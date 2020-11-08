@@ -1,7 +1,7 @@
-import CommentsHbs from './Comments.hbs'
-import CommentsComment from './CommentsComment.hbs'
-import CommentsSend from './CommentsSend.hbs'
-import './ChatContent.css'
+import CommentsHbs from './Comments.hbs';
+import CommentsComment from './CommentsComment.hbs';
+import CommentsSend from './CommentsSend.hbs';
+import './Comments.css';
 
 export class Comments {
     #parent
@@ -19,14 +19,17 @@ export class Comments {
         this.#parent.innerHTML = '';
         this.#parent.insertAdjacentHTML('beforeend', CommentsHbs());
         const comments = document.getElementById('comments');
-        this.#data.comments.forEach( (comment) => {
-            comments.insertAdjacentHTML('beforeend', CommentsComment({
-                commentText: comment.commentText,
-                avatar: comment.user.linkImages[0],
-                name: comment.user.name,
-                timeDelivery: comment.timeDelivery,
-            }));
-        });
+        if (this.#data.comments) {
+            this.#data.comments.forEach( (comment) => {
+                comments.insertAdjacentHTML('beforeend', CommentsComment({
+                    commentText: comment.commentText,
+                    avatar: comment.user.linkImages[0],
+                    name: comment.user.name,
+                    timeDelivery: comment.timeDelivery,
+                }));
+            });
+        }
+        
         comments.insertAdjacentHTML('beforeend', CommentsSend());
     }
 }

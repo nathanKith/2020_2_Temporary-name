@@ -101,7 +101,7 @@ export class FeedController {
 
     async getUserCommentsListener(evt) {
         evt.preventDefault();
-        await this.#comments.update(this.#feed.userList[this.#currentUserFeed]);
+        await this.#comments.update(this.#feed.userList[this.#currentUserFeed].id);
         this.#view.renderComments();
     }
 
@@ -113,7 +113,7 @@ export class FeedController {
             timeDelivery: '',
         });
         await comment.addComment(this.#feed.userList[this.#currentUserFeed].id);
-        this.#view.context.comments.comments.push(comment);
+        this.#view.context.comments.comments.commentsList.push(comment);
         this.#view.renderComments();
     }
 

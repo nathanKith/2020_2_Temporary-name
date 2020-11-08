@@ -1,20 +1,23 @@
 import {ajax} from '../modules/ajax';
 import {backend} from '../modules/url';
 import {router} from "../main";
+import {CommentModel} from '../models/CommentModel';
 
 export class FeedController {
     #view
     #profile
     #feed
     #chats
+    #comments
 
     #currentUserFeed
 
-    constructor(feedView, userModel, feedListModel, chatListModel) {
+    constructor(feedView, userModel, feedListModel, chatListModel, commentsListModel) {
         this.#view = feedView;
         this.#profile = userModel;
         this.#feed = feedListModel;
         this.#chats = chatListModel;
+        this.#comments = commentsListModel;
 
         this.#currentUserFeed = 0;
     }
@@ -37,7 +40,6 @@ export class FeedController {
                 age:        this.#profile.age,
             },
             chats: {
-                // TODO: допилить чаты
                 chats: this.#chats.chatList,
                 user_id: this.#profile.id,
             },
@@ -80,8 +82,39 @@ export class FeedController {
                         message: '',
                     }
                 }
+            },
+            comments: {
+                comments: this.#comments,
+                event: {
+                    getComments: {
+                        type: 'click',
+                        listener: this.getUserCommentsListener.bind(this),
+                    },
+                    sendComment: {
+                        type: 'click',
+                        listener: this.sendCommentListener.bind(this),
+                    }
+                }
             }
         };
+    }
+
+    async getUserCommentsListener(evt) {
+        evt.preventDefault();
+        await this.#comments.update(this.#feed.userList[this.#currentUserFeed].id);
+        this.#view.renderComments();
+    }
+
+    async sendCommentListener(evt) {
+        evt.preventDefault();
+        const comment = new CommentModel({
+            user: this.#profile,
+            commentText: document.getElementById('text-comment').value,
+            timeDelivery: '',
+        });
+        await comment.addComment(this.#feed.userList[this.#currentUserFeed].id);
+        this.#view.context.comments.comments.commentsList.push(comment);
+        this.#view.renderComments();
     }
 
     async likeListener(evt) {

@@ -4,6 +4,8 @@ import {ProfileChatIcon} from "../components/ProfileChatIcon/ProfileChatIcon";
 import {Chats} from '../components/Chats/Chats';
 import {Profile} from '../components/Profile/Profile';
 import {Settings} from '../components/Settings/Settings';
+import {Comments} from '../components/Comments/Comments';
+
 
 export class FeedView extends BaseView{
     constructor(app = document.getElementById('application')) {
@@ -69,6 +71,22 @@ export class FeedView extends BaseView{
             chats.data = this._context['chats'];
             chats.render();
         });
+
+        const informationLogo = document.getElementById('information-logo');
+        informationLogo.addEventListener(this._context['comments'].event.getComments.type,
+                                         this._context['comments'].event.getComments.listener);
+
+        
+    }
+
+    renderComments() {
+        const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
+        const comments = new Comments(profileChatSection);
+        comments.data = this._context['comments'].comments.commentsList;
+        comments.render();
+        const sendComments = document.getElementById('send-comment');
+        sendComments.addEventListener(this._context['comments'].event.sendComment.type,
+                                      this._context['comments'].event.sendComment.listener);
     }
 
     #renderSettings(evt) {
@@ -92,13 +110,13 @@ export class FeedView extends BaseView{
             .addEventListener('click', this.#renderBackSettings.bind(this));
     }
 
-    #popupRenderBackSettings(evt) {
-        evt.preventDefault();
-        if (evt.target.id === 'settings') {
-            return;
-        }
-        this.#renderSettings(evt);
-    }
+    // #popupRenderBackSettings(evt) {
+    //     evt.preventDefault();
+    //     if (evt.target.id === 'settings') {
+    //         return;
+    //     }
+    //     this.#renderSettings(evt);
+    // }
 
     rerenderSettings() {
         const err = document.getElementById('error');

@@ -1,0 +1,161 @@
+.profile__comments {
+    display: flex;
+    overflow-y: auto;
+    flex-direction: column;
+    background-color: #1F2041;
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 35px;
+    /*border-top-right-radius: 35px;*/
+    align-items: center;
+}
+.profile__comments::-webkit-scrollbar {
+    width: 0px;
+}
+
+.inner__profile {
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+}
+
+.inner__profile::-webkit-scrollbar {
+    width: 0px;
+}
+
+.inner__profile__other{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 1vw;
+}
+.inner__profile__other-time {
+    display: flex;
+    justify-content: flex-end;
+}
+.inner__profile__other__comment {
+    width: 70%;
+    border-radius: 25px 25px 0px 25px;
+    resize: none;
+    padding-left: 1vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    margin-bottom: 1%;
+    margin-top: 2%;
+}
+.inner__profile__other__comment-color {
+    background-color: #1877F2;
+    color: white;
+    font-family: Montserrat-Medium;
+    font-size: 3vh;
+}
+
+.inner__profile__other__comment__date {
+    color: white;
+    font-family: Montserrat-Medium;
+    font-size: 1.5vh;
+    margin-right: 5%;
+    margin-bottom: 5%;
+}
+
+.inner__profile-comments {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.inner__profile-comments__avatar__photo {
+    margin-top: 5%;
+    margin-right: 7%;
+    border-radius: 50%;
+    width: 100%;
+}
+.inner__profile-comments__avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    width: 20%;
+}
+.inner__profile-comments__avatar__name {
+    color: white;
+}
+
+.profile__top {
+    display: flex;
+    background-color: #1F2041;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 35px;
+    height: 12%;
+    flex-direction: row;
+}
+.profile__top__left{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+.profile__top__left__text {
+    color: white;
+    font-size: 4vh;
+    font-family: Montserrat-Medium;
+}
+.profile__top__right{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 45%;
+}
+.profile__top__right__button {
+    outline: none;
+    border: none;
+    background-color: #1F2041;
+    cursor: pointer;
+}
+.comment {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2%;
+    align-items: center;
+}
+.comments__avatar__name {
+    color: white;
+}
+.comment__date {
+    color: white;
+    font-family: Montserrat-Medium;
+    font-size: 1.5vh;
+    margin-bottom: 5%;
+}
+.comment__message-box__message {
+    resize: none;
+    padding-left: 0.3vw;
+    padding-top: 0.3vw;
+    padding-bottom: 2.5vh;
+    width: 73%;
+    height: 65%;
+    border-radius: 20px;
+    background-color: #f1f1f1;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+}
+.comment__message-box__message::-webkit-scrollbar {
+    width: 0px;
+}
+.comment__message-box__message:focus {
+    outline: none;
+}
+.comment__message-box__message__send {
+    background-color: #1F2041;
+    margin-right: 5%;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}

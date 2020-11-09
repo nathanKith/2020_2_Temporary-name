@@ -93,10 +93,20 @@ export class FeedController {
                     sendComment: {
                         type: 'click',
                         listener: this.sendCommentListener.bind(this),
+                    },
+                    getMyComments: {
+                        type: 'click',
+                        listener: this.getMyCommentsListener.bind(this),
                     }
                 }
             }
         };
+    }
+
+    async getMyCommentsListener(evt) {
+        evt.preventDefault();
+        await this.#comments.update(this.#profile.id);
+        this.#view.renderComments();
     }
 
     async getUserCommentsListener(evt) {

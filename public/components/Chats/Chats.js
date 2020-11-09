@@ -40,6 +40,9 @@ export class Chats {
     }
 
     #createChat = (Chat) => {
+        // if (Chat.websocket) {
+        //     Chat.WebSocketClose();
+        // }
         console.log('метод createChat');
         console.log(Chat);
         const chat = document.createElement('a');
@@ -55,12 +58,25 @@ export class Chats {
 
         const information = this.#createDiv('chat-info');
         const nameTime = this.#createDiv('name-time');
-        nameTime.insertAdjacentHTML('afterbegin', `<span id="name-chat">${Chat.partner.name}</span><span id="time-chat">${Chat.messages[Chat.messages.length - 1].timeDelivery}</span>`);
-        information.appendChild(nameTime);
-        const lastMessage = this.#createDiv('last-message');
-        lastMessage.insertAdjacentHTML('afterbegin', `<span id="last-message">${Chat.messages[Chat.messages.length - 1].message}</span>`);
-        information.appendChild(lastMessage);
+        
+        
+        nameTime.insertAdjacentHTML('afterbegin', `<span id="name-chat">${Chat.partner.name}</span>`);
 
+        if (Chat.messages) {
+            nameTime.insertAdjacentHTML('beforeend', `<span id="time-chat">${Chat.messages[Chat.messages.length - 1].timeDelivery}</span>`)
+            information.appendChild(nameTime);
+            const lastMessage = this.#createDiv('last-message');
+            lastMessage.insertAdjacentHTML('afterbegin', `<span id="last-message">${Chat.messages[Chat.messages.length - 1].message}</span>`);
+            information.appendChild(lastMessage);
+        } else {
+            nameTime.insertAdjacentHTML('beforeend', `<span id="time-chat"></span>`)
+            information.appendChild(nameTime);
+            const lastMessage = this.#createDiv('last-message');
+            lastMessage.insertAdjacentHTML('afterbegin', `<span id="last-message"></span>`);
+            information.appendChild(lastMessage);
+        }
+    
+        
         chat.appendChild(avatar);
         chat.appendChild(information);
 
@@ -71,10 +87,12 @@ export class Chats {
             await Chat.WebSocket();
             const chatContent = new ChatContent(this.#parent, Chat);
             chatContent.chatModel.user_id = this.#data['user_id'];
-            chatContent.render();
-            document
+            chatContent.render()
+            .then( () => {
+                document
                 .getElementById('back')
-                .addEventListener('click', this.listenerBack);
+                .addEventListener('click', this.listenerBack.bind(this.listenerBack));
+            })
         });
 
         return chat;

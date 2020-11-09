@@ -13,13 +13,11 @@ export class ChatContent {
     constructor(parent, chatModel) {
         this.#parent = parent;
         this.chatModel = chatModel;
-        // this.chatModel.WebSocket();
-        // this.chatModel.update();
     }
-    render = () => {
-        this.#parent.innerHTML = '';
+    async render() {
+        // this.#parent.innerHTML = '';
 
-        this.#parent.insertAdjacentHTML('beforeend', ChatContentHbs(
+        await this.#parent.insertAdjacentHTML('beforeend', ChatContentHbs(
             {
                 path_photo: this.chatModel.partner.linkImages[0],
                 nameUser: this.chatModel.partner.name,
@@ -45,10 +43,13 @@ export class ChatContent {
 
         this.chatModel.websocket.onmessage = ( ({data}) => {
             const dataJSON = JSON.parse(data);
-            messages.insertAdjacentHTML('beforeend', ChatOtherMessage({
-                message_text: dataJSON.message,
-                time_delivery: dataJSON.timeDelivery,
-            }));
+            const message = document.getElementById('chat-box-text-area');
+            if (message) {
+                message.insertAdjacentHTML('beforeend', ChatOtherMessage({
+                    message_text: dataJSON.message,
+                    time_delivery: dataJSON.timeDelivery,
+                }));
+            }
         });
 
         const button = document.getElementById('send');

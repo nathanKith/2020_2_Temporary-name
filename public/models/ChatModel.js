@@ -38,6 +38,10 @@ export class ChatModel {
         this.#websocket =  await new WebSocket(backend.websocket);
     }
 
+    async WebSocketClose() {
+        return await this.#websocket.close();
+    }
+
     // async updateWebsocket() {
     //     await new WebSocket(backend.websocket);
     // }

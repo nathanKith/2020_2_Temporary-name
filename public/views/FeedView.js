@@ -60,6 +60,10 @@ export class FeedView extends BaseView{
             const profile = new Profile(profileChatSection);
             profile.data = this._context['profile'];
             profile.render();
+            const comments = document.getElementById('profile-comments');
+            comments.addEventListener(this._context['comments'].event.getMyComments.type,
+                                        this._context['comments'].event.getMyComments.listener);
+            //TODO: получить кнопку сенд и навесить на нее другой обработчик, который пишет Натан!
             feedSection.classList.add('dark');
         });
 
@@ -87,6 +91,14 @@ export class FeedView extends BaseView{
         const sendComments = document.getElementById('send-comment');
         sendComments.addEventListener(this._context['comments'].event.sendComment.type,
                                       this._context['comments'].event.sendComment.listener);
+
+        const backToChats = document.getElementById('backToChat');
+        backToChats.addEventListener('click', this.#renderBackChats.bind(this));
+
+        // const chatsIcon = document.getElementsByClassName('chats-icon-button')[0];
+        // chatsIcon.addEventListener('click', (evt) => {
+            
+        // });
     }
 
     #renderSettings(evt) {
@@ -135,6 +147,11 @@ export class FeedView extends BaseView{
         };
     }
 
+    #renderCommentsListener(evt) {
+        evt.preventDefault();
+        this.renderComments();
+    }
+
     #renderBackSettings(evt) {
         evt.preventDefault();
         document
@@ -158,6 +175,10 @@ export class FeedView extends BaseView{
 
     #renderBackChats(evt) {
         evt.preventDefault();
+        const backChats = document.getElementById('back');
+        if (backChats) {
+            backChats.removeEventListener('click', this.#renderBackChats.bind(this));
+        }
         const profileChatSection = document
             .getElementsByClassName('profile-chat-section')[0];
 
@@ -165,6 +186,10 @@ export class FeedView extends BaseView{
         const chats = new Chats(profileChatSection);
         chats.data = this._context['chats'];
         chats.render();
+        const dark = document.getElementsByClassName('dark')[0];
+        if (dark) {
+            dark.classList.remove('dark');
+        }
     }
 
     rerenderFeed() {
@@ -173,5 +198,9 @@ export class FeedView extends BaseView{
         const feed = new Feed(feedSection);
         feed.data = this._context['feed'];
         feed.render();
+
+        const informationLogo = document.getElementById('information-logo');
+        informationLogo.addEventListener(this._context['comments'].event.getComments.type,
+                                         this._context['comments'].event.getComments.listener);
     }
 }

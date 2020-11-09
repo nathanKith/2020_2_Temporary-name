@@ -101,8 +101,8 @@
 .profile__top__left{
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
+    margin-left: 5%;
     width: 50%;
 }
 .profile__top__left__text {
@@ -114,7 +114,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    width: 45%;
+    width: 40%;
 }
 .profile__top__right__button {
     outline: none;

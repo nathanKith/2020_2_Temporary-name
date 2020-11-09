@@ -16,14 +16,13 @@ export class Comments {
     }
 
     render = () => {
-        console.log('рендер комментов');
-        console.log(this.#data);
         this.#parent.innerHTML = '';
         this.#parent.insertAdjacentHTML('beforeend', CommentsHbs());
         const comments = document.getElementById('comments');
-        if (this.#data) {
-            console.log('животное');
-            this.#data.forEach( (comment) => {
+        if (!this.#data) {
+            this.#data = [];
+        }
+          this.#data.forEach( (comment) => {
                 comments.insertAdjacentHTML('beforeend', CommentsComment({
                     commentText: comment.commentText,
                     avatar: comment.user.linkImages[0],
@@ -31,7 +30,7 @@ export class Comments {
                     timeDelivery: comment.timeDelivery,
                 }));
             });
-        }
+ 
         
         comments.insertAdjacentHTML('beforeend', CommentsSend());
     }

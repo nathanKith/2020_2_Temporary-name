@@ -63,6 +63,10 @@ export class FeedView extends BaseView{
             const comments = document.getElementById('profile-comments');
             comments.addEventListener(this._context['comments'].event.getMyComments.type,
                                         this._context['comments'].event.getMyComments.listener);
+            
+            const sendButton = document.getElementById('send-comment');
+            sendButton.addEventListener(this._context['comments'].event.sendMyComments.type,
+                                        this._context['comments'].event.sendMyComments.listener);
             //TODO: получить кнопку сенд и навесить на нее другой обработчик, который пишет Натан!
             feedSection.classList.add('dark');
         });

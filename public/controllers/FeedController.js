@@ -97,6 +97,10 @@ export class FeedController {
                     getMyComments: {
                         type: 'click',
                         listener: this.getMyCommentsListener.bind(this),
+                    },
+                    sendMyComments: {
+                        type: 'click',
+                        listener: this.sendMyCommentsListener.bind(this),
                     }
                 }
             }
@@ -107,6 +111,9 @@ export class FeedController {
         evt.preventDefault();
         await this.#comments.update(this.#profile.id);
         this.#view.renderComments();
+
+        const send = document.getElementById('send-comment');
+        send.removeEventListener('click', this.sendCommentListener.bind(this));
     }
 
     async getUserCommentsListener(evt) {
@@ -123,6 +130,18 @@ export class FeedController {
             timeDelivery: '',
         });
         await comment.addComment(this.#feed.userList[this.#currentUserFeed].id);
+        this.#view.context.comments.comments.commentsList.push(comment);
+        this.#view.renderComments();
+    }
+
+    async sendMyCommentsListener(evt) {
+        evt.preventDefault();
+        const comment = new CommentModel({
+            user: this.#profile,
+            commentText: document.getElementById('text-comment').value,
+            timeDelivery: '',
+        });
+        await comment.addComment(this.#profile.id);
         this.#view.context.comments.comments.commentsList.push(comment);
         this.#view.renderComments();
     }
@@ -171,7 +190,7 @@ export class FeedController {
                 }
             })
             .catch((err) => {
-                console.log()
+                console.log(err.message);
             });
     }
 
@@ -203,7 +222,6 @@ export class FeedController {
         await this.update()
             .then(() => {
                 this.#view.context = this.#makeContext();
-                console.log(this.#view.context);
                 this.#view.render();
             });
     }

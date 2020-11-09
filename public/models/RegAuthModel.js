@@ -42,17 +42,10 @@ export class RegAuthModel extends UserModel{
     async authorization() {
         await ajax.post(backend.login, this.JsonAuth())
             .then(({status, responseObject}) => {
-                if (status === 200) {
-                    alert('Успешная авторизация');
-                    // feedPage();
-                } else {
-                    alert('Такого пользователя не существует');
+                if (status !== 200) {
                     throw new Error(`${status} error auth: have not this user`);
                 }
             })
-            // .catch((err) => {
-            //     console.log(err.message);
-            // });
     }
 
     JsonAuth() {
@@ -176,19 +169,11 @@ export class RegAuthModel extends UserModel{
                     }
                     ajax.post(backend.addPhoto, photoAdd)
                         .then(({status, responseObject}) => {
-                        if (status === 200 ) {
-                            alert('Добавили фото!');
-                        } else {
-                            throw new Error(`${status} error adding: cannot add photo on back`)
+                        if (status !== 200 ) {
+                            throw new Error(`${status} error adding: cannot add photo on back`);
                         }
                         });
-                        // }).catch((err) => {
-                        //     console.log(err.message);
-                        // });
                 })
             });
-            // .catch( (err) => {
-            //     console.log(err.message);
-            // })
     }
 }

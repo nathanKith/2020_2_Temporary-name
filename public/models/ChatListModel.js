@@ -26,7 +26,6 @@ export class ChatListModel {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /chats`);
                 }
-                console.log(responseObject);
                 this.#chatListJson = responseObject['data'];
                 this.#parseJson();
             })

@@ -138,7 +138,6 @@ export class UserModel {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /me`);
                 }
-                console.log(responseObject);
                 this.#fillUserData(responseObject);
                 this.#validateImages();
             })

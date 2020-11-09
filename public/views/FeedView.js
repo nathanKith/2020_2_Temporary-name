@@ -63,10 +63,10 @@ export class FeedView extends BaseView{
             const comments = document.getElementById('profile-comments');
             comments.addEventListener(this._context['comments'].event.getMyComments.type,
                                         this._context['comments'].event.getMyComments.listener);
-            
-            const sendButton = document.getElementById('send-comment');
-            sendButton.addEventListener(this._context['comments'].event.sendMyComments.type,
-                                        this._context['comments'].event.sendMyComments.listener);
+
+            // const sendButton = document.getElementById('send-comment');
+            // sendButton.addEventListener(this._context['comments'].event.sendMyComments.type,
+            //                             this._context['comments'].event.sendMyComments.listener);
             //TODO: получить кнопку сенд и навесить на нее другой обработчик, который пишет Натан!
             feedSection.classList.add('dark');
         });
@@ -87,22 +87,23 @@ export class FeedView extends BaseView{
         
     }
 
-    renderComments() {
+    renderComments(isMy=false) {
         const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
         const comments = new Comments(profileChatSection);
         comments.data = this._context['comments'].comments.commentsList;
         comments.render();
-        const sendComments = document.getElementById('send-comment');
-        sendComments.addEventListener(this._context['comments'].event.sendComment.type,
-                                      this._context['comments'].event.sendComment.listener);
+
+        const sendButton = document.getElementById('send-comment');
+        if (isMy) {
+            sendButton.addEventListener(this._context['comments'].event.sendMyComments.type,
+                                        this._context['comments'].event.sendMyComments.listener);
+        } else {
+            sendButton.addEventListener(this._context['comments'].event.sendComment.type,
+                                          this._context['comments'].event.sendComment.listener);
+        }
 
         const backToChats = document.getElementById('backToChat');
         backToChats.addEventListener('click', this.#renderBackChats.bind(this));
-
-        // const chatsIcon = document.getElementsByClassName('chats-icon-button')[0];
-        // chatsIcon.addEventListener('click', (evt) => {
-            
-        // });
     }
 
     #renderSettings(evt) {

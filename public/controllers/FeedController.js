@@ -110,10 +110,7 @@ export class FeedController {
     async getMyCommentsListener(evt) {
         evt.preventDefault();
         await this.#comments.update(this.#profile.id);
-        this.#view.renderComments();
-
-        const send = document.getElementById('send-comment');
-        send.removeEventListener('click', this.sendCommentListener.bind(this));
+        this.#view.renderComments(true);
     }
 
     async getUserCommentsListener(evt) {
@@ -143,7 +140,7 @@ export class FeedController {
         });
         await comment.addComment(this.#profile.id);
         this.#view.context.comments.comments.commentsList.push(comment);
-        this.#view.renderComments();
+        this.#view.renderComments(true);
     }
 
     async likeListener(evt) {

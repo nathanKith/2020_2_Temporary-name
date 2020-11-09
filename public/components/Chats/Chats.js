@@ -13,8 +13,6 @@ export class Chats {
 
     set data(data) {
         this.#data = data;
-        console.log('сеттер data chats');
-        console.log(this.#data);
     }
 
     render() {
@@ -43,8 +41,6 @@ export class Chats {
         // if (Chat.websocket) {
         //     Chat.WebSocketClose();
         // }
-        console.log('метод createChat');
-        console.log(Chat);
         const chat = document.createElement('a');
         chat.href = '#';
         chat.classList.add('chat');

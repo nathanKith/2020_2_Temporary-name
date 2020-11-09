@@ -24,6 +24,7 @@
     outline: none;
     background-color: white;
     color: white;
+    cursor: pointer;
 }
 .cancelButton:active{
     border: 0;
@@ -116,6 +117,8 @@
     outline: none;
     font-size: 2.5vh;
     margin-bottom: 12vh;
+    text-align: center;
+    cursor: pointer;
 }
 .pass{
     display: flex;
@@ -181,12 +184,16 @@
     justify-content: space-between;
 }
 .arrow {
-    margin-left: 10px;
-    margin-top: 10px;
+    margin-left: 1vw;
+    margin-top: 2vh;
     border: 0;
     outline: none;
     background-color: white;
     color: white;
+    cursor: pointer;
+}
+arrow:hover{
+    cursor: pointer;
 }
 
 .sex {
@@ -209,6 +216,7 @@
     color: white;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    cursor: pointer;
 }
 .ButtonFemale {
     outline: none;
@@ -225,6 +233,7 @@
     color: white;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
+    cursor: pointer;
 }
 .skip {
     font-family: Montserrat-Light;
@@ -232,6 +241,7 @@
     display: flex;
     cursor: pointer;
     justify-content: flex-end;
+    margin-right: 1vw;
 }
 .hobby {
     width: 18vw;
@@ -422,12 +432,13 @@
     border-radius: 25px;
 }
 .arrow-last {
-    margin-left: 10px;
-    margin-top: 10px;
+    margin-left: 1vw;
+    margin-top: 2vh;
     border: 0;
     outline: none;
     background-color: #1F2041;
     color: #1F2041;
+    cursor: pointer;
 }
 .last-cancelButton{
     margin-top: 17px;
@@ -452,6 +463,8 @@
     border: 0;
     border-radius: 7px;
     font-size: 2.5vh;
+    text-decoration: none;
+    text-align: center;
     margin-bottom: 10vh;
 }
 .photo {

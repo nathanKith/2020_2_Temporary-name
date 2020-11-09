@@ -1,12 +1,3 @@
-@import "./components/LandingHeader/LandingHeader.css";
-@import "./components/LandingContent/LandingContent.css";
-@import "./components/Feed/Feed.css";
-@import "./components/ProfileChatIcon/ProfileChatIcon.css";
-@import "./components/Profile/Proile.css";
-@import "./components/Chats/Chats.css";
-@import "./components/Registration/Registration.css";
-@import "./components/Authorization/Authorization.css";
-
 body {
     margin: 0;
 }
@@ -59,16 +50,6 @@ body {
     height: 87vh;
     width: 85vw;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-}
-
-.settings {
-    position: relative;
-}
-
-.inner-settings {
-    position: absolute;
-    left: 20px;
-    top: 20px;
 }
 
 .feed-section {

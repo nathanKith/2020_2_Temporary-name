@@ -1,0 +1,60 @@
+<div class="settings-open">
+    <div class="inner-settings">
+        <a href="#"><img class="" src="./../../img/configuration.svg" /></a>
+    </div>
+    <span class="settings-header">Настройки</span>
+
+    <div class="settings-forms">
+        <div class="account-div-first">
+            <span class="account">АККАУНТ</span>
+            <div class="account__form">
+                <input class="account-tel" type="tel" name="account-tel" id="account-tel" value="{{telephone}}" pattern="[9]{1}[0-9]{2}[-]{1}[0-9]{3}[-]{1}[0-9]{2}[-]{1}[0-9]{2}">
+                <label class="account-tel-label" for="account-tel">Номер тел.</label>
+            </div>
+            <div class="account__form">
+                <input class="account-tel" type="password" name="account-tel" id="password" placeholder="password1234">
+                <label class="account-tel-label" for="password">Пароль</label>
+            </div>
+            <div class="account__form">
+                <input class="account-tel" type="password" name="account-tel" id="repeat-password" placeholder="password1234">
+                <label class="account-tel-label" for="repeat-password">Пароль</label>
+            </div>
+            <div class="account__form">
+                <span class="error" id="error"></span>
+            </div>
+        </div>
+        <div class="account-div">
+            <span class="account">ПРОФИЛЬ</span>
+            <div class="account__form">
+                <input class="account-tel" type="text" name="account-tel" id="settings-name" value="{{name}}">
+                <label class="account-tel-label" for="settings-name">Имя</label>
+            </div>
+            <div class="account__form">
+                <input class="account-tel" type="text" name="account-tel" id="education" value="{{education}}">
+                <label class="account-tel-label" for="education">Учеба</label>
+            </div>
+            <div class="account__form">
+                <input class="account-tel" type="text" name="account-tel" id="job" value="{{job}}">
+                <label class="account-tel-label" for="job">Работа</label>
+            </div>
+            <div class="account__form">
+                <textarea class="account-tel" name="account-tel" id="aboutMe" rows="4">{{aboutMe}}</textarea>
+                <label class="account-tel-label" for="aboutMe">Доп. информация</label>
+            </div>
+        </div>
+        <div class="account-div">
+            <div class="account__form">
+                <button type="button" class="save-button" id="save-button">Сохранить</button>
+            </div>
+        </div>
+        <div class="account-div">
+            <span class="account">СМЕНИТЬ АККАУНТ</span>
+            <div class="account__logout">
+                <button type="button" class="logout" id="logout">Выйти</button>
+            </div>
+        </div>
+        <div class="account-div logo">
+            <img src="./../../img/classic_label.png" width="143" height="49">
+        </div>
+    </div>
+</div>

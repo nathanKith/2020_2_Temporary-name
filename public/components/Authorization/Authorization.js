@@ -2,10 +2,11 @@
 
 import ajax from "../../modules/ajax.js";
 import {feedPage} from "../../main.js";
+import {LandingHeader} from "../LandingHeader/LandingHeader";
 
 const url = `http://95.163.213.222:8080/api/v1`;
 
-export default class Authorization {
+export class Authorization {
     #parent
     constructor(parent) {
         this.#parent = parent
@@ -51,10 +52,10 @@ export default class Authorization {
         let message = this.createMessage();
         form.appendChild(message);
 
-        const link = document.createElement('a');
-        link.href = "/";
-        link.dataset.section = "landing";
-        link.classList.add('link');
+        // const link = document.createElement('a');
+        // link.href = "/feed";
+        // link.dataset.section = "feed";
+        // link.classList.add('link');
 
         const nextButton = this.createElem('next','button', 'nextButton', 'Далее');
 
@@ -85,9 +86,9 @@ export default class Authorization {
             });
 
         });
-        link.appendChild(nextButton);
+        // link.appendChild(nextButton);
 
-        form.appendChild(link);
+        form.appendChild(nextButton);
     }
 
     createMessage() {

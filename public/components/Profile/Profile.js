@@ -1,4 +1,7 @@
-export default class Profile {
+import './Profile.css';
+import {backend} from './../../modules/url';
+
+export class Profile {
 
     #parent
     #data
@@ -16,18 +19,23 @@ export default class Profile {
         const innerDiv = this.#createDiv('inner-profile');
         div.appendChild(innerDiv);
 
-        innerDiv.innerHTML += `<img src="${this.#data.linkImages[0]}">`;
+        innerDiv.innerHTML += `<img src="${this.#data.linkImages[0].trim()}">`;
 
         const profileInfo = this.#createDiv('my-profile-information');
-        innerDiv.appendChild(profileInfo);
+        div.appendChild(profileInfo);
 
         const nameAge = this.#createSpan('my-name', `${this.#data.name}  <span id="my-age">${this.#data.age}</span>`);
         const universityWork = this.#createSpan('my-university-work', `${this.#data.education === '' ? this.#data.job : this.#data.education}`);
         const aboutMe = this.#createSpan('my-about-me', `${this.#data.aboutMe}`);
 
+        const infoLogo = this.#createDiv('comments-logo');
+        infoLogo.insertAdjacentHTML('afterbegin', `<img id="profile-comments" src="../../img/info.svg">`);
+
         profileInfo.appendChild(nameAge);
         profileInfo.appendChild(universityWork);
         profileInfo.appendChild(aboutMe);
+        
+        div.appendChild(infoLogo);
 
         this.#parent.appendChild(div);
     }

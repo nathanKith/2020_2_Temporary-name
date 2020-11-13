@@ -238,6 +238,9 @@ arrow:hover{
 .skip {
     font-family: Montserrat-Light;
     font-size: 1.6vh;
+    outline: none;
+    border: none;
+    background-color: white;
     display: flex;
     cursor: pointer;
     justify-content: flex-end;

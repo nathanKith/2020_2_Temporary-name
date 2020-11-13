@@ -97,10 +97,14 @@ export class FeedView extends BaseView{
         }
 
         const images = document.getElementsByClassName('inner__profile-comments__avatar__photo');
-        images.forEach((img) => {
-            img.addEventListener(this._context['comments'].event.getProfileByComment.type,
-                                 this._context['comments'].event.getProfileByComment.listener);
-        }, this);
+        if (images) {
+            const avatars = Array.from(images);
+            avatars.forEach((img) => {
+                img.addEventListener(this._context['comments'].event.getProfileByComment.type,
+                                     this._context['comments'].event.getProfileByComment.listener);
+            }, this);
+        }
+       
 
         const backToChats = document.getElementById('backToChat');
         backToChats.addEventListener('click', this.#renderBackChats.bind(this));

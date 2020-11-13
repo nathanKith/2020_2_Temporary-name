@@ -115,18 +115,19 @@ export class FeedController {
         evt.preventDefault();
 
         const userID = evt.target.id;
-        const user = this.#comments.find((comment) => {
-            return comment.user.id === userID;
+        const comment = this.#comments.commentsList.find((comment) => {
+            console.log(comment.user.id)
+            return comment.user.id == userID;
         }, this);
-
+        console.log(comment)
         this.#view.context.otherProfile = {
-            id:         user.id,
-            name:       user.name,
-            job:        user.job,
-            education:  user.education,
-            aboutMe:    user.aboutMe,
-            linkImages: user.linkImages,
-            age:        user.age,
+            id:         comment.user.id,
+            name:       comment.user.name,
+            job:        comment.user.job,
+            education:  comment.user.education,
+            aboutMe:    comment.user.aboutMe,
+            linkImages: comment.user.linkImages,
+            age:        comment.user.age,
         };
         this.#view.renderOtherProfile();
     }

@@ -65,7 +65,7 @@ export class ChatContent {
             }));
             this.chatModel.listenerSend( document.getElementById('message').value, delivery);
         })
-
-
     }
+
+
 }

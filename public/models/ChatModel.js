@@ -1,7 +1,6 @@
 import {UserModel} from "./UserModel";
 import {ajax} from "../modules/ajax";
 import {backend} from "../modules/url";
-import {ChatMyMessage} from "../components/ChatContent/ChatMyMessage.hbs";
 
 export class ChatModel {
     #user_id
@@ -79,20 +78,3 @@ export class ChatModel {
         return message.replaceAll(' ', '') === '' ? null : message;
     }
 }
-
-// const chat = {
-//     id: 2,
-//     partner: 'UserModel',
-//     messages: [
-//         {
-//             user_id: misha,
-//         message: 'text',
-//         timeDelivery: '7:23',
-//         },
-//         {
-//             user_id: misha,
-//             message: 'text',
-//             timeDelivery: '7:23',
-//         },
-//     ]
-// }

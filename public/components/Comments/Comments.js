@@ -22,46 +22,15 @@ export class Comments {
         if (!this.#data) {
             this.#data = [];
         }
-          this.#data.forEach( (comment) => {
-                comments.insertAdjacentHTML('beforeend', CommentsComment({
-                    commentText: comment.commentText,
-                    avatar: comment.user.linkImages[0],
-                    name: comment.user.name,
-                    timeDelivery: comment.timeDelivery,
-                }));
-            });
- 
-        
+        this.#data.forEach( (comment) => {
+            comments.insertAdjacentHTML('beforeend', CommentsComment({
+                commentText: comment.commentText,
+                avatar: comment.user.linkImages[0],
+                name: comment.user.name,
+                timeDelivery: comment.timeDelivery,
+                id: comment.user.id,
+            }));
+        });
         comments.insertAdjacentHTML('beforeend', CommentsSend());
     }
 }
-
-
-// {
-//     data: {
-//         comments: [
-//             {
-//                 просто добавить юзермодель в комменты
-//                 user: UserModel,
-//                 commentText: '',
-//                 timeDelivery: '7:27',
-//             },
-//             {
-//                 user_id: '2',
-//                 commentText: '',
-//                 avatar: 'link',
-//                 name: 'person',
-//                 timeDelivery: '7:27',
-//             }
-//         ],
-//         users: [
-//             {
-//                 User: 'UserModel',
-//             },
-//             {
-//                 User: 'UserModel',
-//             },
-//         ]
-//
-//     }
-// }

@@ -64,10 +64,6 @@ export class FeedView extends BaseView{
             comments.addEventListener(this._context['comments'].event.getMyComments.type,
                                         this._context['comments'].event.getMyComments.listener);
 
-            // const sendButton = document.getElementById('send-comment');
-            // sendButton.addEventListener(this._context['comments'].event.sendMyComments.type,
-            //                             this._context['comments'].event.sendMyComments.listener);
-            //TODO: получить кнопку сенд и навесить на нее другой обработчик, который пишет Натан!
             feedSection.classList.add('dark');
         });
 
@@ -83,8 +79,6 @@ export class FeedView extends BaseView{
         const informationLogo = document.getElementById('information-logo');
         informationLogo.addEventListener(this._context['comments'].event.getComments.type,
                                          this._context['comments'].event.getComments.listener);
-
-        
     }
 
     renderComments(isMy=false) {
@@ -101,6 +95,12 @@ export class FeedView extends BaseView{
             sendButton.addEventListener(this._context['comments'].event.sendComment.type,
                                           this._context['comments'].event.sendComment.listener);
         }
+
+        const images = document.getElementsByClassName('inner__profile-comments__avatar__photo');
+        images.forEach((img) => {
+            img.addEventListener(this._context['comments'].event.getProfileByComment.type,
+                                 this._context['comments'].event.getProfileByComment.listener);
+        }, this);
 
         const backToChats = document.getElementById('backToChat');
         backToChats.addEventListener('click', this.#renderBackChats.bind(this));
@@ -127,14 +127,6 @@ export class FeedView extends BaseView{
             .addEventListener('click', this.#renderBackSettings.bind(this));
     }
 
-    // #popupRenderBackSettings(evt) {
-    //     evt.preventDefault();
-    //     if (evt.target.id === 'settings') {
-    //         return;
-    //     }
-    //     this.#renderSettings(evt);
-    // }
-
     rerenderSettings() {
         const err = document.getElementById('error');
         err.innerText = this._context['settings'].validate.passwords.message;
@@ -150,11 +142,6 @@ export class FeedView extends BaseView{
             job: document.getElementById('job').value,
             aboutMe: document.getElementById('aboutMe').value,
         };
-    }
-
-    #renderCommentsListener(evt) {
-        evt.preventDefault();
-        this.renderComments();
     }
 
     #renderBackSettings(evt) {
@@ -207,5 +194,17 @@ export class FeedView extends BaseView{
         const informationLogo = document.getElementById('information-logo');
         informationLogo.addEventListener(this._context['comments'].event.getComments.type,
                                          this._context['comments'].event.getComments.listener);
+    }
+
+    renderOtherProfile() {
+        const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
+        profileChatSection.innerHTML = '';
+        const profile = new Profile(profileChatSection);
+        profile.data = this._context['otherProfile'];
+        profile.render();
+
+        // const comments = document.getElementById('profile-comments');
+        // comments.addEventListener(this._context['comments'].event..type,
+        //     this._context['comments'].event..listener);
     }
 }

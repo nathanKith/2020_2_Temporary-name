@@ -101,10 +101,34 @@ export class FeedController {
                     sendMyComments: {
                         type: 'click',
                         listener: this.sendMyCommentsListener.bind(this),
-                    }
-                }
-            }
+                    },
+                    getProfileByComment: {
+                        type: 'click',
+                        listener: this.getProfileByComment.bind(this),
+                    },
+                },
+            },
         };
+    }
+
+    async getProfileByComment(evt) {
+        evt.preventDefault();
+
+        const userID = evt.target.id;
+        const user = this.#comments.find((comment) => {
+            return comment.user.id === userID;
+        }, this);
+
+        this.#view.context.otherProfile = {
+            id:         user.id,
+            name:       user.name,
+            job:        user.job,
+            education:  user.education,
+            aboutMe:    user.aboutMe,
+            linkImages: user.linkImages,
+            age:        user.age,
+        };
+        this.#view.renderOtherProfile();
     }
 
     async getMyCommentsListener(evt) {

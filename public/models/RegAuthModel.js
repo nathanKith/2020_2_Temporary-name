@@ -139,7 +139,6 @@ export class RegAuthModel extends UserModel{
                     });
                 }
                 if (status === 200 ) {
-                    alert('Успешно зарегистрировались!');
                     string = new Promise((resolve, reject) => {
                         resolve('Успешно зарегистрировались!');
                     });
@@ -150,7 +149,6 @@ export class RegAuthModel extends UserModel{
                     .then(({status, responseObject}) => {
                         let photo_name;
                         if (status === 200 ) {
-                            alert('Успешно загрузили фото!');
                             photo_name = new Promise((resolve, reject) => {
                                 resolve(JSON.stringify(responseObject));
                                 console.log(JSON.stringify(responseObject));

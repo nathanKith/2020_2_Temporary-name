@@ -76,7 +76,8 @@
     margin-top: 5%;
     margin-right: 7%;
     border-radius: 50%;
-    width: 100%;
+    width: 70px;
+    height: 70px;
 }
 .inner__profile-comments__avatar {
     display: flex;
@@ -87,6 +88,7 @@
 }
 .inner__profile-comments__avatar__name {
     color: white;
+    font-family: Montserrat-Medium;
 }
 
 .profile__top {

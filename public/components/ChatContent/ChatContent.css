@@ -32,19 +32,19 @@
 
 .chat__box__top__left__avatar__photo {
     border-radius: 50%;
-    height:100%;
+    height:85px;
+    width: 85px;
 }
 .chat__box__top__left {
     align-items: center;
     text-decoration: none;
     height: 100%;
-    width: 100%;
+    width: 70%;
     justify-content: space-around;
     display: flex;
 }
 .chat__box__top__right {
     height: 100%;
-    width: 100%;
     display: flex;
     justify-content: flex-end;
 }

@@ -85,9 +85,9 @@ export class Chats {
             chatContent.chatModel.user_id = this.#data['user_id'];
             chatContent.render()
             .then( () => {
-                document
-                .getElementById('back')
-                .addEventListener('click', this.listenerBack.bind(this.listenerBack));
+                // document
+                // .getElementById('back')
+                // .addEventListener('click', this.listenerBack.bind(this));
             })
         });
 

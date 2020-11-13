@@ -119,7 +119,7 @@ export class FeedController {
             console.log(comment.user.id)
             return comment.user.id == userID;
         }, this);
-        console.log(comment)
+
         this.#view.context.otherProfile = {
             id:         comment.user.id,
             name:       comment.user.name,
@@ -130,6 +130,26 @@ export class FeedController {
             age:        comment.user.age,
         };
         this.#view.renderOtherProfile();
+
+        const comments = document.getElementById('profile-comments');
+        comments.addEventListener('click', async (evt) => {
+            evt.preventDefault();
+            await this.#comments.update(comment.user.id);
+            this.#view.renderComments();
+
+            const send = document.getElementById('send-comment');
+            send.addEventListener('click', async (evt) => {
+                evt.preventDefault();
+                const comment = new CommentModel({
+                    user: this.#profile,
+                    commentText: document.getElementById('text-comment').value,
+                    timeDelivery: new Date().getHours() + ':' + new Date().getMinutes(),
+                });
+                await comment.addComment(comment.user.id);
+                this.#view.context.comments.comments.commentsList.push(comment);
+                this.#view.renderComments();
+            });
+        });
     }
 
     async getMyCommentsListener(evt) {

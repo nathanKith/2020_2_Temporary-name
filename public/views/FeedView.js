@@ -206,9 +206,5 @@ export class FeedView extends BaseView{
         const profile = new Profile(profileChatSection);
         profile.data = this._context['otherProfile'];
         profile.render();
-
-        // const comments = document.getElementById('profile-comments');
-        // comments.addEventListener(this._context['comments'].event..type,
-        //     this._context['comments'].event..listener);
     }
 }

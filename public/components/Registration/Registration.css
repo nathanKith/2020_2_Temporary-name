@@ -246,6 +246,10 @@ arrow:hover{
     justify-content: flex-end;
     margin-right: 1vw;
 }
+#education_univ{
+    margin-top: 2%;
+}
+
 .hobby {
     width: 18vw;
     height: 10vh;

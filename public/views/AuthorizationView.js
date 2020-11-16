@@ -2,6 +2,7 @@ import {BaseView} from './BaseView';
 import {RegAuthModel} from "../models/RegAuthModel";
 import {AuthorizationContent} from "../components/AuthorizationContent/AuthorizationContent";
 import {LandingHeader} from "../components/LandingHeader/LandingHeader";
+import {router} from "../main";
 
 export class AuthorizationView extends BaseView {
     model
@@ -31,6 +32,11 @@ export class AuthorizationView extends BaseView {
         footer.classList.add('landing-footer');
         this._app.appendChild(footer);
 
+        divFormView.addEventListener('click', (evt) => {
+            evt.stopPropagation();
+        });
+        this._app.addEventListener('click', this.#renderBackPopup.bind(this));
+
         return divFormView;
     }
 
@@ -45,5 +51,14 @@ export class AuthorizationView extends BaseView {
 
         const button = document.getElementById('next');
         button.addEventListener('click', this.listenerAuthorization);
+
+        const cancel = document.getElementsByClassName('cancelButton')[0];
+        cancel.addEventListener('click', this.#renderBackPopup.bind(this));
+    }
+
+    #renderBackPopup(evt) {
+        evt.preventDefault();
+        router.redirect('/');
+        this._app.removeEventListener('click', this.#renderBackPopup.bind(this));
     }
 }

@@ -9,7 +9,7 @@ export class RegAuthModel extends UserModel{
     }
 
     validationPassword(validityNumber, password, repeatPassword) {
-        if (!validityNumber) {
+        if (validityNumber !== 15) {
             return ['Неверно введен номер телефона', false];
         }
         if (password === '' || repeatPassword === ''){

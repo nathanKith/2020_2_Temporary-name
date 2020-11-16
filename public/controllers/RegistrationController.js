@@ -2,6 +2,7 @@ import {RegAuthModel} from "../models/RegAuthModel";
 import {RegistrationView} from "../views/RegistrationView";
 import {router} from "../main";
 
+
 export class RegistrationController {
     RegAuthModel
     registrationView
@@ -23,7 +24,6 @@ export class RegistrationController {
         let photo;
         photo = document.getElementById('file').value;
 
-        console.log(photo);
         let mes;
         mes = document.getElementById('mes');
         const [message, result] = model.validationPhoto(photo);

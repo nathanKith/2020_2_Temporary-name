@@ -7,6 +7,7 @@ import {RegAuthModel} from "../models/RegAuthModel";
 import {LandingHeader} from "../components/LandingHeader/LandingHeader";
 import {RegistrationController} from "../controllers/RegistrationController";
 import {mask} from "../modules/mask";
+import {readImage} from  '../modules/previewAvatar'
 
 
 export class RegistrationView extends BaseView {
@@ -207,6 +208,13 @@ export class RegistrationView extends BaseView {
 
         console.log(this.model.Json());
         (new RegistrationContent(this.divFormView)).render('Photo');
+
+        const photo = document.getElementById('file');
+        photo.onchange = () => {
+            const file = document.getElementById('file').files[0];
+            readImage(file);
+        }
+
 
         const back = document.getElementById('arrow');
         back.addEventListener('click', (evt) => {

@@ -2,6 +2,7 @@ import {BaseView} from './BaseView';
 import {RegAuthModel} from "../models/RegAuthModel";
 import {AuthorizationContent} from "../components/AuthorizationContent/AuthorizationContent";
 import {LandingHeader} from "../components/LandingHeader/LandingHeader";
+import {mask} from "../modules/mask";
 
 export class AuthorizationView extends BaseView {
     model
@@ -42,6 +43,11 @@ export class AuthorizationView extends BaseView {
         const form = this.divFormView.appendChild(Form);
 
         (new AuthorizationContent(form)).render();
+
+        const number = document.getElementById('number');
+        number.addEventListener("input", mask, false);
+        number.addEventListener("focus", mask, false);
+        number.addEventListener("blur", mask, false);
 
         const button = document.getElementById('next');
         button.addEventListener('click', this.listenerAuthorization);

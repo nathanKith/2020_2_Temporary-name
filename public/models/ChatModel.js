@@ -13,6 +13,10 @@ export class ChatModel {
         this.#fillChatData(data);
     }
 
+    get id() {
+        return this.#id;
+    }
+
     set user_id(user) {
         this.#user_id = user;
     }

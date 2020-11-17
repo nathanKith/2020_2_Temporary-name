@@ -89,6 +89,8 @@ export class Chats {
                 // .getElementById('back')
                 // .addEventListener('click', this.listenerBack.bind(this));
             })
+            const chatBox = document.getElementsByClassName('chat__box__top')[0];
+            chatBox.id = Chat.id;
         });
 
         return chat;

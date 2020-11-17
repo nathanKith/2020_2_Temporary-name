@@ -2,6 +2,8 @@ import {ajax} from '../modules/ajax';
 import {backend} from '../modules/url';
 import {router} from "../main";
 import {CommentModel} from '../models/CommentModel';
+import ChatOtherMessage from "../components/ChatContent/ChatOtherMessage.hbs";
+import {ChatModel} from "../models/ChatModel";
 
 export class FeedController {
     #view
@@ -9,6 +11,7 @@ export class FeedController {
     #feed
     #chats
     #comments
+    #websocket
 
     #currentUserFeed
 
@@ -22,7 +25,12 @@ export class FeedController {
         this.#currentUserFeed = 0;
     }
 
+    async updateWebsocket() {
+        this.#websocket = await new WebSocket(backend.websocket);
+    }
+
     async update() {
+        await this.updateWebsocket();
         await this.#feed.update();
         await this.#chats.update();
         await this.#profile.update();
@@ -109,6 +117,25 @@ export class FeedController {
                 },
             },
         };
+    }
+
+    onMessageWebsocket({data}) {
+        const dataJSON = JSON.parse(data);
+        const chatModel = new ChatModel(dataJSON)
+        const message = document.getElementById('chat-box-text-area');
+        if (message) {
+            const chat = document.getElementById(chatModel.id);
+            if (chat) {
+                message.insertAdjacentHTML('beforeend', ChatOtherMessage({
+                    message_text: dataJSON.message,
+                    time_delivery: dataJSON.timeDelivery,
+                }));
+            } else {
+                const chatsIcon = document.getElementsByClassName('chats-icon-button')[0];
+                chatsIcon.classList.add('change-chat-icon');
+            }
+        }
+        //TODO: Добавить версию когда загружены комменты или профиль, и пришло сообщение или новый чат, версию когда произошел метч
     }
 
     async getProfileByComment(evt) {

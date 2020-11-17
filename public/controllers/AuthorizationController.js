@@ -21,7 +21,7 @@ export class AuthorizationController {
     async listenerAuthorization(model) {
         const mes = document.getElementById('mes');
         const telephone = document.getElementById('number');
-        if (!telephone.validity.valid) {
+        if (telephone.value.length !== 15) {
             mes.innerHTML = 'Неверно введен номер телефона';
             return;
         }

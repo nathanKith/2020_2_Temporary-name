@@ -7,6 +7,9 @@ import {RegAuthModel} from "../models/RegAuthModel";
 import {LandingHeader} from "../components/LandingHeader/LandingHeader";
 import {RegistrationController} from "../controllers/RegistrationController";
 import {router} from '../main';
+import {mask} from "../modules/mask";
+import {readImage} from  '../modules/previewAvatar'
+
 
 export class RegistrationView extends BaseView {
     model
@@ -16,6 +19,8 @@ export class RegistrationView extends BaseView {
     constructor(app) {
         super(app);
     }
+
+
 
     renderBase = () => {
         document.body.classList.add('landing-body-background');
@@ -62,12 +67,17 @@ export class RegistrationView extends BaseView {
         (new RegistrationContent(form)).render('FirstStep');
         (new RegistrationButton(form)).render();
 
+        const number = document.getElementById('number');
+        number.addEventListener("input", mask, false);
+        number.addEventListener("focus", mask, false);
+        number.addEventListener("blur", mask, false);
+
+
         const button = document.getElementById('nextButton')
         button.addEventListener('click', (evt) => {
             evt.preventDefault();
-            const number = document.getElementById('number');
             const mes = document.getElementById('mes');
-            const [message, result] = this.model.setTelephonePassword(number.value, number.validity.valid,
+            const [message, result] = this.model.setTelephonePassword(number.value, number.value.length,
                 document.getElementById('password').value,
                 document.getElementById('repeat-password').value);
             if (!result) {
@@ -226,6 +236,13 @@ export class RegistrationView extends BaseView {
 
         console.log(this.model.Json());
         (new RegistrationContent(this.divFormView)).render('Photo');
+
+        const photo = document.getElementById('file');
+        photo.onchange = () => {
+            const file = document.getElementById('file').files[0];
+            readImage(file);
+        }
+
 
         const back = document.getElementById('arrow');
         back.addEventListener('click', (evt) => {

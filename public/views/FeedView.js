@@ -158,6 +158,11 @@ export class FeedView extends BaseView{
             .getElementsByClassName('feed-container')[0]
             .classList.remove('dark');
 
+        const saveButton = document.getElementById('save-button');
+        if ('pink-save' in saveButton.classList) {
+            saveButton.classList.remove('pink-save');
+        }
+
         const settingsDiv = document.getElementsByClassName('settings')[0];
         settingsDiv.innerHTML = '';
         settingsDiv.insertAdjacentHTML('afterbegin', `<div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>`);
@@ -165,8 +170,6 @@ export class FeedView extends BaseView{
         document
             .getElementsByClassName('inner-settings')[0]
             .addEventListener('click', this.#renderSettings.bind(this));
-        
-        // document.addEventListener('click', this.#popupRenderBackSettings.bind(this));
     }
 
     #renderBackChats(evt) {

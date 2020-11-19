@@ -10,6 +10,7 @@ import {Chats} from "../Chats/Chats";
 export class ChatContent {
     #parent
     chatModel
+    listenerSend
     constructor(parent, chatModel) {
         this.#parent = parent;
         this.chatModel = chatModel;
@@ -41,16 +42,16 @@ export class ChatContent {
         });
         }
 
-        this.chatModel.websocket.onmessage = ( ({data}) => {
-            const dataJSON = JSON.parse(data);
-            const message = document.getElementById('chat-box-text-area');
-            if (message) {
-                message.insertAdjacentHTML('beforeend', ChatOtherMessage({
-                    message_text: dataJSON.message,
-                    time_delivery: dataJSON.timeDelivery,
-                }));
-            }
-        });
+        // this.chatModel.websocket.onmessage = ( ({data}) => {
+        //     const dataJSON = JSON.parse(data);
+        //     const message = document.getElementById('chat-box-text-area');
+        //     if (message) {
+        //         message.insertAdjacentHTML('beforeend', ChatOtherMessage({
+        //             message_text: dataJSON.message,
+        //             time_delivery: dataJSON.timeDelivery,
+        //         }));
+        //     }
+        // });
 
         const button = document.getElementById('send');
         button.addEventListener('click', (evt) => {
@@ -63,7 +64,8 @@ export class ChatContent {
                 message_text: document.getElementById('message').value,
                 time_delivery: delivery,
             }));
-            this.chatModel.listenerSend( document.getElementById('message').value, delivery);
+            this.listenerSend( this.chatModel.user_id, this.chatModel.id ,document.getElementById('message').value, delivery);
+            document.getElementById('message').value = '';
         })
     }
 

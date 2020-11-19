@@ -27,6 +27,7 @@ export class FeedController {
 
     async updateWebsocket() {
         this.#websocket = await new WebSocket(backend.websocket);
+        this.#websocket.onmessage = this.onMessageWebsocket;
     }
 
     async update() {
@@ -50,6 +51,7 @@ export class FeedController {
             chats: {
                 chats: this.#chats.chatList,
                 user_id: this.#profile.id,
+                onSendWebsocket: this.onSendWebsocket,
             },
             feed: {
                 feed: this.#feed.userList[this.#currentUserFeed],
@@ -119,10 +121,40 @@ export class FeedController {
         };
     }
 
+    onSendWebsocket(user_id, chat_id, message, delivery) {
+        const mes = {
+            user_id: user_id,
+            chat_id: chat_id,
+            message: message,
+            timeDelivery: delivery,
+        }
+        this.#websocket.send(JSON.stringify(mes));
+    }
+
     onMessageWebsocket({data}) {
         const dataJSON = JSON.parse(data);
-        const chatModel = new ChatModel(dataJSON)
-        const message = document.getElementById('chat-box-text-area');
+        const chatModel = new ChatModel(dataJSON);
+        const innerListChats = document.getElementsByClassName('inner-list-chats')[0]; // означает что отрисованы чаты
+        const message = document.getElementById('chat-box-text-area');//означает что отрисован какой то чат
+        const comments = document.getElementById('comments');//означает, что отрисованы комменты
+        const profile = document.getElementsByClassName('profile')[0];// означает, что отрисован профиль
+
+        if(innerListChats) {
+            const chatList = this.#chats.chatList;
+            const newChat = chatList.find( (chat) => {
+                chat.id === chatModel.id;
+            });
+            if (!newChat){
+                innerListChats.appendChild( this.#chats.createChat(chatModel));
+                this.#chats.appendChat(newChat);
+                document.getElementsByClassName('chat-info')[0]
+                    .classList.add('chats-new');
+            } else {
+                const oldChat = document.getElementById('chat' + newChat.id);
+                oldChat.classList.add('chats-new');
+            }
+        }
+
         if (message) {
             const chat = document.getElementById(chatModel.id);
             if (chat) {
@@ -131,11 +163,22 @@ export class FeedController {
                     time_delivery: dataJSON.timeDelivery,
                 }));
             } else {
-                const chatsIcon = document.getElementsByClassName('chats-icon-button')[0];
-                chatsIcon.classList.add('change-chat-icon');
+                this.pushEvent();
             }
         }
-        //TODO: Добавить версию когда загружены комменты или профиль, и пришло сообщение или новый чат, версию когда произошел метч
+
+        if(comments) {
+            this.pushEvent();
+        }
+
+        if(profile) {
+            this.pushEvent();
+        }
+    }
+
+    pushEvent() {
+        const chatsIcon = document.getElementsByClassName('chats-icon-button')[0];
+        chatsIcon.classList.add('change-chat-icon');
     }
 
     async getProfileByComment(evt) {

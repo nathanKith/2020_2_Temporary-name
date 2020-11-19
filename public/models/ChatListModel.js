@@ -20,6 +20,10 @@ export class ChatListModel {
         return this.#chatList;
     }
 
+    appendChat(chat) {
+        this.#chatList.append(chat);
+    }
+
     async #getChats() {
         await ajax.get(backend.chats)
             .then(({status, responseObject}) => {

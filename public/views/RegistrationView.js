@@ -8,7 +8,8 @@ import {LandingHeader} from "../components/LandingHeader/LandingHeader";
 import {RegistrationController} from "../controllers/RegistrationController";
 import {router} from '../main';
 import {mask} from "../modules/mask";
-import {readImage} from  '../modules/previewAvatar'
+import {readImage} from  '../modules/previewAvatar';
+import {popupLanding} from '../modules/popupLanding';
 
 
 export class RegistrationView extends BaseView {
@@ -44,16 +45,9 @@ export class RegistrationView extends BaseView {
         divFormView.addEventListener('click', (evt) => {
             evt.stopPropagation();
         });
-        this._app.addEventListener('click', this.#renderBackPopup.bind(this));
+        this._app.addEventListener('click', popupLanding);
 
         return divFormView;
-    }
-
-
-    #renderBackPopup(evt) {
-        evt.preventDefault();
-        router.redirect('/');
-        this._app.removeEventListener('click', this.#renderBackPopup.bind(this));
     }
 
     render = () => {
@@ -88,7 +82,7 @@ export class RegistrationView extends BaseView {
         });
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
-        cancel.addEventListener('click', this.#renderBackPopup.bind(this));
+        cancel.addEventListener('click', popupLanding);
     }
 
     renderName = () => {
@@ -121,7 +115,7 @@ export class RegistrationView extends BaseView {
         });
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
-        cancel.addEventListener('click', this.#renderBackPopup.bind(this));
+        cancel.addEventListener('click', popupLanding);
     }
 
     renderBirth = () => {
@@ -151,7 +145,7 @@ export class RegistrationView extends BaseView {
         });
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
-        cancel.addEventListener('click', this.#renderBackPopup.bind(this));
+        cancel.addEventListener('click', popupLanding);
     }
 
     renderSex = () => {
@@ -187,7 +181,7 @@ export class RegistrationView extends BaseView {
         });
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
-        cancel.addEventListener('click', this.#renderBackPopup.bind(this));
+        cancel.addEventListener('click', popupLanding);
     }
 
     renderAboutMe = () => {
@@ -228,7 +222,7 @@ export class RegistrationView extends BaseView {
         });
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
-        cancel.addEventListener('click', this.#renderBackPopup.bind(this));
+        cancel.addEventListener('click', popupLanding);
     }
 
     renderPhoto = () => {
@@ -254,7 +248,7 @@ export class RegistrationView extends BaseView {
         button.onclick = this.listenerRegistration;
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
-        cancel.addEventListener('click', this.#renderBackPopup.bind(this));
+        cancel.addEventListener('click', popupLanding);
     }
 
     validationAboutMe (univer) {

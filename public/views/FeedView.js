@@ -5,6 +5,7 @@ import {Chats} from '../components/Chats/Chats';
 import {Profile} from '../components/Profile/Profile';
 import {Settings} from '../components/Settings/Settings';
 import {Comments} from '../components/Comments/Comments';
+import {popupLanding} from '../modules/popupLanding';
 
 
 export class FeedView extends BaseView{
@@ -14,6 +15,7 @@ export class FeedView extends BaseView{
 
     render() {
         this._app.innerHTML = '';
+        this._app.removeEventListener('click', popupLanding);
         this._app.classList.remove('registration-body-background')
         document.body.classList.remove('landing-body-background')
 

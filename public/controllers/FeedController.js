@@ -223,13 +223,19 @@ export class FeedController {
         }
 
         await ajax.post(backend.settings, data)
-            .then(({status, responseObject}) => {
+            .then(async ({status, responseObject}) => {
                 if (status === 400) {
                     throw new Error(`${status} settings error: bad request to server on /settings`);
                 }
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot post json on /settings`);
                 }
+
+                const saveButton = document.getElementById('save-button');
+                saveButton.classList.add('pink-save');
+
+                await this.#profile.update();
+                this.#view.context = this.#makeContext();
             })
             .catch((err) => {
                 console.log(err.message);

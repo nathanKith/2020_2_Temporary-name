@@ -19,7 +19,7 @@ export class Profile {
         const innerDiv = this.#createDiv('inner-profile');
         div.appendChild(innerDiv);
 
-        innerDiv.innerHTML += `<img src="${this.#data.linkImages[0].trim()}">`;
+        innerDiv.innerHTML += `<img class="profile-avatar-photo" src="${this.#data.linkImages[0].trim()}">`;
 
         const profileInfo = this.#createDiv('my-profile-information');
         div.appendChild(profileInfo);

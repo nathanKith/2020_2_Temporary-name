@@ -1,8 +1,200 @@
 .avatar {
     width: 180px;
     height: 140px;
+    object-fit: contain;
 }
 
+
+@media screen and (max-width: 450px) and (orientation: portrait){
+    @font-face {
+        font-family: Montserrat-Semibold;
+        src: url(../../fonts/Montserrat-SemiBold.ttf)
+    }
+    .sex{
+        margin-bottom: 15vh !important;
+    }
+
+    .cancelButton{
+        margin-top: 17px;
+        margin-right: 12px;
+        border: 0;
+        outline: none;
+        background-color: white;
+        color: white;
+        cursor: pointer;
+    }
+    .cancelButton:active{
+        border: 0;
+        color: white;
+        background-color: white;
+    }
+    .arrow-img{
+        width: 7vw;
+        height: 7vh;
+    }
+    .month{
+        width: 30vw !important;
+        font-size: 2.5vh !important;
+        height: 7vh;
+    }
+    .day{
+        width: 15vw !important;
+        font-size: 2.5vh !important;
+        height: 7vh;
+    }
+    .year{
+        width: 20vw !important;
+        font-size: 2.5vh !important;
+        height: 7vh;
+    }
+    .ButtonFemale {
+        font-size: 2.5vh !important;
+        width: 30vw !important;
+        height: 7vh;
+    }
+
+    .ButtonMale {
+        font-size: 2.5vh !important;
+        width: 30vw !important;
+        height: 7vh;
+    }
+    .cancel-img {
+        width: 7vw;
+        height: 7vh;
+    }
+    .small-label-img{
+
+    }
+    .reg{
+        font-family: Montserrat-Semibold;
+        font-size: 4vh !important;
+        margin-bottom: 3vh;
+
+    }
+
+    .yourNumber{
+        display: flex;
+        justify-content: center;
+        font-size: 3vh !important;
+
+        font-family: Montserrat-Light;
+        margin-bottom: 2vh;
+    }
+    .numb{
+        width: 40vw !important;
+        font-size: 2.5vh !important;
+    }
+    .pass{
+        display: flex;
+        justify-content: center;
+    }
+    .password{
+        width: 55vw !important;
+        margin-bottom: 2vh;
+        height: 5vh;
+        text-align: center;
+        border-radius: 5px;
+        border: 0;
+        background-color: whitesmoke;
+        padding: 0.5vw 0.5vh;
+        font-size: 2.5vh !important;
+    }
+    .message {
+        font-size: 2vh !important;
+    }
+    .next{
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+    .nextButton{
+        width: 30vw !important;
+        padding: 5px 10px;
+        background-color: #1877F2;
+        color: white;
+        border-radius: 7px;
+        border: 0;
+        outline: none;
+        font-size: 3vh !important;
+        margin-bottom: 12vh;
+        text-align: center;
+        cursor: pointer;
+    }
+    .form{
+        width: 98vw !important;
+        height: 80vh !important;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+    .readonlyNum{
+        width: 7vw !important;
+        height: 5vh;
+        padding: 0.5vw 0.5vh;
+        font-size: 2.5vh !important;
+    }
+    .inner-formView {
+        margin-top: 0 !important;
+    }
+    .inner-formInf {
+        margin-top: 0 !important;
+    }
+
+    .arrow {
+        margin-top: 3vh !important;
+    }
+    .skip {
+    font-size: 2vh !important;
+    }
+    .nameFormText {
+        font-size: 2.5vh !important;
+    }
+    .University{
+        font-size: 2.5vh !important;
+    }
+    .job{
+        width: 55vw !important;
+        height: 7vh !important;
+        font-size: 2.6vh !important;
+    }
+
+    .text {
+        font-size: 2.3vh !important;
+    }
+    .about{
+        width: 55vw !important;
+        font-size: 2.5vh !important;
+        height: 12vh !important;
+    }
+    .end-is-near {
+        font-size: 2.5vh !important;
+    }
+
+    .formInf{
+        width: 98vw !important;
+        height: 100vh !important;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+    .form-photo {
+        width: 98vw !important;
+        height: 80vh !important;
+    }
+    .endButton {
+        width: 40vw !important;
+        font-size: 3vh !important;
+    }
+    .arrow-last {
+        margin-top: 3vh !important;
+    }
+    .name-last {
+        font-size: 4vh !important;
+    }
+    .message-last {
+        font-size: 2.5vh !important;
+    }
+    .education {
+        width: 55vw !important;
+        height: 5vh !important;
+    }
+}
 
 
 .form{
@@ -17,6 +209,13 @@
 @font-face {
     font-family: Montserrat-Semibold;
     src: url(../../fonts/Montserrat-SemiBold.ttf)
+}
+
+.cancel-img {
+
+}
+.small-label-img{
+
 }
 
 @font-face {

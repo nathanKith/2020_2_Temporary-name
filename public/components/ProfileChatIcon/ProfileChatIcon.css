@@ -6,7 +6,21 @@
 }
 
 .change-chat-icon {
+    -webkit-animation: blink 3s linear infinite; 
+	animation: blink 3s linear infinite; 
     background-color: #F5486B;
+}
+
+@-webkit-keyframes blink { 
+	0% { background-color: #F5486B; }
+	50% { background-color:#FBB; }
+	100% { background-color: #F5486B; }
+}
+
+@keyframes blink {  
+	0% { background-color: #F5486B; }
+	50% { background-color:#FBB; }
+	100% { background-color: #F5486B; }
 }
 
 .profile-icon {

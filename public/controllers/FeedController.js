@@ -51,7 +51,7 @@ export class FeedController {
             chats: {
                 chats: this.#chats.chatList,
                 user_id: this.#profile.id,
-                onSendWebsocket: this.onSendWebsocket,
+                onSendWebsocket: this.onSendWebsocket.bind(this),
             },
             feed: {
                 feed: this.#feed.userList[this.#currentUserFeed],
@@ -129,6 +129,8 @@ export class FeedController {
             timeDelivery: delivery,
         }
         this.#websocket.send(JSON.stringify(mes));
+        const scroll = document.getElementById('chat-box-text-area');
+        scroll.scrollTop = scroll.scrollHeight;
     }
 
     pushEvent = ()  => {
@@ -138,6 +140,7 @@ export class FeedController {
 
     onMessageWebsocket({data}) {
         const dataJSON = JSON.parse(data);
+        console.log(dataJSON);
         console.log('get message');
         const chatModel = new ChatModel(dataJSON);
         const innerListChats = document.getElementsByClassName('inner-list-chats')[0]; // означает что отрисованы чаты
@@ -148,8 +151,9 @@ export class FeedController {
         if(innerListChats) {
             const chatList = this.#chats.chatList;
             const newChat = chatList.find( (chat) => {
-                chat.id === chatModel.id;
+                return chat.id === chatModel.id;
             });
+            console.log(newChat);
             if (!newChat){
                 innerListChats.appendChild( this.#chats.createChat(chatModel));
                 this.#chats.appendChat(newChat);
@@ -165,8 +169,8 @@ export class FeedController {
             const chat = document.getElementById(chatModel.id);
             if (chat) {
                 message.insertAdjacentHTML('beforeend', ChatOtherMessage({
-                    message_text: dataJSON.message,
-                    time_delivery: dataJSON.timeDelivery,
+                    message_text: dataJSON.messages[0].message,
+                    time_delivery: dataJSON.messages[0].timeDelivery,
                 }));
             } else {
                 this.pushEvent();
@@ -180,6 +184,9 @@ export class FeedController {
         if(profile) {
             this.pushEvent();
         }
+
+        const scroll = document.getElementById('chat-box-text-area');
+        scroll.scrollTop = scroll.scrollHeight;
     }
 
     async getProfileByComment(evt) {

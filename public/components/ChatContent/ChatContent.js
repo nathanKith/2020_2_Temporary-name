@@ -25,6 +25,7 @@ export class ChatContent {
             }));
 
         const messages = document.getElementById('chat-box-text-area');
+        console.log(this.chatModel.messages);
             
         if (this.chatModel.messages) {
         this.chatModel.messages.forEach( (message) => {
@@ -42,16 +43,8 @@ export class ChatContent {
         });
         }
 
-        // this.chatModel.websocket.onmessage = ( ({data}) => {
-        //     const dataJSON = JSON.parse(data);
-        //     const message = document.getElementById('chat-box-text-area');
-        //     if (message) {
-        //         message.insertAdjacentHTML('beforeend', ChatOtherMessage({
-        //             message_text: dataJSON.message,
-        //             time_delivery: dataJSON.timeDelivery,
-        //         }));
-        //     }
-        // });
+        const scroll = document.getElementById('chat-box-text-area');
+        scroll.scrollTop = scroll.scrollHeight;
 
         const button = document.getElementById('send');
         button.addEventListener('click', (evt) => {

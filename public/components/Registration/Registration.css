@@ -7,6 +7,9 @@
 
 
 @media screen and (max-width: 450px){
+    .landing-footer {
+        height: 0 !important;
+    }
     @font-face {
         font-family: Montserrat-Semibold;
         src: url(../../fonts/Montserrat-SemiBold.ttf)
@@ -122,7 +125,7 @@
         cursor: pointer;
     }
     .form{
-        width: 98vw !important;
+        width: 100vw !important;
         height: 80vh !important;
         box-shadow: 0 0 5px rgba(0,0,0,0.3);
     }

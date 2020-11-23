@@ -8,6 +8,10 @@
     font-family: Montserrat-Regular;
 }
 
+.chats-new {
+    background-color: #F5486B;
+}
+
 .chats-logo {
     display: flex;
     font-size: 35px;

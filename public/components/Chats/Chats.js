@@ -24,12 +24,9 @@ export class Chats {
 
         if(this.#data.chats){
             this.#data.chats.forEach( (chat) => {
-                innerListChats.appendChild(this.#createChat(chat));
+                innerListChats.appendChild(this.createChat(chat));
             } );
         }
-        // for (let i = 0; i < 10; ++i) {
-        //     innerListChats.appendChild(this.#createChat());
-        // }
 
         listChats.appendChild(innerListChats);
 
@@ -37,11 +34,12 @@ export class Chats {
         this.#parent.appendChild(listChats);
     }
 
-    #createChat = (Chat) => {
+    createChat = (Chat) => {
         // if (Chat.websocket) {
         //     Chat.WebSocketClose();
         // }
         const chat = document.createElement('a');
+        chat.id = 'chat' + Chat.id;
         chat.href = '#';
         chat.classList.add('chat');
 
@@ -80,15 +78,17 @@ export class Chats {
             evt.preventDefault();
             this.#parent.innerHTML = '';
             await Chat.update();
-            await Chat.WebSocket();
             const chatContent = new ChatContent(this.#parent, Chat);
             chatContent.chatModel.user_id = this.#data['user_id'];
+            chatContent.listenerSend = this.#data['onSendWebsocket'];
             chatContent.render()
             .then( () => {
                 // document
                 // .getElementById('back')
                 // .addEventListener('click', this.listenerBack.bind(this));
             })
+            const chatBox = document.getElementsByClassName('chat__box__top')[0];
+            chatBox.id = Chat.id;
         });
 
         return chat;

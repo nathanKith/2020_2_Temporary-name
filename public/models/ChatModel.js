@@ -7,14 +7,22 @@ export class ChatModel {
     #partner
     #id
     #messages
-    #websocket
+    // #websocket
 
     constructor(data = {}) {
         this.#fillChatData(data);
     }
 
+    get id() {
+        return this.#id;
+    }
+
     set user_id(user) {
         this.#user_id = user;
+    }
+
+    get user_id() {
+        return this.#user_id;
     }
 
     get partner() {
@@ -25,25 +33,22 @@ export class ChatModel {
         return this.#messages;
     }
 
-    get websocket() {
-        return this.#websocket;
-    }
-
-    set websocket(websocket) {
-        this.#websocket = websocket;
-    }
-
-    async WebSocket() {
-        this.#websocket =  await new WebSocket(backend.websocket);
-    }
-
-    async WebSocketClose() {
-        return await this.#websocket.close();
-    }
-
-    // async updateWebsocket() {
-    //     await new WebSocket(backend.websocket);
+    // get websocket() {
+    //     return this.#websocket;
     // }
+
+    // set websocket(websocket) {
+    //     this.#websocket = websocket;
+    // }
+
+    // async WebSocket() {
+    //     this.#websocket =  await new WebSocket(backend.websocket);
+    // }
+    //
+    // async WebSocketClose() {
+    //     return await this.#websocket.close();
+    // }
+
 
     async update() {
         await ajax.get(backend.chatId + this.#id)
@@ -64,15 +69,15 @@ export class ChatModel {
         this.#messages = data['messages'];
     }
 
-    listenerSend(message, delivery) {
-        const mes = {
-            user_id: this.#user_id,
-            chat_id: this.#id,
-            message: message,
-            timeDelivery: delivery,
-        }
-        this.#websocket.send(JSON.stringify(mes));
-    }
+    // listenerSend(message, delivery) {
+    //     const mes = {
+    //         user_id: this.#user_id,
+    //         chat_id: this.#id,
+    //         message: message,
+    //         timeDelivery: delivery,
+    //     }
+    //     this.#websocket.send(JSON.stringify(mes));
+    // }
 
     validationMessage(message) {
         return message.replaceAll(' ', '') === '' ? null : message;

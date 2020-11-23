@@ -5,6 +5,10 @@
     z-index: 3;
 }
 
+.change-chat-icon {
+    background-color: #F5486B;
+}
+
 .profile-icon {
     position: absolute;
     right: 0px;

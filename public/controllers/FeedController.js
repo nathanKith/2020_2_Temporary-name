@@ -27,7 +27,7 @@ export class FeedController {
 
     async updateWebsocket() {
         this.#websocket = await new WebSocket(backend.websocket);
-        this.#websocket.onmessage = this.onMessageWebsocket;
+        this.#websocket.onmessage = this.onMessageWebsocket.bind(this);
     }
 
     async update() {
@@ -131,8 +131,14 @@ export class FeedController {
         this.#websocket.send(JSON.stringify(mes));
     }
 
+    pushEvent = ()  => {
+        const chatsIcon = document.getElementsByClassName('chats-icon-button')[0];
+        chatsIcon.classList.add('change-chat-icon');
+    }
+
     onMessageWebsocket({data}) {
         const dataJSON = JSON.parse(data);
+        console.log('get message');
         const chatModel = new ChatModel(dataJSON);
         const innerListChats = document.getElementsByClassName('inner-list-chats')[0]; // означает что отрисованы чаты
         const message = document.getElementById('chat-box-text-area');//означает что отрисован какой то чат
@@ -174,11 +180,6 @@ export class FeedController {
         if(profile) {
             this.pushEvent();
         }
-    }
-
-    pushEvent() {
-        const chatsIcon = document.getElementsByClassName('chats-icon-button')[0];
-        chatsIcon.classList.add('change-chat-icon');
     }
 
     async getProfileByComment(evt) {

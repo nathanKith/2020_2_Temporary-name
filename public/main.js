@@ -22,6 +22,8 @@ import {UserListModel} from "./models/UserListModel";
 import {ChatListModel} from "./models/ChatListModel";
 import {FeedController} from "./controllers/FeedController";
 import {CommentListModel} from './models/CommentListModel';
+import {ProfileMobileView} from "./views/ProfileMobileView";
+import {ProfileMobileController} from "./controllers/ProfileMobileController";
 
 const application = document.querySelector('#application');
 
@@ -29,6 +31,7 @@ const landingView = new LandingView(application);
 const registrationView = new RegistrationView(application);
 const authorizationView = new AuthorizationView(application);
 const feedView = new FeedView(application);
+const profileMobileView = new ProfileMobileView(application);
 
 const regAuthModel = new RegAuthModel();
 const authorizationModel = new RegAuthModel();
@@ -41,6 +44,7 @@ const landingController = new LandingController(landingView);
 const registrationController = new RegistrationController(registrationView, regAuthModel);
 const authorizationController = new AuthorizationController(authorizationView, authorizationModel);
 const feedController = new FeedController(feedView, userModel, userListModel, chatListModel, commentListModel);
+const profileMobileController = new ProfileMobileController(profileMobileView, userModel);
 
 export const router = new Router();
 
@@ -60,18 +64,26 @@ const doFeed = () => {
     feedController.control();
 }
 
+const doProfileMobile = () => {
+    profileMobileController.control();
+}
+
 
 router.add('/', doLanding);
 router.add('/signup', doRegistration);
 router.add('/login', doAuthorization);
 router.add('/feed', doFeed);
 
+// router.add('/m/feed', )
+// router.add('/m/comments', );
+// router.add('/m/chats', );
+router.add('/m/profile', doProfileMobile);
 
 router.start();
 
-window.onresize = (evt) => {
-    if (document.documentElement.clientWidth < 1024) {
-        const app = document.getElementById('application');
-        app.innerHTML = '';
-    }
-}
+// window.onresize = (evt) => {
+//     if (document.documentElement.clientWidth < 1024) {
+//         const app = document.getElementById('application');
+//         app.innerHTML = '';
+//     }
+// }

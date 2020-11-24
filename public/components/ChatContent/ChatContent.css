@@ -9,6 +9,20 @@
     border-bottom-left-radius: 0px;
 }
 
+@media screen and (max-width: 1024px){
+    .chat__box__top__left__avatar__photo{
+        width: 60px !important;
+        height: 60px !important;
+    }
+    .chat__box__top__left__avatar{
+        height: 0 !important;
+        width: 25% !important;
+    }
+    .chat__box__text-area__other{
+        margin-left: 0.5vw;
+    }
+}
+
 .chat__box__top{
     display: flex;
     height: 18%;
@@ -34,6 +48,7 @@
     border-radius: 50%;
     height:85px;
     width: 85px;
+    object-fit: cover;
 }
 .chat__box__top__left {
     align-items: center;

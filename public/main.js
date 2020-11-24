@@ -22,7 +22,7 @@ import {UserListModel} from "./models/UserListModel";
 import {ChatListModel} from "./models/ChatListModel";
 import {FeedController} from "./controllers/FeedController";
 import {CommentListModel} from './models/CommentListModel';
-import {ChatsView} from "./views/ChatsView";
+import {ChatsMobileView} from "./views/ChatsMobileView";
 import {CommentsView} from "./views/CommentsView";
 
 const application = document.querySelector('#application');
@@ -31,7 +31,7 @@ const landingView = new LandingView(application);
 const registrationView = new RegistrationView(application);
 const authorizationView = new AuthorizationView(application);
 const feedView = new FeedView(application);
-const chatsView = new ChatsView(application);
+const chatsView = new ChatsMobileView(application);
 const commentsView = new CommentsView(application);
 
 const regAuthModel = new RegAuthModel();
@@ -71,13 +71,13 @@ router.add('/signup', doRegistration);
 router.add('/login', doAuthorization);
 router.add('/feed', doFeed);
 
-router.add('/m/feed', )
-router.add('/m/comments', );
-router.add('/m/chats', );
-router.add('/m/profile', );
+//router.add('/mfeed', )
+// router.add('/mcomments', );
+router.add('/mchats', );
+// router.add('/m/profile', );
 
 
 router.start();
 
-window.onresize = (evt) => {
-}
+// window.onresize = (evt) => {
+// }

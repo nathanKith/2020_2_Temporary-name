@@ -71,6 +71,7 @@ export class FeedView extends BaseView{
 
         // TODO: добавить подгрузку чатов, сейчас они статичные
         chatsButton.addEventListener('click', (evt) => {
+            chatsButton.classList.remove('change-chat-icon');
             profileChatSection.innerHTML = '';
             feedSection.classList.remove('dark');
 

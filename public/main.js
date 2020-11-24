@@ -24,6 +24,9 @@ import {FeedController} from "./controllers/FeedController";
 import {CommentListModel} from './models/CommentListModel';
 import {ProfileMobileView} from "./views/ProfileMobileView";
 import {ProfileMobileController} from "./controllers/ProfileMobileController";
+import {ChatsMobileView} from "./views/ChatsMobileView";
+import {CommentsView} from "./views/CommentsView";
+
 
 const application = document.querySelector('#application');
 
@@ -32,6 +35,8 @@ const registrationView = new RegistrationView(application);
 const authorizationView = new AuthorizationView(application);
 const feedView = new FeedView(application);
 const profileMobileView = new ProfileMobileView(application);
+const chatsView = new ChatsMobileView(application);
+const commentsView = new CommentsView(application);
 
 const regAuthModel = new RegAuthModel();
 const authorizationModel = new RegAuthModel();
@@ -74,16 +79,9 @@ router.add('/signup', doRegistration);
 router.add('/login', doAuthorization);
 router.add('/feed', doFeed);
 
-// router.add('/m/feed', )
-// router.add('/m/comments', );
-// router.add('/m/chats', );
 router.add('/mprofile', doProfileMobile);
+//router.add('/mfeed', )
+// router.add('/mcomments', );
+router.add('/mchats', );
 
 router.start();
-
-// window.onresize = (evt) => {
-//     if (document.documentElement.clientWidth < 1024) {
-//         const app = document.getElementById('application');
-//         app.innerHTML = '';
-//     }
-// }

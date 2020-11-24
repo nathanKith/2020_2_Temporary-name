@@ -7,6 +7,9 @@
 
 
 @media screen and (max-width: 450px){
+    .footer {
+        height: 0px !important;
+    }
     @font-face {
         font-family: Montserrat-Semibold;
         src: url(../../fonts/Montserrat-SemiBold.ttf)

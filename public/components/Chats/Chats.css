@@ -8,8 +8,46 @@
     font-family: Montserrat-Regular;
 }
 
+@media screen and (min-width: 1024px) and (max-width: 1520px){
+    #name-chat{
+        font-size: 18px !important;
+    }
+    .chat-avatar-photo{
+        object-fit: cover;
+        width: 75px !important;
+    }
+    .last-message{
+        font-size: 16px !important;
+    }
+    #time-chat{
+        font-size: 14px !important;
+
+    }
+    .chats-logo{
+        font-size: 30px !important;
+    }
+    .chat-info{
+        margin-left: 5%;
+    }
+}
+
 .chats-new {
+    -webkit-animation: blink 3s linear infinite; 
+	animation: blink 3s linear infinite; 
+	font-weight: bold; 
     background-color: #F5486B;
+}
+
+@-webkit-keyframes blink { 
+	0% { background-color: #F5486B; }
+	50% { background-color: #FBB; }
+	100% { background-color: #F5486B; }
+}
+
+@keyframes blink {  
+	0% { background-color: #F5486B; }
+	50% { background-color: #FBB; }
+	100% { background-color: #F5486B; }
 }
 
 .chats-logo {

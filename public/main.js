@@ -77,7 +77,7 @@ router.add('/feed', doFeed);
 // router.add('/m/feed', )
 // router.add('/m/comments', );
 // router.add('/m/chats', );
-router.add('/m/profile', doProfileMobile);
+router.add('/mprofile', doProfileMobile);
 
 router.start();
 

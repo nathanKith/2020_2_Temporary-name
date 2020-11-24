@@ -23,6 +23,7 @@ export class ProfileMobileView extends BaseView {
 
         const mainSection = document.createElement('div');
         mainSection.classList.add('profile-chat-section');
+        container.appendChild(mainSection);
 
         const profile = new Profile(mainSection);
         profile.data = this.context['profile'];

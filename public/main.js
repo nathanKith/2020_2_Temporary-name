@@ -70,15 +70,14 @@ router.add('/', doLanding);
 router.add('/signup', doRegistration);
 router.add('/login', doAuthorization);
 router.add('/feed', doFeed);
-router.add('/comments', doFeed);
-router.add('/chats', doFeed);
-router.add('/profile', doFeed);
+
+router.add('/m/feed', )
+router.add('/m/comments', );
+router.add('/m/chats', );
+router.add('/m/profile', );
 
 
 router.start();
 
 window.onresize = (evt) => {
-    if (document.documentElement.clientWidth < 1024) {
-        feedController.view = chatsView;
-    }
 }

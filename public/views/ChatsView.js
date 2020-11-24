@@ -10,6 +10,7 @@ export class ChatsView extends BaseView {
 
         const container = document.createElement('div');
         container.classList.add('feed-container');
+        this._app.appendChild(container);
 
         const profileChatSection = document.createElement('div');
         profileChatSection.classList.add('profile-chat-section');

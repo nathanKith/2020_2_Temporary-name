@@ -11,6 +11,7 @@ export class FeedHeaderMobile {
 
     render() {
         this.#parent.insertAdjacentHTML('afterbegin', FeedHeaderMobileTemplate());
+        this.#addListeners();
     }
 
     #addListeners() {

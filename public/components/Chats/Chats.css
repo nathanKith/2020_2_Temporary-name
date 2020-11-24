@@ -31,6 +31,22 @@
     }
 }
 
+@media screen and (max-width: 1024px){
+    .chat-avatar-photo{
+        width: 70px !important;
+    }
+   .chat{
+       height: 23% !important;
+   }
+   .chat__box__text-area__date{
+       margin-left: 3% !important;
+   }
+   .chats-logo {
+        height: 0 !important;
+        font-size: 0px !important;
+   }
+}
+
 .chats-new {
     -webkit-animation: blink 3s linear infinite; 
 	animation: blink 3s linear infinite; 
@@ -112,6 +128,7 @@
     border-radius: 50%;
     height: 100%;
     width: 105px;
+    object-fit: cover;
 }
 
 .chat-info {

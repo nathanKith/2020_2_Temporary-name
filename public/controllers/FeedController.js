@@ -25,6 +25,10 @@ export class FeedController {
         this.#currentUserFeed = 0;
     }
 
+    set view(view) {
+        this.#view = view;
+    }
+
     async updateWebsocket() {
         this.#websocket = await new WebSocket(backend.websocket);
         this.#websocket.onmessage = this.onMessageWebsocket.bind(this);

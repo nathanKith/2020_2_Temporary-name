@@ -16,7 +16,7 @@
 
 .login{
     display: flex;
-    height: 2.5em;
+    height: 55%;
     font-family: Montserrat-Semibold;
     font-size: 20px;
     color: #F5486B;
@@ -29,6 +29,25 @@
     text-decoration: none;
     align-items: center;
     justify-content: center;
+    margin-right: 4vw;
+}
+
+.signup {
+    height: 55%;
+    font-family: Montserrat-Semibold;
+    font-size: 20px;
+    color: #1877F2;
+    background: white;
+    border-color: #1877F2;
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 7px;
+    width: 7em;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .toggle-menu {

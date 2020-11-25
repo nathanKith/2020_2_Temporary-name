@@ -13,6 +13,7 @@ export class RegistrationController {
         this.registrationView.model = this.RegAuthModel;
         this.registrationView.listenerRegistration = this.listenerRegistration
                                                          .bind(this.listenerRegistration, this.RegAuthModel);
+        this.registrationView.listenerCheck = this.listenerCheckNumber.bind(this);
     }
 
     control() {
@@ -38,11 +39,21 @@ export class RegistrationController {
             .then( () => {
                 router.redirect('/login');
             })
-            .catch( (err) => {
-                console.log(err.message);
-                router.redirect('/');
+            .catch( (status) => {
+                console.log(status);
+                if (status === '400') {
+                    mes.innerHTML = 'Слишком большой размер фото, пожалуйста, загрузите фото меньшего размера';
+                }
+                if (status === '500') {
+                    mes.innerHTML = 'Неизвестная ошибка, пожалуйста, попробуйте позже';
+                }
                 //redirect
             })
         console.log(mes);
+    }
+
+    async listenerCheckNumber() {
+        const number = document.getElementById('number').value;
+        await this.RegAuthModel.checkNumber(number);
     }
 }

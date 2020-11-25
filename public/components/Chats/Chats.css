@@ -33,7 +33,8 @@
 
 @media screen and (max-width: 1024px){
     .chat-avatar-photo{
-        width: 70px !important;
+        width: 14vh !important;
+        height: 14vh !important;
     }
    .chat{
        height: 23% !important;
@@ -44,6 +45,15 @@
    .chats-logo {
         height: 0 !important;
         font-size: 0px !important;
+   }
+   #name_chat{
+       font-size: 3vh !important;
+   }
+   .last-message{
+       font-size: 2.4vh !important;
+   }
+   #time-chat{
+       font-size: 2vh !important;
    }
 }
 

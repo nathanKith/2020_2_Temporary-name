@@ -27,6 +27,8 @@ import {ProfileMobileController} from "./controllers/ProfileMobileController";
 import {ChatsMobileView} from "./views/ChatsMobileView";
 import {CommentsView} from "./views/CommentsView";
 import {ChatsMobileController} from "./controllers/ChatsMobileController";
+import {SettingsMobileView} from "./views/SettingsMobileView";
+import {SettingsMobileController} from "./controllers/SettingsMobileController";
 
 
 const application = document.querySelector('#application');
@@ -38,6 +40,7 @@ const feedView = new FeedView(application);
 const profileMobileView = new ProfileMobileView(application);
 const chatsMobileView = new ChatsMobileView(application);
 const commentsView = new CommentsView(application);
+const settingsMobileView = new SettingsMobileView(application);
 
 const regAuthModel = new RegAuthModel();
 const authorizationModel = new RegAuthModel();
@@ -52,6 +55,7 @@ const authorizationController = new AuthorizationController(authorizationView, a
 const feedController = new FeedController(feedView, userModel, userListModel, chatListModel, commentListModel);
 const profileMobileController = new ProfileMobileController(profileMobileView, userModel);
 const chatsMobileController = new ChatsMobileController(chatsMobileView, chatListModel, userModel);
+const settingsMobileController = new SettingsMobileController(settingsMobileView, userModel);
 
 export const router = new Router();
 
@@ -79,6 +83,10 @@ const doChatsMobile = () => {
     chatsMobileController.control();
 }
 
+const doSettingsMobile = () => {
+    settingsMobileController.control();
+}
+
 
 router.add('/', doLanding);
 router.add('/signup', doRegistration);
@@ -89,5 +97,6 @@ router.add('/mprofile', doProfileMobile);
 //router.add('/mfeed', )
 // router.add('/mcomments', );
 router.add('/mchats', doChatsMobile);
+router.add('/msettings', doSettingsMobile);
 
 router.start();

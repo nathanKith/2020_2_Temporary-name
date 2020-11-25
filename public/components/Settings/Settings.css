@@ -3,9 +3,50 @@
     font-family: Montserrat-Bold;
 }
 
-.settings {
-    position: relative;
-    z-index: 99;
+@media screen and (max-width: 1024px) {
+    .settings {
+        position: relative;
+        z-index: 99;
+        height: 88vh;
+        width: 100vw;
+    }
+
+    .settings-open {
+        display: flex;
+        z-index: 10;
+        width: 100vw;
+        height: 100%;
+        background-color: #e2b8c1;
+        position: absolute;
+        border-bottom-left-radius: 35px;
+        border-top-left-radius: 35px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        overflow-y: scroll;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .settings {
+        position: relative;
+        z-index: 99;
+    }
+
+    .settings-open {
+        display: flex;
+        z-index: 10;
+        width: 24vw;
+        height: 100%;
+        background-color: #e2b8c1;
+        position: absolute;
+        border-bottom-left-radius: 35px;
+        border-top-left-radius: 35px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        overflow-y: scroll;
+    }
 }
 
 .inner-settings {
@@ -14,21 +55,6 @@
     top: 20px;
     cursor: pointer;
     z-index: 100;
-}
-
-.settings-open {
-    display: flex;
-    z-index: 10;
-    width: 24vw;
-    height: 100%;
-    background-color: #e2b8c1;
-    position: absolute;
-    border-bottom-left-radius: 35px;
-    border-top-left-radius: 35px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    overflow-y: scroll;
 }
 
 .settings-open::-webkit-scrollbar {

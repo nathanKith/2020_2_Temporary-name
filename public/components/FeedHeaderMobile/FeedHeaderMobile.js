@@ -1,6 +1,6 @@
 import FeedHeaderMobileTemplate from './FeedHeaderMobile.hbs';
 import './FeedHeaderMobile.css';
-import {router} from "../../main";
+import {router} from '../../main';
 
 export class FeedHeaderMobile {
     #parent
@@ -14,6 +14,11 @@ export class FeedHeaderMobile {
     }
 
     #addListeners() {
+        const settings = document.querySelector('.inner-navigation-header__settings');
+        settings.addEventListener('click', (evt) => {
+            router.redirect('/msettings');
+        })
+
         const feed = document.querySelector('.inner-navigation-header__feed-button');
         feed.addEventListener('click', (evt) => {
             router.redirect('/mfeed');

@@ -32,6 +32,9 @@
 }
 
 @media screen and (max-width: 1024px){
+    .list-chats{
+        height: 100% !important;
+    }
     .chat-avatar-photo{
         width: 14vh !important;
         height: 14vh !important;

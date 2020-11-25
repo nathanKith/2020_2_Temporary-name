@@ -33,6 +33,9 @@
     .chat__box__message-box__message{
         border-radius: 2.1vh !important;
     }
+    .chat__box{
+        height: 100% !important;
+    }
 }
 
 .chat__box__top{

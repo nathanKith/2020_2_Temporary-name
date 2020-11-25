@@ -29,9 +29,12 @@ import {CommentsView} from "./views/CommentsView";
 import {ChatsMobileController} from "./controllers/ChatsMobileController";
 import {SettingsMobileView} from "./views/SettingsMobileView";
 import {SettingsMobileController} from "./controllers/SettingsMobileController";
+import {FeedMobileView} from "./views/FeedMobileView";
+import {FeedMobileController} from "./controllers/FeedMobileController";
 
 
 const application = document.querySelector('#application');
+
 
 const landingView = new LandingView(application);
 const registrationView = new RegistrationView(application);
@@ -41,6 +44,7 @@ const profileMobileView = new ProfileMobileView(application);
 const chatsMobileView = new ChatsMobileView(application);
 const commentsView = new CommentsView(application);
 const settingsMobileView = new SettingsMobileView(application);
+const feedMobileView = new FeedMobileView(application);
 
 const regAuthModel = new RegAuthModel();
 const authorizationModel = new RegAuthModel();
@@ -56,6 +60,7 @@ const feedController = new FeedController(feedView, userModel, userListModel, ch
 const profileMobileController = new ProfileMobileController(profileMobileView, userModel);
 const chatsMobileController = new ChatsMobileController(chatsMobileView, chatListModel, userModel);
 const settingsMobileController = new SettingsMobileController(settingsMobileView, userModel);
+const feedMobileController = new FeedMobileController(feedMobileView, userListModel, chatsMobileController);
 
 export const router = new Router();
 
@@ -86,6 +91,9 @@ const doChatsMobile = () => {
 const doSettingsMobile = () => {
     settingsMobileController.control();
 }
+const doFeedMobile = () => {
+    feedMobileController.control();
+}
 
 
 router.add('/', doLanding);
@@ -94,7 +102,7 @@ router.add('/login', doAuthorization);
 router.add('/feed', doFeed);
 
 router.add('/mprofile', doProfileMobile);
-//router.add('/mfeed', )
+router.add('/mfeed', doFeedMobile);
 // router.add('/mcomments', );
 router.add('/mchats', doChatsMobile);
 router.add('/msettings', doSettingsMobile);

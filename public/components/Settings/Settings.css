@@ -16,14 +16,11 @@
         z-index: 10;
         width: 100vw;
         height: 100%;
-        background-color: #e2b8c1;
-        position: absolute;
-        border-bottom-left-radius: 35px;
-        border-top-left-radius: 35px;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
         overflow-y: scroll;
+        box-shadow: 0 0 5px rgba(0, 0, 0, .2);
     }
 }
 

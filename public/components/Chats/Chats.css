@@ -55,6 +55,9 @@
    #time-chat{
        font-size: 2vh !important;
    }
+   .chat-info{
+       margin-left: 8vw;
+   }
 }
 
 .chats-new {

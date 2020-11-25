@@ -11,15 +11,27 @@
 
 @media screen and (max-width: 1024px){
     .chat__box__top__left__avatar__photo{
-        width: 60px !important;
-        height: 60px !important;
+        width: 14vw !important;
+        height: 10vh !important;
     }
     .chat__box__top__left__avatar{
-        height: 0 !important;
+        height: 75% !important;
         width: 25% !important;
     }
     .chat__box__text-area__other{
         margin-left: 0.5vw;
+    }
+    .chat__box__text-area__my{
+        margin-right: 1.5vw !important;
+    }
+    .chat__box__text-area__other-message{
+        border-radius: 2vh 2vh 2vh 0 !important;
+    }
+    .chat__box__text-area__my-message{
+        border-radius: 2vh 2vh 2vh 0 !important;
+    }
+    .chat__box__message-box__message{
+        border-radius: 12px !important;
     }
 }
 
@@ -125,7 +137,6 @@
     width: 120%;
     height: 120%;
     z-index: 10;
-    box-shadow: 0 0 2px rgba(0, 0, 0, .2);
 }
 .chat__box__message-box__message:focus {
     outline: none;

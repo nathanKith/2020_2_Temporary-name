@@ -98,7 +98,6 @@ export class ChatsMobileController {
     }
 
     async update() {
-        await this.updateWebsocket();
         await this.#chats.update();
         await this.#profile.update();
     }

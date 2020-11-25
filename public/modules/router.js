@@ -21,6 +21,10 @@ export class Router {
         }, this);
 
         if (route === undefined) {
+            const request = {
+                // TODO: добавить параметров в реквест    !!!!
+                // TODO: доабвить функцию обрабатывающую параметры     !!!!
+            };
             return this.#routes.find((router) => {
                 return router.url === '/';
             }, this).callback.call(this);

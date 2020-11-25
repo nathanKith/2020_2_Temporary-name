@@ -2,7 +2,7 @@ import {BaseView} from "./BaseView";
 import {FeedView} from "./FeedView";
 import {Comments} from "../components/Comments/Comments";
 
-export class CommentsView extends BaseView {
+export class CommentsMobileView extends BaseView {
     constructor(app) {
         super(app);
     }

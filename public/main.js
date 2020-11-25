@@ -25,7 +25,7 @@ import {CommentListModel} from './models/CommentListModel';
 import {ProfileMobileView} from "./views/ProfileMobileView";
 import {ProfileMobileController} from "./controllers/ProfileMobileController";
 import {ChatsMobileView} from "./views/ChatsMobileView";
-import {CommentsView} from "./views/CommentsView";
+import {CommentsMobileView} from "./views/CommentsMobileView";
 import {ChatsMobileController} from "./controllers/ChatsMobileController";
 import {SettingsMobileView} from "./views/SettingsMobileView";
 import {SettingsMobileController} from "./controllers/SettingsMobileController";
@@ -42,7 +42,7 @@ const authorizationView = new AuthorizationView(application);
 const feedView = new FeedView(application);
 const profileMobileView = new ProfileMobileView(application);
 const chatsMobileView = new ChatsMobileView(application);
-const commentsView = new CommentsView(application);
+const commentsView = new CommentsMobileView(application);
 const settingsMobileView = new SettingsMobileView(application);
 const feedMobileView = new FeedMobileView(application);
 

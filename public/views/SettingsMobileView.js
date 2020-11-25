@@ -25,6 +25,10 @@ export class SettingsMobileView extends BaseView {
         settings.data = this._context['settings'];
         settings.render();
 
+        const tmp = container.firstChild;
+        container.firstChild = container.lastChild;
+        container.lastChild = tmp;
+
         const settingsDiv = document.getElementsByClassName('settings-open')[0];
         settingsDiv.removeChild(document.getElementsByClassName('inner-settings')[0]);
         settingsDiv.removeChild(document.getElementsByClassName('settings-header')[0]);

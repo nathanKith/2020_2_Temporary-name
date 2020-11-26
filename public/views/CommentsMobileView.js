@@ -10,8 +10,13 @@ export class CommentsMobileView extends BaseView {
     render = (isMy = false) => {
         this._app.innerHTML = '';
 
+        const background = document.createElement('div');
+        background.classList.add('feed-background');
+        this._app.appendChild(background);
+
         const container = document.createElement('div');
         container.classList.add('feed-container');
+        background.appendChild(container);
 
         const profileChatSection = document.createElement('div');
         profileChatSection.classList.add('profile-chat-section');
@@ -30,14 +35,14 @@ export class CommentsMobileView extends BaseView {
                 this._context['comments'].event.sendComment.listener);
         }
 
-        const images = document.getElementsByClassName('inner__profile-comments__avatar__photo');
-        if (images) {
-            const avatars = Array.from(images);
-            avatars.forEach((img) => {
-                img.addEventListener(this._context['comments'].event.getProfileByComment.type,
-                    this._context['comments'].event.getProfileByComment.listener);
-            }, this);
-        }
+        // const images = document.getElementsByClassName('inner__profile-comments__avatar__photo');
+        // if (images) {
+        //     const avatars = Array.from(images);
+        //     avatars.forEach((img) => {
+        //         img.addEventListener(this._context['comments'].event.getProfileByComment.type,
+        //             this._context['comments'].event.getProfileByComment.listener);
+        //     }, this);
+        // }
 
     }
 }

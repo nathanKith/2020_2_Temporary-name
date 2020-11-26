@@ -21,16 +21,14 @@ export class Router {
         }, this);
 
         if (route === undefined) {
-            const request = {
-                // TODO: добавить параметров в реквест    !!!!
-                // TODO: доабвить функцию обрабатывающую параметры     !!!!
-            };
             return this.#routes.find((router) => {
                 return router.url === '/';
             }, this).callback.call(this);
         }
 
-        return route.callback.call(this);
+        return route.callback.call(this, {
+            parameters: this.#getParametersFromRegExp(route),
+        });
     }
 
     add = (url, callback) => {
@@ -58,6 +56,22 @@ export class Router {
     redirect = (url, data = {}, title = '') => {
         window.history.pushState(data, title, url);
         return this.start();
+    }
+
+    #getParametersFromRegExp(route) {
+        const routeMatched = this.#getCurrentPath().match(route.regExp);
+        if (!routeMatched) {
+            return;
+        }
+        let param = {};
+        routeMatched.forEach((r, i) => {
+            if (i !== 0) {
+                const key = Object.getOwnPropertyNames(route.parameters[i - 1]);
+                param[key] = r;
+            }
+        });
+
+        return param;
     }
 
     #convertToRegExp(route) {

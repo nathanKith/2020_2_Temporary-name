@@ -43,7 +43,6 @@ export class FeedMobileController{
         };
     }
 
-
     async likeListener(evt) {
         evt.preventDefault();
         await this.#likeDislikeAjax(backend.like);

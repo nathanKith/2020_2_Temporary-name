@@ -45,6 +45,8 @@ export class CommentsMobileController {
 
     async control(userId) {
         this.#userId = userId;
+        console.log('ПРОВЕРКА');
+        console.log(userId);
         await this.update(userId);
         this.#view.context = this.#makeContext();
         this.#view.render();

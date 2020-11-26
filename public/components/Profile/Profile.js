@@ -1,5 +1,6 @@
 import './Profile.css';
 import {backend} from './../../modules/url';
+import {router} from '../../main';
 
 export class Profile {
 
@@ -38,6 +39,18 @@ export class Profile {
         div.appendChild(infoLogo);
 
         this.#parent.appendChild(div);
+
+        const logo = document.getElementById('profile-comments');
+        logo.addEventListener('click', this.#getMyComments.bind(this));
+    }
+
+    #getMyComments(evt) {
+        evt.preventDefault();
+        
+        const logo = document.getElementById('profile-comments');
+        logo.removeEventListener('click', this.#getMyComments.bind(this));
+        
+        router.redirect(`/mcomments/${this.#data.id}`);
     }
 
     #createDiv = (className) => {

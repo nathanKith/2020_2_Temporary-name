@@ -163,6 +163,7 @@ export class FeedController {
                 const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
                 const chats = new Chats(profileChatSection);
                 chats.data = this.#makeContext()['chats'];
+                
                 innerListChats.appendChild(chats.createChat(chatModel));
                 console.log(chatModel);
                 this.#chats.appendChat(chatModel);

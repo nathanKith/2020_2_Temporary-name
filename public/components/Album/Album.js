@@ -1,7 +1,8 @@
 import AlbumImg from './AlbumImg.hbs'
 import AlbumPreview from './AlbumPreview.hbs'
 import AlbumButtons from './AlbumButtons.hbs'
-import readImage from '../../modules/previewAvatar'
+import {readImage} from '../../modules/previewAvatar'
+import './Album.css'
 
 export class Album {
     #parent
@@ -25,11 +26,16 @@ export class Album {
             albumSection.insertAdjacentHTML('beforeend', AlbumImg({
                 photo: image,
             }));
-        } )
+        });
+
+        const photo = document.getElementById('file');
+        photo.onchange = () => {
+            const file = document.getElementById('file').files[0];
+            readImage(file);
+            this.#parent.insertAdjacentHTML('afterbegin', AlbumButtons());
+        }
 
     }
 
-    newPhoto() {
 
-    }
 }

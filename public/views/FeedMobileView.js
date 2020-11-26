@@ -41,6 +41,7 @@ export class FeedMobileView extends BaseView {
     }
 
     #getCommentsListener(evt) {
+        evt.preventDefault();
         router.redirect(`/mcomments/${this._context['feed'].feed.id}`);
     }
 

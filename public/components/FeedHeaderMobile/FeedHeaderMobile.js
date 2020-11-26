@@ -17,21 +17,25 @@ export class FeedHeaderMobile {
     #addListeners() {
         const settings = document.querySelector('.inner-navigation-header__settings');
         settings.addEventListener('click', (evt) => {
+            evt.preventDefault();
             router.redirect('/msettings');
         })
 
         const feed = document.querySelector('.inner-navigation-header__feed-button');
         feed.addEventListener('click', (evt) => {
+            evt.preventDefault();
             router.redirect('/mfeed');
         });
 
         const profile = document.querySelector('.inner-navigation-header__profile-button');
         profile.addEventListener('click', (evt) => {
+            evt.preventDefault();
             router.redirect('/mprofile');
         });
 
         const chats = document.querySelector('.inner-navigation-header__chats-button');
         chats.addEventListener('click', (evt) => {
+            evt.preventDefault();
             router.redirect('/mchats');
         });
     }

@@ -2,6 +2,7 @@ import {BaseView} from "./BaseView";
 import {popupLanding} from "../modules/popupLanding";
 import {Feed} from "../components/Feed/Feed";
 import {FeedHeaderMobile} from "../components/FeedHeaderMobile/FeedHeaderMobile";
+import {router} from '../main';
 
 export class FeedMobileView extends BaseView {
     constructor(app) {
@@ -35,20 +36,26 @@ export class FeedMobileView extends BaseView {
         feed.data = this._context['feed'];
         feed.render();
 
-        // const informationLogo = document.getElementById('information-logo');
-        // informationLogo.addEventListener(this._context['comments'].event.getComments.type,
-        //     this._context['comments'].event.getComments.listener);
+        const informationLogo = document.getElementById('information-logo');
+        informationLogo.addEventListener('click', this.#getCommentsListener.bind(this));
+    }
+
+    #getCommentsListener(evt) {
+        evt.preventDefault();
+        router.redirect(`/mcomments/${this._context['feed'].feed.id}`);
     }
 
     rerenderFeed() {
+        const informationLogo = document.getElementById('information-logo');
+        informationLogo.removeEventListener('click', this.#getCommentsListener.bind(this));
+
         const feedSection = document.getElementsByClassName('feed-section')[0];
         feedSection.innerHTML = '';
         const feed = new Feed(feedSection);
         feed.data = this._context['feed'];
         feed.render();
 
-        // const informationLogo = document.getElementById('information-logo');
-        // informationLogo.addEventListener(this._context['comments'].event.getComments.type,
-        //                                  this._context['comments'].event.getComments.listener);
+        const newInformationLogo = document.getElementById('information-logo');
+        newInformationLogo.addEventListener('click', this.#getCommentsListener.bind(this));
     }
 }

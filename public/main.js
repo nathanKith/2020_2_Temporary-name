@@ -25,12 +25,13 @@ import {CommentListModel} from './models/CommentListModel';
 import {ProfileMobileView} from "./views/ProfileMobileView";
 import {ProfileMobileController} from "./controllers/ProfileMobileController";
 import {ChatsMobileView} from "./views/ChatsMobileView";
-import {CommentsView} from "./views/CommentsView";
+import {CommentsMobileView} from "./views/CommentsMobileView";
 import {ChatsMobileController} from "./controllers/ChatsMobileController";
 import {SettingsMobileView} from "./views/SettingsMobileView";
 import {SettingsMobileController} from "./controllers/SettingsMobileController";
 import {FeedMobileView} from "./views/FeedMobileView";
 import {FeedMobileController} from "./controllers/FeedMobileController";
+import {CommentsMobileController} from "./controllers/CommentsMobileController";
 
 
 const application = document.querySelector('#application');
@@ -42,9 +43,10 @@ const authorizationView = new AuthorizationView(application);
 const feedView = new FeedView(application);
 const profileMobileView = new ProfileMobileView(application);
 const chatsMobileView = new ChatsMobileView(application);
-const commentsView = new CommentsView(application);
+const commentsView = new CommentsMobileView(application);
 const settingsMobileView = new SettingsMobileView(application);
 const feedMobileView = new FeedMobileView(application);
+const commentsMobileView = new CommentsMobileView(application);
 
 const regAuthModel = new RegAuthModel();
 const authorizationModel = new RegAuthModel();
@@ -61,6 +63,7 @@ const profileMobileController = new ProfileMobileController(profileMobileView, u
 const chatsMobileController = new ChatsMobileController(chatsMobileView, chatListModel, userModel);
 const settingsMobileController = new SettingsMobileController(settingsMobileView, userModel);
 const feedMobileController = new FeedMobileController(feedMobileView, userListModel, chatsMobileController);
+const commentsMobileController = new CommentsMobileController(commentsMobileView, userModel, commentListModel);
 
 export const router = new Router();
 
@@ -91,8 +94,13 @@ const doChatsMobile = () => {
 const doSettingsMobile = () => {
     settingsMobileController.control();
 }
+
 const doFeedMobile = () => {
     feedMobileController.control();
+}
+
+const doCommentsMobile = (req) => {
+    commentsMobileController.control(req.parameters.userid);
 }
 
 
@@ -103,7 +111,7 @@ router.add('/feed', doFeed);
 
 router.add('/mprofile', doProfileMobile);
 router.add('/mfeed', doFeedMobile);
-// router.add('/mcomments', );
+router.add('/mcomments/{userId}', doCommentsMobile);
 router.add('/mchats', doChatsMobile);
 router.add('/msettings', doSettingsMobile);
 

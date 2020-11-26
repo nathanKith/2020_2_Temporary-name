@@ -17,15 +17,21 @@ body {
 .landing-heart-background::before {
     content: '';
     position: absolute;
-    left: 0; right: 25%;
-    top: 0; bottom: 0;
+    right: 3%;
     z-index: -1;
     background: url(./img/heart.svg) center / cover no-repeat;
+    width: 100vw;
+    height: 100vh;
+}
+
+@media screen and (max-width: 1024px) {
+    .landing-heart-background::before {
+        right: 0 !important;
+        display: none;
+    }
 }
 
 .landing-footer {
-    position: absolute;
-    top: 90vh;
     width: 100vw;
     height: 10vh;
     background-color: white;

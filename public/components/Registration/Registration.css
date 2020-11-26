@@ -7,9 +7,6 @@
 
 
 @media screen and (max-width: 450px){
-    .landing-footer {
-        height: 0 !important;
-    }
     @font-face {
         font-family: Montserrat-Semibold;
         src: url(../../fonts/Montserrat-SemiBold.ttf)
@@ -1138,6 +1135,7 @@ arrow:hover{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 80vh;
 }
 
 .inner-formView {

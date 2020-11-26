@@ -54,6 +54,6 @@ export class RegistrationController {
 
     async listenerCheckNumber() {
         const number = document.getElementById('number').value;
-        await this.RegAuthModel.checkNumber(number);
+        return await this.RegAuthModel.checkNumber(number);
     }
 }

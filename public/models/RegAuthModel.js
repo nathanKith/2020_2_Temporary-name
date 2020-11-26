@@ -43,7 +43,7 @@ export class RegAuthModel extends UserModel{
     }
 
     async authorization() {
-        await ajax.post(backend.login, this.JsonAuth())
+        return await ajax.post(backend.login, this.JsonAuth())
             .then(({status, responseObject}) => {
                 if (status !== 200) {
                     throw new Error(`${status} error auth: have not this user`);
@@ -134,7 +134,7 @@ export class RegAuthModel extends UserModel{
 
     async registration(Form) {
         console.log('ajax post');
-        await ajax.post(backend.upload, new FormData(Form), true)
+        return await ajax.post(backend.upload, new FormData(Form), true)
             .then(({status, responseObject}) => {
                 let photo_name;
                 if (status === 200 ) {
@@ -144,7 +144,7 @@ export class RegAuthModel extends UserModel{
                     });
                     console.log(photo_name);
                 } else {
-                    photo_name = throw new Error(`${status}`);
+                    throw new Error(`${status}`);
                 }
                 return photo_name;
             })
@@ -200,6 +200,8 @@ export class RegAuthModel extends UserModel{
 
 
     async checkNumber(number) {
-        await ajax.post(backend.telephone, number);
+        return await ajax.post(backend.telephone, {
+            telephone: number,
+        });
     }
 }

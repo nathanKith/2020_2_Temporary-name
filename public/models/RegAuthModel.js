@@ -8,6 +8,7 @@ export class RegAuthModel extends UserModel{
 
     constructor() {
         super();
+        this.linkImage = [];
     }
 
     validationPassword(validityNumber, password, repeatPassword) {
@@ -139,7 +140,7 @@ export class RegAuthModel extends UserModel{
                 if (status === 200 ) {
                     photo_name = new Promise((resolve, reject) => {
                         resolve(JSON.stringify(responseObject));
-                        this.linkImage = responseObject.replaceAll('"', '');
+                        this.linkImage.push(responseObject.replaceAll('"', ''));
                     });
                     console.log(photo_name);
                 } else {

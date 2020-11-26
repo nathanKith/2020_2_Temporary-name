@@ -100,8 +100,6 @@ const doFeedMobile = () => {
 }
 
 const doCommentsMobile = (req) => {
-    console.log('ХАХАХАХАХ');
-    console.log(req);
     commentsMobileController.control(req.parameters.userid);
 }
 

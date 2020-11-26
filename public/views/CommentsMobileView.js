@@ -1,6 +1,7 @@
 import {BaseView} from "./BaseView";
 import {FeedView} from "./FeedView";
 import {Comments} from "../components/Comments/Comments";
+import {FeedHeaderMobile} from "../components/FeedHeaderMobile/FeedHeaderMobile";
 
 export class CommentsMobileView extends BaseView {
     constructor(app) {
@@ -17,6 +18,9 @@ export class CommentsMobileView extends BaseView {
         const container = document.createElement('div');
         container.classList.add('feed-container');
         background.appendChild(container);
+
+        const navigationHeader = new FeedHeaderMobile(container);
+        navigationHeader.render();
 
         const profileChatSection = document.createElement('div');
         profileChatSection.classList.add('profile-chat-section');

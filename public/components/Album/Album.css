@@ -27,3 +27,40 @@
 .album-img{
     object-fit: cover;
 }
+
+.photo {
+    background: url("../../img/camera.svg");
+    background-repeat: no-repeat;
+    outline: none;
+    text-align: center;
+    overflow:hidden;
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    position: absolute;
+    z-index: -10;
+}
+.out {
+    cursor: pointer;
+}
+
+.album-button {
+    width: 12vw;
+    padding: 5px 10px;
+    background-color: white;
+    color: #1F2041;
+    outline: none;
+    border-color:#1F2041;
+    border-radius: 7px;
+    font-size: 2.5vh;
+    text-decoration: none;
+    text-align: center;
+}
+.album-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+    margin-top: 2.3vh;
+}

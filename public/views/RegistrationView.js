@@ -16,6 +16,7 @@ export class RegistrationView extends BaseView {
     model
     listenerRegistration
     divFormView
+    listenerCheck
 
     constructor(app) {
         super(app);
@@ -91,7 +92,17 @@ export class RegistrationView extends BaseView {
                 mes.innerHTML = message;
                 return;
             }
-            this.renderName();
+            this.listenerCheck()
+                .then( ({status, responseObject}) => {
+                    if (!responseObject) {
+                        this.renderName();
+                    } else {
+                        throw new Error('Такой номер уже существует');
+                    }
+                }).catch( (err) => {
+                mes.innerHTML = err;
+                return;
+            })
         });
 
         const cancel = document.getElementsByClassName('cancelButton')[0];

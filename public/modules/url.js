@@ -65,11 +65,15 @@ class Backend {
     }
 
     get comment() {
-        return this.#url + this.#api + '/comment'
+        return this.#url + this.#api + '/comment';
     }
 
     avatar = (name) => {
         return this.#url + name;
+    }
+
+    get telephone(){
+        return this.#url + this.#api + '/telephone';
     }
 }
 

@@ -4,8 +4,11 @@ import {UserModel} from "./UserModel";
 import {feedPage} from "../main";
 
 export class RegAuthModel extends UserModel{
+    linkImage
+
     constructor() {
         super();
+        this.linkImage = [];
     }
 
     validationPassword(validityNumber, password, repeatPassword) {
@@ -40,7 +43,7 @@ export class RegAuthModel extends UserModel{
     }
 
     async authorization() {
-        await ajax.post(backend.login, this.JsonAuth())
+        return await ajax.post(backend.login, this.JsonAuth())
             .then(({status, responseObject}) => {
                 if (status !== 200) {
                     throw new Error(`${status} error auth: have not this user`);
@@ -125,53 +128,80 @@ export class RegAuthModel extends UserModel{
             job: this.job,
             education: this.education,
             aboutMe: this.aboutMe,
+            linkImages: this.linkImage,
         }
     }
 
     async registration(Form) {
         console.log('ajax post');
-        await ajax.post(backend.signup, this.Json())
-            .then( ({status, responseObject}) => {
-                let string;
-                if (status === 401) {
-                    string = new Promise((resolve, reject) => {
-                        reject('Такой пользователь уже зарегистрирован!');
-                    });
-                }
+        return await ajax.post(backend.upload, new FormData(Form), true)
+            .then(({status, responseObject}) => {
+                let photo_name;
                 if (status === 200 ) {
-                    string = new Promise((resolve, reject) => {
-                        resolve('Успешно зарегистрировались!');
+                    photo_name = new Promise((resolve, reject) => {
+                        resolve(JSON.stringify(responseObject));
+                        this.linkImage.push(responseObject.replaceAll('"', ''));
                     });
+                    console.log(photo_name);
+                } else {
+                    throw new Error(`${status}`);
                 }
-                return string;
-            }).then( (string) => {
-                ajax.post(backend.upload, new FormData(Form), true)
-                    .then(({status, responseObject}) => {
-                        let photo_name;
-                        if (status === 200 ) {
-                            photo_name = new Promise((resolve, reject) => {
-                                resolve(JSON.stringify(responseObject));
-                                console.log(JSON.stringify(responseObject));
-                            });
-                            console.log(photo_name);
-                        } else {
-                          throw new Error(`${status} error upload: cannot upload file on back`);
-                        }
-                        return photo_name;
-                    }).then ( (photo_name) => {
-                    const link_photo = "http://95.163.213.222:8080/static/avatars/";
-                    console.log(link_photo + photo_name.replaceAll('"', ''));
-                    const photoAdd = {
-                        telephone: this.telephone,
-                        linkImages: link_photo + photo_name.replaceAll('"', ''), 
-                    }
-                    ajax.post(backend.addPhoto, photoAdd)
-                        .then(({status, responseObject}) => {
-                        if (status !== 200 ) {
-                            throw new Error(`${status} error adding: cannot add photo on back`);
-                        }
-                        });
-                })
-            });
+                return photo_name;
+            })
+            .then( (photo) => {
+                ajax.post(backend.signup, this.Json());
+            })
+
+
+        // await ajax.post(backend.signup, this.Json())
+        //     .then( ({status, responseObject}) => {
+        //         let string;
+        //         if (status === 401) {
+        //             string = new Promise((resolve, reject) => {
+        //                 reject('Такой пользователь уже зарегистрирован!');
+        //             });
+        //         }
+        //         if (status === 200 ) {
+        //             string = new Promise((resolve, reject) => {
+        //                 resolve('Успешно зарегистрировались!');
+        //             });
+        //         }
+        //         return string;
+        //     }).then( (string) => {
+        //         ajax.post(backend.upload, new FormData(Form), true)
+        //             .then(({status, responseObject}) => {
+        //                 let photo_name;
+        //                 if (status === 200 ) {
+        //                     photo_name = new Promise((resolve, reject) => {
+        //                         resolve(JSON.stringify(responseObject));
+        //                         console.log(JSON.stringify(responseObject));
+        //                     });
+        //                     console.log(photo_name);
+        //                 } else {
+        //                   throw new Error(`${status} error upload: cannot upload file on back`);
+        //                 }
+        //                 return photo_name;
+        //             }).then ( (photo_name) => {
+        //             const link_photo = "http://95.163.213.222:8080/static/avatars/";
+        //             console.log(link_photo + photo_name.replaceAll('"', ''));
+        //             const photoAdd = {
+        //                 telephone: this.telephone,
+        //                 linkImages: link_photo + photo_name.replaceAll('"', ''),
+        //             }
+        //             ajax.post(backend.addPhoto, photoAdd)
+        //                 .then(({status, responseObject}) => {
+        //                 if (status !== 200 ) {
+        //                     throw new Error(`${status} error adding: cannot add photo on back`);
+        //                 }
+        //                 });
+        //         })
+        //     });
+    }
+
+
+    async checkNumber(number) {
+        return await ajax.post(backend.telephone, {
+            telephone: number,
+        });
     }
 }

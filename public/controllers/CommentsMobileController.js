@@ -38,7 +38,7 @@ export class CommentsMobileController {
             commentText: document.getElementById('text-comment').value,
             timeDelivery: '',
         });
-        await comment.addComment(this.#userId);
+        await comment.addComment(Number(this.#userId));
         this.#view.context.comments.comments.commentsList.push(comment);
         this.#view.render();
     }

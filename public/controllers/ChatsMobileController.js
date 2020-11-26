@@ -37,7 +37,7 @@ export class ChatsMobileController {
     }
 
     pushEvent = () => {
-        const chatsIcon = document.getElementsByClassName('chats-icon-button')[0];
+        const chatsIcon = document.getElementsByClassName('inner-navigation-header__chats-button')[0];
         chatsIcon.classList.add('change-chat-icon');
     }
 
@@ -50,6 +50,7 @@ export class ChatsMobileController {
         const message = document.getElementById('chat-box-text-area');//означает что отрисован какой то чат
         const comments = document.getElementById('comments');//означает, что отрисованы комменты
         const profile = document.getElementsByClassName('profile')[0];// означает, что отрисован профиль
+        const feed = document.getElementsByClassName('photos-cell')[0];
 
         if(innerListChats) {
             const chatList = this.#chats.chatList;
@@ -75,6 +76,8 @@ export class ChatsMobileController {
                     message_text: dataJSON.messages[0].message,
                     time_delivery: dataJSON.messages[0].timeDelivery,
                 }));
+                const scroll = document.getElementById('chat-box-text-area');
+                scroll.scrollTop = scroll.scrollHeight;
             } else {
                 this.pushEvent();
             }
@@ -88,8 +91,9 @@ export class ChatsMobileController {
             this.pushEvent();
         }
 
-        const scroll = document.getElementById('chat-box-text-area');
-        scroll.scrollTop = scroll.scrollHeight;
+        if (feed) {
+            this.pushEvent();
+        }
     }
 
     async updateWebsocket() {

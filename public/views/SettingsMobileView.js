@@ -18,19 +18,32 @@ export class SettingsMobileView extends BaseView {
         container.classList.add('feed-container');
         background.appendChild(container);
 
-        const navigationHeader = new FeedHeaderMobile(container);
-        navigationHeader.render();
-
         const settings = new Settings(container);
         settings.data = this._context['settings'];
         settings.render();
 
-        // const tmp = container.firstChild;
-        // container.firstChild = container.lastChild;
-        // container.lastChild = tmp;
+        const navigationHeader = new FeedHeaderMobile(container);
+        navigationHeader.render();
 
         const settingsDiv = document.getElementsByClassName('settings-open')[0];
         settingsDiv.removeChild(document.getElementsByClassName('inner-settings')[0]);
         settingsDiv.removeChild(document.getElementsByClassName('settings-header')[0]);
+    }
+
+    getSettingsData() {
+        return {
+            telephone: document.getElementById('account-tel').value,
+            password: document.getElementById('password').value,
+            repeatPassword: document.getElementById('repeat-password').value,
+            name: document.getElementById('settings-name').value,
+            education: document.getElementById('education').value,
+            job: document.getElementById('job').value,
+            aboutMe: document.getElementById('aboutMe').value,
+        };
+    }
+
+    rerenderSettings() {
+        const err = document.getElementById('error');
+        err.innerText = this._context['settings'].validate.passwords.message;
     }
 }

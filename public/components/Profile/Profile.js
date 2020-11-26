@@ -46,11 +46,12 @@ export class Profile {
 
     #getMyComments(evt) {
         evt.preventDefault();
-        
-        const logo = document.getElementById('profile-comments');
-        logo.removeEventListener('click', this.#getMyComments.bind(this));
-        
-        router.redirect(`/mcomments/${this.#data.id}`);
+        if (document.documentElement.clientWidth < 1024) {
+            const logo = document.getElementById('profile-comments');
+            logo.removeEventListener('click', this.#getMyComments.bind(this));
+            
+            router.redirect(`/mcomments/${this.#data.id}`);
+        }
     }
 
     #createDiv = (className) => {

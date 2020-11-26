@@ -20,6 +20,7 @@
     .feed-section{
         width: 100% !important;
         height: 90%;
+        box-shadow: 0 0 5px rgba(0, 0, 0, .2);
     }
     .profile-person{
         width: 80% !important;

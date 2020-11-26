@@ -22,6 +22,16 @@
         overflow-y: scroll;
         box-shadow: 0 0 5px rgba(0, 0, 0, .2);
     }
+
+    .settings-forms {
+        display: flex;
+        width: 100%;
+        height: 88%;
+        background-color: white;
+        flex-direction: column;
+        justify-content: flex-start;
+        box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    }
 }
 
 @media screen and (min-width: 1024px) {
@@ -44,6 +54,19 @@
         justify-content: space-between;
         overflow-y: scroll;
     }
+
+    .settings-forms {
+        display: flex;
+        width: 100%;
+        height: 88%;
+        background-color: white;
+        border-bottom-left-radius: 35px;
+        border-top-left-radius: 35px;
+        border-top-right-radius: 35px;
+        flex-direction: column;
+        justify-content: flex-start;
+        box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    }
 }
 
 .inner-settings {
@@ -62,19 +85,6 @@
     font-size: 30px;
     font-family: Montserrat-Bold;
     margin-top: 20px;
-}
-
-.settings-forms {
-    display: flex;
-    width: 100%;
-    height: 88%;
-    background-color: white;
-    border-bottom-left-radius: 35px;
-    border-top-left-radius: 35px;
-    border-top-right-radius: 35px;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
 }
 
 .account-div-first {
@@ -109,6 +119,18 @@
     padding-top: 3%;
     padding-bottom: 3%;
     box-shadow: 0 0 6px rgba(0, 0, 0, .2);
+    font-size: 20px;
+    font-family: Montserrat-Semibold;
+    margin-bottom: 3%;
+}
+
+.account__form_error {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 3%;
+    padding-bottom: 3%;
     font-size: 20px;
     font-family: Montserrat-Semibold;
     margin-bottom: 3%;
@@ -165,6 +187,7 @@ textarea {
     font-size: 20px;
     width: 100%;
     height: 100%;
+    text-align: center;
 }
 
 .save-button {
@@ -178,7 +201,7 @@ textarea {
     cursor: pointer;
 }
 
-.logo {
+.logo-miami {
     padding-top: 3%;
     align-items: center;
     padding-bottom: 5%;

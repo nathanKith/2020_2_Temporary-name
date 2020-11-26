@@ -35,9 +35,6 @@ export class Chats {
     }
 
     createChat = (Chat) => {
-        // if (Chat.websocket) {
-        //     Chat.WebSocketClose();
-        // }
         const chat = document.createElement('a');
         chat.id = 'chat' + Chat.id;
         chat.href = '#';
@@ -78,7 +75,10 @@ export class Chats {
             evt.preventDefault();
             this.#parent.innerHTML = '';
             await Chat.update();
+            console.log('chat after update');
+            console.log(Chat);
             const chatContent = new ChatContent(this.#parent, Chat);
+            console.log(this.#data);
             chatContent.chatModel.user_id = this.#data['user_id'];
             chatContent.listenerSend = this.#data['onSendWebsocket'];
             chatContent.render()

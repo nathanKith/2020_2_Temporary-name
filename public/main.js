@@ -33,6 +33,8 @@ import {FeedMobileView} from "./views/FeedMobileView";
 import {FeedMobileController} from "./controllers/FeedMobileController";
 import {CommentsMobileController} from "./controllers/CommentsMobileController";
 
+import {isMobile, resizeListener} from "./modules/resizing";
+
 
 const application = document.querySelector('#application');
 
@@ -80,27 +82,51 @@ const doAuthorization = () => {
 }
 
 const doFeed = () => {
-    feedController.control();
+    if (isMobile()) {
+        router.redirect('/mfeed');
+    } else {
+        feedController.control();
+    }
 }
 
 const doProfileMobile = () => {
-    profileMobileController.control();
+    if (!isMobile()) {
+        router.redirect('/feed');
+    } else {
+        profileMobileController.control();
+    }
 }
 
 const doChatsMobile = () => {
-    chatsMobileController.control();
+    if (!isMobile()) {
+        router.redirect('/feed');
+    } else {
+        chatsMobileController.control();
+    }
 }
 
 const doSettingsMobile = () => {
-    settingsMobileController.control();
+    if (!isMobile()) {
+        router.redirect('/feed');
+    } else {
+        settingsMobileController.control();
+    }
 }
 
 const doFeedMobile = () => {
-    feedMobileController.control();
+    if (!isMobile()) {
+        router.redirect('/feed');
+    } else {
+        feedMobileController.control();
+    }
 }
 
 const doCommentsMobile = (req) => {
-    commentsMobileController.control(req.parameters.userid);
+    if (!isMobile()) {
+        router.redirect('/feed');
+    } else {
+        commentsMobileController.control(req.parameters.userid);
+    }
 }
 
 
@@ -116,3 +142,5 @@ router.add('/mchats', doChatsMobile);
 router.add('/msettings', doSettingsMobile);
 
 router.start();
+
+window.onresize = resizeListener;

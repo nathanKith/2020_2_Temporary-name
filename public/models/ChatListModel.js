@@ -21,7 +21,7 @@ export class ChatListModel {
     }
 
     appendChat(chat) {
-        this.#chatList.append(chat);
+        this.#chatList.push(chat);
     }
 
     async #getChats() {

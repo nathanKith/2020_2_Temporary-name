@@ -4,6 +4,7 @@ import {router} from "../main";
 import {CommentModel} from '../models/CommentModel';
 import ChatOtherMessage from "../components/ChatContent/ChatOtherMessage.hbs";
 import {ChatModel} from "../models/ChatModel";
+import {Chats} from '../components/Chats/Chats';
 
 export class FeedController {
     #view
@@ -159,10 +160,14 @@ export class FeedController {
             });
             console.log(newChat);
             if (!newChat){
-                innerListChats.appendChild( this.#chats.createChat(chatModel));
-                this.#chats.appendChat(newChat);
-                document.getElementsByClassName('chat-info')[0]
-                    .classList.add('chats-new');
+                const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
+                const chats = new Chats(profileChatSection);
+                chats.data = this.#makeContext()['chats'];
+                innerListChats.appendChild(chats.createChat(chatModel));
+                console.log(chatModel);
+                this.#chats.appendChat(chatModel);
+                const nc = document.getElementById('chat' + chatModel.id);
+                nc.classList.add('chats-new');
             } else {
                 const oldChat = document.getElementById('chat' + newChat.id);
                 oldChat.classList.add('chats-new');
@@ -189,8 +194,8 @@ export class FeedController {
             this.pushEvent();
         }
 
-        const scroll = document.getElementById('chat-box-text-area');
-        scroll.scrollTop = scroll.scrollHeight;
+        // const scroll = document.getElementById('chat-box-text-area');
+        // scroll.scrollTop = scroll.scrollHeight;
     }
 
     async getProfileByComment(evt) {

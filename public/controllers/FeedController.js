@@ -6,7 +6,7 @@ import ChatOtherMessage from "../components/ChatContent/ChatOtherMessage.hbs";
 import {ChatModel} from "../models/ChatModel";
 import {Chats} from '../components/Chats/Chats';
 import {Album} from "../components/Album/Album";
-import AlbumImg from "../components/Album/AlbumImg";
+import AlbumImg from "./../components/Album/AlbumImg.hbs";
 
 export class FeedController {
     #view

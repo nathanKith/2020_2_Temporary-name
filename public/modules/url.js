@@ -72,9 +72,14 @@ class Backend {
         return this.#url + name;
     }
 
+    get removePhoto() {
+        return this.#url + this.#api + '/remove_photo';
+    }
+
     get telephone(){
         return this.#url + this.#api + '/telephone';
     }
+
 }
 
 export const backend = new Backend();

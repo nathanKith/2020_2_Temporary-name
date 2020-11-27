@@ -154,4 +154,16 @@ export class UserModel {
             return link;
         });
     }
+
+    async addPhoto(form) {
+        return await ajax.post(backend.addPhoto, new FormData(form), true);
+    }
+
+    async deletePhoto(link_image) {
+        return await ajax.post(backend.removePhoto, {
+            link_image: link_image,
+        });
+    }
+
+
 }

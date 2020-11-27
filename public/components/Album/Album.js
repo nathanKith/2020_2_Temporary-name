@@ -8,6 +8,7 @@ export class Album {
     #parent
     #listImages
     #isMy
+    listenerSave
 
     set isMy(isMy){
         this.#isMy = isMy;
@@ -42,7 +43,12 @@ export class Album {
             photo.onchange = () => {
                 const file = document.getElementById('file').files[0];
                 readImage(file);
-                this.#parent.insertAdjacentHTML('afterbegin', AlbumButtons());
+                const buttons = document.getElementsByClassName('album-buttons')[0];
+                if (!buttons) {
+                    this.#parent.insertAdjacentHTML('afterbegin', AlbumButtons());
+                    document.getElementById('save').addEventListener(this.listenerSave.type,
+                        this.listenerSave.listener);
+                }
             }
         }
     }

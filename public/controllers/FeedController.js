@@ -125,6 +125,12 @@ export class FeedController {
                     },
                 },
             },
+            albums: {
+                savePhoto: {
+                    type: 'click',
+                    listener: this.savePhotoListener.bind(this),
+                }
+            }
         };
     }
 
@@ -243,26 +249,48 @@ export class FeedController {
     }
 
     async savePhotoListener(evt) {
+        console.log('я навесился!')
         evt.preventDefault();
+        const save = document.getElementById('save');
         const photo = document.getElementById('file');
         if (photo.value) {
+            console.log('фото загружено')
+            save.innerHTML = 'Сохранить';
             await this.#profile.addPhoto(document.getElementById('send'))
             .then( ({status, responseObject}) => {
                 if (status === 200) {
-                    const link = responseObject;
+                    console.log('я разрезолвился!')
+                    console.log(responseObject);
+                    const link = responseObject['linkImages'];
                     this.#profile.appendLinkImages(link);
                     const albumSection = document.getElementsByClassName('album-section')[0];
                     albumSection.insertAdjacentHTML('beforeend', AlbumImg({
                         photo: link,
                     }));
+                    photo.value = '';
+                    const preview = document.getElementById('preview');
+                    preview.src = './img/plus.svg';
+                    const buttons = document.getElementsByClassName('album-buttons')[0];
+                    document.getElementsByClassName('feed-section')[0].removeChild(buttons);
+                } else if (status === 400){
+                    throw new Error('Слишком большой размер фото')
+                } else {
+                    throw new Error('Не удалось загрузить фото(')
                 }
+            }).catch( (err) => {
+                save.innerHTML = err.message;
             })
+        } else {
+            save.innerHTML = 'Выберите фото!';
+            return;
         }
     }
 
     async getMyCommentsListener(evt) {
         evt.preventDefault();
         await this.#comments.update(this.#profile.id);
+        const feedSection = document.getElementsByClassName('feed-section')[0];
+        feedSection.classList.remove('dark');
         this.#view.renderMyAlbum();
         this.#view.renderComments(true);
     }

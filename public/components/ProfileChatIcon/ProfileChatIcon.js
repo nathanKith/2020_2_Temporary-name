@@ -26,9 +26,9 @@ export class ProfileChatIcon {
         chatsButton.innerHTML = `<img src="./../../img/chats.svg">`;
 
         const feedButton = document.createElement('button');
-        chatsButton.classList.add('feed-icon__button');
-        chatsButton.type = 'button';
-        chatsButton.innerHTML = `<img src="./img/small_classic_label.png">`;
+        feedButton.classList.add('feed-icon__button');
+        feedButton.type = 'button';
+        feedButton.innerHTML = `<img src="./img/small_classic_label.png">`;
 
         profile.appendChild(profileButton);
         chats.appendChild(chatsButton);

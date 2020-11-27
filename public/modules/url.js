@@ -4,9 +4,9 @@ class Backend {
     #websocket
 
     constructor() {
-        this.#url = 'http://95.163.213.222:8080';
+        this.#url = 'https://95.163.213.222:8080';
         this.#api = '/api/v1';
-        this.#websocket = 'ws://95.163.213.222:8080';
+        this.#websocket = 'wss://95.163.213.222:8080';
     }
 
     get me() {

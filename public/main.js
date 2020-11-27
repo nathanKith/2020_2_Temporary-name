@@ -143,4 +143,4 @@ router.add('/msettings', doSettingsMobile);
 
 router.start();
 
-window.onresize = resizeListener;
+// window.onresize = resizeListener;

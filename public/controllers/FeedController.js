@@ -6,6 +6,7 @@ import ChatOtherMessage from "../components/ChatContent/ChatOtherMessage.hbs";
 import {ChatModel} from "../models/ChatModel";
 import {Chats} from '../components/Chats/Chats';
 import {Album} from "../components/Album/Album";
+import AlbumImg from "../components/Album/AlbumImg";
 
 export class FeedController {
     #view
@@ -241,9 +242,28 @@ export class FeedController {
         });
     }
 
+    async savePhotoListener(evt) {
+        evt.preventDefault();
+        const photo = document.getElementById('file');
+        if (photo.value) {
+            await this.#profile.addPhoto(document.getElementById('send'))
+            .then( ({status, responseObject}) => {
+                if (status === 200) {
+                    const link = responseObject;
+                    this.#profile.appendLinkImages(link);
+                    const albumSection = document.getElementsByClassName('album-section')[0];
+                    albumSection.insertAdjacentHTML('beforeend', AlbumImg({
+                        photo: link,
+                    }));
+                }
+            })
+        }
+    }
+
     async getMyCommentsListener(evt) {
         evt.preventDefault();
         await this.#comments.update(this.#profile.id);
+        this.#view.renderMyAlbum();
         this.#view.renderComments(true);
     }
 

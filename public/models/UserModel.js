@@ -108,6 +108,10 @@ export class UserModel {
         return this.#linkImages;
     }
 
+    appendLinkImages(link_image) {
+        this.#linkImages.push(link_image);
+    }
+
     get age() {
         return this.#age;
     }

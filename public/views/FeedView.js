@@ -130,6 +130,15 @@ export class FeedView extends BaseView{
     renderAlbum = () => {
         const feedSection = document.getElementsByClassName('feed-section')[0];
         const album = new Album(feedSection, this._context['feed']['feed'].linkImages);
+        album.isMy = false;
+        album.render();
+    }
+
+    renderMyAlbum = () => {
+        const feedSection = document.getElementsByClassName('feed-section')[0];
+        const album = new Album(feedSection, this._context['profile'].linkImages);
+        album.isMy = true;
+        album.render();
     }
 
     #renderSettings(evt) {

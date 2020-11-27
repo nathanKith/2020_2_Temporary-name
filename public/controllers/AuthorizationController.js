@@ -34,7 +34,11 @@ export class AuthorizationController {
         }
         await model.authorization()
             .then( () => {
-                router.redirect('/feed');
+                if (document.documentElement.clientWidth < 1024) {
+                    router.redirect('/mfeed');
+                } else {
+                    router.redirect('/feed');   
+                }
             })
             .catch( (err) => {
                 console.log(err.message);

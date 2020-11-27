@@ -10,6 +10,9 @@
 }
 
 @media screen and (max-width: 1024px){
+    .chat__box__message-box__message__send__but {
+        width: 7vh !important;
+    }
     .chat__box__top__left__avatar__photo{
         width: 10vh !important;
         height: 10vh !important;

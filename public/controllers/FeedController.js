@@ -5,6 +5,7 @@ import {CommentModel} from '../models/CommentModel';
 import ChatOtherMessage from "../components/ChatContent/ChatOtherMessage.hbs";
 import {ChatModel} from "../models/ChatModel";
 import {Chats} from '../components/Chats/Chats';
+import {Album} from "../components/Album/Album";
 
 export class FeedController {
     #view
@@ -249,6 +250,7 @@ export class FeedController {
     async getUserCommentsListener(evt) {
         evt.preventDefault();
         await this.#comments.update(this.#feed.userList[this.#currentUserFeed].id);
+        this.#view.renderAlbum();
         this.#view.renderComments();
     }
 

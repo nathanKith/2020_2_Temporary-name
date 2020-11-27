@@ -16,6 +16,49 @@
     margin-top: 20px;
 }
 
+@media screen and (max-width: 1024px){
+    .feed-section{
+        width: 100% !important;
+        height: 90%;
+        box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    }
+    .profile-person{
+        width: 80% !important;
+    }
+    .photos-cell{
+        width: 70% !important;
+        margin-bottom: 1%;
+        margin-top: 0.5vh !important;
+    }
+    #name{
+        font-size: 5vh !important;
+    }
+    #age{
+        font-size: 5vh !important;
+    }
+    #university-work {
+        font-size: 4vh !important;
+    }
+    #about-me {
+        font-size: 3vh !important;
+    }
+    .profile-information{
+        margin-left: 2vw !important;
+        margin-bottom: 3vh !important;
+    }
+    .information-logo{
+        left: 82% !important;
+    }
+    .reactions{
+        width: 70% !important;
+    }
+}
+
+.logo {
+    width: 4vh;
+    height: 4vh;
+}
+
 .cell {
     height: 4px;
     width: 100%;

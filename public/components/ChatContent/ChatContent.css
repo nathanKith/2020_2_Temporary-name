@@ -9,6 +9,38 @@
     border-bottom-left-radius: 0px;
 }
 
+@media screen and (max-width: 1024px){
+    .chat__box__message-box__message__send__but {
+        width: 7vh !important;
+    }
+    .chat__box__top__left__avatar__photo{
+        width: 10vh !important;
+        height: 10vh !important;
+    }
+    .chat__box__top__left__avatar{
+        height: 75% !important;
+        width: 25% !important;
+    }
+    .chat__box__text-area__other{
+        margin-left: 0.5vw;
+    }
+    .chat__box__text-area__my{
+        margin-right: 1.5vw !important;
+    }
+    .chat__box__text-area__other-message{
+        border-radius: 2vh 2vh 2vh 0 !important;
+    }
+    .chat__box__text-area__my-message{
+        border-radius: 2vh 2vh 0 2vh !important;
+    }
+    .chat__box__message-box__message{
+        border-radius: 2.1vh !important;
+    }
+    .chat__box{
+        height: 100% !important;
+    }
+}
+
 .chat__box__top{
     display: flex;
     height: 18%;
@@ -34,6 +66,7 @@
     border-radius: 50%;
     height:85px;
     width: 85px;
+    object-fit: cover;
 }
 .chat__box__top__left {
     align-items: center;
@@ -110,7 +143,6 @@
     width: 120%;
     height: 120%;
     z-index: 10;
-    box-shadow: 0 0 2px rgba(0, 0, 0, .2);
 }
 .chat__box__message-box__message:focus {
     outline: none;

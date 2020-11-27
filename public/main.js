@@ -25,18 +25,30 @@ import {CommentListModel} from './models/CommentListModel';
 import {ProfileMobileView} from "./views/ProfileMobileView";
 import {ProfileMobileController} from "./controllers/ProfileMobileController";
 import {ChatsMobileView} from "./views/ChatsMobileView";
-import {CommentsView} from "./views/CommentsView";
+import {CommentsMobileView} from "./views/CommentsMobileView";
+import {ChatsMobileController} from "./controllers/ChatsMobileController";
+import {SettingsMobileView} from "./views/SettingsMobileView";
+import {SettingsMobileController} from "./controllers/SettingsMobileController";
+import {FeedMobileView} from "./views/FeedMobileView";
+import {FeedMobileController} from "./controllers/FeedMobileController";
+import {CommentsMobileController} from "./controllers/CommentsMobileController";
+
+import {isMobile, resizeListener} from "./modules/resizing";
 
 
 const application = document.querySelector('#application');
+
 
 const landingView = new LandingView(application);
 const registrationView = new RegistrationView(application);
 const authorizationView = new AuthorizationView(application);
 const feedView = new FeedView(application);
 const profileMobileView = new ProfileMobileView(application);
-const chatsView = new ChatsMobileView(application);
-const commentsView = new CommentsView(application);
+const chatsMobileView = new ChatsMobileView(application);
+const commentsView = new CommentsMobileView(application);
+const settingsMobileView = new SettingsMobileView(application);
+const feedMobileView = new FeedMobileView(application);
+const commentsMobileView = new CommentsMobileView(application);
 
 const regAuthModel = new RegAuthModel();
 const authorizationModel = new RegAuthModel();
@@ -50,6 +62,10 @@ const registrationController = new RegistrationController(registrationView, regA
 const authorizationController = new AuthorizationController(authorizationView, authorizationModel);
 const feedController = new FeedController(feedView, userModel, userListModel, chatListModel, commentListModel);
 const profileMobileController = new ProfileMobileController(profileMobileView, userModel);
+const chatsMobileController = new ChatsMobileController(chatsMobileView, chatListModel, userModel);
+const settingsMobileController = new SettingsMobileController(settingsMobileView, userModel);
+const feedMobileController = new FeedMobileController(feedMobileView, userListModel, chatsMobileController);
+const commentsMobileController = new CommentsMobileController(commentsMobileView, userModel, commentListModel);
 
 export const router = new Router();
 
@@ -66,11 +82,51 @@ const doAuthorization = () => {
 }
 
 const doFeed = () => {
-    feedController.control();
+    if (isMobile()) {
+        router.redirect('/mfeed');
+    } else {
+        feedController.control();
+    }
 }
 
 const doProfileMobile = () => {
-    profileMobileController.control();
+    if (!isMobile()) {
+        router.redirect('/feed');
+    } else {
+        profileMobileController.control();
+    }
+}
+
+const doChatsMobile = () => {
+    if (!isMobile()) {
+        router.redirect('/feed');
+    } else {
+        chatsMobileController.control();
+    }
+}
+
+const doSettingsMobile = () => {
+    if (!isMobile()) {
+        router.redirect('/feed');
+    } else {
+        settingsMobileController.control();
+    }
+}
+
+const doFeedMobile = () => {
+    if (!isMobile()) {
+        router.redirect('/feed');
+    } else {
+        feedMobileController.control();
+    }
+}
+
+const doCommentsMobile = (req) => {
+    if (!isMobile()) {
+        router.redirect('/feed');
+    } else {
+        commentsMobileController.control(req.parameters.userid);
+    }
 }
 
 
@@ -80,8 +136,11 @@ router.add('/login', doAuthorization);
 router.add('/feed', doFeed);
 
 router.add('/mprofile', doProfileMobile);
-//router.add('/mfeed', )
-// router.add('/mcomments', );
-router.add('/mchats', );
+router.add('/mfeed', doFeedMobile);
+router.add('/mcomments/{userId}', doCommentsMobile);
+router.add('/mchats', doChatsMobile);
+router.add('/msettings', doSettingsMobile);
 
 router.start();
+
+window.onresize = resizeListener;

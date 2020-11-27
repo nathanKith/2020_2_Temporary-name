@@ -1,8 +1,9 @@
 import {BaseView} from "./BaseView";
 import {FeedView} from "./FeedView";
 import {Comments} from "../components/Comments/Comments";
+import {FeedHeaderMobile} from "../components/FeedHeaderMobile/FeedHeaderMobile";
 
-export class CommentsView extends BaseView {
+export class CommentsMobileView extends BaseView {
     constructor(app) {
         super(app);
     }
@@ -10,8 +11,16 @@ export class CommentsView extends BaseView {
     render = (isMy = false) => {
         this._app.innerHTML = '';
 
+        const background = document.createElement('div');
+        background.classList.add('feed-background');
+        this._app.appendChild(background);
+
         const container = document.createElement('div');
         container.classList.add('feed-container');
+        background.appendChild(container);
+
+        const navigationHeader = new FeedHeaderMobile(container);
+        navigationHeader.render();
 
         const profileChatSection = document.createElement('div');
         profileChatSection.classList.add('profile-chat-section');
@@ -30,14 +39,14 @@ export class CommentsView extends BaseView {
                 this._context['comments'].event.sendComment.listener);
         }
 
-        const images = document.getElementsByClassName('inner__profile-comments__avatar__photo');
-        if (images) {
-            const avatars = Array.from(images);
-            avatars.forEach((img) => {
-                img.addEventListener(this._context['comments'].event.getProfileByComment.type,
-                    this._context['comments'].event.getProfileByComment.listener);
-            }, this);
-        }
+        // const images = document.getElementsByClassName('inner__profile-comments__avatar__photo');
+        // if (images) {
+        //     const avatars = Array.from(images);
+        //     avatars.forEach((img) => {
+        //         img.addEventListener(this._context['comments'].event.getProfileByComment.type,
+        //             this._context['comments'].event.getProfileByComment.listener);
+        //     }, this);
+        // }
 
     }
 }

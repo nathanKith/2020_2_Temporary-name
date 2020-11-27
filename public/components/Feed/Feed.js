@@ -148,7 +148,7 @@ export class Feed {
 
         const link = document.createElement('a');
         link.href = '#';
-        link.innerHTML += `<img src="./../../img/info.svg">`;
+        link.innerHTML += `<img class="logo" src="./../../img/info.svg">`;
 
         infoLogo.appendChild(link);
         div.appendChild(infoLogo);

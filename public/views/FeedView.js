@@ -69,7 +69,7 @@ export class FeedView extends BaseView{
             feedSection.classList.add('dark');
         });
 
-        // TODO: добавить подгрузку чатов, сейчас они статичные
+
         chatsButton.addEventListener('click', (evt) => {
             chatsButton.classList.remove('change-chat-icon');
             profileChatSection.innerHTML = '';
@@ -99,14 +99,14 @@ export class FeedView extends BaseView{
                                           this._context['comments'].event.sendComment.listener);
         }
 
-        const images = document.getElementsByClassName('inner__profile-comments__avatar__photo');
-        if (images) {
-            const avatars = Array.from(images);
-            avatars.forEach((img) => {
-                img.addEventListener(this._context['comments'].event.getProfileByComment.type,
-                                     this._context['comments'].event.getProfileByComment.listener);
-            }, this);
-        }
+        // const images = document.getElementsByClassName('inner__profile-comments__avatar__photo');
+        // if (images) {
+        //     const avatars = Array.from(images);
+        //     avatars.forEach((img) => {
+        //         img.addEventListener(this._context['comments'].event.getProfileByComment.type,
+        //                              this._context['comments'].event.getProfileByComment.listener);
+        //     }, this);
+        // }
        
 
         const backToChats = document.getElementById('backToChat');

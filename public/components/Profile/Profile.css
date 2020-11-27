@@ -31,6 +31,22 @@
     }
 }
 
+#my-name {
+    font-size: 4vh;
+}
+
+#my-age {
+    font-size: 4vh;
+}
+
+#my-university-work {
+    font-size: 3vh;
+}
+
+#my-about-me {
+    font-size: 2.5vh;
+}
+
 .inner-profile {
     border-radius: 30px;
     width: 75%;
@@ -52,21 +68,6 @@
     align-items: flex-start;
 }
 
-#my-name {
-    font-size: 40px;
-}
-
-#my-age {
-    font-size: 40px;
-}
-
-#my-university-work {
-    font-size: 30px;
-}
-
-#my-about-me {
-    font-size: 20px;
-}
 
 .comments-logo {
     width: 90%;

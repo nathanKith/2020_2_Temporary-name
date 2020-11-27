@@ -31,6 +31,39 @@
     }
 }
 
+@media screen and (max-width: 1024px){
+    .list-chats{
+        height: 100% !important;
+        border-radius: 0px !important;
+    }
+    .chat-avatar-photo{
+        width: 14vh !important;
+        height: 14vh !important;
+    }
+   .chat{
+       height: 23% !important;
+   }
+   .chat__box__text-area__date{
+       margin-left: 3% !important;
+   }
+   .chats-logo {
+        height: 0 !important;
+        font-size: 0px !important;
+   }
+   #name_chat{
+       font-size: 3vh !important;
+   }
+   .last-message{
+       font-size: 2.4vh !important;
+   }
+   #time-chat{
+       font-size: 2vh !important;
+   }
+   .chat-info{
+       margin-left: 8vw;
+   }
+}
+
 .chats-new {
     -webkit-animation: blink 3s linear infinite; 
 	animation: blink 3s linear infinite; 
@@ -112,6 +145,7 @@
     border-radius: 50%;
     height: 100%;
     width: 105px;
+    object-fit: cover;
 }
 
 .chat-info {

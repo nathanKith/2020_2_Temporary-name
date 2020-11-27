@@ -14,6 +14,8 @@ export class ChatContent {
     constructor(parent, chatModel) {
         this.#parent = parent;
         this.chatModel = chatModel;
+        console.log('this.chatModel');
+        console.log(this.chatModel);
     }
     async render() {
         // this.#parent.innerHTML = '';

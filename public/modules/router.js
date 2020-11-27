@@ -12,8 +12,12 @@ export class Router {
     }
 
     start = () => {
+        this.#routes.forEach((route) => {
+            this.#convertToRegExp(route);
+        }, this);
+
         const route = this.#routes.find((route) => {
-            return this.#getCurrentPath() === route.url;
+            return this.#getCurrentPath().match(route.regExp);
         }, this);
 
         if (route === undefined) {
@@ -22,7 +26,9 @@ export class Router {
             }, this).callback.call(this);
         }
 
-        return route.callback.call(this);
+        return route.callback.call(this, {
+            parameters: this.#getParametersFromRegExp(route),
+        });
     }
 
     add = (url, callback) => {
@@ -40,6 +46,8 @@ export class Router {
         this.#routes.push({
             url: url,
             callback: callback,
+            parameters: this.#handleParameters(url),
+            regExp: null,
         });
 
         return this;
@@ -48,6 +56,72 @@ export class Router {
     redirect = (url, data = {}, title = '') => {
         window.history.pushState(data, title, url);
         return this.start();
+    }
+
+    #getParametersFromRegExp(route) {
+        const routeMatched = this.#getCurrentPath().match(route.regExp);
+        if (!routeMatched) {
+            return;
+        }
+        let param = {};
+        routeMatched.forEach((r, i) => {
+            if (i !== 0) {
+                const key = Object.getOwnPropertyNames(route.parameters[i - 1]);
+                param[key] = r;
+            }
+        });
+
+        return param;
+    }
+
+    #convertToRegExp(route) {
+        let regExp = route.url.replace(/\//g, '\\/')
+                                .replace(/\./g, '\\.')
+                                .replace('/', '/?');
+
+        if (this.#hasParameters(route.url)) {
+            regExp.replace(/{\w+}/g, (parameter) => {
+                const parameterName = parameter.replace('{', '')
+                                               .replace('}', '');
+                route.parameters.some((param) => {
+                    if (param[parameterName] !== undefined) {
+                        regExp = regExp.replace(parameter, param[parameterName].regExp);
+                        return regExp;
+                    }
+                });
+
+                return parameter;
+            });
+        }
+
+        route.regExp = new RegExp(`^${regExp}$`);
+        return route;
+    }
+
+    #handleParameters(url) {
+        let parameters = [];
+        let sn = 0;
+
+        if (this.#hasParameters(url)) {
+            url.replace(/\{\w+\}/g, (parameter) => {
+                sn++;
+                parameter.replace(/\w+/, (parameterName) => {
+                    let obj = {};
+                    obj[parameterName] = {
+                        sn: sn,
+                        regExp: '([^\\/]+)',
+                        value: null,
+                    }
+                    parameters.push(obj);
+                });
+            });
+        }
+
+        return parameters;
+    }
+
+    #hasParameters(url) {
+        return url.search(/{\w+}/g) >= 0;
     }
 
     #getCurrentPath = () => {

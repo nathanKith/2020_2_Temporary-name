@@ -13,6 +13,7 @@ export class ProfileChatIcon {
 
         const profile = this.#createDiv('profile-icon');
         const chats = this.#createDiv('chats-icon');
+        const feed = this.#createDiv('feed-icon');
 
         const profileButton = document.createElement('button');
         profileButton.classList.add('profile-icon-button')
@@ -24,17 +25,25 @@ export class ProfileChatIcon {
         chatsButton.type = 'button';
         chatsButton.innerHTML = `<img src="./../../img/chats.svg">`;
 
+        const feedButton = document.createElement('button');
+        chatsButton.classList.add('feed-icon__button');
+        chatsButton.type = 'button';
+        chatsButton.innerHTML = `<img src="./img/small_classic_label.png">`;
+
         profile.appendChild(profileButton);
         chats.appendChild(chatsButton);
+        feed.appendChild(feedButton);
 
         div.appendChild(profile);
         div.appendChild(chats);
+        div.appendChild(feed);
 
         this.#parent.appendChild(div);
 
         return {
             profileButton: profileButton,
             chatsButton: chatsButton,
+            feedButton: feedButton,
         };
     }
 

@@ -71,6 +71,10 @@ class Backend {
     avatar = (name) => {
         return this.#url + name;
     }
+    get removePhoto() {
+        return this.#url + this.#api + '/remove_photo';
+    }
+
 }
 
 export const backend = new Backend();

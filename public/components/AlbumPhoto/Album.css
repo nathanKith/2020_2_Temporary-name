@@ -164,6 +164,7 @@
 }
 .basket-img {
     height: 4.5vh;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .2);
 }
 .basket-button {
     border: 0;
@@ -171,4 +172,7 @@
     color: white;
     cursor: pointer;
     text-decoration: none;
+}
+.cancel-img{
+    box-shadow: 0 0 2px rgba(0, 0, 0, .2);
 }

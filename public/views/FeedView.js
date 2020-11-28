@@ -7,6 +7,7 @@ import {Settings} from '../components/Settings/Settings';
 import {Comments} from '../components/Comments/Comments';
 import {popupLanding} from '../modules/popupLanding';
 import {Album} from "../components/Album/Album";
+import {AlbumPhoto} from "../components/AlbumPhoto/AlbumPhoto";
 
 
 export class FeedView extends BaseView{
@@ -127,6 +128,7 @@ export class FeedView extends BaseView{
         backToChats.addEventListener('click', this.#renderBackChats.bind(this));
     }
 
+
     renderAlbum = () => {
         const feedSection = document.getElementsByClassName('feed-section')[0];
         const album = new Album(feedSection, this._context['feed']['feed'].linkImages);
@@ -139,6 +141,8 @@ export class FeedView extends BaseView{
         const album = new Album(feedSection, this._context['profile'].linkImages);
         album.isMy = true;
         album.listenerSave = this._context['albums'].savePhoto;
+        album.listenerCancel = this._context['albums'].cancelPhoto;
+        album.listenerDelete = this._context['albums'].deletePhoto;
         album.render();
     }
 

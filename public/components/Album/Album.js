@@ -2,6 +2,7 @@ import AlbumImg from './AlbumImg.hbs'
 import AlbumPreview from './AlbumPreview.hbs'
 import AlbumButtons from './AlbumButtons.hbs'
 import {readImage} from '../../modules/previewAvatar'
+import {AlbumPhoto} from "../AlbumPhoto/AlbumPhoto";
 import './Album.css'
 
 export class Album {
@@ -9,6 +10,8 @@ export class Album {
     #listImages
     #isMy
     listenerSave
+    listenerCancel
+    listenerDelete
 
     set isMy(isMy){
         this.#isMy = isMy;
@@ -32,10 +35,19 @@ export class Album {
         }
 
 
-        this.#listImages.forEach( (image) => {
+        this.#listImages.forEach( (image, index) => {
             albumSection.insertAdjacentHTML('beforeend', AlbumImg({
                 photo: image,
             }));
+            const albumPhoto = document.getElementsByClassName('album-img')[index];
+            albumPhoto.addEventListener('click', (evt) => {
+                evt.preventDefault();
+                const feedContainer = document.getElementsByClassName('feed-container')[0];
+                const photoFromAlbum = new AlbumPhoto(feedContainer);
+                photoFromAlbum.photo = image;
+                photoFromAlbum.render();
+                photoFromAlbum.listenerDelete = this.listenerDelete;
+            });
         });
 
         if(this.#isMy) {
@@ -48,6 +60,8 @@ export class Album {
                     this.#parent.insertAdjacentHTML('afterbegin', AlbumButtons());
                     document.getElementById('save').addEventListener(this.listenerSave.type,
                         this.listenerSave.listener);
+                    document.getElementById('delete').addEventListener(this.listenerCancel.type,
+                        this.listenerCancel.listener);
                 }
             }
         }

@@ -129,6 +129,14 @@ export class FeedController {
                 savePhoto: {
                     type: 'click',
                     listener: this.savePhotoListener.bind(this),
+                },
+                cancelPhoto: {
+                    type: 'click',
+                    listener: this.cancelPhotoListener.bind(this),
+                },
+                deletePhoto: {
+                    type: 'click',
+                    listener: this.deletePhotoListener.bind(this),
                 }
             }
         };
@@ -267,11 +275,7 @@ export class FeedController {
                     albumSection.insertAdjacentHTML('beforeend', AlbumImg({
                         photo: link,
                     }));
-                    photo.value = '';
-                    const preview = document.getElementById('preview');
-                    preview.src = './img/plus.svg';
-                    const buttons = document.getElementsByClassName('album-buttons')[0];
-                    document.getElementsByClassName('feed-section')[0].removeChild(buttons);
+                    this.cancelPhotoListener();
                 } else if (status === 400){
                     throw new Error('Слишком большой размер фото')
                 } else {
@@ -284,6 +288,37 @@ export class FeedController {
             save.innerHTML = 'Выберите фото!';
             return;
         }
+    }
+
+    cancelPhotoListener () {
+        const photo = document.getElementById('file');
+        photo.value = '';
+        const preview = document.getElementById('preview');
+        preview.src = './img/plus.svg';
+        const buttons = document.getElementsByClassName('album-buttons')[0];
+        document.getElementsByClassName('feed-section')[0].removeChild(buttons);
+    }
+
+    async deletePhotoListener(evt) {
+        evt.preventDefault();
+        const photo = document.getElementById('current-photo');
+        await this.#profile.deletePhoto(photo.src)
+            .then( ({status, responseObject}) => {
+                if (status === 200) {
+                    const feedContainer = document.getElementsByClassName('feed-container')[0];
+                    feedContainer.classList.remove('dark-photo');
+
+                    const photo = document.getElementsByClassName('photo-view')[0];
+                    feedContainer.removeChild(photo);
+
+                    this.#profile.deleteImage(photo.src);
+                    this.#view.renderMyAlbum();
+                } else {
+                    throw new Error('ошибка удаления');
+                }
+            }).catch( (err) => {
+                console.log(err.message);
+            });
     }
 
     async getMyCommentsListener(evt) {

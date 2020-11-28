@@ -143,59 +143,18 @@ export class RegAuthModel extends UserModel{
                         this.linkImage.push(responseObject.replaceAll('"', ''));
                     });
                     console.log(photo_name);
-                } else {
-                    throw new Error(`${status}`);
+                    return ajax.post(backend.signup, this.Json());
                 }
-                return photo_name;
-            })
-            .then( (photo) => {
-                ajax.post(backend.signup, this.Json());
-            })
 
+                if (status === 400) {
+                    throw new Error('Слишком большой размер фото, пожалуйста, загрузите фото меньшего размера');
+                    
+                }
 
-        // await ajax.post(backend.signup, this.Json())
-        //     .then( ({status, responseObject}) => {
-        //         let string;
-        //         if (status === 401) {
-        //             string = new Promise((resolve, reject) => {
-        //                 reject('Такой пользователь уже зарегистрирован!');
-        //             });
-        //         }
-        //         if (status === 200 ) {
-        //             string = new Promise((resolve, reject) => {
-        //                 resolve('Успешно зарегистрировались!');
-        //             });
-        //         }
-        //         return string;
-        //     }).then( (string) => {
-        //         ajax.post(backend.upload, new FormData(Form), true)
-        //             .then(({status, responseObject}) => {
-        //                 let photo_name;
-        //                 if (status === 200 ) {
-        //                     photo_name = new Promise((resolve, reject) => {
-        //                         resolve(JSON.stringify(responseObject));
-        //                         console.log(JSON.stringify(responseObject));
-        //                     });
-        //                     console.log(photo_name);
-        //                 } else {
-        //                   throw new Error(`${status} error upload: cannot upload file on back`);
-        //                 }
-        //                 return photo_name;
-        //             }).then ( (photo_name) => {
-        //             const link_photo = "http://95.163.213.222:8080/static/avatars/";
-        //             console.log(link_photo + photo_name.replaceAll('"', ''));
-        //             const photoAdd = {
-        //                 telephone: this.telephone,
-        //                 linkImages: link_photo + photo_name.replaceAll('"', ''),
-        //             }
-        //             ajax.post(backend.addPhoto, photoAdd)
-        //                 .then(({status, responseObject}) => {
-        //                 if (status !== 200 ) {
-        //                     throw new Error(`${status} error adding: cannot add photo on back`);
-        //                 }
-        //                 });
-        //         })
-        //     });
+                if (status === 500) {
+                    throw new Error('Неизвестная ошибка, пожалуйста, попробуйте позже');
+                }
+            });
     }
 
 

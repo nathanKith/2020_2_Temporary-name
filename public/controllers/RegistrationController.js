@@ -36,18 +36,15 @@ export class RegistrationController {
         console.log(mes);
 
         await model.registration(document.getElementById('form-photo'))
-            .then( () => {
-                router.redirect('/login');
+            .then(({status, responseObject}) => {
+                if (status === 200) {
+                    router.redirect('/login');
+                } else {
+                    throw Error('Неизвестная ошибка, пожалуйста, попробуйте позже');
+                }
             })
-            .catch( (status) => {
-                console.log(status);
-                if (status === '400') {
-                    mes.innerHTML = 'Слишком большой размер фото, пожалуйста, загрузите фото меньшего размера';
-                }
-                if (status === '500') {
-                    mes.innerHTML = 'Неизвестная ошибка, пожалуйста, попробуйте позже';
-                }
-                //redirect
+            .catch( (err) => {
+                mes.innerHTML = err.message;
             })
         console.log(mes);
     }

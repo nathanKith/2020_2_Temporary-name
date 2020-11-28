@@ -2,7 +2,8 @@ import AlbumImg from './AlbumImg.hbs'
 import AlbumPreview from './AlbumPreview.hbs'
 import AlbumButtons from './AlbumButtons.hbs'
 import {readImage} from '../../modules/previewAvatar'
-import {AlbumPhoto} from "../AlbumPhoto/AlbumPhoto";
+import {AlbumPhoto} from "./../AlbumPhoto/AlbumPhoto";
+import {popupPhoto} from '../../modules/popupPhoto'
 import './Album.css'
 
 export class Album {
@@ -39,14 +40,24 @@ export class Album {
             albumSection.insertAdjacentHTML('beforeend', AlbumImg({
                 photo: image,
             }));
-            const albumPhoto = document.getElementsByClassName('album-img')[index];
-            albumPhoto.addEventListener('click', (evt) => {
+            const albumPhoto = document.getElementsByClassName('album-img')[index + 1];
+            albumPhoto.addEventListener('click', async (evt) => {
                 evt.preventDefault();
                 const feedContainer = document.getElementsByClassName('feed-container')[0];
                 const photoFromAlbum = new AlbumPhoto(feedContainer);
                 photoFromAlbum.photo = image;
-                photoFromAlbum.render();
+                console.log('листенеры как конкретное фото');
+                console.log(this.listenerDelete);
                 photoFromAlbum.listenerDelete = this.listenerDelete;
+                console.log(photoFromAlbum.listenerDelete.listener);
+                await photoFromAlbum.render()
+                .then(() => {
+                    // const photo = document.getElementsByClassName('photo-view')[0];
+                    // photo.addEventListener('click', (evt) => {
+                    //     evt.stopPropagation();
+                    // });
+                    // document.getElementById('application').addEventListener('click', popupPhoto);
+                });
             });
         });
 

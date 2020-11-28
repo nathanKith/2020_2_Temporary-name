@@ -113,6 +113,7 @@ export class UserModel {
     }
 
     deleteImage(link_image) {
+        console.log(link_image)
         console.log(this.#linkImages);
         this.#linkImages = this.#linkImages.filter( (item) => {
             return item !== link_image;

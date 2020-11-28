@@ -1,5 +1,6 @@
-import AlbumPhoto from './AlbumPhoto.hbs'
+import AlbumPhotoHbs from './AlbumPhoto.hbs'
 import {popupPhoto} from '../../modules/popupPhoto'
+import './Album.css'
 
 export class AlbumPhoto {
     #parent
@@ -10,26 +11,22 @@ export class AlbumPhoto {
         this.#parent = parent;
     }
 
-    render = () => {
+    async render() {
         // const feedContainer = document.getElementsByClassName('feed-container')[0];
+        console.log(this.#parent.classList);
         this.#parent.classList.add('dark-photo');
+        console.log(this.#parent.classList);
+        console.log('я в ренедере')
 
-        this.#parent.insertAdjacentHTML('afterbegin', AlbumPhoto({
+        this.#parent.insertAdjacentHTML('afterbegin', AlbumPhotoHbs({
             photo: this.photo,
         }));
-
-        document.getElementById('application').addEventListener('click', popupPhoto);
-        const photo = document.getElementsByClassName('photo-view')[0];
-        photo.addEventListener('click', (evt) => {
-            evt.preventDefault();
-            evt.stopPropagation();
-        })
 
         document.getElementsByClassName('cancel-button')[0].addEventListener('click', popupPhoto);
 
 
         const deleteButton = document.getElementById('delete-button');
-        deleteButton.addEventListener(this.listenerDelete.type, this.listenerDelete.deletePhoto);
+        await deleteButton.addEventListener(this.listenerDelete.type, this.listenerDelete.listener);
 
     }
 }

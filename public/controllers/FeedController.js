@@ -301,17 +301,27 @@ export class FeedController {
 
     async deletePhotoListener(evt) {
         evt.preventDefault();
+        console.log('deleting photo')
         const photo = document.getElementById('current-photo');
+        const images = this.#profile.linkImages;
+
+        if (images.length === 1 ) {
+            alert('Ай, низя удалять последнюю фотку!');
+            return;
+        }
+        console.log(photo.src);
+
         await this.#profile.deletePhoto(photo.src)
             .then( ({status, responseObject}) => {
                 if (status === 200) {
                     const feedContainer = document.getElementsByClassName('feed-container')[0];
                     feedContainer.classList.remove('dark-photo');
 
-                    const photo = document.getElementsByClassName('photo-view')[0];
-                    feedContainer.removeChild(photo);
+                    const photoView = document.getElementsByClassName('photo-view')[0];
+                    feedContainer.removeChild(photoView);
 
                     this.#profile.deleteImage(photo.src);
+                    this.#view._context['profile'].linkImages = this.#profile.linkImages;
                     this.#view.renderMyAlbum();
                 } else {
                     throw new Error('ошибка удаления');

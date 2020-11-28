@@ -138,6 +138,8 @@ export class FeedView extends BaseView{
 
     renderMyAlbum = () => {
         const feedSection = document.getElementsByClassName('feed-section')[0];
+        console.log('ya from render of album')
+        console.log(this._context['profile'].linkImages);
         const album = new Album(feedSection, this._context['profile'].linkImages);
         album.isMy = true;
         album.listenerSave = this._context['albums'].savePhoto;

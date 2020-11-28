@@ -1,5 +1,6 @@
 export function popupPhoto(evt) {
     evt.preventDefault();
+    console.log('еня тут быть не должо!')
     const app = document.getElementById('application');
     app.removeEventListener('click', popupPhoto);
 

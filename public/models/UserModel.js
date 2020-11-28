@@ -112,6 +112,14 @@ export class UserModel {
         this.#linkImages.push(link_image);
     }
 
+    deleteImage(link_image) {
+        console.log(this.#linkImages);
+        this.#linkImages = this.#linkImages.filter( (item) => {
+            return item !== link_image;
+        });
+        console.log(this.#linkImages);
+    }
+
     get age() {
         return this.#age;
     }

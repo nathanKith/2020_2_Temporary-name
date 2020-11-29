@@ -1,10 +1,11 @@
 import {ajax} from '../modules/ajax';
 import {backend} from '../modules/url';
-import {router} from "../main";
+import {router} from '../main';
 import {CommentModel} from '../models/CommentModel';
-import ChatOtherMessage from "../components/ChatContent/ChatOtherMessage.hbs";
-import {ChatModel} from "../models/ChatModel";
+import ChatOtherMessage from '../components/ChatContent/ChatOtherMessage.hbs';
+import {ChatModel} from '../models/ChatModel';
 import {Chats} from '../components/Chats/Chats';
+import {yoomoney, yoomoneyUrl} from "../modules/yoomoney";
 
 export class FeedController {
     #view
@@ -68,8 +69,16 @@ export class FeedController {
                     dislike: {
                         type: 'click',
                         listener: this.dislikeListener.bind(this),
-                    }
-                }
+                    },
+                    superlike: {
+                        type: 'click',
+                        //listener: ,
+                    },
+                    back: {
+                        type: 'click',
+                        //listener: ,
+                    },
+                },
             },
             settings: {
                 settings: {
@@ -90,13 +99,13 @@ export class FeedController {
                     save: {
                         type: 'click',
                         listener: this.editUserListener.bind(this),
-                    }
+                    },
                 },
                 validate: {
                     passwords: {
                         message: '',
-                    }
-                }
+                    },
+                },
             },
             comments: {
                 comments: this.#comments,
@@ -330,6 +339,18 @@ export class FeedController {
             });
     }
 
+    #getNextUser() {
+        if (this.#currentUserFeed === this.#feed.userList.length - 1) {
+            this.#currentUserFeed = 0;
+            this.#feed.update();
+        } else {
+            this.#currentUserFeed++;
+        }
+
+        this.#view.context = this.#makeContext();
+        this.#view.rerenderFeed();
+    }
+
     async #likeDislikeAjax(url) {
         await ajax.post(url, {
             'user_id2': this.#feed.userList[this.#currentUserFeed].id
@@ -339,20 +360,61 @@ export class FeedController {
                     throw new Error(`${status} unauthorized: cannot get json on url /like`);
                 }
 
-                if (this.#currentUserFeed === this.#feed.userList.length - 1) {
-                    this.#currentUserFeed = 0;
-                    this.#feed.update();
-                } else {
-                    this.#currentUserFeed++;
-                }
-                
-                this.#view.context = this.#makeContext();
-                this.#view.rerenderFeed();
+                this.#getNextUser();
             })
             .catch((err) => {
                 console.log(err.message);
             });
     }
+
+    async #isPremium() {
+        return await ajax.get(backend.isPremium)
+            .then(({status, responseObject}) => {
+                if (status !== 200) {
+                    throw new Error(`${status} error: cannot get on /is_premium`);
+                }
+
+                return responseObject['is_premium'];
+            });
+    }
+
+    async superLikeListener(evt) {
+        evt.preventDefault();
+
+        await this.#isPremium()
+            .then(async (isPremium) => {
+                if (isPremium) {
+                    await ajax.post('/super_like', {
+                        'user_id2': this.#feed.userList[this.#currentUserFeed].id,
+                    })
+                        .then(({status, responseObject}) => {
+                            if (status === 401) {
+                                throw new Error(`${status} unauthorized: cannot get json on url /like`);
+                            }
+
+                            this.#getNextUser();
+                        })
+                        .catch((err) => {
+                            console.log(err.message);
+                        });
+                } else {
+                    await ajax.post(yoomoneyUrl, yoomoney.formData())
+                        .then(({status, responseObject}) => {
+                            if (status !== 200) {
+                                throw new Error(`${status} yoomoney: cannot post form data about pay`);
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err.message);
+                        });
+                }
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }
+
+
 
     async control() {
         await this.update()

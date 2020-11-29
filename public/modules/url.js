@@ -72,8 +72,12 @@ class Backend {
         return this.#url + name;
     }
 
-    get telephone(){
+    get telephone() {
         return this.#url + this.#api + '/telephone';
+    }
+
+    get isPremium() {
+        return this.#url + this.#api + '/is_premium';
     }
 }
 

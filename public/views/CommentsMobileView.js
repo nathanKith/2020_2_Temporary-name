@@ -2,6 +2,7 @@ import {BaseView} from "./BaseView";
 import {FeedView} from "./FeedView";
 import {Comments} from "../components/Comments/Comments";
 import {FeedHeaderMobile} from "../components/FeedHeaderMobile/FeedHeaderMobile";
+import {router} from '../main';
 
 export class CommentsMobileView extends BaseView {
     constructor(app) {
@@ -30,6 +31,18 @@ export class CommentsMobileView extends BaseView {
         comments.data = this._context['comments'].comments.commentsList;
         comments.render();
 
+        const profileButtonSection = document.getElementsByClassName('profile__top__right')[0];
+        const albumButton = document.createElement('button');
+        albumButton.type = 'button';
+        albumButton.classList.add('profile__top__right__button');
+        profileButtonSection.appendChild(albumButton);
+        const photo = document.createElement('img');
+        photo.src = './img/camera.svg';
+        albumButton.appendChild(photo);
+
+        albumButton.addEventListener('click', this.#getAlbumsListener.bind(this));
+
+
         const sendButton = document.getElementById('send-comment');
         if (isMy) {
             sendButton.addEventListener(this._context['comments'].event.sendMyComments.type,
@@ -48,5 +61,10 @@ export class CommentsMobileView extends BaseView {
         //     }, this);
         // }
 
+    }
+
+    #getAlbumsListener(evt) {
+        evt.preventDefault();
+        router.redirect(`/malbums/${this._context['comments'].user}`)
     }
 }

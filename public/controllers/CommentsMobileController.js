@@ -21,6 +21,7 @@ export class CommentsMobileController {
         return {
             comments: {
                 comments: this.#comments,
+                user: this.#userId,
                 event: {
                     sendComment: {
                         type: 'click',

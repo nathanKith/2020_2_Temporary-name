@@ -80,6 +80,10 @@ class Backend {
         return this.#url + this.#api + '/telephone';
     }
 
+    get user() {
+        return this.#url + this.#api + '/user/';
+    }
+
 }
 
 export const backend = new Backend();

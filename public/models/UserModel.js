@@ -178,5 +178,17 @@ export class UserModel {
         });
     }
 
-
+    async updateOtherUser(user_id) {
+        return await ajax.get(backend.user + user_id)
+            .then( ({status, responseObject}) => {
+                if (status === 401) {
+                    throw new Error(`${status} unauthorized: cannot get json on url /user/id`);
+                }
+                this.#fillUserData(responseObject);
+                this.#validateImages();
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }
 }

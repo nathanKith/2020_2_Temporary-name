@@ -172,7 +172,7 @@ export class FeedController {
                 const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
                 const chats = new Chats(profileChatSection);
                 chats.data = this.#makeContext()['chats'];
-                
+
                 innerListChats.appendChild(chats.createChat(chatModel));
                 console.log(chatModel);
                 this.#chats.appendChat(chatModel);
@@ -368,53 +368,52 @@ export class FeedController {
     }
 
     async #isPremium() {
-        return await ajax.get(backend.isPremium)
+        let isPremium = false;
+        await ajax.get(backend.isPremium)
             .then(({status, responseObject}) => {
                 if (status !== 200) {
                     throw new Error(`${status} error: cannot get on /is_premium`);
                 }
 
-                return responseObject['is_premium'];
+                isPremium = responseObject['is_premium'];
             });
+        return isPremium;
     }
 
     async superLikeListener(evt) {
         evt.preventDefault();
 
-        await this.#isPremium()
-            .then(async (isPremium) => {
-                if (isPremium) {
-                    await ajax.post('/super_like', {
-                        'user_id2': this.#feed.userList[this.#currentUserFeed].id,
-                    })
-                        .then(({status, responseObject}) => {
-                            if (status === 401) {
-                                throw new Error(`${status} unauthorized: cannot get json on url /like`);
-                            }
+        const isPremium = await this.#isPremium();
+        if (!isPremium) {
+            // get premium account
+            await ajax.post(yoomoneyUrl, yoomoney.formData(), true)
+                .then(({status, responseObject}) => {
+                    if (status !== 200) {
+                        throw new Error(`${status} yoomoney: cannot post form data about pay`);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
 
-                            this.#getNextUser();
-                        })
-                        .catch((err) => {
-                            console.log(err.message);
-                        });
-                } else {
-                    await ajax.post(yoomoneyUrl, yoomoney.formData())
-                        .then(({status, responseObject}) => {
-                            if (status !== 200) {
-                                throw new Error(`${status} yoomoney: cannot post form data about pay`);
-                            }
-                        })
-                        .catch((err) => {
-                            console.log(err.message);
-                        });
+            return;
+        }
+
+        // super like
+        await ajax.post('/super_like', {
+            'user_id2': this.#feed.userList[this.#currentUserFeed].id,
+        })
+            .then(({status, responseObject}) => {
+                if (status === 401) {
+                    throw new Error(`${status} unauthorized: cannot get json on url /like`);
                 }
+
+                this.#getNextUser();
             })
             .catch((err) => {
                 console.log(err.message);
             });
     }
-
-
 
     async control() {
         await this.update()

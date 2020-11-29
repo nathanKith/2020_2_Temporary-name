@@ -29,7 +29,14 @@ export class AlbumPhoto {
             photoButtons.removeChild(basket);
         }
 
-        document.getElementsByClassName('cancel-button')[0].addEventListener('click', popupPhoto);
+        document.getElementsByClassName('cancel-button')[0].addEventListener('click', (evt) => {
+            evt.preventDefault();
+            const feedContainer = document.getElementsByClassName('feed-container')[0];
+            feedContainer.classList.remove('dark-photo');
+
+            const photo = document.getElementsByClassName('photo-view')[0];
+            feedContainer.removeChild(photo);
+        });
 
         if(this.isMy) {
             const deleteButton = document.getElementById('delete-button');

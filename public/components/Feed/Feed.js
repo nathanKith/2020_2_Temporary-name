@@ -147,7 +147,6 @@ export class Feed {
         infoLogo.id = 'information-logo';
 
         const link = document.createElement('a');
-        link.href = '#';
         link.innerHTML += `<img class="logo" src="./../../img/info.svg">`;
 
         infoLogo.appendChild(link);

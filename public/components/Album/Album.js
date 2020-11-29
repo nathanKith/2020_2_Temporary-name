@@ -40,7 +40,11 @@ export class Album {
             albumSection.insertAdjacentHTML('beforeend', AlbumImg({
                 photo: image,
             }));
-            const albumPhoto = document.getElementsByClassName('album-img')[index + 1];
+            let ind = 0;
+            if (this.#isMy) {
+                ind = 1;
+            }
+            const albumPhoto = document.getElementsByClassName('album-img')[index + ind];
             albumPhoto.addEventListener('click', async (evt) => {
                 evt.preventDefault();
                 const feedContainer = document.getElementsByClassName('feed-container')[0];
@@ -57,6 +61,7 @@ export class Album {
                     // photo.addEventListener('click', (evt) => {
                     //     evt.stopPropagation();
                     // });
+                    // document.getElementsByClassName('feed-container')[0].addEventListener('click', popupPhoto);
                     // document.getElementById('application').addEventListener('click', popupPhoto);
                 });
             });

@@ -92,6 +92,10 @@ export class FeedView extends BaseView{
 
             chats.data = this._context['chats'];
             chats.render();
+
+            const informationLogo = document.getElementById('information-logo');
+            informationLogo.addEventListener(this._context['comments'].event.getComments.type,
+                                             this._context['comments'].event.getComments.listener);
         })
 
         const informationLogo = document.getElementById('information-logo');
@@ -124,8 +128,8 @@ export class FeedView extends BaseView{
         // }
        
 
-        const backToChats = document.getElementById('backToChat');
-        backToChats.addEventListener('click', this.#renderBackChats.bind(this));
+        // const backToChats = document.getElementById('backToChat');
+        // backToChats.addEventListener('click', this.#renderBackChats.bind(this));
     }
 
 

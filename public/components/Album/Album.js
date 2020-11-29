@@ -46,10 +46,11 @@ export class Album {
                 const feedContainer = document.getElementsByClassName('feed-container')[0];
                 const photoFromAlbum = new AlbumPhoto(feedContainer);
                 photoFromAlbum.photo = image;
-                console.log('листенеры как конкретное фото');
-                console.log(this.listenerDelete);
                 photoFromAlbum.listenerDelete = this.listenerDelete;
-                console.log(photoFromAlbum.listenerDelete.listener);
+                photoFromAlbum.isMy = this.#isMy;
+                if (this.#listImages.length === 1){
+                    photoFromAlbum.isMy = false;
+                }
                 await photoFromAlbum.render()
                 .then(() => {
                     // const photo = document.getElementsByClassName('photo-view')[0];

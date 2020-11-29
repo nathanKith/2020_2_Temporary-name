@@ -271,10 +271,12 @@ export class FeedController {
                     console.log(responseObject);
                     const link = responseObject['linkImages'];
                     this.#profile.appendLinkImages(link);
-                    const albumSection = document.getElementsByClassName('album-section')[0];
-                    albumSection.insertAdjacentHTML('beforeend', AlbumImg({
-                        photo: link,
-                    }));
+                    this.#view._context['profile'].linkImages = this.#profile.linkImages;
+                    this.#view.renderMyAlbum();
+                    // const albumSection = document.getElementsByClassName('album-section')[0];
+                    // albumSection.insertAdjacentHTML('beforeend', AlbumImg({
+                    //     photo: link,
+                    // }));
                     this.cancelPhotoListener();
                 } else if (status === 400){
                     throw new Error('Слишком большой размер фото')

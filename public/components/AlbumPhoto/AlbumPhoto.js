@@ -6,6 +6,7 @@ export class AlbumPhoto {
     #parent
     photo
     listenerDelete
+    isMy
 
     constructor(parent) {
         this.#parent = parent;
@@ -16,17 +17,24 @@ export class AlbumPhoto {
         console.log(this.#parent.classList);
         this.#parent.classList.add('dark-photo');
         console.log(this.#parent.classList);
-        console.log('я в ренедере')
+        console.log('я в рендере')
 
         this.#parent.insertAdjacentHTML('afterbegin', AlbumPhotoHbs({
             photo: this.photo,
         }));
 
+        if(!this.isMy) {
+            const photoButtons = document.getElementsByClassName('photo-buttons')[0];
+            const basket = document.getElementById('basket-button');
+            photoButtons.removeChild(basket);
+        }
+
         document.getElementsByClassName('cancel-button')[0].addEventListener('click', popupPhoto);
 
-
-        const deleteButton = document.getElementById('delete-button');
-        await deleteButton.addEventListener(this.listenerDelete.type, this.listenerDelete.listener);
+        if(this.isMy) {
+            const deleteButton = document.getElementById('delete-button');
+            await deleteButton.addEventListener(this.listenerDelete.type, this.listenerDelete.listener);
+        }
 
     }
 }

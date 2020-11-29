@@ -70,9 +70,9 @@ export class FeedController {
                         type: 'click',
                         listener: this.dislikeListener.bind(this),
                     },
-                    superlike: {
+                    superLike: {
                         type: 'click',
-                        //listener: ,
+                        listener: this.superLikeListener.bind(this),
                     },
                     back: {
                         type: 'click',
@@ -400,7 +400,7 @@ export class FeedController {
         }
 
         // super like
-        await ajax.post('/super_like', {
+        await ajax.post(backend.superLike, {
             'user_id2': this.#feed.userList[this.#currentUserFeed].id,
         })
             .then(({status, responseObject}) => {

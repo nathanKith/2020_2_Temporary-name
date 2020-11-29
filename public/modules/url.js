@@ -79,6 +79,10 @@ class Backend {
     get isPremium() {
         return this.#url + this.#api + '/is_premium';
     }
+
+    get superLike() {
+        return this.#url + this.#api + '/superlike';
+    }
 }
 
 export const backend = new Backend();

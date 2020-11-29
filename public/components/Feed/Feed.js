@@ -32,6 +32,7 @@ export class Feed {
         const buttons = document.getElementsByClassName('reaction-button');
         buttons[1].addEventListener(this.#data.event.dislike.type, this.#data.event.dislike.listener);
         buttons[2].addEventListener(this.#data.event.like.type, this.#data.event.like.listener);
+        buttons[3].addEventListener(this.#data.event.superLike.type, this.#data.event.superLike.listener);
     }
 
     #createPreviousNextPhoto = () => {

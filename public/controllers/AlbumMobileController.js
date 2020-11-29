@@ -72,7 +72,7 @@ export class AlbumMobileController {
         const photo = document.getElementById('file');
         photo.value = '';
         const preview = document.getElementById('preview');
-        preview.src = './img/plus.svg';
+        preview.src = '../img/plus.svg';
         const buttons = document.getElementsByClassName('album-buttons')[0];
         document.getElementsByClassName('profile-chat-section')[0].removeChild(buttons);
     }

@@ -3,6 +3,7 @@ import {FeedView} from "./FeedView";
 import {Comments} from "../components/Comments/Comments";
 import {FeedHeaderMobile} from "../components/FeedHeaderMobile/FeedHeaderMobile";
 import {router} from '../main';
+import '../components/Comments/Comments.css'
 
 export class CommentsMobileView extends BaseView {
     constructor(app) {
@@ -37,7 +38,8 @@ export class CommentsMobileView extends BaseView {
         albumButton.classList.add('profile__top__right__button');
         profileButtonSection.appendChild(albumButton);
         const photo = document.createElement('img');
-        photo.src = './img/camera.svg';
+        photo.classList.add('album-icon');
+        photo.src = '../img/camera.svg';
         albumButton.appendChild(photo);
 
         albumButton.addEventListener('click', this.#getAlbumsListener.bind(this));

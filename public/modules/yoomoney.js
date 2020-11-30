@@ -15,21 +15,31 @@ class Yoomoney {
     #needEmail
     #needPhone
     #needAddress
+    #label
 
     constructor() {
         this.#receiver = '4100116156288733';
-        this.#quickpayForm = 'shop';
-        this.#targets = 'MIAMI';
+        this.#quickpayForm = 'small';
+        this.#targets = 'Премиум аккаунт в MIAMI';
         this.#paymentType = 'AC';
-        this.#sum = '15';
+        this.#sum = '2';
         this.#formComment = 'MIAMI: премиум-аккаунт';
         this.#shortDest = 'MIAMI: премиум-аккаунт';
-        this.#comment = 'Еще больше знакомств, еще больше любви';
+        this.#comment = 'Еще больше знакомств, еще больше любви!';
         this.#successURL = 'https://mi-ami.ru/feed';
-        this.#needFio = false;
-        this.#needEmail = false;
-        this.#needPhone = true;
-        this.#needAddress = false;
+        this.#needFio = 'false';
+        this.#needEmail = 'false';
+        this.#needPhone = 'false';
+        this.#needAddress = 'false';
+        this.#label = '';
+    }
+
+    get label() {
+        return this.#label;
+    }
+
+    set label(label) {
+        this.#label = label;
     }
 
     json() {
@@ -40,6 +50,7 @@ class Yoomoney {
             'paymentType': this.#paymentType,
             'sum': this.#sum,
             'formcomment': this.#formComment,
+            'label': this.#label,
             'short-dest': this.#shortDest,
             'comment': this.#comment,
             'successURL': this.#successURL,

@@ -1,11 +1,11 @@
-import {ajax} from '../modules/ajax';
-import {backend} from '../modules/url';
-import {router} from '../main';
-import {CommentModel} from '../models/CommentModel';
+import { ajax } from '../modules/ajax';
+import { backend } from '../modules/url';
+import { router } from '../main';
+import { CommentModel } from '../models/CommentModel';
 import ChatOtherMessage from '../components/ChatContent/ChatOtherMessage.hbs';
-import {ChatModel} from '../models/ChatModel';
-import {Chats} from '../components/Chats/Chats';
-import {yoomoney, yoomoneyUrl} from "../modules/yoomoney";
+import { ChatModel } from '../models/ChatModel';
+import { Chats } from '../components/Chats/Chats';
+import { yoomoney, yoomoneyUrl } from "../modules/yoomoney";
 
 export class FeedController {
     #view
@@ -46,13 +46,13 @@ export class FeedController {
     #makeContext() {
         return {
             profile: {
-                id:         this.#profile.id,
-                name:       this.#profile.name,
-                job:        this.#profile.job,
-                education:  this.#profile.education,
-                aboutMe:    this.#profile.aboutMe,
+                id: this.#profile.id,
+                name: this.#profile.name,
+                job: this.#profile.job,
+                education: this.#profile.education,
+                aboutMe: this.#profile.aboutMe,
                 linkImages: this.#profile.linkImages,
-                age:        this.#profile.age,
+                age: this.#profile.age,
             },
             chats: {
                 chats: this.#chats.chatList,
@@ -71,7 +71,7 @@ export class FeedController {
                         listener: this.dislikeListener.bind(this),
                     },
                     superLike: {
-                        type: 'click',
+                        type: 'submit',
                         listener: this.superLikeListener.bind(this),
                     },
                     back: {
@@ -82,14 +82,14 @@ export class FeedController {
             },
             settings: {
                 settings: {
-                    id:         this.#profile.id,
-                    telephone:  this.#profile.telephone,
-                    name:       this.#profile.name,
-                    job:        this.#profile.job,
-                    education:  this.#profile.education,
-                    aboutMe:    this.#profile.aboutMe,
+                    id: this.#profile.id,
+                    telephone: this.#profile.telephone,
+                    name: this.#profile.name,
+                    job: this.#profile.job,
+                    education: this.#profile.education,
+                    aboutMe: this.#profile.aboutMe,
                     linkImages: this.#profile.linkImages,
-                    age:        this.#profile.age,
+                    age: this.#profile.age,
                 },
                 event: {
                     logout: {
@@ -147,12 +147,12 @@ export class FeedController {
         scroll.scrollTop = scroll.scrollHeight;
     }
 
-    pushEvent = ()  => {
+    pushEvent = () => {
         const chatsIcon = document.getElementsByClassName('chats-icon-button')[0];
         chatsIcon.classList.add('change-chat-icon');
     }
 
-    onMessageWebsocket({data}) {
+    onMessageWebsocket({ data }) {
         const dataJSON = JSON.parse(data);
         console.log(dataJSON);
         console.log('get message');
@@ -162,13 +162,13 @@ export class FeedController {
         const comments = document.getElementById('comments');//означает, что отрисованы комменты
         const profile = document.getElementsByClassName('profile')[0];// означает, что отрисован профиль
 
-        if(innerListChats) {
+        if (innerListChats) {
             const chatList = this.#chats.chatList;
-            const newChat = chatList.find( (chat) => {
+            const newChat = chatList.find((chat) => {
                 return chat.id === chatModel.id;
             });
             console.log(newChat);
-            if (!newChat){
+            if (!newChat) {
                 const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
                 const chats = new Chats(profileChatSection);
                 chats.data = this.#makeContext()['chats'];
@@ -196,11 +196,11 @@ export class FeedController {
             }
         }
 
-        if(comments) {
+        if (comments) {
             this.pushEvent();
         }
 
-        if(profile) {
+        if (profile) {
             this.pushEvent();
         }
 
@@ -218,13 +218,13 @@ export class FeedController {
         }, this);
 
         this.#view.context.otherProfile = {
-            id:         comment.user.id,
-            name:       comment.user.name,
-            job:        comment.user.job,
-            education:  comment.user.education,
-            aboutMe:    comment.user.aboutMe,
+            id: comment.user.id,
+            name: comment.user.name,
+            job: comment.user.job,
+            education: comment.user.education,
+            aboutMe: comment.user.aboutMe,
             linkImages: comment.user.linkImages,
-            age:        comment.user.age,
+            age: comment.user.age,
         };
         this.#view.renderOtherProfile();
 
@@ -298,7 +298,7 @@ export class FeedController {
     async logoutListener(evt) {
         evt.preventDefault();
         await ajax.post(backend.logout, {})
-            .then(({status, responseObject}) => {
+            .then(({ status, responseObject }) => {
                 if (status === 500 || status === 401) {
                     throw new Error(`${status} logout error`);
                 }
@@ -320,7 +320,7 @@ export class FeedController {
         }
 
         await ajax.post(backend.settings, data)
-            .then(async ({status, responseObject}) => {
+            .then(async ({ status, responseObject }) => {
                 if (status === 400) {
                     throw new Error(`${status} settings error: bad request to server on /settings`);
                 }
@@ -355,7 +355,7 @@ export class FeedController {
         await ajax.post(url, {
             'user_id2': this.#feed.userList[this.#currentUserFeed].id
         })
-            .then(({status, responseObject}) => {
+            .then(({ status, responseObject }) => {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /like`);
                 }
@@ -367,59 +367,64 @@ export class FeedController {
             });
     }
 
-    async #isPremium() {
-        let isPremium = false;
-        await ajax.get(backend.isPremium)
-            .then(({status, responseObject}) => {
-                if (status !== 200) {
-                    throw new Error(`${status} error: cannot get on /is_premium`);
-                }
-
-                isPremium = responseObject['is_premium'];
-            });
-        return isPremium;
-    }
-
     async superLikeListener(evt) {
-        evt.preventDefault();
-
-        const isPremium = await this.#isPremium();
-        if (!isPremium) {
-            // get premium account
-            await ajax.post(yoomoneyUrl, yoomoney.formData(), true)
-                .then(({status, responseObject}) => {
-                    if (status !== 200) {
-                        throw new Error(`${status} yoomoney: cannot post form data about pay`);
+        if (this.#profile.isPremium) {
+            evt.preventDefault();
+            await ajax.post(backend.superLike, {
+                'user_id2': this.#feed.userList[this.#currentUserFeed].id,
+            })
+                .then(({ status, responseObject }) => {
+                    if (status === 401) {
+                        throw new Error(`${status} unauthorized: cannot get json on url /like`);
                     }
+
+                    this.#getNextUser();
                 })
                 .catch((err) => {
                     console.log(err.message);
                 });
-
-            return;
         }
-
-        // super like
-        await ajax.post(backend.superLike, {
-            'user_id2': this.#feed.userList[this.#currentUserFeed].id,
-        })
-            .then(({status, responseObject}) => {
-                if (status === 401) {
-                    throw new Error(`${status} unauthorized: cannot get json on url /like`);
-                }
-
-                this.#getNextUser();
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
     }
+
+    // async superLikeListener(evt) {
+    //     evt.preventDefault();
+
+    //     const isPremium = await this.#isPremium();
+    //     if (!isPremium) {
+    //         // get premium account
+    //         await ajax.postPremium(yoomoneyUrl, yoomoney.formData())
+    //             .then(({status, responseObject}) => {
+    //                 console.log(responseObject);
+    //             })
+    //             // .catch((err) => {
+    //             //     console.log(err.message);
+    //             // });
+
+    //         return;
+    //     }
+
+    //     // super like
+    //     await ajax.post(backend.superLike, {
+    //         'user_id2': this.#feed.userList[this.#currentUserFeed].id,
+    //     })
+    //         .then(({status, responseObject}) => {
+    //             if (status === 401) {
+    //                 throw new Error(`${status} unauthorized: cannot get json on url /like`);
+    //             }
+
+    //             this.#getNextUser();
+    //         })
+    //         .catch((err) => {
+    //             console.log(err.message);
+    //         });
+    // }
 
     async control() {
         await this.update()
             .then(() => {
                 this.#view.context = this.#makeContext();
                 this.#view.render();
+                yoomoney.label = `${this.#profile.id}`;
             });
     }
 }

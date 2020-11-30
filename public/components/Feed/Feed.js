@@ -1,4 +1,5 @@
 import {backend} from "../../modules/url";
+import {yoomoney, yoomoneyUrl} from "../../modules/yoomoney";
 import './Feed.css';
 
 export class Feed {
@@ -32,7 +33,9 @@ export class Feed {
         const buttons = document.getElementsByClassName('reaction-button');
         buttons[1].addEventListener(this.#data.event.dislike.type, this.#data.event.dislike.listener);
         buttons[2].addEventListener(this.#data.event.like.type, this.#data.event.like.listener);
-        buttons[3].addEventListener(this.#data.event.superLike.type, this.#data.event.superLike.listener);
+        //buttons[3].addEventListener(this.#data.event.superLike.type, this.#data.event.superLike.listener);
+        const form = document.getElementById('super-like-from');
+        form.addEventListener(this.#data.event.superLike.type, this.#data.event.superLike.listener);
     }
 
     #createPreviousNextPhoto = () => {
@@ -94,7 +97,7 @@ export class Feed {
             './../../img/go-back-arrow.svg',
             './../../img/cancel.svg',
             './../../img/like.svg',
-            './../../img/super-like.svg',
+            // './../../img/super-like.svg',
         ]
 
         const div = this.#createDiv('reactions');
@@ -109,6 +112,31 @@ export class Feed {
 
             div.appendChild(button);
         });
+
+        const form = document.createElement('form');
+        form.action = yoomoneyUrl;
+        form.method = 'POST';
+        form.id = 'super-like-from';
+        
+        const formJson = yoomoney.json();
+        yoomoney.label = this.#data.id;
+        Object.keys(formJson).forEach((key) => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = formJson[key];
+
+            form.appendChild(input);
+        });
+
+        const button = document.createElement('button');
+        button.classList.add('reaction-button');
+        button.type = 'submit';
+        button.innerHTML = `<img src="./../../img/super-like.svg">`;
+
+        form.appendChild(button);
+
+        div.appendChild(form);
 
         return div;
     }

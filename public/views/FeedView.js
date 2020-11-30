@@ -6,6 +6,8 @@ import {Profile} from '../components/Profile/Profile';
 import {Settings} from '../components/Settings/Settings';
 import {Comments} from '../components/Comments/Comments';
 import {popupLanding} from '../modules/popupLanding';
+import {Album} from "../components/Album/Album";
+import {AlbumPhoto} from "../components/AlbumPhoto/AlbumPhoto";
 
 
 export class FeedView extends BaseView{
@@ -46,7 +48,7 @@ export class FeedView extends BaseView{
         feed.render();
 
         const profileChatIcon = new ProfileChatIcon(container);
-        const {profileButton, chatsButton} = profileChatIcon.render();
+        const {profileButton, chatsButton, feedButton} = profileChatIcon.render();
 
         const profileChatSection = document.createElement('div');
         profileChatSection.classList.add('profile-chat-section');
@@ -79,6 +81,23 @@ export class FeedView extends BaseView{
             chats.render();
         });
 
+        feedButton.addEventListener('click', (evt) => {
+            profileChatSection.innerHTML = '';
+            feedSection.innerHTML = '';
+            feedSection.classList.remove('dark');
+
+            const feed = new Feed(feedSection);
+            feed.data = this._context['feed'];
+            feed.render();
+
+            chats.data = this._context['chats'];
+            chats.render();
+
+            const informationLogo = document.getElementById('information-logo');
+            informationLogo.addEventListener(this._context['comments'].event.getComments.type,
+                                             this._context['comments'].event.getComments.listener);
+        })
+
         const informationLogo = document.getElementById('information-logo');
         informationLogo.addEventListener(this._context['comments'].event.getComments.type,
                                          this._context['comments'].event.getComments.listener);
@@ -109,8 +128,28 @@ export class FeedView extends BaseView{
         // }
        
 
-        const backToChats = document.getElementById('backToChat');
-        backToChats.addEventListener('click', this.#renderBackChats.bind(this));
+        // const backToChats = document.getElementById('backToChat');
+        // backToChats.addEventListener('click', this.#renderBackChats.bind(this));
+    }
+
+
+    renderAlbum = () => {
+        const feedSection = document.getElementsByClassName('feed-section')[0];
+        const album = new Album(feedSection, this._context['feed']['feed'].linkImages);
+        album.isMy = false;
+        album.render();
+    }
+
+    renderMyAlbum = () => {
+        const feedSection = document.getElementsByClassName('feed-section')[0];
+        console.log('ya from render of album')
+        console.log(this._context['profile'].linkImages);
+        const album = new Album(feedSection, this._context['profile'].linkImages);
+        album.isMy = true;
+        album.listenerSave = this._context['albums'].savePhoto;
+        album.listenerCancel = this._context['albums'].cancelPhoto;
+        album.listenerDelete = this._context['albums'].deletePhoto;
+        album.render();
     }
 
     #renderSettings(evt) {

@@ -48,7 +48,8 @@ export class ChatContent {
         const scroll = document.getElementById('chat-box-text-area');
         scroll.scrollTop = scroll.scrollHeight;
 
-        const button = document.getElementById('send');
+        // const button = document.getElementById('send');
+        const button = document.getElementsByClassName('chat__box__message-box__message__send')[0];
         button.addEventListener('click', (evt) => {
             console.log(this.chatModel.validationMessage(document.getElementById('message').value));
             if (!this.chatModel.validationMessage(document.getElementById('message').value)) {

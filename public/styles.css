@@ -136,3 +136,7 @@ body {
     opacity: 1;
 }
 
+.album-icon {
+    object-fit: cover;
+    height: 4vh;
+}

@@ -80,6 +80,8 @@ export class Chats {
             const chatContent = new ChatContent(this.#parent, Chat);
             console.log(this.#data);
             chatContent.chatModel.user_id = this.#data['user_id'];
+            console.log('click chat')
+            console.log(this.#data['onSendWebsocket'])
             chatContent.listenerSend = this.#data['onSendWebsocket'];
             chatContent.render()
             .then( () => {

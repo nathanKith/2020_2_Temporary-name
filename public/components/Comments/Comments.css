@@ -91,6 +91,11 @@
         flex-direction: row;
     }
 
+    .album-icon {
+        object-fit: cover;
+        height: 5vh;
+    }
+
     .profile__comments {
         display: flex;
         overflow-y: auto;

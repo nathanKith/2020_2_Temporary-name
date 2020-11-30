@@ -1,7 +1,7 @@
 import {router} from '../main';
 
 export const isMobile = () => {
-    return window.innerWidth <= 1024;
+    return document.documentElement.clientWidth <= 1024;
 }
 
 export const resizeListener = (evt) => {

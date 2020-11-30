@@ -72,16 +72,24 @@ class Backend {
         return this.#url + name;
     }
 
-    get telephone() {
-        return this.#url + this.#api + '/telephone';
-    }
-
     get isPremium() {
         return this.#url + this.#api + '/is_premium';
     }
 
     get superLike() {
         return this.#url + this.#api + '/superlike';
+    }
+
+    get removePhoto() {
+        return this.#url + this.#api + '/remove_photo';
+    }
+
+    get telephone(){
+        return this.#url + this.#api + '/telephone';
+    }
+
+    get user() {
+        return this.#url + this.#api + '/user/';
     }
 }
 

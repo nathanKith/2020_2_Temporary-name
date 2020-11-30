@@ -34,6 +34,8 @@ import {FeedMobileController} from "./controllers/FeedMobileController";
 import {CommentsMobileController} from "./controllers/CommentsMobileController";
 
 import {isMobile, resizeListener} from "./modules/resizing";
+import {AlbumMobileView} from "./views/AlbumMobileView";
+import {AlbumMobileController} from "./controllers/AlbumMobileController";
 
 
 const application = document.querySelector('#application');
@@ -49,6 +51,7 @@ const commentsView = new CommentsMobileView(application);
 const settingsMobileView = new SettingsMobileView(application);
 const feedMobileView = new FeedMobileView(application);
 const commentsMobileView = new CommentsMobileView(application);
+const albumMobileView = new AlbumMobileView(application);
 
 const regAuthModel = new RegAuthModel();
 const authorizationModel = new RegAuthModel();
@@ -66,6 +69,7 @@ const chatsMobileController = new ChatsMobileController(chatsMobileView, chatLis
 const settingsMobileController = new SettingsMobileController(settingsMobileView, userModel);
 const feedMobileController = new FeedMobileController(feedMobileView, userListModel, chatsMobileController, userModel);
 const commentsMobileController = new CommentsMobileController(commentsMobileView, userModel, commentListModel);
+const albumMobileController = new AlbumMobileController(albumMobileView, userModel);
 
 export const router = new Router();
 
@@ -129,6 +133,14 @@ const doCommentsMobile = (req) => {
     }
 }
 
+const doAlbumsMobile = (req) => {
+    if (!isMobile()) {
+        router.redirect('/feed');
+    } else {
+        albumMobileController.control(req.parameters.userid)
+    }
+}
+
 
 router.add('/', doLanding);
 router.add('/signup', doRegistration);
@@ -140,7 +152,8 @@ router.add('/mfeed', doFeedMobile);
 router.add('/mcomments/{userId}', doCommentsMobile);
 router.add('/mchats', doChatsMobile);
 router.add('/msettings', doSettingsMobile);
+router.add('/malbums/{userId}', doAlbumsMobile);
 
 router.start();
 
-window.onresize = resizeListener;
+// window.onresize = resizeListener;

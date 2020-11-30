@@ -1,0 +1,220 @@
+.album-body {
+    border-radius: 20px 20px 20px 20px;
+    border: 2px;
+    height: 50%;
+    width: 30%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    margin: 1vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+}
+.album-section {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 85%;
+    overflow-y : auto;
+    flex-wrap: wrap;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    align-items: center;
+}
+.album-section::-webkit-scrollbar {
+    width: 0px;
+}
+.album-img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.photo {
+    background: url("../../img/camera.svg");
+    background-repeat: no-repeat;
+    outline: none;
+    text-align: center;
+    overflow:hidden;
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    position: absolute;
+    z-index: -10;
+}
+.out {
+    cursor: pointer;
+}
+
+.album-button {
+    width: 12vw;
+    padding: 5px 10px;
+    background-color: white;
+    color: #1F2041;
+    outline: none;
+    border-color:#1F2041;
+    border-radius: 7px;
+    font-size: 2.5vh;
+    text-decoration: none;
+    text-align: center;
+}
+.album-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+    margin-top: 2.3vh;
+}
+
+.feed-icon {
+    position: absolute;
+    right: 0px;
+    top: 145px;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.feed-icon__button{
+    background-color: white;
+    border: none;
+    padding-right: 10px;
+    padding-top: 8px;
+    padding-left: 15px;
+    padding-bottom: 8px;
+    outline: none;
+    border-radius: 10px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    cursor: pointer;
+}
+.feed-icon__button:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    border-right: none;
+}
+
+.photo-view {
+    height: 85%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 35%;
+    border-radius: 25px;
+    position: absolute;
+    margin-left: 22%;
+    z-index: 10;
+}
+.photo-img {
+    border-radius: 20px 20px 20px 20px;
+    border: 2px;
+    height: 95%;
+    width: 100%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    margin: 1vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1024px) {
+    .album-body {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .album-section {
+        width: 100% !important;
+    }
+    .photo-img{
+        height: 100% !important;
+    }
+    .photo-view {
+        margin-left: 0 !important;
+        margin-top: 11vh !important;
+        width: 100% !important;
+    }
+    .basket-button {
+        margin-top:1vh !important;
+    }
+    .photo-img {
+        margin: 0 !important;
+    }
+    .photo-buttons {
+        margin-top: 0.5vh !important;
+        margin-right: 0.5vw;
+    }
+    .cancel-img {
+        margin-right: 1.2vw !important;
+        margin-left: 1.2vw !important;
+    }
+    .album-buttons{
+        width: 70% !important;
+        margin-top: 1vh !important;
+    }
+    .album-button{
+        margin-left: 20% !important;
+        width: 30vw !important;
+        font-size: 2.3vh !important;
+    }
+}
+
+.dark-photo::before  {
+    position: absolute;
+    content: '';
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 6;
+    background: rgba(0, 0, 0, .7);
+    opacity: 1;
+}
+.photo-button {
+    width: 12vw;
+    padding: 5px 10px;
+    background-color: #1F2041;
+    color: white;
+    outline: none;
+    margin-left: auto;
+    margin-right: 3vw;
+    border-color:white;
+    border-radius: 7px;
+    font-size: 2.5vh;
+    text-decoration: none;
+    text-align: center;
+}
+.photo-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-end;
+    position: absolute;
+    z-index: 12;
+    margin-top: 2vh;
+}
+.cancel-button {
+    border: 0;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 1vh;
+    margin-left: 1vw;
+    text-decoration: none;
+}
+.basket-img {
+    height: 4.5vh;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+}
+.basket-button {
+    border: 0;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+.cancel-img{
+    box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+}

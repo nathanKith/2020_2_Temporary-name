@@ -1,6 +1,7 @@
 import {ChatModel} from '../models/ChatModel';
 import ChatOtherMessage from '../components/ChatContent/ChatOtherMessage.hbs';
 import {backend} from '../modules/url';
+import {Chats} from "../components/Chats/Chats";
 
 export class ChatsMobileController {
     #view
@@ -59,10 +60,15 @@ export class ChatsMobileController {
             });
             console.log(newChat);
             if (!newChat){
-                innerListChats.appendChild( this.#chats.createChat(chatModel));
-                this.#chats.appendChat(newChat);
-                document.getElementsByClassName('chat-info')[0]
-                    .classList.add('chats-new');
+                const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
+                const chats = new Chats(profileChatSection);
+                chats.data = this.#makeContext()['chats'];
+
+                innerListChats.appendChild(chats.createChat(chatModel));
+                console.log(chatModel);
+                this.#chats.appendChat(chatModel);
+                const nc = document.getElementById('chat' + chatModel.id);
+                nc.classList.add('chats-new');
             } else {
                 const oldChat = document.getElementById('chat' + newChat.id);
                 oldChat.classList.add('chats-new');

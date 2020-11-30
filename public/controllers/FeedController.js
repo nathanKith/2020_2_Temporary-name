@@ -1,10 +1,12 @@
-import { ajax } from '../modules/ajax';
-import { backend } from '../modules/url';
-import { router } from '../main';
-import { CommentModel } from '../models/CommentModel';
-import ChatOtherMessage from '../components/ChatContent/ChatOtherMessage.hbs';
-import { ChatModel } from '../models/ChatModel';
-import { Chats } from '../components/Chats/Chats';
+import {ajax} from '../modules/ajax';
+import {backend} from '../modules/url';
+import {router} from "../main";
+import {CommentModel} from '../models/CommentModel';
+import ChatOtherMessage from "../components/ChatContent/ChatOtherMessage.hbs";
+import {ChatModel} from "../models/ChatModel";
+import {Chats} from '../components/Chats/Chats';
+import {Album} from "../components/Album/Album";
+import AlbumImg from "./../components/Album/AlbumImg.hbs";
 import { yoomoney, yoomoneyUrl } from "../modules/yoomoney";
 
 export class FeedController {
@@ -134,6 +136,20 @@ export class FeedController {
                     },
                 },
             },
+            albums: {
+                savePhoto: {
+                    type: 'click',
+                    listener: this.savePhotoListener.bind(this),
+                },
+                cancelPhoto: {
+                    type: 'click',
+                    listener: this.cancelPhotoListener.bind(this),
+                },
+                deletePhoto: {
+                    type: 'click',
+                    listener: this.deletePhotoListener.bind(this),
+                }
+            }
         };
     }
 
@@ -251,15 +267,96 @@ export class FeedController {
         });
     }
 
+    async savePhotoListener(evt) {
+        console.log('я навесился!')
+        evt.preventDefault();
+        const save = document.getElementById('save');
+        const photo = document.getElementById('file');
+        if (photo.value) {
+            console.log('фото загружено')
+            save.innerHTML = 'Сохранить';
+            await this.#profile.addPhoto(document.getElementById('send'))
+            .then( ({status, responseObject}) => {
+                if (status === 200) {
+                    console.log('я разрезолвился!')
+                    console.log(responseObject);
+                    const link = responseObject['linkImages'];
+                    this.#profile.appendLinkImages(link);
+                    this.#view._context['profile'].linkImages = this.#profile.linkImages;
+                    this.#view.renderMyAlbum();
+                    // const albumSection = document.getElementsByClassName('album-section')[0];
+                    // albumSection.insertAdjacentHTML('beforeend', AlbumImg({
+                    //     photo: link,
+                    // }));
+                    this.cancelPhotoListener();
+                } else if (status === 400){
+                    throw new Error('Слишком большой размер фото')
+                } else {
+                    throw new Error('Не удалось загрузить фото(')
+                }
+            }).catch( (err) => {
+                save.innerHTML = err.message;
+            })
+        } else {
+            save.innerHTML = 'Выберите фото!';
+            return;
+        }
+    }
+
+    cancelPhotoListener () {
+        const photo = document.getElementById('file');
+        photo.value = '';
+        const preview = document.getElementById('preview');
+        preview.src = './img/plus.svg';
+        const buttons = document.getElementsByClassName('album-buttons')[0];
+        document.getElementsByClassName('feed-section')[0].removeChild(buttons);
+    }
+
+    async deletePhotoListener(evt) {
+        evt.preventDefault();
+        console.log('deleting photo')
+        const photo = document.getElementById('current-photo');
+        const images = this.#profile.linkImages;
+
+        if (images.length === 1 ) {
+            alert('Ай, низя удалять последнюю фотку!');
+            return;
+        }
+        console.log(photo.src);
+
+        await this.#profile.deletePhoto(photo.src)
+            .then( ({status, responseObject}) => {
+                if (status === 200) {
+                    const feedContainer = document.getElementsByClassName('feed-container')[0];
+                    feedContainer.classList.remove('dark-photo');
+
+                    const photoView = document.getElementsByClassName('photo-view')[0];
+                    feedContainer.removeChild(photoView);
+
+                    this.#profile.deleteImage(photo.src);
+                    this.#view._context['profile'].linkImages = this.#profile.linkImages;
+                    this.#view.renderMyAlbum();
+                } else {
+                    throw new Error('ошибка удаления');
+                }
+            }).catch( (err) => {
+                console.log(err.message);
+            });
+    }
+
     async getMyCommentsListener(evt) {
         evt.preventDefault();
         await this.#comments.update(this.#profile.id);
+        const feedSection = document.getElementsByClassName('feed-section')[0];
+        feedSection.classList.remove('dark');
+        this.#view.renderMyAlbum();
         this.#view.renderComments(true);
     }
 
     async getUserCommentsListener(evt) {
         evt.preventDefault();
         await this.#comments.update(this.#feed.userList[this.#currentUserFeed].id);
+        this.#view.renderAlbum();
         this.#view.renderComments();
     }
 

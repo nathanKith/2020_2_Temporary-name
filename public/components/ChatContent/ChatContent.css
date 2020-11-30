@@ -64,8 +64,8 @@
 
 .chat__box__top__left__avatar__photo {
     border-radius: 50%;
-    height:85px;
-    width: 85px;
+    height:8vh;
+    width: 8vh;
     object-fit: cover;
 }
 .chat__box__top__left {

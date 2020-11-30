@@ -15,6 +15,7 @@ export class UserModel {
     #aboutMe
     #linkImages
     #age
+    #isPremium
 
     constructor(data = {}) {
         this.#fillUserData(data)
@@ -108,12 +109,33 @@ export class UserModel {
         return this.#linkImages;
     }
 
+    appendLinkImages(link_image) {
+        this.#linkImages.push(link_image);
+    }
+
+    deleteImage(link_image) {
+        console.log(link_image)
+        console.log(this.#linkImages);
+        this.#linkImages = this.#linkImages.filter( (item) => {
+            return item !== link_image;
+        });
+        console.log(this.#linkImages);
+    }
+
     get age() {
         return this.#age;
     }
 
     set age(age) {
         this.#age = age;
+    }
+
+    get isPremium() {
+        return this.#isPremium;
+    }
+
+    set isPremium(isPremium) {
+        this.#isPremium = isPremium;
     }
 
     #fillUserData(data) {
@@ -144,6 +166,17 @@ export class UserModel {
             .catch((err) => {
                 console.log(err.message);
             });
+
+        await ajax.get(backend.isPremium)
+            .then(({status, responseObject}) => {
+                if (status !== 200) {
+                    throw new Error(`${status} error: cannot get on /is_premium`);
+                }
+                this.#isPremium = responseObject['is_premium'];
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
     }
 
     #validateImages() {
@@ -153,5 +186,29 @@ export class UserModel {
             }
             return link;
         });
+    }
+
+    async addPhoto(form) {
+        return await ajax.post(backend.addPhoto, new FormData(form), true);
+    }
+
+    async deletePhoto(link_image) {
+        return await ajax.post(backend.removePhoto, {
+            link_image: link_image,
+        });
+    }
+
+    async updateOtherUser(user_id) {
+        return await ajax.get(backend.user + user_id)
+            .then( ({status, responseObject}) => {
+                if (status === 401) {
+                    throw new Error(`${status} unauthorized: cannot get json on url /user/id`);
+                }
+                this.#fillUserData(responseObject);
+                this.#validateImages();
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
     }
 }

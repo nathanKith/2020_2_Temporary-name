@@ -24,12 +24,9 @@ export class Chats {
 
         if(this.#data.chats){
             this.#data.chats.forEach( (chat) => {
-                innerListChats.appendChild(this.#createChat(chat));
+                innerListChats.appendChild(this.createChat(chat));
             } );
         }
-        // for (let i = 0; i < 10; ++i) {
-        //     innerListChats.appendChild(this.#createChat());
-        // }
 
         listChats.appendChild(innerListChats);
 
@@ -37,11 +34,9 @@ export class Chats {
         this.#parent.appendChild(listChats);
     }
 
-    #createChat = (Chat) => {
-        // if (Chat.websocket) {
-        //     Chat.WebSocketClose();
-        // }
+    createChat = (Chat) => {
         const chat = document.createElement('a');
+        chat.id = 'chat' + Chat.id;
         chat.href = '#';
         chat.classList.add('chat');
 
@@ -80,15 +75,22 @@ export class Chats {
             evt.preventDefault();
             this.#parent.innerHTML = '';
             await Chat.update();
-            await Chat.WebSocket();
+            console.log('chat after update');
+            console.log(Chat);
             const chatContent = new ChatContent(this.#parent, Chat);
+            console.log(this.#data);
             chatContent.chatModel.user_id = this.#data['user_id'];
+            console.log('click chat')
+            console.log(this.#data['onSendWebsocket'])
+            chatContent.listenerSend = this.#data['onSendWebsocket'];
             chatContent.render()
             .then( () => {
-                document
-                .getElementById('back')
-                .addEventListener('click', this.listenerBack.bind(this.listenerBack));
+                // document
+                // .getElementById('back')
+                // .addEventListener('click', this.listenerBack.bind(this));
             })
+            const chatBox = document.getElementsByClassName('chat__box__top')[0];
+            chatBox.id = Chat.id;
         });
 
         return chat;

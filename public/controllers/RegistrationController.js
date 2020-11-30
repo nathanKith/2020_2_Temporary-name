@@ -2,6 +2,7 @@ import {RegAuthModel} from "../models/RegAuthModel";
 import {RegistrationView} from "../views/RegistrationView";
 import {router} from "../main";
 
+
 export class RegistrationController {
     RegAuthModel
     registrationView
@@ -12,6 +13,7 @@ export class RegistrationController {
         this.registrationView.model = this.RegAuthModel;
         this.registrationView.listenerRegistration = this.listenerRegistration
                                                          .bind(this.listenerRegistration, this.RegAuthModel);
+        this.registrationView.listenerCheck = this.listenerCheckNumber.bind(this);
     }
 
     control() {
@@ -23,7 +25,6 @@ export class RegistrationController {
         let photo;
         photo = document.getElementById('file').value;
 
-        console.log(photo);
         let mes;
         mes = document.getElementById('mes');
         const [message, result] = model.validationPhoto(photo);
@@ -35,14 +36,21 @@ export class RegistrationController {
         console.log(mes);
 
         await model.registration(document.getElementById('form-photo'))
-            .then( () => {
-                router.redirect('/login');
+            .then(({status, responseObject}) => {
+                if (status === 200) {
+                    router.redirect('/login');
+                } else {
+                    throw Error('Неизвестная ошибка, пожалуйста, попробуйте позже');
+                }
             })
             .catch( (err) => {
-                console.log(err.message);
-                router.redirect('/');
-                //redirect
+                mes.innerHTML = err.message;
             })
         console.log(mes);
+    }
+
+    async listenerCheckNumber() {
+        const number = document.getElementById('number').value;
+        return await this.RegAuthModel.checkNumber(number);
     }
 }

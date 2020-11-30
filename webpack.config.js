@@ -29,6 +29,8 @@ module.exports = {
     entry: ['babel-polyfill','/public/main.js'],
     output: {
         filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/'
     },
     module: {
         rules:  [
@@ -68,7 +70,7 @@ module.exports = {
                 use: {
                     loader: "file-loader",
                     options: {
-                        name: `/fonts/[name].[ext]`,
+                        name: `./fonts/[name].[ext]`,
                     }
                 }
             },

@@ -10,9 +10,12 @@ import {Chats} from "../Chats/Chats";
 export class ChatContent {
     #parent
     chatModel
+    listenerSend
     constructor(parent, chatModel) {
         this.#parent = parent;
         this.chatModel = chatModel;
+        console.log('this.chatModel');
+        console.log(this.chatModel);
     }
     async render() {
         // this.#parent.innerHTML = '';
@@ -24,6 +27,7 @@ export class ChatContent {
             }));
 
         const messages = document.getElementById('chat-box-text-area');
+        console.log(this.chatModel.messages);
             
         if (this.chatModel.messages) {
         this.chatModel.messages.forEach( (message) => {
@@ -41,18 +45,11 @@ export class ChatContent {
         });
         }
 
-        this.chatModel.websocket.onmessage = ( ({data}) => {
-            const dataJSON = JSON.parse(data);
-            const message = document.getElementById('chat-box-text-area');
-            if (message) {
-                message.insertAdjacentHTML('beforeend', ChatOtherMessage({
-                    message_text: dataJSON.message,
-                    time_delivery: dataJSON.timeDelivery,
-                }));
-            }
-        });
+        const scroll = document.getElementById('chat-box-text-area');
+        scroll.scrollTop = scroll.scrollHeight;
 
-        const button = document.getElementById('send');
+        // const button = document.getElementById('send');
+        const button = document.getElementsByClassName('chat__box__message-box__message__send')[0];
         button.addEventListener('click', (evt) => {
             console.log(this.chatModel.validationMessage(document.getElementById('message').value));
             if (!this.chatModel.validationMessage(document.getElementById('message').value)) {
@@ -63,9 +60,10 @@ export class ChatContent {
                 message_text: document.getElementById('message').value,
                 time_delivery: delivery,
             }));
-            this.chatModel.listenerSend( document.getElementById('message').value, delivery);
+            this.listenerSend( this.chatModel.user_id, this.chatModel.id ,document.getElementById('message').value, delivery);
+            document.getElementById('message').value = '';
         })
-
-
     }
+
+
 }

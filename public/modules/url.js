@@ -4,9 +4,9 @@ class Backend {
     #websocket
 
     constructor() {
-        this.#url = 'http://95.163.213.222:8080';
+        this.#url = 'https://mi-ami.ru';
         this.#api = '/api/v1';
-        this.#websocket = 'ws://95.163.213.222:8080';
+        this.#websocket = 'wss://mi-ami.ru';
     }
 
     get me() {
@@ -65,11 +65,31 @@ class Backend {
     }
 
     get comment() {
-        return this.#url + this.#api + '/comment'
+        return this.#url + this.#api + '/comment';
     }
 
     avatar = (name) => {
         return this.#url + name;
+    }
+
+    get isPremium() {
+        return this.#url + this.#api + '/is_premium';
+    }
+
+    get superLike() {
+        return this.#url + this.#api + '/superlike';
+    }
+
+    get removePhoto() {
+        return this.#url + this.#api + '/remove_photo';
+    }
+
+    get telephone(){
+        return this.#url + this.#api + '/telephone';
+    }
+
+    get user() {
+        return this.#url + this.#api + '/user/';
     }
 }
 

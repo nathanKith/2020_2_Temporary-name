@@ -1,5 +1,6 @@
 import './Profile.css';
 import {backend} from './../../modules/url';
+import {router} from '../../main';
 
 export class Profile {
 
@@ -19,7 +20,7 @@ export class Profile {
         const innerDiv = this.#createDiv('inner-profile');
         div.appendChild(innerDiv);
 
-        innerDiv.innerHTML += `<img src="${this.#data.linkImages[0].trim()}">`;
+        innerDiv.innerHTML += `<img class="profile-avatar-photo" src="${this.#data.linkImages[0].trim()}">`;
 
         const profileInfo = this.#createDiv('my-profile-information');
         div.appendChild(profileInfo);
@@ -38,6 +39,19 @@ export class Profile {
         div.appendChild(infoLogo);
 
         this.#parent.appendChild(div);
+
+        const logo = document.getElementById('profile-comments');
+        logo.addEventListener('click', this.#getMyComments.bind(this));
+    }
+
+    #getMyComments(evt) {
+        evt.preventDefault();
+        if (document.documentElement.clientWidth < 1024) {
+            const logo = document.getElementById('profile-comments');
+            logo.removeEventListener('click', this.#getMyComments.bind(this));
+            
+            router.redirect(`/mcomments/${this.#data.id}`);
+        }
     }
 
     #createDiv = (className) => {

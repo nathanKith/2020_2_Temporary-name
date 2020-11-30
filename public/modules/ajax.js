@@ -48,9 +48,20 @@ class Ajax {
         };
     }
 
+    postPremium = async (url, body) => {
+        const response = await fetch(this.#ajax(url, 'POST', body, true));
+
+        const responseObject = await response;
+
+        return {
+            status: response.status,
+            responseObject: responseObject,
+        };
+    }
+
     ajaxPostPhoto = async (url, body = {}, name) => {
         const response = await fetch(url, {
-            credentials: 'include',
+            // credentials: 'include',
             method: 'POST',
             body: body,
         });

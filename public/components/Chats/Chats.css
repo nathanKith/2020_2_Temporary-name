@@ -8,6 +8,81 @@
     font-family: Montserrat-Regular;
 }
 
+@media screen and (min-width: 1024px) and (max-width: 1520px){
+    #name-chat{
+        font-size: 18px !important;
+    }
+    .chat-avatar-photo{
+        object-fit: cover;
+        width: 75px !important;
+    }
+    .last-message{
+        font-size: 16px !important;
+    }
+    #time-chat{
+        font-size: 14px !important;
+
+    }
+    .chats-logo{
+        font-size: 30px !important;
+    }
+    .chat-info{
+        margin-left: 5%;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    .list-chats{
+        height: 100% !important;
+        border-radius: 0px !important;
+    }
+    .chat-avatar-photo{
+        width: 14vh !important;
+        height: 14vh !important;
+    }
+   .chat{
+       height: 23% !important;
+   }
+   .chat__box__text-area__date{
+       margin-left: 3% !important;
+   }
+   .chats-logo {
+        height: 0 !important;
+        font-size: 0px !important;
+   }
+   #name_chat{
+       font-size: 3vh !important;
+   }
+   .last-message{
+       font-size: 2.4vh !important;
+   }
+   #time-chat{
+       font-size: 2vh !important;
+   }
+   .chat-info{
+       margin-left: 8vw;
+   }
+}
+
+.chats-new {
+    -webkit-animation: blink 3s linear infinite; 
+	animation: blink 3s linear infinite; 
+	font-weight: bold; 
+    background-color: #F5486B;
+}
+
+@-webkit-keyframes blink { 
+	0% { background-color: #F5486B; }
+	50% { background-color: #FBB; }
+	100% { background-color: #F5486B; }
+}
+
+@keyframes blink {  
+	0% { background-color: #F5486B; }
+	50% { background-color: #FBB; }
+	100% { background-color: #F5486B; }
+}
+
 .chats-logo {
     display: flex;
     font-size: 35px;
@@ -70,6 +145,7 @@
     border-radius: 50%;
     height: 100%;
     width: 105px;
+    object-fit: cover;
 }
 
 .chat-info {

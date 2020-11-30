@@ -1,3 +1,7 @@
+import {ajax} from '../modules/ajax';
+import {backend} from '../modules/url';
+import {router} from '../main';
+
 export class LandingController {
     #view
 
@@ -6,6 +10,21 @@ export class LandingController {
     }
 
     async control() {
-        await this.#view.render();
+        // this.#tryRedirect();
+        this.#view.render();
+    }
+
+    async #tryRedirect() {
+        // await ajax.get(backend.me)
+        // .then(({status, responseObject}) => {
+        //     if (status === 200) {
+        //         router.redirect('/feed');
+        //     } else {
+        //         this.#view.render();
+        //     }
+        // })
+        // .catch((err) => {
+        //     console.log(err.message);
+        // });
     }
 }

@@ -5,6 +5,9 @@ import {Chats} from '../components/Chats/Chats';
 import {Profile} from '../components/Profile/Profile';
 import {Settings} from '../components/Settings/Settings';
 import {Comments} from '../components/Comments/Comments';
+import {popupLanding} from '../modules/popupLanding';
+import {Album} from "../components/Album/Album";
+import {AlbumPhoto} from "../components/AlbumPhoto/AlbumPhoto";
 
 
 export class FeedView extends BaseView{
@@ -14,6 +17,7 @@ export class FeedView extends BaseView{
 
     render() {
         this._app.innerHTML = '';
+        this._app.removeEventListener('click', popupLanding);
         this._app.classList.remove('registration-body-background')
         document.body.classList.remove('landing-body-background')
 
@@ -44,7 +48,7 @@ export class FeedView extends BaseView{
         feed.render();
 
         const profileChatIcon = new ProfileChatIcon(container);
-        const {profileButton, chatsButton} = profileChatIcon.render();
+        const {profileButton, chatsButton, feedButton} = profileChatIcon.render();
 
         const profileChatSection = document.createElement('div');
         profileChatSection.classList.add('profile-chat-section');
@@ -64,15 +68,12 @@ export class FeedView extends BaseView{
             comments.addEventListener(this._context['comments'].event.getMyComments.type,
                                         this._context['comments'].event.getMyComments.listener);
 
-            // const sendButton = document.getElementById('send-comment');
-            // sendButton.addEventListener(this._context['comments'].event.sendMyComments.type,
-            //                             this._context['comments'].event.sendMyComments.listener);
-            //TODO: получить кнопку сенд и навесить на нее другой обработчик, который пишет Натан!
             feedSection.classList.add('dark');
         });
 
-        // TODO: добавить подгрузку чатов, сейчас они статичные
+
         chatsButton.addEventListener('click', (evt) => {
+            chatsButton.classList.remove('change-chat-icon');
             profileChatSection.innerHTML = '';
             feedSection.classList.remove('dark');
 
@@ -80,11 +81,26 @@ export class FeedView extends BaseView{
             chats.render();
         });
 
+        feedButton.addEventListener('click', (evt) => {
+            profileChatSection.innerHTML = '';
+            feedSection.innerHTML = '';
+            feedSection.classList.remove('dark');
+
+            const feed = new Feed(feedSection);
+            feed.data = this._context['feed'];
+            feed.render();
+
+            chats.data = this._context['chats'];
+            chats.render();
+
+            const informationLogo = document.getElementById('information-logo');
+            informationLogo.addEventListener(this._context['comments'].event.getComments.type,
+                                             this._context['comments'].event.getComments.listener);
+        })
+
         const informationLogo = document.getElementById('information-logo');
         informationLogo.addEventListener(this._context['comments'].event.getComments.type,
                                          this._context['comments'].event.getComments.listener);
-
-        
     }
 
     renderComments(isMy=false) {
@@ -102,8 +118,38 @@ export class FeedView extends BaseView{
                                           this._context['comments'].event.sendComment.listener);
         }
 
-        const backToChats = document.getElementById('backToChat');
-        backToChats.addEventListener('click', this.#renderBackChats.bind(this));
+        // const images = document.getElementsByClassName('inner__profile-comments__avatar__photo');
+        // if (images) {
+        //     const avatars = Array.from(images);
+        //     avatars.forEach((img) => {
+        //         img.addEventListener(this._context['comments'].event.getProfileByComment.type,
+        //                              this._context['comments'].event.getProfileByComment.listener);
+        //     }, this);
+        // }
+       
+
+        // const backToChats = document.getElementById('backToChat');
+        // backToChats.addEventListener('click', this.#renderBackChats.bind(this));
+    }
+
+
+    renderAlbum = () => {
+        const feedSection = document.getElementsByClassName('feed-section')[0];
+        const album = new Album(feedSection, this._context['feed']['feed'].linkImages);
+        album.isMy = false;
+        album.render();
+    }
+
+    renderMyAlbum = () => {
+        const feedSection = document.getElementsByClassName('feed-section')[0];
+        console.log('ya from render of album')
+        console.log(this._context['profile'].linkImages);
+        const album = new Album(feedSection, this._context['profile'].linkImages);
+        album.isMy = true;
+        album.listenerSave = this._context['albums'].savePhoto;
+        album.listenerCancel = this._context['albums'].cancelPhoto;
+        album.listenerDelete = this._context['albums'].deletePhoto;
+        album.render();
     }
 
     #renderSettings(evt) {
@@ -127,14 +173,6 @@ export class FeedView extends BaseView{
             .addEventListener('click', this.#renderBackSettings.bind(this));
     }
 
-    // #popupRenderBackSettings(evt) {
-    //     evt.preventDefault();
-    //     if (evt.target.id === 'settings') {
-    //         return;
-    //     }
-    //     this.#renderSettings(evt);
-    // }
-
     rerenderSettings() {
         const err = document.getElementById('error');
         err.innerText = this._context['settings'].validate.passwords.message;
@@ -152,11 +190,6 @@ export class FeedView extends BaseView{
         };
     }
 
-    #renderCommentsListener(evt) {
-        evt.preventDefault();
-        this.renderComments();
-    }
-
     #renderBackSettings(evt) {
         evt.preventDefault();
         document
@@ -167,6 +200,11 @@ export class FeedView extends BaseView{
             .getElementsByClassName('feed-container')[0]
             .classList.remove('dark');
 
+        const saveButton = document.getElementById('save-button');
+        if ('pink-save' in saveButton.classList) {
+            saveButton.classList.remove('pink-save');
+        }
+
         const settingsDiv = document.getElementsByClassName('settings')[0];
         settingsDiv.innerHTML = '';
         settingsDiv.insertAdjacentHTML('afterbegin', `<div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>`);
@@ -174,8 +212,6 @@ export class FeedView extends BaseView{
         document
             .getElementsByClassName('inner-settings')[0]
             .addEventListener('click', this.#renderSettings.bind(this));
-        
-        // document.addEventListener('click', this.#popupRenderBackSettings.bind(this));
     }
 
     #renderBackChats(evt) {
@@ -207,5 +243,13 @@ export class FeedView extends BaseView{
         const informationLogo = document.getElementById('information-logo');
         informationLogo.addEventListener(this._context['comments'].event.getComments.type,
                                          this._context['comments'].event.getComments.listener);
+    }
+
+    renderOtherProfile() {
+        const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
+        profileChatSection.innerHTML = '';
+        const profile = new Profile(profileChatSection);
+        profile.data = this._context['otherProfile'];
+        profile.render();
     }
 }

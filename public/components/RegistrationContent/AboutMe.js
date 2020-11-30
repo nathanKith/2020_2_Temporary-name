@@ -1,3 +1,5 @@
+import EducationTemplate from './Education.hbs'
+
 export class Education {
     _form
 
@@ -24,13 +26,13 @@ export class Education {
              await radioEl.addEventListener('click', (evt) => {
                 const div = document.getElementById('education_univ');
                 div.innerHTML = '<label class="nameFormText">Я учусь</label>' +
-                    '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education" id="univer" name="univer"></textarea></div>'
+                    '<div class="pass">'+ EducationTemplate()+'</div>';
             });
 
             await RadioEl.addEventListener('click', (evt) => {
                 const div = document.getElementById('education_univ');
                 div.innerHTML = '<label class="nameFormText">Я окончил</label>' +
-                    '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education" id="univer" name="univer"></textarea></div>';
+                '<div class="pass">'+ EducationTemplate()+'</div>';
             });
 
             await radioElem.addEventListener('click', (evt) => {
@@ -39,7 +41,7 @@ export class Education {
             });
 
         div.innerHTML = '<label class="nameFormText">Я учусь</label>' +
-            '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education" id="univer" name="univer"></textarea></div>';
+                        '<div class="pass">'+ EducationTemplate()+'</div>';
 
         return [this.createLabel('University', 'Высшее образование'), divUniv, div];
 

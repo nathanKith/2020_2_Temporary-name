@@ -2,27 +2,43 @@ import {BaseView} from './BaseView';
 import {RegistrationTop} from "../components/RegistrationTop/Top";
 import {RegistrationContent} from "../components/RegistrationContent/RegistrationContent";
 import {RegistrationButton} from "../components/RegistrationButton/RegistrationButton";
-import './../components/Registration/Registration.css'
+import './../components/Registration/Registration.css';
 import {RegAuthModel} from "../models/RegAuthModel";
 import {LandingHeader} from "../components/LandingHeader/LandingHeader";
 import {RegistrationController} from "../controllers/RegistrationController";
+import {router} from '../main';
+import {mask} from "../modules/mask";
+import {readImage} from  '../modules/previewAvatar';
+import {popupLanding} from '../modules/popupLanding';
 
 
 export class RegistrationView extends BaseView {
     model
     listenerRegistration
     divFormView
+    listenerCheck
 
     constructor(app) {
         super(app);
     }
 
-    renderBase = () => {
-        document.body.classList.add('landing-body-background');
-        this._app.innerHTML = '';
-        this._app.classList.add('registration-body-background');
 
-        const header = new LandingHeader(this._app).render();
+
+    renderBase = () => {
+        this._app.innerHTML = '';
+        document.body.classList.remove('landing-body-background');
+
+        const screenWidth = screen.width;
+        const screenHeight = screen.height;
+
+        // if (screenWidth > 450) {
+        //     console.log('1')
+            document.body.classList.add('landing-body-background');
+            this._app.classList.add('registration-body-background');
+
+            const header = new LandingHeader(this._app).render();
+
+        // }
 
         const div = document.createElement('div');
         div.classList.add('formView');
@@ -32,9 +48,18 @@ export class RegistrationView extends BaseView {
         divFormView.classList.add('inner-formView');
         div.appendChild(divFormView);
 
-        const footer = document.createElement('footer');
-        footer.classList.add('landing-footer');
-        this._app.appendChild(footer);
+
+        // if (screenWidth > 450) {
+        //     console.log('2')
+            const footer = document.createElement('footer');
+            footer.classList.add('landing-footer');
+            this._app.appendChild(footer);
+        // }
+
+        divFormView.addEventListener('click', (evt) => {
+            evt.stopPropagation();
+        });
+        this._app.addEventListener('click', popupLanding);
 
         return divFormView;
     }
@@ -50,20 +75,38 @@ export class RegistrationView extends BaseView {
         (new RegistrationContent(form)).render('FirstStep');
         (new RegistrationButton(form)).render();
 
+        const number = document.getElementById('number');
+        number.addEventListener("input", mask, false);
+        number.addEventListener("focus", mask, false);
+        number.addEventListener("blur", mask, false);
+
+
         const button = document.getElementById('nextButton')
         button.addEventListener('click', (evt) => {
             evt.preventDefault();
-            const number = document.getElementById('number');
             const mes = document.getElementById('mes');
-            const [message, result] = this.model.setTelephonePassword(number.value, number.validity.valid,
+            const [message, result] = this.model.setTelephonePassword(number.value, number.value.length,
                 document.getElementById('password').value,
                 document.getElementById('repeat-password').value);
             if (!result) {
                 mes.innerHTML = message;
                 return;
             }
-            this.renderName();
-        })
+            this.listenerCheck()
+                .then( ({status, responseObject}) => {
+                    if (!responseObject) {
+                        this.renderName();
+                    } else {
+                        throw new Error('Такой номер уже существует');
+                    }
+                }).catch( (err) => {
+                mes.innerHTML = err.message;
+                return;
+            })
+        });
+
+        const cancel = document.getElementsByClassName('cancelButton')[0];
+        cancel.addEventListener('click', popupLanding);
     }
 
     renderName = () => {
@@ -94,6 +137,9 @@ export class RegistrationView extends BaseView {
             evt.preventDefault();
             this.render();
         });
+
+        const cancel = document.getElementsByClassName('cancelButton')[0];
+        cancel.addEventListener('click', popupLanding);
     }
 
     renderBirth = () => {
@@ -121,6 +167,9 @@ export class RegistrationView extends BaseView {
             evt.preventDefault();
             this.renderName();
         });
+
+        const cancel = document.getElementsByClassName('cancelButton')[0];
+        cancel.addEventListener('click', popupLanding);
     }
 
     renderSex = () => {
@@ -153,7 +202,10 @@ export class RegistrationView extends BaseView {
         back.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.renderBirth();
-        })
+        });
+
+        const cancel = document.getElementsByClassName('cancelButton')[0];
+        cancel.addEventListener('click', popupLanding);
     }
 
     renderAboutMe = () => {
@@ -192,6 +244,9 @@ export class RegistrationView extends BaseView {
             evt.preventDefault();
             this.renderPhoto();
         });
+
+        const cancel = document.getElementsByClassName('cancelButton')[0];
+        cancel.addEventListener('click', popupLanding);
     }
 
     renderPhoto = () => {
@@ -200,6 +255,13 @@ export class RegistrationView extends BaseView {
         console.log(this.model.Json());
         (new RegistrationContent(this.divFormView)).render('Photo');
 
+        const photo = document.getElementById('file');
+        photo.onchange = () => {
+            const file = document.getElementById('file').files[0];
+            readImage(file);
+        }
+
+
         const back = document.getElementById('arrow');
         back.addEventListener('click', (evt) => {
             evt.preventDefault();
@@ -207,15 +269,10 @@ export class RegistrationView extends BaseView {
         })
 
         const button = document.getElementById('end');
-        // button.addEventListener('click', this.listenerRegistration);
-        // button.addEventListener('click', {handleEvent: this.listenerRegistration,
-        //     model: this.model});
-        // button.addEventListener('click',this.listenerRegistration.bind(this.model));
-        // button.addEventListener('click', (evt) => {
-        //     evt.preventDefault();
-        //     this.listenerRegistration(this.model);
-        // });
         button.onclick = this.listenerRegistration;
+
+        const cancel = document.getElementsByClassName('cancelButton')[0];
+        cancel.addEventListener('click', popupLanding);
     }
 
     validationAboutMe (univer) {

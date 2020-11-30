@@ -74,9 +74,9 @@ export class FeedController {
                         type: 'submit',
                         listener: this.superLikeListener.bind(this),
                     },
-                    back: {
-                        type: 'click',
-                        //listener: ,
+                    backUser: {
+                        type: 'submit',
+                        listener: this.backUserListener.bind(this),
                     },
                 },
             },
@@ -351,6 +351,16 @@ export class FeedController {
         this.#view.rerenderFeed();
     }
 
+    #getPreviousUser() {
+        if (this.#currentUserFeed === 0) {
+            return;
+        }
+        this.#currentUserFeed--;
+
+        this.#view.context = this.#makeContext();
+        this.#view.rerenderFeed();
+    }
+
     async #likeDislikeAjax(url) {
         await ajax.post(url, {
             'user_id2': this.#feed.userList[this.#currentUserFeed].id
@@ -386,38 +396,13 @@ export class FeedController {
         }
     }
 
-    // async superLikeListener(evt) {
-    //     evt.preventDefault();
+    backUserListener(evt) {
+        if (this.#profile.isPremium) {
+            evt.preventDefault();
 
-    //     const isPremium = await this.#isPremium();
-    //     if (!isPremium) {
-    //         // get premium account
-    //         await ajax.postPremium(yoomoneyUrl, yoomoney.formData())
-    //             .then(({status, responseObject}) => {
-    //                 console.log(responseObject);
-    //             })
-    //             // .catch((err) => {
-    //             //     console.log(err.message);
-    //             // });
-
-    //         return;
-    //     }
-
-    //     // super like
-    //     await ajax.post(backend.superLike, {
-    //         'user_id2': this.#feed.userList[this.#currentUserFeed].id,
-    //     })
-    //         .then(({status, responseObject}) => {
-    //             if (status === 401) {
-    //                 throw new Error(`${status} unauthorized: cannot get json on url /like`);
-    //             }
-
-    //             this.#getNextUser();
-    //         })
-    //         .catch((err) => {
-    //             console.log(err.message);
-    //         });
-    // }
+            this.#getPreviousUser();
+        }
+    }
 
     async control() {
         await this.update()

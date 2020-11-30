@@ -45,6 +45,7 @@
     border-radius: 10px;
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
+    cursor: pointer;
 }
 
 .profile-icon-button:focus {
@@ -75,6 +76,7 @@
     border-radius: 10px;
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
+    cursor: pointer;
 }
 
 .chats-icon-button:focus {

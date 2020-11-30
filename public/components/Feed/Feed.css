@@ -134,6 +134,7 @@
     border: none;
     background-color: white;
     outline: none;
+    cursor: pointer;
 }
 
 .next-photo {

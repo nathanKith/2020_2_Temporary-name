@@ -15,6 +15,7 @@ export class UserModel {
     #aboutMe
     #linkImages
     #age
+    #isPremium
 
     constructor(data = {}) {
         this.#fillUserData(data)
@@ -129,6 +130,14 @@ export class UserModel {
         this.#age = age;
     }
 
+    get isPremium() {
+        return this.#isPremium;
+    }
+
+    set isPremium(isPremium) {
+        this.#isPremium = isPremium;
+    }
+
     #fillUserData(data) {
         this.#id = data['id'];
         this.#telephone = data['telephone'];
@@ -153,6 +162,17 @@ export class UserModel {
                 }
                 this.#fillUserData(responseObject);
                 this.#validateImages();
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+
+        await ajax.get(backend.isPremium)
+            .then(({status, responseObject}) => {
+                if (status !== 200) {
+                    throw new Error(`${status} error: cannot get on /is_premium`);
+                }
+                this.#isPremium = responseObject['is_premium'];
             })
             .catch((err) => {
                 console.log(err.message);

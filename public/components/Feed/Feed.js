@@ -1,4 +1,5 @@
 import {backend} from "../../modules/url";
+import {yoomoney, yoomoneyUrl} from "../../modules/yoomoney";
 import './Feed.css';
 
 export class Feed {
@@ -29,9 +30,15 @@ export class Feed {
         div.appendChild(this.#createPreviousNextPhoto());
         div.appendChild(this.#createReactionButton());
 
+        const formBackUser = document.getElementById('back-user-form');
+        formBackUser.addEventListener(this.#data.event.backUser.type, this.#data.event.backUser.listener);
+
         const buttons = document.getElementsByClassName('reaction-button');
         buttons[1].addEventListener(this.#data.event.dislike.type, this.#data.event.dislike.listener);
         buttons[2].addEventListener(this.#data.event.like.type, this.#data.event.like.listener);
+
+        const formSuperLike = document.getElementById('super-like-form');
+        formSuperLike.addEventListener(this.#data.event.superLike.type, this.#data.event.superLike.listener);
     }
 
     #createPreviousNextPhoto = () => {
@@ -90,13 +97,16 @@ export class Feed {
 
     #createReactionButton = () => {
         const icons = [
-            './../../img/go-back-arrow.svg',
+            // './../../img/go-back-arrow.svg',
             './../../img/cancel.svg',
             './../../img/like.svg',
-            './../../img/super-like.svg',
+            // './../../img/super-like.svg',
         ]
 
         const div = this.#createDiv('reactions');
+
+        const formBackUser = this.#createForm('back-user-form', './../../img/go-back-arrow.svg');
+        div.appendChild(formBackUser);
 
         icons.forEach((imgSrc) => {
             const button = document.createElement('button');
@@ -109,7 +119,37 @@ export class Feed {
             div.appendChild(button);
         });
 
+        const formSuperLike = this.#createForm('super-like-form', './../../img/super-like.svg');
+        div.appendChild(formSuperLike);
+
         return div;
+    }
+
+    #createForm(id, imgSrc) {
+        const form = document.createElement('form');
+        form.action = yoomoneyUrl;
+        form.method = 'POST';
+        form.id = id;
+
+        const formJson = yoomoney.json();
+        yoomoney.label = this.#data.id;
+        Object.keys(formJson).forEach((key) => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = formJson[key];
+
+            form.appendChild(input);
+        });
+
+        const button = document.createElement('button');
+        button.classList.add('reaction-button');
+        button.type = 'submit';
+        button.innerHTML = `<img src="${imgSrc}">`;
+
+        form.appendChild(button);
+
+        return form;
     }
 
     #createPhotosCell = () => {

@@ -67,7 +67,7 @@ const feedController = new FeedController(feedView, userModel, userListModel, ch
 const profileMobileController = new ProfileMobileController(profileMobileView, userModel);
 const chatsMobileController = new ChatsMobileController(chatsMobileView, chatListModel, userModel);
 const settingsMobileController = new SettingsMobileController(settingsMobileView, userModel);
-const feedMobileController = new FeedMobileController(feedMobileView, userListModel, chatsMobileController);
+const feedMobileController = new FeedMobileController(feedMobileView, userListModel, chatsMobileController, userModel);
 const commentsMobileController = new CommentsMobileController(commentsMobileView, userModel, commentListModel);
 const albumMobileController = new AlbumMobileController(albumMobileView, userModel);
 

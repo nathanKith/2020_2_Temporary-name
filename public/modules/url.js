@@ -72,6 +72,14 @@ class Backend {
         return this.#url + name;
     }
 
+    get isPremium() {
+        return this.#url + this.#api + '/is_premium';
+    }
+
+    get superLike() {
+        return this.#url + this.#api + '/superlike';
+    }
+
     get removePhoto() {
         return this.#url + this.#api + '/remove_photo';
     }
@@ -83,7 +91,6 @@ class Backend {
     get user() {
         return this.#url + this.#api + '/user/';
     }
-
 }
 
 export const backend = new Backend();

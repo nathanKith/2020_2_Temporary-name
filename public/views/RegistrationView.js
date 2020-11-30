@@ -100,7 +100,7 @@ export class RegistrationView extends BaseView {
                         throw new Error('Такой номер уже существует');
                     }
                 }).catch( (err) => {
-                mes.innerHTML = err;
+                mes.innerHTML = err.message;
                 return;
             })
         });

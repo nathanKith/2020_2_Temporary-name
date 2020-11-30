@@ -1172,6 +1172,7 @@ arrow:hover{
     font-size: 1.8vh;
     display: flex;
     justify-content: center;
+    text-align: center;
     font-family: Montserrat-Light;
 }
 .link {

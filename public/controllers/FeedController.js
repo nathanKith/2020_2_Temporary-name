@@ -16,6 +16,7 @@ export class FeedController {
     #websocket
 
     #currentUserFeed
+    #backUserClick
 
     constructor(feedView, userModel, feedListModel, chatListModel, commentsListModel) {
         this.#view = feedView;
@@ -25,6 +26,7 @@ export class FeedController {
         this.#comments = commentsListModel;
 
         this.#currentUserFeed = 0;
+        this.#backUserClick = 0;
     }
 
     set view(view) {
@@ -371,6 +373,7 @@ export class FeedController {
                 }
 
                 this.#getNextUser();
+                this.#backUserClick = 0;
             })
             .catch((err) => {
                 console.log(err.message);
@@ -389,6 +392,7 @@ export class FeedController {
                     }
 
                     this.#getNextUser();
+                    this.#backUserClick = 0;
                 })
                 .catch((err) => {
                     console.log(err.message);
@@ -400,7 +404,10 @@ export class FeedController {
         if (this.#profile.isPremium) {
             evt.preventDefault();
 
-            this.#getPreviousUser();
+            if (this.#backUserClick === 0) {
+                this.#getPreviousUser();
+                this.#backUserClick = 1;
+            }
         }
     }
 

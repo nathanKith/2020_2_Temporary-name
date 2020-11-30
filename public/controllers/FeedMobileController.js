@@ -12,12 +12,14 @@ export class FeedMobileController{
     #chatsController
 
     #currentUserFeed
+    #backUserClick
 
     constructor(feedView, feedListModel, chatsController, userModel) {
         this.#view = feedView;
         this.#feed = feedListModel;
         this.#chatsController = chatsController;
         this.#currentUserFeed = 0;
+        this.#backUserClick = 0;
 
         this.#profile = userModel;
     }
@@ -75,6 +77,7 @@ export class FeedMobileController{
                 }
 
                 this.#getNextUser();
+                this.#backUserClick = 0;
             })
             .catch((err) => {
                 console.log(err.message);
@@ -105,6 +108,7 @@ export class FeedMobileController{
                     }
 
                     this.#getNextUser();
+                    this.#backUserClick = 0;
                 })
                 .catch((err) => {
                     console.log(err.message);
@@ -126,7 +130,10 @@ export class FeedMobileController{
         if (this.#profile.isPremium) {
             evt.preventDefault();
 
-            this.#getPreviousUser();
+            if (this.#backUserClick === 0) {
+                this.#getPreviousUser();
+                this.#backUserClick = 1;
+            }
         }
     }
 

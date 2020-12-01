@@ -5,9 +5,9 @@ export const isMobile = () => {
 }
 
 export const resizeListener = (evt) => {
-    const url = window.location.pathname;
-    console.log(url);
+    //console.log(url);
     if (isMobile) {
+        const url = window.location.pathname;
         if (url.indexOf('/m') === -1) {
             if (url === '/login' || url === '/' || url === '/signup') {
                 return;
@@ -15,10 +15,8 @@ export const resizeListener = (evt) => {
             router.redirect('/mfeed');
         }
     } else {
+        const url = window.location.pathname;
         if (url.indexOf('/m') !== -1) {
-            if (url === '/login' || url === '/' || url === '/signup') {
-                return;
-            }
             router.redirect('/feed');
         }
     }

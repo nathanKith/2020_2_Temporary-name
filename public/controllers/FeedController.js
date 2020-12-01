@@ -65,6 +65,7 @@ export class FeedController {
             },
             feed: {
                 feed: this.#feed.userList[this.#currentUserFeed],
+                id: this.#profile.id,
                 event: {
                     like: {
                         type: 'click',
@@ -513,7 +514,8 @@ export class FeedController {
             .then(() => {
                 this.#view.context = this.#makeContext();
                 this.#view.render();
-                yoomoney.label = `${this.#profile.id}`;
+                // yoomoney.label = `${this.#profile.id}`;
+                // console.log(yoomoney.json());
             });
     }
 }

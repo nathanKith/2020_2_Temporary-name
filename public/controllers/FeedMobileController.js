@@ -3,6 +3,7 @@ import {ChatModel} from "../models/ChatModel";
 import ChatOtherMessage from "../components/ChatContent/ChatOtherMessage.hbs";
 import {ajax} from "../modules/ajax";
 import {ChatsMobileController} from "./ChatsMobileController";
+import { yoomoney, yoomoneyUrl } from "../modules/yoomoney";
 
 
 export class FeedMobileController{
@@ -35,6 +36,7 @@ export class FeedMobileController{
         return {
             feed: {
                 feed: this.#feed.userList[this.#currentUserFeed],
+                id: this.#profile.id,
                 event: {
                     like: {
                         type: 'click',
@@ -142,6 +144,8 @@ export class FeedMobileController{
             .then(() => {
                 this.#view.context = this.#makeContext();
                 this.#view.render();
+                // yoomoney.label = `${this.#profile.id}`;
+                // console.log(yoomoney.json());
             });
     }
 }

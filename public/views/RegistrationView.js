@@ -242,14 +242,6 @@ export class RegistrationView extends BaseView {
 
         const Form = document.createElement('form');
         Form.classList.add('formInf');
-        Form.addEventListener('submit', (evt) => {
-            evt.preventDefault();
-            let education = this.validationAboutMe( document.getElementById('univer'));
-            this.model.setAboutMe(document.getElementById('job').value,
-                education,
-                document.getElementById('about').value);
-            this.renderPhoto();
-        })
 
         const form = this.divFormView.appendChild(Form);
 
@@ -259,15 +251,14 @@ export class RegistrationView extends BaseView {
                 (new RegistrationButton(form)).render();
 
                 const button = document.getElementById('nextButton');
-                button.type = 'submit';
-                // button.addEventListener('click', (evt) => {
-                //     evt.preventDefault();
-                //     let education = this.validationAboutMe( document.getElementById('univer'));
-                //     this.model.setAboutMe(document.getElementById('job').value,
-                //         education,
-                //         document.getElementById('about').value);
-                //     this.renderPhoto();
-                // });
+                button.addEventListener('click', (evt) => {
+                    evt.preventDefault();
+                    let education = this.validationAboutMe( document.getElementById('univer'));
+                    this.model.setAboutMe(document.getElementById('job').value,
+                        education,
+                        document.getElementById('about').value);
+                    this.renderPhoto();
+                });
             });
         const back = document.getElementById('arrow');
         back.addEventListener('click', (evt) => {
@@ -291,8 +282,7 @@ export class RegistrationView extends BaseView {
         console.log(this.model.Json());
         (new RegistrationContent(this.divFormView)).render('Photo');
 
-        const form = document.getElementsByClassName('form-photo')[0];
-        form.onsubmit = this.listenerRegistration;
+
 
         const photo = document.getElementById('file');
         photo.onchange = () => {
@@ -308,8 +298,7 @@ export class RegistrationView extends BaseView {
         })
 
         const button = document.getElementById('end');
-        button.type = 'submit';
-        // button.onclick = this.listenerRegistration;
+        button.onclick = this.listenerRegistration;
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
         cancel.addEventListener('click', popupLanding);

@@ -25,17 +25,8 @@ export class RegistrationController {
         let photo;
         photo = document.getElementById('file').value;
 
-        console.log('Размер фото:');
-        console.log(document.getElementById('file').files[0].size);
-
         let mes;
         mes = document.getElementById('mes');
-
-        if (document.getElementById('file').files[0].size < 3000000) {
-            mes.innerHTML = 'Слишком большой размер фото, пожалуйста, загрузите фото размером меньше 3Мб';
-            console.log('Слишком большой размер фото, пожалуйста, загрузите фото размером меньше 3Мб');
-            return false;
-        }
 
         const [message, result] = model.validationPhoto(photo);
         if (!result) {
@@ -44,6 +35,12 @@ export class RegistrationController {
             return false;
         }
         console.log(mes);
+
+        if (document.getElementById('file').files[0].size < 3000000) {
+            mes.innerHTML = 'Слишком большой размер фото, пожалуйста, загрузите фото размером меньше 3Мб';
+            console.log('Слишком большой размер фото, пожалуйста, загрузите фото размером меньше 3Мб');
+            return false;
+        }
 
         const button = document.getElementById('end');
         button.disabled = true;

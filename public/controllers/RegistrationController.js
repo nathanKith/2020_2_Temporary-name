@@ -36,7 +36,7 @@ export class RegistrationController {
         }
         console.log(mes);
 
-        if (document.getElementById('file').files[0].size < 3000000) {
+        if (document.getElementById('file').files[0].size > 3000000) {
             mes.innerHTML = 'Слишком большой размер фото, пожалуйста, загрузите фото размером меньше 3Мб';
             console.log('Слишком большой размер фото, пожалуйста, загрузите фото размером меньше 3Мб');
             return false;

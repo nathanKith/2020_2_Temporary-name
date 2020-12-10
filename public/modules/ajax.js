@@ -27,6 +27,7 @@ class Ajax {
 
         const responseObject = await response.json();
 
+
         return {
             status: response.status,
             responseObject: responseObject,
@@ -34,7 +35,9 @@ class Ajax {
     }
 
     post = async (url, body, photo = false) => {
+        console.log(body);
         const response = await fetch(this.#ajax(url, 'POST', body, photo));
+        console.log(response);
         const csrf = response.headers.get('Csrf');
         if (csrf) {
             sessionStorage.setItem('csrf', csrf);

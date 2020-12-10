@@ -69,6 +69,31 @@ export class RegistrationView extends BaseView {
 
         const Form = document.createElement('form');
         Form.classList.add('form');
+        Form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+            const mes = document.getElementById('mes');
+            const [message, result] = this.model.setTelephonePassword(number.value, number.value.length,
+                document.getElementById('password').value,
+                document.getElementById('repeat-password').value);
+            if (!result) {
+                mes.innerHTML = message;
+                return;
+            }
+            console.log('Хаве доневалидатион');
+            console.log(this);
+            this.listenerCheck()
+                .then( ({status, responseObject}) => {
+                    console.log(responseObject);
+                    if (!responseObject['telephone']) {
+                        this.renderName();
+                    } else {
+                        throw new Error('Такой номер уже существует');
+                    }
+                }).catch( (err) => {
+                mes.innerHTML = err.message;
+                return;
+            })
+        })
         const form = this.divFormView.appendChild(Form);
 
         (new RegistrationTop(form)).render('TopBegin','Регистрация');
@@ -81,29 +106,30 @@ export class RegistrationView extends BaseView {
         number.addEventListener("blur", mask, false);
 
 
-        const button = document.getElementById('nextButton')
-        button.addEventListener('submit', (evt) => {
-            evt.preventDefault();
-            const mes = document.getElementById('mes');
-            const [message, result] = this.model.setTelephonePassword(number.value, number.value.length,
-                document.getElementById('password').value,
-                document.getElementById('repeat-password').value);
-            if (!result) {
-                mes.innerHTML = message;
-                return;
-            }
-            this.listenerCheck()
-                .then( ({status, responseObject}) => {
-                    if (!responseObject) {
-                        this.renderName();
-                    } else {
-                        throw new Error('Такой номер уже существует');
-                    }
-                }).catch( (err) => {
-                mes.innerHTML = err.message;
-                return;
-            })
-        });
+        const button = document.getElementById('nextButton');
+        button.type = 'submit';
+        // button.addEventListener('submit', (evt) => {
+        //     evt.preventDefault();
+        //     const mes = document.getElementById('mes');
+        //     const [message, result] = this.model.setTelephonePassword(number.value, number.value.length,
+        //         document.getElementById('password').value,
+        //         document.getElementById('repeat-password').value);
+        //     if (!result) {
+        //         mes.innerHTML = message;
+        //         return;
+        //     }
+        //     this.listenerCheck()
+        //         .then( ({status, responseObject}) => {
+        //             if (!responseObject) {
+        //                 this.renderName();
+        //             } else {
+        //                 throw new Error('Такой номер уже существует');
+        //             }
+        //         }).catch( (err) => {
+        //         mes.innerHTML = err.message;
+        //         return;
+        //     })
+        // });
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
         cancel.addEventListener('click', popupLanding);
@@ -198,7 +224,7 @@ export class RegistrationView extends BaseView {
             this.renderAboutMe();
         });
 
-        const back = document.aaaagetElementById('arrow');
+        const back = document.getElementById('arrow');
         back.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.renderBirth();

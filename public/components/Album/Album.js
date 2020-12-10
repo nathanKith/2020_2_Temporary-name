@@ -3,7 +3,7 @@ import AlbumPreview from './AlbumPreview.hbs';
 import AlbumButtons from './AlbumButtons.hbs';
 import {readImage} from '../../modules/previewAvatar';
 import {AlbumPhoto} from './../AlbumPhoto/AlbumPhoto';
-import {popupPhoto} from '../../modules/popupPhoto';
+//import {popupPhoto} from '../../modules/popupPhoto';
 import './Album.css';
 
 export class Album {

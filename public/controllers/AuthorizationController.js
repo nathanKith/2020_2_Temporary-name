@@ -1,5 +1,3 @@
-import {RegAuthModel} from '../models/RegAuthModel';
-import {RegistrationView} from '../views/RegistrationView';
 import {router} from '../main';
 
 export class AuthorizationController {
@@ -10,8 +8,10 @@ export class AuthorizationController {
         this.authorizationModel = authorizationModel;
         this.authorizationView = authorizationView;
         this.authorizationView.model = this.authorizationModel;
-        this.authorizationView.listenerAuthorization = this.listenerAuthorization.bind
-        (this.listenerAuthorization, this.authorizationModel);
+        this.authorizationView.listenerAuthorization = this.listenerAuthorization.bind(
+            this.listenerAuthorization,
+            this.authorizationModel
+        );
     }
 
     control() {
@@ -25,9 +25,10 @@ export class AuthorizationController {
             mes.innerHTML = 'Неверно введен номер телефона';
             return;
         }
-        const [message, result] = model.setTelephonePasswordAuth
-        (document.getElementById('number').value,
-            document.getElementById('password').value);
+        const [message, result] = model.setTelephonePasswordAuth(
+            document.getElementById('number').value,
+            document.getElementById('password').value
+        );
         if (!result) {
             mes.innerHTML = message;
             return false;

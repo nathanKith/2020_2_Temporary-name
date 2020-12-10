@@ -3,10 +3,7 @@ import {RegistrationTop} from '../components/RegistrationTop/Top';
 import {RegistrationContent} from '../components/RegistrationContent/RegistrationContent';
 import {RegistrationButton} from '../components/RegistrationButton/RegistrationButton';
 import './../components/Registration/Registration.css';
-import {RegAuthModel} from '../models/RegAuthModel';
 import {LandingHeader} from '../components/LandingHeader/LandingHeader';
-import {RegistrationController} from '../controllers/RegistrationController';
-import {router} from '../main';
 import {mask} from '../modules/mask';
 import {readImage} from  '../modules/previewAvatar';
 import {popupLanding} from '../modules/popupLanding';
@@ -28,17 +25,10 @@ export class RegistrationView extends BaseView {
         this._app.innerHTML = '';
         document.body.classList.remove('landing-body-background');
 
-        const screenWidth = screen.width;
-        const screenHeight = screen.height;
-
-        // if (screenWidth > 450) {
-        //     console.log('1')
         document.body.classList.add('landing-body-background');
         this._app.classList.add('registration-body-background');
 
-        const header = new LandingHeader(this._app).render();
-
-        // }
+        (new LandingHeader(this._app)).render();
 
         const div = document.createElement('div');
         div.classList.add('formView');

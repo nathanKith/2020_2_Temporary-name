@@ -1,4 +1,3 @@
-import {backend} from '../../modules/url';
 import {yoomoney, yoomoneyUrl} from '../../modules/yoomoney';
 import './Feed.css';
 

@@ -1,5 +1,4 @@
 import './Profile.css';
-import {backend} from './../../modules/url';
 import {router} from '../../main';
 
 export class Profile {

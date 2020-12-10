@@ -1,5 +1,4 @@
 import {BaseView} from './BaseView';
-import {FeedView} from './FeedView';
 import {Comments} from '../components/Comments/Comments';
 import {FeedHeaderMobile} from '../components/FeedHeaderMobile/FeedHeaderMobile';
 import {router} from '../main';

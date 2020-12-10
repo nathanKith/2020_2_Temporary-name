@@ -1,4 +1,5 @@
 /* eslint-disable */
+
 module.exports = {
     'parser': '@babel/eslint-parser',
     'env': {

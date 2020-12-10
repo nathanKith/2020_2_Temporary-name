@@ -7,7 +7,6 @@ import {Settings} from '../components/Settings/Settings';
 import {Comments} from '../components/Comments/Comments';
 import {popupLanding} from '../modules/popupLanding';
 import {Album} from '../components/Album/Album';
-import {AlbumPhoto} from '../components/AlbumPhoto/AlbumPhoto';
 
 
 export class FeedView extends BaseView{

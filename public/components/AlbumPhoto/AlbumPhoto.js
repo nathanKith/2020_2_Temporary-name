@@ -1,5 +1,5 @@
 import AlbumPhotoHbs from './AlbumPhoto.hbs';
-import {popupPhoto} from '../../modules/popupPhoto';
+//import {popupPhoto} from '../../modules/popupPhoto';
 import './Album.css';
 
 export class AlbumPhoto {

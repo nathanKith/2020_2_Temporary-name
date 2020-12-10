@@ -1,7 +1,3 @@
-import {ajax} from '../modules/ajax';
-import {backend} from '../modules/url';
-import {router} from '../main';
-
 export class LandingController {
     #view
 

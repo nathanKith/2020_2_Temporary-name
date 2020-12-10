@@ -1,4 +1,3 @@
-import {AlbumMobileView} from '../views/AlbumMobileView';
 import {UserModel} from '../models/UserModel';
 
 export class AlbumMobileController {

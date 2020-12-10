@@ -1,11 +1,3 @@
-'use strict';
-
-import ajax from '../../modules/ajax.js';
-import {feedPage} from '../../main.js';
-import {LandingHeader} from '../LandingHeader/LandingHeader';
-
-const url = 'http://95.163.213.222:8080/api/v1';
-
 export class Authorization {
     #parent
     constructor(parent) {
@@ -67,23 +59,22 @@ export class Authorization {
             }
             if (pass.value === ''){
                 message.innerHTML = 'Введены не все поля';
-                return;
             }
-            const Json = {
-                telephone: number.value,
-                password: pass.value,
-            };
-            ajax.ajaxPost(url + '/login', Json).
-                then(({status, responseObject}) => {
-                    if (status === 200) {
-                        alert('Успешная авторизация');
-                        feedPage();
-                    } else {
-                        alert('Такого пользователя не существует');
-                    }
-                }).catch((err) => {
-                    alert(err);
-                });
+            // const Json = {
+            //     telephone: number.value,
+            //     password: pass.value,
+            // };
+            // ajax.ajaxPost(url + '/login', Json).
+            //     then(({status, responseObject}) => {
+            //         if (status === 200) {
+            //             alert('Успешная авторизация');
+            //             feedPage();
+            //         } else {
+            //             alert('Такого пользователя не существует');
+            //         }
+            //     }).catch((err) => {
+            //         alert(err);
+            //     });
 
         });
         // link.appendChild(nextButton);

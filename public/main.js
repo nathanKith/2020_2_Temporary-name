@@ -1,15 +1,7 @@
 import './styles.css';
 
 import {LandingView} from './views/LandingView';
-import {Feed} from './components/Feed/Feed.js';
-import {ProfileChatIcon} from './components/ProfileChatIcon/ProfileChatIcon.js';
-import {Profile} from './components/Profile/Profile.js';
-import {Chats} from './components/Chats/Chats.js';
-import {Registration} from './components/Registration/Registration.js';
-import {Authorization} from './components/Authorization/Authorization.js';
-import {ajax} from './modules/ajax.js';
 import {LandingController} from './controllers/LandingController';
-import {LandingHeader} from './components/LandingHeader/LandingHeader';
 import {RegistrationView} from './views/RegistrationView';
 import {Router} from './modules/router';
 import {RegAuthModel} from './models/RegAuthModel';
@@ -47,7 +39,6 @@ const authorizationView = new AuthorizationView(application);
 const feedView = new FeedView(application);
 const profileMobileView = new ProfileMobileView(application);
 const chatsMobileView = new ChatsMobileView(application);
-const commentsView = new CommentsMobileView(application);
 const settingsMobileView = new SettingsMobileView(application);
 const feedMobileView = new FeedMobileView(application);
 const commentsMobileView = new CommentsMobileView(application);
@@ -156,4 +147,4 @@ router.add('/malbums/{userId}', doAlbumsMobile);
 
 router.start();
 
-// window.onresize = resizeListener;
+window.onresize = resizeListener;

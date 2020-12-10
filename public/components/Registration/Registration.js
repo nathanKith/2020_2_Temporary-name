@@ -246,7 +246,7 @@ export class Registration {
         const divUniv = document.createElement('div');
         divUniv.classList.add('radio');
 
-        const divOps = document.getElementById('education_univ');
+        //const divOps = document.getElementById('education_univ');
         const radioEl = this.createRadio('radio-elems','radio-elem', 'Учусь', 'text', 'rad1');
         radioEl.addEventListener('click', (evt) => {
             const div = document.getElementById('education_univ');
@@ -426,7 +426,7 @@ export class Registration {
                 }).catch((string) => {
                     alert(string);
                     alert('ZDES?');
-                    loginPage();
+                    //loginPage();
                 });
 
 

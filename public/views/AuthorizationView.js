@@ -1,8 +1,6 @@
 import {BaseView} from './BaseView';
-import {RegAuthModel} from '../models/RegAuthModel';
 import {AuthorizationContent} from '../components/AuthorizationContent/AuthorizationContent';
 import {LandingHeader} from '../components/LandingHeader/LandingHeader';
-import {router} from '../main';
 import {mask} from '../modules/mask';
 import {popupLanding} from '../modules/popupLanding';
 
@@ -21,7 +19,7 @@ export class AuthorizationView extends BaseView {
         this._app.innerHTML = '';
         this._app.classList.add('registration-body-background');
 
-        const header = new LandingHeader(this._app).render();
+        (new LandingHeader(this._app)).render();
 
         const div = document.createElement('div');
         div.classList.add('formView');

@@ -1,7 +1,4 @@
-import {RegAuthModel} from '../models/RegAuthModel';
-import {RegistrationView} from '../views/RegistrationView';
 import {router} from '../main';
-
 
 export class RegistrationController {
     RegAuthModel

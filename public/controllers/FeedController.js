@@ -5,9 +5,6 @@ import {CommentModel} from '../models/CommentModel';
 import ChatOtherMessage from '../components/ChatContent/ChatOtherMessage.hbs';
 import {ChatModel} from '../models/ChatModel';
 import {Chats} from '../components/Chats/Chats';
-import {Album} from '../components/Album/Album';
-import AlbumImg from './../components/Album/AlbumImg.hbs';
-import { yoomoney, yoomoneyUrl } from '../modules/yoomoney';
 
 export class FeedController {
     #view

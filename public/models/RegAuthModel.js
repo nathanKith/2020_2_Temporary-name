@@ -1,7 +1,6 @@
 import {ajax} from '../modules/ajax';
 import {backend} from '../modules/url';
 import {UserModel} from './UserModel';
-import {feedPage} from '../main';
 
 export class RegAuthModel extends UserModel{
     linkImage

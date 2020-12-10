@@ -4,7 +4,7 @@ import { DateOfBirth } from './DateOfBirth';
 import Sex from './Sex.hbs';
 import AboutMePart1 from './AboutMePart1.hbs';
 import AboutMePart2 from './AboutMePart2.hbs';
-import AboutMe from './AboutMe.hbs';
+//import AboutMe from './AboutMe.hbs';
 import Photo from './Photo.hbs';
 import { Education } from './AboutMe';
 

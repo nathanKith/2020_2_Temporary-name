@@ -158,6 +158,7 @@ export class RegAuthModel extends UserModel{
 
 
     async checkNumber(number) {
+        console.log('checkNumber');
         return await ajax.post(backend.telephone, {
             telephone: number,
         });

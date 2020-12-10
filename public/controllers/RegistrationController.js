@@ -18,12 +18,13 @@ export class RegistrationController {
     }
 
     async listenerRegistration(model) {
-        console.log('aaaa');
+        console.log('listenerRegistration');
         let photo;
         photo = document.getElementById('file').value;
 
         let mes;
         mes = document.getElementById('mes');
+
         const [message, result] = model.validationPhoto(photo);
         if (!result) {
             mes.innerHTML = message;
@@ -31,6 +32,15 @@ export class RegistrationController {
             return false;
         }
         console.log(mes);
+
+        if (document.getElementById('file').files[0].size > 3000000) {
+            mes.innerHTML = 'Слишком большой размер фото, пожалуйста, загрузите фото размером меньше 3Мб';
+            console.log('Слишком большой размер фото, пожалуйста, загрузите фото размером меньше 3Мб');
+            return false;
+        }
+
+        const button = document.getElementById('end');
+        button.disabled = true;
 
         await model.registration(document.getElementById('form-photo'))
             .then(({status, responseObject}) => {
@@ -43,6 +53,7 @@ export class RegistrationController {
             .catch( (err) => {
                 mes.innerHTML = err.message;
             });
+        button.disabled = false;
         console.log(mes);
     }
 

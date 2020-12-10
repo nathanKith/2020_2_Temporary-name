@@ -24,7 +24,6 @@ import {SettingsMobileController} from './controllers/SettingsMobileController';
 import {FeedMobileView} from './views/FeedMobileView';
 import {FeedMobileController} from './controllers/FeedMobileController';
 import {CommentsMobileController} from './controllers/CommentsMobileController';
-
 import {isMobile, resizeListener} from './modules/resizing';
 import {AlbumMobileView} from './views/AlbumMobileView';
 import {AlbumMobileController} from './controllers/AlbumMobileController';

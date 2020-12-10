@@ -21,9 +21,12 @@ export class RegistrationController {
     }
 
     async listenerRegistration(model) {
-        console.log('aaaa');
+        console.log('listenerRegistration');
         let photo;
         photo = document.getElementById('file').value;
+
+        console.log('Размер фото:');
+        console.log(document.getElementById('file').files[0].size);
 
         let mes;
         mes = document.getElementById('mes');
@@ -34,6 +37,9 @@ export class RegistrationController {
             return false;
         }
         console.log(mes);
+
+        const button = document.getElementById('end');
+        button.disabled = true;
 
         await model.registration(document.getElementById('form-photo'))
             .then(({status, responseObject}) => {
@@ -46,6 +52,7 @@ export class RegistrationController {
             .catch( (err) => {
                 mes.innerHTML = err.message;
             })
+        button.disabled = false;
         console.log(mes);
     }
 

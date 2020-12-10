@@ -82,7 +82,7 @@ export class RegistrationView extends BaseView {
 
 
         const button = document.getElementById('nextButton')
-        button.addEventListener('click', (evt) => {
+        button.addEventListener('submit', (evt) => {
             evt.preventDefault();
             const mes = document.getElementById('mes');
             const [message, result] = this.model.setTelephonePassword(number.value, number.value.length,
@@ -198,7 +198,7 @@ export class RegistrationView extends BaseView {
             this.renderAboutMe();
         });
 
-        const back = document.getElementById('arrow');
+        const back = document.aaaagetElementById('arrow');
         back.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.renderBirth();

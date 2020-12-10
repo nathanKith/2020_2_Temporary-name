@@ -1,3 +1,4 @@
+/* eslint-disable */
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 require("babel-polyfill");

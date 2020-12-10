@@ -69,20 +69,7 @@ export class RegistrationView extends BaseView {
 
         const Form = document.createElement('form');
         Form.classList.add('form');
-        const form = this.divFormView.appendChild(Form);
-
-        (new RegistrationTop(form)).render('TopBegin','Регистрация');
-        (new RegistrationContent(form)).render('FirstStep');
-        (new RegistrationButton(form)).render();
-
-        const number = document.getElementById('number');
-        number.addEventListener("input", mask, false);
-        number.addEventListener("focus", mask, false);
-        number.addEventListener("blur", mask, false);
-
-
-        const button = document.getElementById('nextButton')
-        button.addEventListener('click', (evt) => {
+        Form.addEventListener('submit', (evt) => {
             evt.preventDefault();
             const mes = document.getElementById('mes');
             const [message, result] = this.model.setTelephonePassword(number.value, number.value.length,
@@ -92,9 +79,12 @@ export class RegistrationView extends BaseView {
                 mes.innerHTML = message;
                 return;
             }
+            console.log('Хаве доневалидатион');
+            console.log(this);
             this.listenerCheck()
                 .then( ({status, responseObject}) => {
-                    if (!responseObject) {
+                    console.log(responseObject);
+                    if (!responseObject['telephone']) {
                         this.renderName();
                     } else {
                         throw new Error('Такой номер уже существует');
@@ -102,8 +92,23 @@ export class RegistrationView extends BaseView {
                 }).catch( (err) => {
                 mes.innerHTML = err.message;
                 return;
-            })
+            });
         });
+
+        const form = this.divFormView.appendChild(Form);
+
+        (new RegistrationTop(form)).render('TopBegin','Регистрация');
+        (new RegistrationContent(form)).render('FirstStep');
+        (new RegistrationButton(form)).render();
+
+        const number = document.getElementById('number');
+        number.addEventListener("input", mask);
+        number.addEventListener("focus", mask);
+        number.addEventListener("blur", mask);
+
+
+        const button = document.getElementById('nextButton');
+        button.type = 'submit';
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
         cancel.addEventListener('click', popupLanding);
@@ -114,14 +119,7 @@ export class RegistrationView extends BaseView {
 
         const Form = document.createElement('form');
         Form.classList.add('form');
-        const form = this.divFormView.appendChild(Form);
-
-        (new RegistrationTop(form)).render('Top','Расскажите о себе:');
-        (new RegistrationContent(form)).render('Name');
-        (new RegistrationButton(form)).render();
-
-        const button = document.getElementById('nextButton');
-        button.addEventListener('click', (evt) => {
+        Form.addEventListener('submit', (evt) => {
             evt.preventDefault();
             const mes = document.getElementById('mes');
             const [message, result] = this.model.setName(document.getElementById('miami-name').value);
@@ -130,7 +128,26 @@ export class RegistrationView extends BaseView {
                 return;
             }
             this.renderBirth();
-        });
+        })
+
+        const form = this.divFormView.appendChild(Form);
+
+        (new RegistrationTop(form)).render('Top','Расскажите о себе:');
+        (new RegistrationContent(form)).render('Name');
+        (new RegistrationButton(form)).render();
+
+        const button = document.getElementById('nextButton');
+        button.type = 'submit';
+        // button.addEventListener('click', (evt) => {
+        //     evt.preventDefault();
+        //     const mes = document.getElementById('mes');
+        //     const [message, result] = this.model.setName(document.getElementById('miami-name').value);
+        //     if (!result) {
+        //         mes.innerHTML = message;
+        //         return;
+        //     }
+        //     this.renderBirth();
+        // });
 
         const back = document.getElementById('arrow');
         back.addEventListener('click', (evt) => {
@@ -147,20 +164,29 @@ export class RegistrationView extends BaseView {
 
         const Form = document.createElement('form');
         Form.classList.add('form');
+        Form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+            this.model.setDay(document.getElementById('day').value);
+            this.model.setMonth(document.getElementById('month').value);
+            this.model.setYear(document.getElementById('year').value);
+            this.renderSex();
+        })
+
         const form = this.divFormView.appendChild(Form);
 
         (new RegistrationTop(form)).render('Top','Расскажите о себе:');
         (new RegistrationContent(form)).render('DateOfBirth');
         (new RegistrationButton(form)).render();
 
-        const button = document.getElementById('nextButton')
-        button.addEventListener('click', (evt) => {
-            evt.preventDefault();
-            this.model.setDay(document.getElementById('day').value);
-            this.model.setMonth(document.getElementById('month').value);
-            this.model.setYear(document.getElementById('year').value);
-            this.renderSex();
-        });
+        const button = document.getElementById('nextButton');
+        button.type = 'submit';
+        // button.addEventListener('click', (evt) => {
+        //     evt.preventDefault();
+        //     this.model.setDay(document.getElementById('day').value);
+        //     this.model.setMonth(document.getElementById('month').value);
+        //     this.model.setYear(document.getElementById('year').value);
+        //     this.renderSex();
+        // });
 
         const back = document.getElementById('arrow');
         back.addEventListener('click', (evt) => {
@@ -216,6 +242,7 @@ export class RegistrationView extends BaseView {
 
         const Form = document.createElement('form');
         Form.classList.add('formInf');
+
         const form = this.divFormView.appendChild(Form);
 
         (new RegistrationTop(form)).render('TopAbout');
@@ -223,7 +250,7 @@ export class RegistrationView extends BaseView {
             .then( () => {
                 (new RegistrationButton(form)).render();
 
-                const button = document.getElementById('nextButton')
+                const button = document.getElementById('nextButton');
                 button.addEventListener('click', (evt) => {
                     evt.preventDefault();
                     let education = this.validationAboutMe( document.getElementById('univer'));
@@ -254,6 +281,8 @@ export class RegistrationView extends BaseView {
 
         console.log(this.model.Json());
         (new RegistrationContent(this.divFormView)).render('Photo');
+
+
 
         const photo = document.getElementById('file');
         photo.onchange = () => {

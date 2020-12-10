@@ -102,9 +102,9 @@ export class RegistrationView extends BaseView {
         (new RegistrationButton(form)).render();
 
         const number = document.getElementById('number');
-        number.addEventListener("input", mask, false);
-        number.addEventListener("focus", mask, false);
-        number.addEventListener("blur", mask, false);
+        number.addEventListener("input", mask);
+        number.addEventListener("focus", mask);
+        number.addEventListener("blur", mask);
 
 
         const button = document.getElementById('nextButton');

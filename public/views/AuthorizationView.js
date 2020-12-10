@@ -48,17 +48,23 @@ export class AuthorizationView extends BaseView {
 
         const Form = document.createElement('form');
         Form.classList.add('form');
+        Form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+            this.listenerAuthorization();
+        });
+
         const form = this.divFormView.appendChild(Form);
 
         (new AuthorizationContent(form)).render();
 
         const number = document.getElementById('number');
-        number.addEventListener("input", mask, false);
-        number.addEventListener("focus", mask, false);
-        number.addEventListener("blur", mask, false);
+        number.addEventListener("input", mask);
+        number.addEventListener("focus", mask);
+        number.addEventListener("blur", mask);
 
         const button = document.getElementById('next');
-        button.addEventListener('click', this.listenerAuthorization);
+        button.type = 'submit';
+        // button.addEventListener('click', this.listenerAuthorization);
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
         cancel.addEventListener('click', popupLanding);

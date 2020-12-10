@@ -1,10 +1,10 @@
-import AlbumImg from './AlbumImg.hbs'
-import AlbumPreview from './AlbumPreview.hbs'
-import AlbumButtons from './AlbumButtons.hbs'
-import {readImage} from '../../modules/previewAvatar'
-import {AlbumPhoto} from "./../AlbumPhoto/AlbumPhoto";
-import {popupPhoto} from '../../modules/popupPhoto'
-import './Album.css'
+import AlbumImg from './AlbumImg.hbs';
+import AlbumPreview from './AlbumPreview.hbs';
+import AlbumButtons from './AlbumButtons.hbs';
+import {readImage} from '../../modules/previewAvatar';
+import {AlbumPhoto} from './../AlbumPhoto/AlbumPhoto';
+//import {popupPhoto} from '../../modules/popupPhoto';
+import './Album.css';
 
 export class Album {
     #parent
@@ -56,14 +56,14 @@ export class Album {
                     photoFromAlbum.isMy = false;
                 }
                 await photoFromAlbum.render()
-                .then(() => {
+                    .then(() => {
                     // const photo = document.getElementsByClassName('photo-view')[0];
                     // photo.addEventListener('click', (evt) => {
                     //     evt.stopPropagation();
                     // });
                     // document.getElementsByClassName('feed-container')[0].addEventListener('click', popupPhoto);
                     // document.getElementById('application').addEventListener('click', popupPhoto);
-                });
+                    });
             });
         });
 
@@ -80,7 +80,7 @@ export class Album {
                     document.getElementById('delete').addEventListener(this.listenerCancel.type,
                         this.listenerCancel.listener);
                 }
-            }
+            };
         }
     }
 

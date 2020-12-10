@@ -1,5 +1,4 @@
-import {AlbumMobileView} from "../views/AlbumMobileView";
-import {UserModel} from "../models/UserModel";
+import {UserModel} from '../models/UserModel';
 
 export class AlbumMobileController {
     #view
@@ -42,12 +41,12 @@ export class AlbumMobileController {
         const save = document.getElementById('save');
         const photo = document.getElementById('file');
         if (photo.value) {
-            console.log('фото загружено')
+            console.log('фото загружено');
             save.innerHTML = 'Сохранить';
             await this.#otherProfile.addPhoto(document.getElementById('send'))
                 .then( ({status, responseObject}) => {
                     if (status === 200) {
-                        console.log('я разрезолвился!')
+                        console.log('я разрезолвился!');
                         console.log(responseObject);
                         const link = responseObject['linkImages'];
                         this.#otherProfile.appendLinkImages(link);
@@ -55,13 +54,13 @@ export class AlbumMobileController {
                         this.#view.render(true);
                         this.cancelPhotoListener();
                     } else if (status === 400){
-                        throw new Error('Слишком большой размер фото')
+                        throw new Error('Слишком большой размер фото');
                     } else {
-                        throw new Error('Не удалось загрузить фото(')
+                        throw new Error('Не удалось загрузить фото(');
                     }
                 }).catch( (err) => {
                     save.innerHTML = err.message;
-                })
+                });
         } else {
             save.innerHTML = 'Выберите фото!';
             return;
@@ -79,7 +78,7 @@ export class AlbumMobileController {
 
     async deletePhotoListener(evt) {
         evt.preventDefault();
-        console.log('deleting photo')
+        console.log('deleting photo');
         const photo = document.getElementById('current-photo');
         const images = this.#otherProfile.linkImages;
 

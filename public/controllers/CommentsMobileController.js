@@ -1,4 +1,4 @@
-import {CommentModel} from "../models/CommentModel";
+import {CommentModel} from '../models/CommentModel';
 
 export class CommentsMobileController {
     #view

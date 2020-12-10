@@ -1,13 +1,10 @@
 import {ajax} from '../modules/ajax';
 import {backend} from '../modules/url';
-import {router} from "../main";
+import {router} from '../main';
 import {CommentModel} from '../models/CommentModel';
-import ChatOtherMessage from "../components/ChatContent/ChatOtherMessage.hbs";
-import {ChatModel} from "../models/ChatModel";
+import ChatOtherMessage from '../components/ChatContent/ChatOtherMessage.hbs';
+import {ChatModel} from '../models/ChatModel';
 import {Chats} from '../components/Chats/Chats';
-import {Album} from "../components/Album/Album";
-import AlbumImg from "./../components/Album/AlbumImg.hbs";
-import { yoomoney, yoomoneyUrl } from "../modules/yoomoney";
 
 export class FeedController {
     #view
@@ -160,7 +157,7 @@ export class FeedController {
             chat_id: chat_id,
             message: message,
             timeDelivery: delivery,
-        }
+        };
         this.#websocket.send(JSON.stringify(mes));
         const scroll = document.getElementById('chat-box-text-area');
         scroll.scrollTop = scroll.scrollHeight;
@@ -232,7 +229,7 @@ export class FeedController {
 
         const userID = evt.target.id;
         const comment = this.#comments.commentsList.find((comment) => {
-            console.log(comment.user.id)
+            console.log(comment.user.id);
             return comment.user.id == userID;
         }, this);
 
@@ -269,35 +266,35 @@ export class FeedController {
     }
 
     async savePhotoListener(evt) {
-        console.log('я навесился!')
+        console.log('я навесился!');
         evt.preventDefault();
         const save = document.getElementById('save');
         const photo = document.getElementById('file');
         if (photo.value) {
-            console.log('фото загружено')
+            console.log('фото загружено');
             save.innerHTML = 'Сохранить';
             await this.#profile.addPhoto(document.getElementById('send'))
-            .then( ({status, responseObject}) => {
-                if (status === 200) {
-                    console.log('я разрезолвился!')
-                    console.log(responseObject);
-                    const link = responseObject['linkImages'];
-                    this.#profile.appendLinkImages(link);
-                    this.#view._context['profile'].linkImages = this.#profile.linkImages;
-                    this.#view.renderMyAlbum();
-                    // const albumSection = document.getElementsByClassName('album-section')[0];
-                    // albumSection.insertAdjacentHTML('beforeend', AlbumImg({
-                    //     photo: link,
-                    // }));
-                    this.cancelPhotoListener();
-                } else if (status === 400){
-                    throw new Error('Слишком большой размер фото')
-                } else {
-                    throw new Error('Не удалось загрузить фото(')
-                }
-            }).catch( (err) => {
-                save.innerHTML = err.message;
-            })
+                .then( ({status, responseObject}) => {
+                    if (status === 200) {
+                        console.log('я разрезолвился!');
+                        console.log(responseObject);
+                        const link = responseObject['linkImages'];
+                        this.#profile.appendLinkImages(link);
+                        this.#view._context['profile'].linkImages = this.#profile.linkImages;
+                        this.#view.renderMyAlbum();
+                        // const albumSection = document.getElementsByClassName('album-section')[0];
+                        // albumSection.insertAdjacentHTML('beforeend', AlbumImg({
+                        //     photo: link,
+                        // }));
+                        this.cancelPhotoListener();
+                    } else if (status === 400){
+                        throw new Error('Слишком большой размер фото');
+                    } else {
+                        throw new Error('Не удалось загрузить фото(');
+                    }
+                }).catch( (err) => {
+                    save.innerHTML = err.message;
+                });
         } else {
             save.innerHTML = 'Выберите фото!';
             return;
@@ -315,7 +312,7 @@ export class FeedController {
 
     async deletePhotoListener(evt) {
         evt.preventDefault();
-        console.log('deleting photo')
+        console.log('deleting photo');
         const photo = document.getElementById('current-photo');
         const images = this.#profile.linkImages;
 

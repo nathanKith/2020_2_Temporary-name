@@ -1,9 +1,5 @@
-import {backend} from "../modules/url";
-import {ChatModel} from "../models/ChatModel";
-import ChatOtherMessage from "../components/ChatContent/ChatOtherMessage.hbs";
-import {ajax} from "../modules/ajax";
-import {ChatsMobileController} from "./ChatsMobileController";
-import { yoomoney, yoomoneyUrl } from "../modules/yoomoney";
+import {backend} from '../modules/url';
+import {ajax} from '../modules/ajax';
 
 
 export class FeedMobileController{

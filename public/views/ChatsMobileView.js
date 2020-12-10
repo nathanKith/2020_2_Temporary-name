@@ -1,6 +1,6 @@
-import {BaseView} from './BaseView'
-import {Chats} from '../components/Chats/Chats'
-import {FeedHeaderMobile} from "../components/FeedHeaderMobile/FeedHeaderMobile";
+import {BaseView} from './BaseView';
+import {Chats} from '../components/Chats/Chats';
+import {FeedHeaderMobile} from '../components/FeedHeaderMobile/FeedHeaderMobile';
 
 export class ChatsMobileView extends BaseView {
     constructor(app) {

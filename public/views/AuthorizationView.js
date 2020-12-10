@@ -1,9 +1,7 @@
 import {BaseView} from './BaseView';
-import {RegAuthModel} from "../models/RegAuthModel";
-import {AuthorizationContent} from "../components/AuthorizationContent/AuthorizationContent";
-import {LandingHeader} from "../components/LandingHeader/LandingHeader";
-import {router} from "../main";
-import {mask} from "../modules/mask";
+import {AuthorizationContent} from '../components/AuthorizationContent/AuthorizationContent';
+import {LandingHeader} from '../components/LandingHeader/LandingHeader';
+import {mask} from '../modules/mask';
 import {popupLanding} from '../modules/popupLanding';
 
 
@@ -21,7 +19,7 @@ export class AuthorizationView extends BaseView {
         this._app.innerHTML = '';
         this._app.classList.add('registration-body-background');
 
-        const header = new LandingHeader(this._app).render();
+        (new LandingHeader(this._app)).render();
 
         const div = document.createElement('div');
         div.classList.add('formView');
@@ -58,6 +56,7 @@ export class AuthorizationView extends BaseView {
         (new AuthorizationContent(form)).render();
 
         const number = document.getElementById('number');
+
         number.addEventListener("input", mask);
         number.addEventListener("focus", mask);
         number.addEventListener("blur", mask);
@@ -69,10 +68,4 @@ export class AuthorizationView extends BaseView {
         const cancel = document.getElementsByClassName('cancelButton')[0];
         cancel.addEventListener('click', popupLanding);
     }
-
-    // #renderBackPopup(evt) {
-    //     evt.preventDefault();
-    //     this._app.removeEventListener('click', this.#renderBackPopup);
-    //     router.redirect('/');
-    // }
 }

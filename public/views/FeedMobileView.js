@@ -1,7 +1,7 @@
-import {BaseView} from "./BaseView";
-import {popupLanding} from "../modules/popupLanding";
-import {Feed} from "../components/Feed/Feed";
-import {FeedHeaderMobile} from "../components/FeedHeaderMobile/FeedHeaderMobile";
+import {BaseView} from './BaseView';
+import {popupLanding} from '../modules/popupLanding';
+import {Feed} from '../components/Feed/Feed';
+import {FeedHeaderMobile} from '../components/FeedHeaderMobile/FeedHeaderMobile';
 import {router} from '../main';
 
 export class FeedMobileView extends BaseView {

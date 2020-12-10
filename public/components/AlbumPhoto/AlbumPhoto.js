@@ -1,6 +1,6 @@
-import AlbumPhotoHbs from './AlbumPhoto.hbs'
-import {popupPhoto} from '../../modules/popupPhoto'
-import './Album.css'
+import AlbumPhotoHbs from './AlbumPhoto.hbs';
+//import {popupPhoto} from '../../modules/popupPhoto';
+import './Album.css';
 
 export class AlbumPhoto {
     #parent
@@ -17,7 +17,7 @@ export class AlbumPhoto {
         console.log(this.#parent.classList);
         this.#parent.classList.add('dark-photo');
         console.log(this.#parent.classList);
-        console.log('я в рендере')
+        console.log('я в рендере');
 
         this.#parent.insertAdjacentHTML('afterbegin', AlbumPhotoHbs({
             photo: this.photo,

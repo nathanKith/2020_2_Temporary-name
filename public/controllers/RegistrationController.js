@@ -1,7 +1,4 @@
-import {RegAuthModel} from "../models/RegAuthModel";
-import {RegistrationView} from "../views/RegistrationView";
-import {router} from "../main";
-
+import {router} from '../main';
 
 export class RegistrationController {
     RegAuthModel
@@ -12,7 +9,7 @@ export class RegistrationController {
         this.registrationView = registrationView;
         this.registrationView.model = this.RegAuthModel;
         this.registrationView.listenerRegistration = this.listenerRegistration
-                                                         .bind(this.listenerRegistration, this.RegAuthModel);
+            .bind(this.listenerRegistration, this.RegAuthModel);
         this.registrationView.listenerCheck = this.listenerCheckNumber.bind(this);
     }
 
@@ -55,7 +52,7 @@ export class RegistrationController {
             })
             .catch( (err) => {
                 mes.innerHTML = err.message;
-            })
+            });
         button.disabled = false;
         console.log(mes);
     }

@@ -1,6 +1,6 @@
-import {ChatModel} from "./ChatModel";
-import {ajax} from "../modules/ajax";
-import {backend} from "../modules/url";
+import {ChatModel} from './ChatModel';
+import {ajax} from '../modules/ajax';
+import {backend} from '../modules/url';
 
 
 export class ChatListModel {

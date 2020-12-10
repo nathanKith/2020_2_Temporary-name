@@ -1,7 +1,7 @@
 import {ChatModel} from '../models/ChatModel';
 import ChatOtherMessage from '../components/ChatContent/ChatOtherMessage.hbs';
 import {backend} from '../modules/url';
-import {Chats} from "../components/Chats/Chats";
+import {Chats} from '../components/Chats/Chats';
 
 export class ChatsMobileController {
     #view
@@ -22,7 +22,7 @@ export class ChatsMobileController {
                 user_id: this.#profile.id,
                 onSendWebsocket: this.onSendWebsocket.bind(this),
             },
-        }
+        };
     }
 
     onSendWebsocket(user_id, chat_id, message, delivery) {
@@ -31,7 +31,7 @@ export class ChatsMobileController {
             chat_id: chat_id,
             message: message,
             timeDelivery: delivery,
-        }
+        };
         this.#websocket.send(JSON.stringify(mes));
         const scroll = document.getElementById('chat-box-text-area');
         scroll.scrollTop = scroll.scrollHeight;

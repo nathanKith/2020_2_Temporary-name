@@ -1,7 +1,6 @@
 import {ajax} from '../modules/ajax';
 import {backend} from '../modules/url';
-import {UserModel} from "./UserModel";
-import {feedPage} from "../main";
+import {UserModel} from './UserModel';
 
 export class RegAuthModel extends UserModel{
     linkImage
@@ -48,14 +47,14 @@ export class RegAuthModel extends UserModel{
                 if (status !== 200) {
                     throw new Error(`${status} error auth: have not this user`);
                 }
-            })
+            });
     }
 
     JsonAuth() {
         return {
             telephone: this.telephone,
             password: this.password,
-        }
+        };
     }
 
     setTelephonePassword(number, validityNumber, password, repeatPassword) {
@@ -129,7 +128,7 @@ export class RegAuthModel extends UserModel{
             education: this.education,
             aboutMe: this.aboutMe,
             linkImages: this.linkImage,
-        }
+        };
     }
 
     async registration(Form) {

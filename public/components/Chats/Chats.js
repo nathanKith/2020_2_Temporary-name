@@ -1,5 +1,4 @@
-import {LandingHeader} from "../LandingHeader/LandingHeader";
-import {ChatContent} from "../ChatContent/ChatContent";
+import {ChatContent} from '../ChatContent/ChatContent';
 import './Chats.css';
 
 export class Chats {
@@ -17,7 +16,7 @@ export class Chats {
 
     render() {
         const logo = this.#createDiv('chats-logo');
-        logo.insertAdjacentHTML('afterbegin', `<span>Сообщения</span>`);
+        logo.insertAdjacentHTML('afterbegin', '<span>Сообщения</span>');
 
         const listChats = this.#createDiv('list-chats');
         const innerListChats = this.#createDiv('inner-list-chats');
@@ -54,16 +53,16 @@ export class Chats {
         nameTime.insertAdjacentHTML('afterbegin', `<span id="name-chat">${Chat.partner.name}</span>`);
 
         if (Chat.messages) {
-            nameTime.insertAdjacentHTML('beforeend', `<span id="time-chat">${Chat.messages[Chat.messages.length - 1].timeDelivery}</span>`)
+            nameTime.insertAdjacentHTML('beforeend', `<span id="time-chat">${Chat.messages[Chat.messages.length - 1].timeDelivery}</span>`);
             information.appendChild(nameTime);
             const lastMessage = this.#createDiv('last-message');
             lastMessage.insertAdjacentHTML('afterbegin', `<span id="last-message">${Chat.messages[Chat.messages.length - 1].message}</span>`);
             information.appendChild(lastMessage);
         } else {
-            nameTime.insertAdjacentHTML('beforeend', `<span id="time-chat"></span>`)
+            nameTime.insertAdjacentHTML('beforeend', '<span id="time-chat"></span>');
             information.appendChild(nameTime);
             const lastMessage = this.#createDiv('last-message');
-            lastMessage.insertAdjacentHTML('afterbegin', `<span id="last-message"></span>`);
+            lastMessage.insertAdjacentHTML('afterbegin', '<span id="last-message"></span>');
             information.appendChild(lastMessage);
         }
     
@@ -80,15 +79,15 @@ export class Chats {
             const chatContent = new ChatContent(this.#parent, Chat);
             console.log(this.#data);
             chatContent.chatModel.user_id = this.#data['user_id'];
-            console.log('click chat')
-            console.log(this.#data['onSendWebsocket'])
+            console.log('click chat');
+            console.log(this.#data['onSendWebsocket']);
             chatContent.listenerSend = this.#data['onSendWebsocket'];
             chatContent.render()
-            .then( () => {
+                .then( () => {
                 // document
                 // .getElementById('back')
                 // .addEventListener('click', this.listenerBack.bind(this));
-            })
+                });
             const chatBox = document.getElementsByClassName('chat__box__top')[0];
             chatBox.id = Chat.id;
         });

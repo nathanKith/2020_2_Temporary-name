@@ -1,6 +1,6 @@
-import {UserModel} from "./UserModel";
-import {ajax} from "../modules/ajax";
-import {backend} from "../modules/url";
+import {UserModel} from './UserModel';
+import {ajax} from '../modules/ajax';
+import {backend} from '../modules/url';
 
 export class CommentModel {
     #id
@@ -35,7 +35,7 @@ export class CommentModel {
     #fillCommentData(data) {
         this.#user = new UserModel(data['user']);
         this.#commentText = data['commentText'];
-        this.#timeDelivery = data['timeDelivery']
+        this.#timeDelivery = data['timeDelivery'];
     }
 
     async addComment(user_id) {
@@ -52,6 +52,6 @@ export class CommentModel {
             })
             .catch( (error) => {
                 console.log(error.message);
-            })
+            });
     }
 }

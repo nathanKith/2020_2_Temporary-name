@@ -1,5 +1,4 @@
 import './Profile.css';
-import {backend} from './../../modules/url';
 import {router} from '../../main';
 
 export class Profile {
@@ -30,7 +29,7 @@ export class Profile {
         const aboutMe = this.#createSpan('my-about-me', `${this.#data.aboutMe}`);
 
         const infoLogo = this.#createDiv('comments-logo');
-        infoLogo.insertAdjacentHTML('afterbegin', `<img id="profile-comments" src="../../img/info.svg">`);
+        infoLogo.insertAdjacentHTML('afterbegin', '<img id="profile-comments" src="../../img/info.svg">');
 
         profileInfo.appendChild(nameAge);
         profileInfo.appendChild(universityWork);

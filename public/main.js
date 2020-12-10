@@ -2,40 +2,40 @@ import './styles.css';
 
 import {LandingView} from './views/LandingView';
 import {Feed} from './components/Feed/Feed.js';
-import {ProfileChatIcon} from './components/ProfileChatIcon/ProfileChatIcon.js'
-import {Profile} from './components/Profile/Profile.js'
+import {ProfileChatIcon} from './components/ProfileChatIcon/ProfileChatIcon.js';
+import {Profile} from './components/Profile/Profile.js';
 import {Chats} from './components/Chats/Chats.js';
-import {Registration} from "./components/Registration/Registration.js";
-import {Authorization} from "./components/Authorization/Authorization.js";
+import {Registration} from './components/Registration/Registration.js';
+import {Authorization} from './components/Authorization/Authorization.js';
 import {ajax} from './modules/ajax.js';
-import {LandingController} from "./controllers/LandingController";
-import {LandingHeader} from "./components/LandingHeader/LandingHeader";
-import {RegistrationView} from "./views/RegistrationView";
-import {Router} from "./modules/router";
-import {RegAuthModel} from "./models/RegAuthModel";
-import {RegistrationController} from "./controllers/RegistrationController";
-import {AuthorizationView} from "./views/AuthorizationView";
-import {AuthorizationController} from "./controllers/AuthorizationController";
-import {FeedView} from "./views/FeedView";
-import {UserModel} from "./models/UserModel";
-import {UserListModel} from "./models/UserListModel";
-import {ChatListModel} from "./models/ChatListModel";
-import {FeedController} from "./controllers/FeedController";
+import {LandingController} from './controllers/LandingController';
+import {LandingHeader} from './components/LandingHeader/LandingHeader';
+import {RegistrationView} from './views/RegistrationView';
+import {Router} from './modules/router';
+import {RegAuthModel} from './models/RegAuthModel';
+import {RegistrationController} from './controllers/RegistrationController';
+import {AuthorizationView} from './views/AuthorizationView';
+import {AuthorizationController} from './controllers/AuthorizationController';
+import {FeedView} from './views/FeedView';
+import {UserModel} from './models/UserModel';
+import {UserListModel} from './models/UserListModel';
+import {ChatListModel} from './models/ChatListModel';
+import {FeedController} from './controllers/FeedController';
 import {CommentListModel} from './models/CommentListModel';
-import {ProfileMobileView} from "./views/ProfileMobileView";
-import {ProfileMobileController} from "./controllers/ProfileMobileController";
-import {ChatsMobileView} from "./views/ChatsMobileView";
-import {CommentsMobileView} from "./views/CommentsMobileView";
-import {ChatsMobileController} from "./controllers/ChatsMobileController";
-import {SettingsMobileView} from "./views/SettingsMobileView";
-import {SettingsMobileController} from "./controllers/SettingsMobileController";
-import {FeedMobileView} from "./views/FeedMobileView";
-import {FeedMobileController} from "./controllers/FeedMobileController";
-import {CommentsMobileController} from "./controllers/CommentsMobileController";
+import {ProfileMobileView} from './views/ProfileMobileView';
+import {ProfileMobileController} from './controllers/ProfileMobileController';
+import {ChatsMobileView} from './views/ChatsMobileView';
+import {CommentsMobileView} from './views/CommentsMobileView';
+import {ChatsMobileController} from './controllers/ChatsMobileController';
+import {SettingsMobileView} from './views/SettingsMobileView';
+import {SettingsMobileController} from './controllers/SettingsMobileController';
+import {FeedMobileView} from './views/FeedMobileView';
+import {FeedMobileController} from './controllers/FeedMobileController';
+import {CommentsMobileController} from './controllers/CommentsMobileController';
 
-import {isMobile, resizeListener} from "./modules/resizing";
-import {AlbumMobileView} from "./views/AlbumMobileView";
-import {AlbumMobileController} from "./controllers/AlbumMobileController";
+import {isMobile, resizeListener} from './modules/resizing';
+import {AlbumMobileView} from './views/AlbumMobileView';
+import {AlbumMobileController} from './controllers/AlbumMobileController';
 
 
 const application = document.querySelector('#application');
@@ -75,15 +75,15 @@ export const router = new Router();
 
 const doLanding = () => {
     landingController.control();
-}
+};
 
 const doRegistration = () => {
     registrationController.control();
-}
+};
 
 const doAuthorization = () => {
     authorizationController.control();
-}
+};
 
 const doFeed = () => {
     if (isMobile()) {
@@ -91,7 +91,7 @@ const doFeed = () => {
     } else {
         feedController.control();
     }
-}
+};
 
 const doProfileMobile = () => {
     if (!isMobile()) {
@@ -99,7 +99,7 @@ const doProfileMobile = () => {
     } else {
         profileMobileController.control();
     }
-}
+};
 
 const doChatsMobile = () => {
     if (!isMobile()) {
@@ -107,7 +107,7 @@ const doChatsMobile = () => {
     } else {
         chatsMobileController.control();
     }
-}
+};
 
 const doSettingsMobile = () => {
     if (!isMobile()) {
@@ -115,7 +115,7 @@ const doSettingsMobile = () => {
     } else {
         settingsMobileController.control();
     }
-}
+};
 
 const doFeedMobile = () => {
     if (!isMobile()) {
@@ -123,7 +123,7 @@ const doFeedMobile = () => {
     } else {
         feedMobileController.control();
     }
-}
+};
 
 const doCommentsMobile = (req) => {
     if (!isMobile()) {
@@ -131,15 +131,15 @@ const doCommentsMobile = (req) => {
     } else {
         commentsMobileController.control(req.parameters.userid);
     }
-}
+};
 
 const doAlbumsMobile = (req) => {
     if (!isMobile()) {
         router.redirect('/feed');
     } else {
-        albumMobileController.control(req.parameters.userid)
+        albumMobileController.control(req.parameters.userid);
     }
-}
+};
 
 
 router.add('/', doLanding);

@@ -22,7 +22,7 @@ export class ProfileMobileController {
                 linkImages: this.#profile.linkImages,
                 age:        this.#profile.age,
             },
-        }
+        };
     }
 
     async control() {

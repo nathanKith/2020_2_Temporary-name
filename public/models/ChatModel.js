@@ -1,6 +1,6 @@
-import {UserModel} from "./UserModel";
-import {ajax} from "../modules/ajax";
-import {backend} from "../modules/url";
+import {UserModel} from './UserModel';
+import {ajax} from '../modules/ajax';
+import {backend} from '../modules/url';
 
 export class ChatModel {
     #user_id
@@ -53,10 +53,10 @@ export class ChatModel {
     async update() {
         await ajax.get(backend.chatId + this.#id)
             .then( ({status,responseObject}) => {
-                    if (status === 401) {
-                        throw new Error(`${status} unauthorized: cannot get json on url /chats/chat_id`);
-                    }
-                    this.#fillChatData(responseObject);
+                if (status === 401) {
+                    throw new Error(`${status} unauthorized: cannot get json on url /chats/chat_id`);
+                }
+                this.#fillChatData(responseObject);
             }).catch((err) => {
                 console.log(err.message);
             });

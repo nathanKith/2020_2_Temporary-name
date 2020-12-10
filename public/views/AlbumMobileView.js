@@ -1,6 +1,6 @@
-import {BaseView} from "./BaseView";
-import {FeedHeaderMobile} from "../components/FeedHeaderMobile/FeedHeaderMobile";
-import {Album} from "../components/Album/Album";
+import {BaseView} from './BaseView';
+import {FeedHeaderMobile} from '../components/FeedHeaderMobile/FeedHeaderMobile';
+import {Album} from '../components/Album/Album';
 
 export class AlbumMobileView extends BaseView{
     constructor(app) {

@@ -1,15 +1,15 @@
-'use strict'
+'use strict';
 
-import ajax from "../../modules/ajax.js";
-import {feedPage} from "../../main.js";
-import {LandingHeader} from "../LandingHeader/LandingHeader";
+import ajax from '../../modules/ajax.js';
+import {feedPage} from '../../main.js';
+import {LandingHeader} from '../LandingHeader/LandingHeader';
 
-const url = `http://95.163.213.222:8080/api/v1`;
+const url = 'http://95.163.213.222:8080/api/v1';
 
 export class Authorization {
     #parent
     constructor(parent) {
-        this.#parent = parent
+        this.#parent = parent;
     }
     render() {
         const Form = document.createElement('form');
@@ -17,12 +17,12 @@ export class Authorization {
         const form = this.#parent.appendChild(Form);
 
         const back = document.createElement('a');
-        back.href = "/";
+        back.href = '/';
         back.dataset.section = 'landing';
         back.classList.add('link');
         back.appendChild(this.cancelButton());
         form.appendChild(back);
-        form.appendChild(this.createElem('small-label', 'img', undefined, "../../img/small_classic_label.png"));
+        form.appendChild(this.createElem('small-label', 'img', undefined, '../../img/small_classic_label.png'));
         form.appendChild(this.nameOfForm('Вход в MIAMI'));
         form.appendChild(this.createLabel('yourNumber', 'Ваш номер телефона'));
 
@@ -39,13 +39,13 @@ export class Authorization {
         numb.appendChild(number);
         form.appendChild(numb);
 
-        const div = document.createElement("div");
+        const div = document.createElement('div');
         div.classList.add('pass');
 
         const pass = this.createInput('password','Пароль', 'password');
         pass.name = 'password';
         pass.required = true;
-        div.appendChild(pass)
+        div.appendChild(pass);
         form.appendChild(div);
 
 
@@ -72,7 +72,7 @@ export class Authorization {
             const Json = {
                 telephone: number.value,
                 password: pass.value,
-            }
+            };
             ajax.ajaxPost(url + '/login', Json).
                 then(({status, responseObject}) => {
                     if (status === 200) {
@@ -83,7 +83,7 @@ export class Authorization {
                     }
                 }).catch((err) => {
                     alert(err);
-            });
+                });
 
         });
         // link.appendChild(nextButton);
@@ -106,16 +106,16 @@ export class Authorization {
         const button = document.createElement('button');
         button.classList.add('cancelButton');
         button.type = 'button';
-        div.appendChild(button)
+        div.appendChild(button);
 
         const img = document.createElement('img');
-        img.src = "../../img/cancel_gray.svg";
-        button.appendChild(img)
+        img.src = '../../img/cancel_gray.svg';
+        button.appendChild(img);
 
-        return div
+        return div;
     }
     createElem(divClass, elem, elemClass, elemSrc){
-        const div = document.createElement("div");
+        const div = document.createElement('div');
         div.classList.add(divClass);
 
         const element = document.createElement(elem);
@@ -130,16 +130,16 @@ export class Authorization {
         }
         div.appendChild(element);
 
-        return div
+        return div;
     }
     nameOfForm (string) {
-        const div = document.createElement("div");
+        const div = document.createElement('div');
         div.classList.add('small-label');
 
         const p = document.createElement('p');
         p.classList.add('reg');
         p.innerHTML = string;
-        div.appendChild(p)
+        div.appendChild(p);
 
         return div;
     }
@@ -155,7 +155,7 @@ export class Authorization {
         input.type = type;
         input.placeholder = placeholder;
         input.classList.add(inputClasses);
-        return input
+        return input;
     }
     createLabel(classLabel, value) {
         const label = document.createElement('label');
@@ -164,7 +164,7 @@ export class Authorization {
         return label;
     }
     createPassword(divClass, inputClass, placeholder) {
-        const div = document.createElement("div");
+        const div = document.createElement('div');
         div.classList.add(divClass);
         div.appendChild(this.createInput('', placeholder, inputClass));
         return div;

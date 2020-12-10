@@ -1,26 +1,26 @@
-'use strict'
+'use strict';
 
 
-import RegistrationData from "../../modules/registrationData.js";
-import {ajax} from "../../modules/ajax.js";
+import RegistrationData from '../../modules/registrationData.js';
+import {ajax} from '../../modules/ajax.js';
 // import {loginPage} from "../../main.js";
 
 
-const url = `http://95.163.213.222:8080/api/v1`;
+const url = 'http://95.163.213.222:8080/api/v1';
 
 const data = new Map([
-    ["Январь", 31],
-    ["Февраль",29],
-    ["Март",31],
-    ["Апрель",30],
-    ["Май",31],
-    ["Июнь", 30],
-    ["Июль", 31],
-    ["Август", 31],
-    ["Сентябрь", 30],
-    ["Октябрь",31],
-    ["Ноябрь",30],
-    ["Декабрь", 31],
+    ['Январь', 31],
+    ['Февраль',29],
+    ['Март',31],
+    ['Апрель',30],
+    ['Май',31],
+    ['Июнь', 30],
+    ['Июль', 31],
+    ['Август', 31],
+    ['Сентябрь', 30],
+    ['Октябрь',31],
+    ['Ноябрь',30],
+    ['Декабрь', 31],
 ]);
 
 
@@ -28,7 +28,7 @@ export class Registration {
     json = new RegistrationData();
     #parent
     constructor(parent) {
-        this.#parent = parent
+        this.#parent = parent;
     }
     render() {
         const Form = document.createElement('form');
@@ -36,7 +36,7 @@ export class Registration {
         const form = this.#parent.appendChild(Form);
 
         form.appendChild(this.cancelButton());
-        form.appendChild(this.createElem('small-label', 'img', undefined, "../../img/small_classic_label.png"));
+        form.appendChild(this.createElem('small-label', 'img', undefined, '../../img/small_classic_label.png'));
         form.appendChild(this.nameOfForm('Регистрация'));
         form.appendChild(this.createLabel('yourNumber', 'Ваш номер телефона'));
 
@@ -53,17 +53,17 @@ export class Registration {
         numb.appendChild(number);
         form.appendChild(numb);
 
-        const div = document.createElement("div");
+        const div = document.createElement('div');
         div.classList.add('pass');
 
         const pass = this.createInput('password','Пароль', 'password');
         pass.autocomplete = 'on';
         pass.name = 'password';
         pass.required = true;
-        div.appendChild(pass)
+        div.appendChild(pass);
         form.appendChild(div);
 
-        const div2 = document.createElement("div");
+        const div2 = document.createElement('div');
         div2.classList.add('pass');
 
         const repeat = this.createInput('password','Повторите пароль', 'password');
@@ -107,7 +107,7 @@ export class Registration {
         const form = this.#parent.appendChild(Form);
 
         form.appendChild(this.cancelButton());
-        form.appendChild(this.createElem('small-label', 'img', undefined, "../../img/small_classic_label.png"));
+        form.appendChild(this.createElem('small-label', 'img', undefined, '../../img/small_classic_label.png'));
         form.appendChild(this.nameOfForm('Расскажите о себе:'));
         form.appendChild(this.createLabel('yourNumber', 'Моё имя'));
 
@@ -127,7 +127,7 @@ export class Registration {
                 this.json.name = name.value;
                 this.renderThirdStep();
             } else {
-                message.innerHTML = 'Введите имя'
+                message.innerHTML = 'Введите имя';
                 return ;
             }
         });
@@ -141,9 +141,9 @@ export class Registration {
         const form = this.#parent.appendChild(Form);
 
         form.appendChild(this.cancelButton());
-        form.appendChild(this.createElem('small-label', 'img', undefined, "../../img/small_classic_label.png"));
+        form.appendChild(this.createElem('small-label', 'img', undefined, '../../img/small_classic_label.png'));
         form.appendChild(this.nameOfForm('Расскажите о себе:'));
-        form.appendChild(this.createElem('calendar', 'img', undefined, "../../img/calendar.svg"));
+        form.appendChild(this.createElem('calendar', 'img', undefined, '../../img/calendar.svg'));
         form.appendChild(this.createLabel('yourNumber', 'Мой день рождения'));
 
         const div = document.createElement('div');
@@ -187,14 +187,14 @@ export class Registration {
         const form = this.#parent.appendChild(Form);
         form.appendChild(this.buttonsTop(3));
         form.appendChild(this.createElem('small-label', 'img',
-            undefined, "../../img/small_classic_label.png"));
+            undefined, '../../img/small_classic_label.png'));
         form.appendChild(this.nameOfForm('Расскажите о себе:'));
         form.appendChild(this.createLabel('yourNumber', 'Я...'));
 
         const div = this.createElem('sex', 'button',
             'ButtonFemale', 'Женщина');
         div.firstChild.addEventListener('click', (evt) => {
-            this.json.sex = 'female'
+            this.json.sex = 'female';
             this.renderInformation();
         });
 
@@ -203,7 +203,7 @@ export class Registration {
         man.textContent = 'Мужчина';
         div.appendChild(man);
         man.addEventListener('click', (evt) => {
-            this.json.sex = 'male'
+            this.json.sex = 'male';
             this.renderInformation();
         });
         form.appendChild(div);
@@ -219,7 +219,7 @@ export class Registration {
         const form = this.#parent.appendChild(Form);
         form.appendChild(this.buttonsTop(4));
         form.appendChild(this.createElem('small-label', 'img',
-            undefined, "../../img/small_classic_label.png"));
+            undefined, '../../img/small_classic_label.png'));
 
         const link = document.createElement('a');
         link.classList.add('skip');
@@ -232,7 +232,7 @@ export class Registration {
         form.appendChild(this.casualNameOfForm('Расскажите о себе<br>' +
             '<label class="podr">Поподробнее</label>', 'name'));
         const div = document.createElement('div');
-        div.id = "education_univ";
+        div.id = 'education_univ';
 
         let [label, pass] = this.createFormText('nameFormText', 'Я работаю', 'pass',
             'Тренер по плаванию',
@@ -243,7 +243,7 @@ export class Registration {
         form.appendChild(pass);
         form.appendChild(this.createLabel('University', 'Высшее образование'));
 
-        const divUniv = document.createElement("div");
+        const divUniv = document.createElement('div');
         divUniv.classList.add('radio');
 
         const divOps = document.getElementById('education_univ');
@@ -251,7 +251,7 @@ export class Registration {
         radioEl.addEventListener('click', (evt) => {
             const div = document.getElementById('education_univ');
             div.innerHTML = '<label class="nameFormText">Я учусь</label>' +
-                '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education" id="univer" name="univer"></textarea></div>'
+                '<div class="pass"><textarea placeholder="МГТУ им. Н.Э.Баумана" class="education" id="univer" name="univer"></textarea></div>';
         });
         divUniv.appendChild(radioEl);
 
@@ -282,7 +282,7 @@ export class Registration {
         const [Label, aboutMe] = this.createFormText('nameFormText', 'Обо мне', 'pass',
             'Обожаю гольф, играть на музыкальных инструментах',
             'about');
-        aboutMe.firstElementChild.id = "about";
+        aboutMe.firstElementChild.id = 'about';
         aboutMe.firstElementChild.name = 'about';
         form.appendChild(Label);
         form.appendChild(aboutMe);
@@ -307,20 +307,20 @@ export class Registration {
         this.#parent.classList.add('inner-formView');
         const Form = document.createElement('form');
         Form.classList.add('form-photo');
-        Form.method = "POST";
+        Form.method = 'POST';
         Form.enctype = 'multipart/form-data';
         const form = this.#parent.appendChild(Form);
 
         form.appendChild(this.lastButtonsTop());
         form.appendChild(this.createElem('small-label', 'img',
-            undefined, "../../img/small_white_label.png"));
+            undefined, '../../img/small_white_label.png'));
 
         form.appendChild(this.casualNameOfForm('Выберите лучшие<br>' +
             '<label class="podr">фотографии.</label>', 'name-last'));
 
         const photo = this.createInput('file','','photo');
         photo.accept = 'image/jpeg,image/png';
-        photo.id = "file";
+        photo.id = 'file';
         photo.name = 'photo';
 
         const label = document.createElement('label');
@@ -334,7 +334,7 @@ export class Registration {
         img.src = '../../img/camera.svg';
 
         label.appendChild(img);
-        div.appendChild(photo)
+        div.appendChild(photo);
         div.appendChild(label);
         form.appendChild(div);
 
@@ -344,7 +344,7 @@ export class Registration {
         form.appendChild(message);
 
         const link = document.createElement('a');
-        link.href = "/login";
+        link.href = '/login';
         link.dataset.section = 'login';
         link.classList.add('link');
         const nextButton = this.createElem('next','button', 'endButton', 'Завершить!');
@@ -371,63 +371,63 @@ export class Registration {
                 photo:  this.json.photo,
             };
             let photo_name;
-            ajax.ajaxPost(url + `/signup`, Json).
-            then(({status, responseObject}) => {
-                let string;
-                if (status === 401) {
-                    // alert('Такой пользователь уже зарегистрирован!');
-                    string = new Promise((resolve, reject) => {
-                        reject('Такой пользователь уже зарегистрирован!');
-                    });
-                }
-                if (status === 200 ) {
-                    alert('Успешно зарегистрировались!');
-                    string = new Promise((resolve, reject) => {
-                        resolve('Успешно зарегистрировались!');
-                    });
-                }
-                return string;
-                // loginPage();
-            }).then((string) => {
-                ajax.ajaxPostPhoto(url + '/upload', new FormData(Form), 'photo').
+            ajax.ajaxPost(url + '/signup', Json).
                 then(({status, responseObject}) => {
-                    if (status === 200 ) {
-                        alert('Успешно загрузили фото!');
-                        photo_name = new Promise((resolve, reject) => {
-                            resolve(JSON.stringify(responseObject));
-                            console.log(JSON.stringify(responseObject));
+                    let string;
+                    if (status === 401) {
+                    // alert('Такой пользователь уже зарегистрирован!');
+                        string = new Promise((resolve, reject) => {
+                            reject('Такой пользователь уже зарегистрирован!');
                         });
-                        console.log(photo_name);
-                    } else {
-                        alert('Привет, Андрей!');
                     }
-                    return photo_name;
-
-                }).then((photo_name) => {
-                    console.log(photo_name.toString());
-                    const link_photo = "http://95.163.213.222:8080/static/avatars/";
-                    console.log(link_photo + photo_name.replace('"', ''));
-                    const photoAdd = {
-                        telephone: this.json.telephone,
-                        link_image: link_photo + photo_name.replace('"', ''),
+                    if (status === 200 ) {
+                        alert('Успешно зарегистрировались!');
+                        string = new Promise((resolve, reject) => {
+                            resolve('Успешно зарегистрировались!');
+                        });
                     }
-                    ajax.ajaxPost(url + '/add_photo', photoAdd).
-                    then(({status, responseObject}) => {
-                        if (status === 200 ) {
-                            alert('Добавили фото!');
-                        } else {
-                            alert('Привет, Андрей!');
-                        }
+                    return string;
+                // loginPage();
+                }).then((string) => {
+                    ajax.ajaxPostPhoto(url + '/upload', new FormData(Form), 'photo').
+                        then(({status, responseObject}) => {
+                            if (status === 200 ) {
+                                alert('Успешно загрузили фото!');
+                                photo_name = new Promise((resolve, reject) => {
+                                    resolve(JSON.stringify(responseObject));
+                                    console.log(JSON.stringify(responseObject));
+                                });
+                                console.log(photo_name);
+                            } else {
+                                alert('Привет, Андрей!');
+                            }
+                            return photo_name;
 
-                    }).catch((err) => {
-                        alert(err);
-                    });
+                        }).then((photo_name) => {
+                            console.log(photo_name.toString());
+                            const link_photo = 'http://95.163.213.222:8080/static/avatars/';
+                            console.log(link_photo + photo_name.replace('"', ''));
+                            const photoAdd = {
+                                telephone: this.json.telephone,
+                                link_image: link_photo + photo_name.replace('"', ''),
+                            };
+                            ajax.ajaxPost(url + '/add_photo', photoAdd).
+                                then(({status, responseObject}) => {
+                                    if (status === 200 ) {
+                                        alert('Добавили фото!');
+                                    } else {
+                                        alert('Привет, Андрей!');
+                                    }
+
+                                }).catch((err) => {
+                                    alert(err);
+                                });
+                        });
+                }).catch((string) => {
+                    alert(string);
+                    alert('ZDES?');
+                    loginPage();
                 });
-            }).catch((string) => {
-                alert(string);
-                alert('ZDES?')
-                loginPage();
-            });
 
 
             // let avat = ajax.ajaxPostPhoto(url + '/upload', new FormData(Form), 'photo').
@@ -475,13 +475,13 @@ export class Registration {
     }
 
     casualNameOfForm(string, className) {
-        const div = document.createElement("div");
+        const div = document.createElement('div');
         div.classList.add('small-label');
 
         const p = document.createElement('p');
         p.classList.add(className);
         p.innerHTML = string;
-        div.appendChild(p)
+        div.appendChild(p);
 
         return div;
     }
@@ -509,11 +509,11 @@ export class Registration {
 
         const but = document.createElement('button');
         but.classList.add('arrow-last');
-        div.appendChild(but)
+        div.appendChild(but);
 
         const img2 = document.createElement('img');
-        img2.src = "../../img/left_arrow_white.svg";
-        but.appendChild(img2)
+        img2.src = '../../img/left_arrow_white.svg';
+        but.appendChild(img2);
 
         but.addEventListener('click', (evt) => {
             this.renderInformation();
@@ -521,19 +521,19 @@ export class Registration {
 
         const link = document.createElement('a');
         link.href = '/';
-        link.dataset.section = 'landing'
+        link.dataset.section = 'landing';
         link.classList.add('link');
 
         const button = document.createElement('button');
         button.classList.add('last-cancelButton');
-        button.type = "button";
+        button.type = 'button';
         link.appendChild(button);
 
-        div.appendChild(link)
+        div.appendChild(link);
 
         const img = document.createElement('img');
-        img.src = "../../img/white_cancel.svg";
-        button.appendChild(img)
+        img.src = '../../img/white_cancel.svg';
+        button.appendChild(img);
 
         return div;
     }
@@ -552,7 +552,7 @@ export class Registration {
         const input = document.createElement('textarea');
         input.placeholder = placeholder;
         input.classList.add(inputClasses);
-        return input
+        return input;
     }
 
     buttonsTop(back) {
@@ -561,28 +561,28 @@ export class Registration {
 
         const but = document.createElement('button');
         but.classList.add('arrow');
-        div.appendChild(but)
+        div.appendChild(but);
 
         const img2 = document.createElement('img');
-        img2.src = "../../img/left_arrow_gray.svg";
-        but.appendChild(img2)
+        img2.src = '../../img/left_arrow_gray.svg';
+        but.appendChild(img2);
 
         but.addEventListener('click', (evt) => {
             switch (back) {
-                case 3:
-                    this.renderThirdStep();
-                    break;
-                case 4:
-                    this.renderFourthStep();
-                    break;
-                default:
-                    this.render();
+            case 3:
+                this.renderThirdStep();
+                break;
+            case 4:
+                this.renderFourthStep();
+                break;
+            default:
+                this.render();
             }
         });
 
         const link = document.createElement('a');
         link.href = '/';
-        link.dataset.section = 'landing'
+        link.dataset.section = 'landing';
         link.classList.add('link');
 
         const button = document.createElement('button');
@@ -593,7 +593,7 @@ export class Registration {
         div.appendChild(link);
 
         const img = document.createElement('img');
-        img.src = "../../img/cancel_gray.svg";
+        img.src = '../../img/cancel_gray.svg';
         button.appendChild(img);
 
         return div;
@@ -605,23 +605,23 @@ export class Registration {
 
         const link = document.createElement('a');
         link.classList.add('link');
-        link.href = "/";
-        link.dataset.section = "landing";
+        link.href = '/';
+        link.dataset.section = 'landing';
         div.appendChild(link);
 
         const button = document.createElement('button');
         button.classList.add('cancelButton');
         button.type = 'button';
-        link.appendChild(button)
+        link.appendChild(button);
 
         const img = document.createElement('img');
-        img.src = "../../img/cancel_gray.svg";
-        button.appendChild(img)
+        img.src = '../../img/cancel_gray.svg';
+        button.appendChild(img);
 
-        return div
+        return div;
     }
     createElem(divClass, elem, elemClass, elemSrc){
-        const div = document.createElement("div");
+        const div = document.createElement('div');
         div.classList.add(divClass);
 
         const element = document.createElement(elem);
@@ -636,16 +636,16 @@ export class Registration {
         }
         div.appendChild(element);
 
-        return div
+        return div;
     }
     nameOfForm (string) {
-        const div = document.createElement("div");
+        const div = document.createElement('div');
         div.classList.add('small-label');
 
         const p = document.createElement('p');
         p.classList.add('reg');
         p.innerHTML = string;
-        div.appendChild(p)
+        div.appendChild(p);
 
         return div;
     }
@@ -661,7 +661,7 @@ export class Registration {
         input.type = type;
         input.placeholder = placeholder;
         input.classList.add(inputClasses);
-        return input
+        return input;
     }
     createLabel(classLabel, value) {
         const label = document.createElement('label');
@@ -670,7 +670,7 @@ export class Registration {
         return label;
     }
     createPassword(divClass, inputClass, placeholder) {
-        const div = document.createElement("div");
+        const div = document.createElement('div');
         div.classList.add(divClass);
         div.appendChild(this.createInput('', placeholder, inputClass));
         return div;

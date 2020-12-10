@@ -19,7 +19,7 @@ export class FeedHeaderMobile {
         settings.addEventListener('click', (evt) => {
             evt.preventDefault();
             router.redirect('/msettings');
-        })
+        });
 
         const feed = document.querySelector('.inner-navigation-header__feed-button');
         feed.addEventListener('click', (evt) => {

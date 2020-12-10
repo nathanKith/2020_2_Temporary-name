@@ -1,13 +1,13 @@
 import {BaseView} from './BaseView';
-import {RegistrationTop} from "../components/RegistrationTop/Top";
-import {RegistrationContent} from "../components/RegistrationContent/RegistrationContent";
-import {RegistrationButton} from "../components/RegistrationButton/RegistrationButton";
+import {RegistrationTop} from '../components/RegistrationTop/Top';
+import {RegistrationContent} from '../components/RegistrationContent/RegistrationContent';
+import {RegistrationButton} from '../components/RegistrationButton/RegistrationButton';
 import './../components/Registration/Registration.css';
-import {RegAuthModel} from "../models/RegAuthModel";
-import {LandingHeader} from "../components/LandingHeader/LandingHeader";
-import {RegistrationController} from "../controllers/RegistrationController";
+import {RegAuthModel} from '../models/RegAuthModel';
+import {LandingHeader} from '../components/LandingHeader/LandingHeader';
+import {RegistrationController} from '../controllers/RegistrationController';
 import {router} from '../main';
-import {mask} from "../modules/mask";
+import {mask} from '../modules/mask';
 import {readImage} from  '../modules/previewAvatar';
 import {popupLanding} from '../modules/popupLanding';
 
@@ -33,10 +33,10 @@ export class RegistrationView extends BaseView {
 
         // if (screenWidth > 450) {
         //     console.log('1')
-            document.body.classList.add('landing-body-background');
-            this._app.classList.add('registration-body-background');
+        document.body.classList.add('landing-body-background');
+        this._app.classList.add('registration-body-background');
 
-            const header = new LandingHeader(this._app).render();
+        const header = new LandingHeader(this._app).render();
 
         // }
 
@@ -51,9 +51,9 @@ export class RegistrationView extends BaseView {
 
         // if (screenWidth > 450) {
         //     console.log('2')
-            const footer = document.createElement('footer');
-            footer.classList.add('landing-footer');
-            this._app.appendChild(footer);
+        const footer = document.createElement('footer');
+        footer.classList.add('landing-footer');
+        this._app.appendChild(footer);
         // }
 
         divFormView.addEventListener('click', (evt) => {
@@ -76,12 +76,12 @@ export class RegistrationView extends BaseView {
         (new RegistrationButton(form)).render();
 
         const number = document.getElementById('number');
-        number.addEventListener("input", mask, false);
-        number.addEventListener("focus", mask, false);
-        number.addEventListener("blur", mask, false);
+        number.addEventListener('input', mask, false);
+        number.addEventListener('focus', mask, false);
+        number.addEventListener('blur', mask, false);
 
 
-        const button = document.getElementById('nextButton')
+        const button = document.getElementById('nextButton');
         button.addEventListener('click', (evt) => {
             evt.preventDefault();
             const mes = document.getElementById('mes');
@@ -100,9 +100,9 @@ export class RegistrationView extends BaseView {
                         throw new Error('Такой номер уже существует');
                     }
                 }).catch( (err) => {
-                mes.innerHTML = err.message;
-                return;
-            })
+                    mes.innerHTML = err.message;
+                    return;
+                });
         });
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
@@ -153,7 +153,7 @@ export class RegistrationView extends BaseView {
         (new RegistrationContent(form)).render('DateOfBirth');
         (new RegistrationButton(form)).render();
 
-        const button = document.getElementById('nextButton')
+        const button = document.getElementById('nextButton');
         button.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.model.setDay(document.getElementById('day').value);
@@ -184,14 +184,14 @@ export class RegistrationView extends BaseView {
         (new RegistrationTop(form)).render('Top','Расскажите о себе:');
         (new RegistrationContent(form)).render('Sex');
 
-        const button = document.getElementById('female')
+        const button = document.getElementById('female');
         button.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.model.setSex('female');
             this.renderAboutMe();
         });
 
-        const button2 = document.getElementById('male')
+        const button2 = document.getElementById('male');
         button2.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.model.setSex('male');
@@ -223,7 +223,7 @@ export class RegistrationView extends BaseView {
             .then( () => {
                 (new RegistrationButton(form)).render();
 
-                const button = document.getElementById('nextButton')
+                const button = document.getElementById('nextButton');
                 button.addEventListener('click', (evt) => {
                     evt.preventDefault();
                     let education = this.validationAboutMe( document.getElementById('univer'));
@@ -237,9 +237,9 @@ export class RegistrationView extends BaseView {
         back.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.renderSex();
-        })
+        });
 
-        const button = document.getElementById('skip')
+        const button = document.getElementById('skip');
         button.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.renderPhoto();
@@ -259,14 +259,14 @@ export class RegistrationView extends BaseView {
         photo.onchange = () => {
             const file = document.getElementById('file').files[0];
             readImage(file);
-        }
+        };
 
 
         const back = document.getElementById('arrow');
         back.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.renderAboutMe();
-        })
+        });
 
         const button = document.getElementById('end');
         button.onclick = this.listenerRegistration;

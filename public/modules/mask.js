@@ -9,25 +9,25 @@ export function setCursorPosition(pos, elem) {
 
         range.collapse(true);
 
-        range.moveEnd("character", pos);
+        range.moveEnd('character', pos);
 
-        range.moveStart("character", pos);
+        range.moveStart('character', pos);
 
-        range.select()
+        range.select();
 
     }
 }
 
 export function mask(event) {
-    let matrix = "(___) ___ __ __",
+    let matrix = '(___) ___ __ __',
         i = 0,
-        def = matrix.replace(/\D/g, ""),
-        val = this.value.replace(/\D/g, "");
+        def = matrix.replace(/\D/g, ''),
+        val = this.value.replace(/\D/g, '');
     if (def.length >= val.length) val = def;
     this.value = matrix.replace(/./g, function(a) {
-        return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a
+        return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? '' : a;
     });
-    if (event.type == "blur") {
-        if (this.value.length == 2) this.value = ""
-    } else setCursorPosition(this.value.length, this)
-};
+    if (event.type == 'blur') {
+        if (this.value.length == 2) this.value = '';
+    } else setCursorPosition(this.value.length, this);
+}

@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
 
-import Registration from "./Registration.js";
+import Registration from './Registration.js';
 
 function Main(){
     const formView = document.getElementById('1');

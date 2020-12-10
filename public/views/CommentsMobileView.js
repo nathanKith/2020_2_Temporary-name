@@ -1,9 +1,9 @@
-import {BaseView} from "./BaseView";
-import {FeedView} from "./FeedView";
-import {Comments} from "../components/Comments/Comments";
-import {FeedHeaderMobile} from "../components/FeedHeaderMobile/FeedHeaderMobile";
+import {BaseView} from './BaseView';
+import {FeedView} from './FeedView';
+import {Comments} from '../components/Comments/Comments';
+import {FeedHeaderMobile} from '../components/FeedHeaderMobile/FeedHeaderMobile';
 import {router} from '../main';
-import '../components/Comments/Comments.css'
+import '../components/Comments/Comments.css';
 
 export class CommentsMobileView extends BaseView {
     constructor(app) {
@@ -67,6 +67,6 @@ export class CommentsMobileView extends BaseView {
 
     #getAlbumsListener(evt) {
         evt.preventDefault();
-        router.redirect(`/malbums/${this._context['comments'].user}`)
+        router.redirect(`/malbums/${this._context['comments'].user}`);
     }
 }

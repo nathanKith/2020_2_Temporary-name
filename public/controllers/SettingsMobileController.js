@@ -1,6 +1,6 @@
-import {ajax} from "../modules/ajax";
-import {backend} from "../modules/url";
-import {router} from "../main";
+import {ajax} from '../modules/ajax';
+import {backend} from '../modules/url';
+import {router} from '../main';
 
 export class SettingsMobileController {
     #view
@@ -40,7 +40,7 @@ export class SettingsMobileController {
                     }
                 }
             }
-        }
+        };
     }
 
     async logoutListener(evt) {

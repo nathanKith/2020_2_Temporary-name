@@ -1,8 +1,8 @@
 export function popupPhoto(evt) {
     evt.preventDefault();
-    console.log('еня тут быть не должо!')
+    console.log('еня тут быть не должо!');
     document.getElementsByClassName('feed-container')[0].removeEventListener('click',
-     popupPhoto);
+        popupPhoto);
 
     const feedContainer = document.getElementsByClassName('feed-container')[0];
     feedContainer.classList.remove('dark-photo');

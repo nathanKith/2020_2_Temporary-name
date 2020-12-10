@@ -1,10 +1,10 @@
-import ChatContentHbs from './ChatContent.hbs'
-import ChatMyMessage from './ChatMyMessage.hbs'
-import {ChatModel} from "../../models/ChatModel";
-import ChatOtherMessage from './ChatOtherMessage.hbs'
+import ChatContentHbs from './ChatContent.hbs';
+import ChatMyMessage from './ChatMyMessage.hbs';
+import {ChatModel} from '../../models/ChatModel';
+import ChatOtherMessage from './ChatOtherMessage.hbs';
 import './ChatContent.css';
-import {backend} from "../../modules/url";
-import {Chats} from "../Chats/Chats";
+import {backend} from '../../modules/url';
+import {Chats} from '../Chats/Chats';
 
 //parent = profile-chat-section
 export class ChatContent {
@@ -30,7 +30,7 @@ export class ChatContent {
         console.log(this.chatModel.messages);
             
         if (this.chatModel.messages) {
-        this.chatModel.messages.forEach( (message) => {
+            this.chatModel.messages.forEach( (message) => {
                 if (message.user_id === this.chatModel.partner.id) {
                     messages.insertAdjacentHTML('beforeend', ChatOtherMessage({
                         message_text: message.message,
@@ -42,7 +42,7 @@ export class ChatContent {
                         time_delivery: message.timeDelivery,
                     }));
                 }
-        });
+            });
         }
 
         const scroll = document.getElementById('chat-box-text-area');
@@ -62,7 +62,7 @@ export class ChatContent {
             }));
             this.listenerSend( this.chatModel.user_id, this.chatModel.id ,document.getElementById('message').value, delivery);
             document.getElementById('message').value = '';
-        })
+        });
     }
 
 

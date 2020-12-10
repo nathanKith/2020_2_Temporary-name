@@ -1,13 +1,13 @@
 import {BaseView} from './BaseView';
 import {Feed} from '../components/Feed/Feed';
-import {ProfileChatIcon} from "../components/ProfileChatIcon/ProfileChatIcon";
+import {ProfileChatIcon} from '../components/ProfileChatIcon/ProfileChatIcon';
 import {Chats} from '../components/Chats/Chats';
 import {Profile} from '../components/Profile/Profile';
 import {Settings} from '../components/Settings/Settings';
 import {Comments} from '../components/Comments/Comments';
 import {popupLanding} from '../modules/popupLanding';
-import {Album} from "../components/Album/Album";
-import {AlbumPhoto} from "../components/AlbumPhoto/AlbumPhoto";
+import {Album} from '../components/Album/Album';
+import {AlbumPhoto} from '../components/AlbumPhoto/AlbumPhoto';
 
 
 export class FeedView extends BaseView{
@@ -18,8 +18,8 @@ export class FeedView extends BaseView{
     render() {
         this._app.innerHTML = '';
         this._app.removeEventListener('click', popupLanding);
-        this._app.classList.remove('registration-body-background')
-        document.body.classList.remove('landing-body-background')
+        this._app.classList.remove('registration-body-background');
+        document.body.classList.remove('landing-body-background');
 
         const background = document.createElement('div');
         background.classList.add('feed-background');
@@ -32,7 +32,7 @@ export class FeedView extends BaseView{
 
         const settings = document.createElement('div');
         settings.classList.add('settings');
-        settings.insertAdjacentHTML('afterbegin', `<div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>`);
+        settings.insertAdjacentHTML('afterbegin', '<div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>');
         container.appendChild(settings);
 
         settings
@@ -66,7 +66,7 @@ export class FeedView extends BaseView{
             profile.render();
             const comments = document.getElementById('profile-comments');
             comments.addEventListener(this._context['comments'].event.getMyComments.type,
-                                        this._context['comments'].event.getMyComments.listener);
+                this._context['comments'].event.getMyComments.listener);
 
             feedSection.classList.add('dark');
         });
@@ -95,12 +95,12 @@ export class FeedView extends BaseView{
 
             const informationLogo = document.getElementById('information-logo');
             informationLogo.addEventListener(this._context['comments'].event.getComments.type,
-                                             this._context['comments'].event.getComments.listener);
-        })
+                this._context['comments'].event.getComments.listener);
+        });
 
         const informationLogo = document.getElementById('information-logo');
         informationLogo.addEventListener(this._context['comments'].event.getComments.type,
-                                         this._context['comments'].event.getComments.listener);
+            this._context['comments'].event.getComments.listener);
     }
 
     renderComments(isMy=false) {
@@ -112,10 +112,10 @@ export class FeedView extends BaseView{
         const sendButton = document.getElementById('send-comment');
         if (isMy) {
             sendButton.addEventListener(this._context['comments'].event.sendMyComments.type,
-                                        this._context['comments'].event.sendMyComments.listener);
+                this._context['comments'].event.sendMyComments.listener);
         } else {
             sendButton.addEventListener(this._context['comments'].event.sendComment.type,
-                                          this._context['comments'].event.sendComment.listener);
+                this._context['comments'].event.sendComment.listener);
         }
 
         // const images = document.getElementsByClassName('inner__profile-comments__avatar__photo');
@@ -142,7 +142,7 @@ export class FeedView extends BaseView{
 
     renderMyAlbum = () => {
         const feedSection = document.getElementsByClassName('feed-section')[0];
-        console.log('ya from render of album')
+        console.log('ya from render of album');
         console.log(this._context['profile'].linkImages);
         const album = new Album(feedSection, this._context['profile'].linkImages);
         album.isMy = true;
@@ -207,7 +207,7 @@ export class FeedView extends BaseView{
 
         const settingsDiv = document.getElementsByClassName('settings')[0];
         settingsDiv.innerHTML = '';
-        settingsDiv.insertAdjacentHTML('afterbegin', `<div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>`);
+        settingsDiv.insertAdjacentHTML('afterbegin', '<div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>');
 
         document
             .getElementsByClassName('inner-settings')[0]
@@ -242,7 +242,7 @@ export class FeedView extends BaseView{
 
         const informationLogo = document.getElementById('information-logo');
         informationLogo.addEventListener(this._context['comments'].event.getComments.type,
-                                         this._context['comments'].event.getComments.listener);
+            this._context['comments'].event.getComments.listener);
     }
 
     renderOtherProfile() {

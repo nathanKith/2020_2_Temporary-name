@@ -1,5 +1,5 @@
-import {backend} from "../../modules/url";
-import {yoomoney, yoomoneyUrl} from "../../modules/yoomoney";
+import {backend} from '../../modules/url';
+import {yoomoney, yoomoneyUrl} from '../../modules/yoomoney';
 import './Feed.css';
 
 export class Feed {
@@ -59,7 +59,7 @@ export class Feed {
         buttonNext.innerHTML = '';
 
         if (this.#data.feed.linkImages.length > 1) {
-            buttonNext.innerHTML = `<img src="./../../img/button-next.svg" />`;
+            buttonNext.innerHTML = '<img src="./../../img/button-next.svg" />';
         }
 
         const img = document.querySelector('#feedAvatar');
@@ -69,7 +69,7 @@ export class Feed {
             if (this.#currentPhoto === this.#data.feed.linkImages.length - 1) {
                 buttonNext.innerHTML = '';
             }
-            buttonPrev.innerHTML = `<img class="inner-prev-photo" src="./../../img/button-next.svg">`;
+            buttonPrev.innerHTML = '<img class="inner-prev-photo" src="./../../img/button-next.svg">';
             document.getElementById(`cell-${this.#currentPhoto - 1}`).classList.remove('cell-on');
             document.getElementById(`cell-${this.#currentPhoto}`).classList.add('cell-on');
             img.src = this.#data.feed.linkImages[this.#currentPhoto];
@@ -80,7 +80,7 @@ export class Feed {
             if (this.#currentPhoto === 0) {
                 buttonPrev.innerHTML = '';
             }
-            buttonNext.innerHTML = `<img src="./../../img/button-next.svg"/>`;
+            buttonNext.innerHTML = '<img src="./../../img/button-next.svg"/>';
             document.getElementById(`cell-${this.#currentPhoto + 1}`).classList.remove('cell-on');
             document.getElementById(`cell-${this.#currentPhoto}`).classList.add('cell-on');
             img.src = this.#data.feed.linkImages[this.#currentPhoto];
@@ -101,7 +101,7 @@ export class Feed {
             './../../img/cancel.svg',
             './../../img/like.svg',
             // './../../img/super-like.svg',
-        ]
+        ];
 
         const div = this.#createDiv('reactions');
 
@@ -187,7 +187,7 @@ export class Feed {
         infoLogo.id = 'information-logo';
 
         const link = document.createElement('a');
-        link.innerHTML += `<img class="logo" src="./../../img/info.svg">`;
+        link.innerHTML += '<img class="logo" src="./../../img/info.svg">';
 
         infoLogo.appendChild(link);
         div.appendChild(infoLogo);

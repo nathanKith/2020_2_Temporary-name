@@ -1,6 +1,6 @@
 import {BaseView} from './BaseView';
-import {FeedHeaderMobile} from "../components/FeedHeaderMobile/FeedHeaderMobile";
-import {Profile} from "../components/Profile/Profile";
+import {FeedHeaderMobile} from '../components/FeedHeaderMobile/FeedHeaderMobile';
+import {Profile} from '../components/Profile/Profile';
 
 export class ProfileMobileView extends BaseView {
     constructor(app = document.getElementById('application')) {

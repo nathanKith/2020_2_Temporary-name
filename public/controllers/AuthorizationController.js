@@ -1,6 +1,6 @@
-import {RegAuthModel} from "../models/RegAuthModel";
-import {RegistrationView} from "../views/RegistrationView";
-import {router} from "../main";
+import {RegAuthModel} from '../models/RegAuthModel';
+import {RegistrationView} from '../views/RegistrationView';
+import {router} from '../main';
 
 export class AuthorizationController {
     authorizationView
@@ -11,7 +11,7 @@ export class AuthorizationController {
         this.authorizationView = authorizationView;
         this.authorizationView.model = this.authorizationModel;
         this.authorizationView.listenerAuthorization = this.listenerAuthorization.bind
-                                                        (this.listenerAuthorization, this.authorizationModel);
+        (this.listenerAuthorization, this.authorizationModel);
     }
 
     control() {
@@ -26,8 +26,8 @@ export class AuthorizationController {
             return;
         }
         const [message, result] = model.setTelephonePasswordAuth
-                                        (document.getElementById('number').value,
-                                         document.getElementById('password').value);
+        (document.getElementById('number').value,
+            document.getElementById('password').value);
         if (!result) {
             mes.innerHTML = message;
             return false;
@@ -43,6 +43,6 @@ export class AuthorizationController {
             .catch( (err) => {
                 console.log(err.message);
                 mes.innerHTML = 'Неверный пароль';
-            })
+            });
     }
 }

@@ -41,6 +41,7 @@ export class RegistrationController {
 
         const button = document.getElementById('end');
         button.disabled = true;
+        mes.innerHTML = 'Загружаем фото, пожалуйста, подождите';
 
         await model.registration(document.getElementById('form-photo'))
             .then(({status, responseObject}) => {
@@ -49,11 +50,11 @@ export class RegistrationController {
                 } else {
                     throw Error('Неизвестная ошибка, пожалуйста, попробуйте позже');
                 }
+                button.disabled = false;
             })
             .catch( (err) => {
                 mes.innerHTML = err.message;
             });
-        button.disabled = false;
         console.log(mes);
     }
 

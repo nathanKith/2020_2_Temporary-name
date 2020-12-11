@@ -71,8 +71,6 @@ export class RegistrationView extends BaseView {
         number.addEventListener('focus', mask, false);
         number.addEventListener('blur', mask, false);
 
-
-        const button = document.getElementById('nextButton');
         Form.addEventListener('submit', (evt) => {
             evt.preventDefault();
             const mes = document.getElementById('mes');
@@ -98,17 +96,6 @@ export class RegistrationView extends BaseView {
                     return;
                 });
         });
-
-        const form = this.divFormView.appendChild(Form);
-
-        (new RegistrationTop(form)).render('TopBegin','Регистрация');
-        (new RegistrationContent(form)).render('FirstStep');
-        (new RegistrationButton(form)).render();
-
-        const number = document.getElementById('number');
-        number.addEventListener("input", mask);
-        number.addEventListener("focus", mask);
-        number.addEventListener("blur", mask);
 
 
         const button = document.getElementById('nextButton');

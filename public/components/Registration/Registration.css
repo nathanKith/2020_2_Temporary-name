@@ -1109,7 +1109,7 @@ arrow:hover{
 .endButton {
     width: 12vw;
     padding: 5px 10px;
-    background-color: white;
+    /* background-color: white; */
     color: #1F2041;
     outline: none;
     border: 0;

@@ -43,6 +43,13 @@ export class AlbumMobileController {
         if (photo.value) {
             console.log('фото загружено');
             save.innerHTML = 'Сохранить';
+            if (photo.files[0].size > 3000000) {
+                save.innerHTML = 'Слишком большой размер фото, пожалуйста, выберите фото размера менее 3Мб';
+                return;
+            }
+            save.disabled = true;
+            save.innerHTML = 'Загружаем...';
+
             await this.#otherProfile.addPhoto(document.getElementById('send'))
                 .then( ({status, responseObject}) => {
                     if (status === 200) {
@@ -60,6 +67,7 @@ export class AlbumMobileController {
                     }
                 }).catch( (err) => {
                     save.innerHTML = err.message;
+                    save.disabled = false;
                 });
         } else {
             save.innerHTML = 'Выберите фото!';

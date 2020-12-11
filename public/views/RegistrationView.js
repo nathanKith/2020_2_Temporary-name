@@ -119,7 +119,7 @@ export class RegistrationView extends BaseView {
                 return;
             }
             this.renderBirth();
-        })
+        });
 
         const form = this.divFormView.appendChild(Form);
 
@@ -161,7 +161,7 @@ export class RegistrationView extends BaseView {
             this.model.setMonth(document.getElementById('month').value);
             this.model.setYear(document.getElementById('year').value);
             this.renderSex();
-        })
+        });
 
         const form = this.divFormView.appendChild(Form);
 

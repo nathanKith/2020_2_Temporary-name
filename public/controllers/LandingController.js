@@ -19,7 +19,7 @@ export class LandingController {
                 }
             })
             .catch((err) => {
-                console.log(`unathorized`);
+                console.log('unathorized');
             });
     }
 

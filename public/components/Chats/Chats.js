@@ -1,5 +1,6 @@
 import {ChatContent} from '../ChatContent/ChatContent';
 import './Chats.css';
+import LastMessage from 'LastMessage.hbs';
 
 export class Chats {
     #parent
@@ -56,13 +57,15 @@ export class Chats {
             nameTime.insertAdjacentHTML('beforeend', `<span id="time-chat">${Chat.messages[Chat.messages.length - 1].timeDelivery}</span>`);
             information.appendChild(nameTime);
             const lastMessage = this.#createDiv('last-message');
-            lastMessage.insertAdjacentHTML('afterbegin', `<span id="last-message">${Chat.messages[Chat.messages.length - 1].message}</span>`);
+            lastMessage.insertAdjacentHTML('afterbegin', LastMessage({
+                lastMessage: Chat.messages[Chat.messages.length - 1].message,
+            }));
             information.appendChild(lastMessage);
         } else {
             nameTime.insertAdjacentHTML('beforeend', '<span id="time-chat"></span>');
             information.appendChild(nameTime);
             const lastMessage = this.#createDiv('last-message');
-            lastMessage.insertAdjacentHTML('afterbegin', '<span id="last-message"></span>');
+            lastMessage.insertAdjacentHTML('afterbegin', LastMessage());
             information.appendChild(lastMessage);
         }
     

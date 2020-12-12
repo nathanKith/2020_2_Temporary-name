@@ -27,7 +27,7 @@ export class Feed {
         div.appendChild(this.#createPhotosCell());
         div.appendChild(this.#createPersonProfile());
         div.appendChild(this.#createPreviousNextPhoto());
-        if (this.#data.isSuperLikeMe) {
+        if (this.#data.feed.isSuperLikeMe) {
             div.appendChild(this.#modifyToSuperLiked());
         }
         div.appendChild(this.#createReactionButton());

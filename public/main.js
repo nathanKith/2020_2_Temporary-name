@@ -158,4 +158,4 @@ router.add('/malbums/{userId}', doAlbumsMobile);
 
 router.start();
 
-window.onresize = resizeListener;
+//window.onresize = resizeListener;

@@ -92,7 +92,9 @@ export class Chats {
                 // .addEventListener('click', this.listenerBack.bind(this));
                 });
             const chatBox = document.getElementsByClassName('chat__box__top')[0];
-            chatBox.id = Chat.id;
+            if (chatBox) {
+                chatBox.id = Chat.id;
+            } 
         });
 
         return chat;

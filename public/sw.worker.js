@@ -1,6 +1,7 @@
 'use strict'
 
 const cacheName = 'mi-ami-v1';
+const api = 'api/v1';
 
 const cacheUrls = [
     '/',
@@ -13,6 +14,7 @@ const cacheUrls = [
     '/mcomments/',
     '/msettings',
     '/malbums/',
+    api + '/feed',
 
     '/bundle.js',
     '/index.html',
@@ -63,8 +65,12 @@ class FakeResponse {
     async get(headers = {}, body){
         const blobResponse = await this._copyBlob(body);
         const headersResponse = await this._copyHeaders(headers);
+        let status = 200;
+        if (body['errors']['code'] === 400) {
+            status = 400;
+        }
         return new Response(blobResponse, {
-            status: this._response ? this._response.status : 200,
+            status: this._response ? this._response.status : status,
             statusText: this._response ? this._response.statusText : 'ok',
             headers: headersResponse
         });
@@ -108,7 +114,7 @@ class ComplicatedRequestManager{
             return await fetch(request);
         } else {
             return await (new FakeResponse(null)).get({},
-                {'errors':[{'code':200,'message':'offline'}]});
+                {'errors':[{'code':400,'message':'offline'}]});
         }
     }
 }
@@ -129,21 +135,23 @@ self.addEventListener('activate', (evt) => {
     evt.waitUntil(self.clients.claim());
 });
 
-self.addEventListener('fetch', (evt) => {
+self.addEventListener('fetch', async (evt) => {
     console.log(evt.request.url);
+    // const cache = await caches.open(cacheName);
     if(evt.request.method === 'GET') {
         evt.respondWith(
-            caches.open(cacheName).match(evt.request).then( (response) => {
-                return plainRequestManager.fetch(evt.request);
-            }).catch( async () => {
-                await complicatedRequestManager.fetch(evt.request);
+            plainRequestManager.fetch(evt.request)
+            // caches.match(evt.request).then( (response) => {
+            //     return plainRequestManager.fetch(evt.request);
+            // }).catch( async () => {
+            //     await complicatedRequestManager.fetch(evt.request);
                 // if (navigator.onLine) {
                 //     return await fetch(evt.request);
                 // } else {
                 //     return await (new FakeResponse(null)).get({},
                 //         {'errors':[{'code':200,'message':'offline'}]});
                 // }
-            })
+            
 
         );
     } else {

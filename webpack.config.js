@@ -22,6 +22,11 @@ module.exports = {
                     from: '*',
                     to: 'img/',
                 },
+                {
+                    context: 'public/sw.worker.js',
+                    from: 'public/sw.worker.js',
+                    to: '',
+                }
             ],
         }),
     ],

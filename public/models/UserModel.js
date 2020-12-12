@@ -16,6 +16,7 @@ export class UserModel {
     #linkImages
     #age
     #isPremium
+    #isSuperLikeMe
 
     constructor(data = {}) {
         this.#fillUserData(data);
@@ -138,6 +139,10 @@ export class UserModel {
         this.#isPremium = isPremium;
     }
 
+    get isSuperLikeMe() {
+        return this.#isSuperLikeMe;
+    }
+
     #fillUserData(data) {
         this.#id = data['id'];
         this.#telephone = data['telephone'];
@@ -152,6 +157,7 @@ export class UserModel {
         this.#month = data['month'];
         this.#year = data['year'];
         this.#password = data['password'];
+        this.#isSuperLikeMe = data['is_superlike'];
     }
 
     async update() {

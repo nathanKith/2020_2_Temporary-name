@@ -70,7 +70,7 @@ if ('serviceWorker' in navigator) {
             console.log('Успешная регистрация сервис-воркера. Scope is ' + reg);
 
         }).catch((error) => {
-        console.log('Не удалеось зарегисрировать сервис воркер: ' + error);
+        console.log('Не удалось зарегистрировать сервис воркер: ' + error);
     });
 }
 

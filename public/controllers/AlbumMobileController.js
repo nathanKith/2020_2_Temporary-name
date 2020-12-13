@@ -61,7 +61,7 @@ export class AlbumMobileController {
                         this.#view.render(true);
                         this.cancelPhotoListener();
                     } else if (status === 400){
-                        throw new Error('Слишком большой размер фото');
+                        throw new Error('Не удалось загрузить фото(');
                     } else {
                         throw new Error('Не удалось загрузить фото(');
                     }

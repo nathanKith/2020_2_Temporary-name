@@ -4,7 +4,6 @@ const cacheName = 'mi-ami-v1';
 const api = 'api/v1';
 
 const cacheUrls = [
-    '/',
     '/feed',
     '/login',
     '/signup',
@@ -14,17 +13,23 @@ const cacheUrls = [
     '/mcomments/',
     '/msettings',
     '/malbums/',
-    api + '/feed',
+    // api + '/feed',
 
     '/bundle.js',
     '/index.html',
 
     '/fonts',
+    '/fonts/Montserrat-Bold.ttf',
     '/fonts/Montserrat-Light.ttf',
     '/fonts/Montserrat-Medium.ttf',
     '/fonts/Montserrat-SemiBold.ttf',
+    '/fonts/Montserrat-Regular.ttf',
 
-    '/img/',
+    '/img',
+    '/img/small_classic_label.png',
+    '/img/profile.svg',
+    '/img/chats.svg',
+    '/img/plus.svg',
 
 ];
 
@@ -66,9 +71,13 @@ class FakeResponse {
         const blobResponse = await this._copyBlob(body);
         const headersResponse = await this._copyHeaders(headers);
         let status = 200;
-        if (body['errors']['code'] === 400) {
-            status = 400;
-        }
+        if (body) {
+            const errBody = body['errors'][0]['code'];
+            if (errBody && errBody === 400) {
+                console.log('я в ошибке!');
+                status = 400;
+            }
+        } 
         return new Response(blobResponse, {
             status: this._response ? this._response.status : status,
             statusText: this._response ? this._response.statusText : 'ok',
@@ -121,7 +130,7 @@ class ComplicatedRequestManager{
 
 const plainRequestManager = new PlainRequestManager();
 const complicatedRequestManager = new ComplicatedRequestManager();
-
+console.log(self);
 
 self.addEventListener('install', (evt) => {
     evt.waitUntil(new Promise(resolve => {
@@ -134,6 +143,7 @@ self.addEventListener('install', (evt) => {
 self.addEventListener('activate', (evt) => {
     evt.waitUntil(self.clients.claim());
 });
+
 
 self.addEventListener('fetch', async (evt) => {
     console.log(evt.request.url);
@@ -155,6 +165,8 @@ self.addEventListener('fetch', async (evt) => {
 
         );
     } else {
+        console.log('Post');
+        console.log(evt.request.url);
         evt.respondWith(
             complicatedRequestManager.fetch(evt.request)
         );

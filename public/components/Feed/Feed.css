@@ -63,6 +63,16 @@
         bottom: 40%;
         height: 0px;
     }
+
+    .super-liked-me {
+        display: flex;
+        width: 80%;
+        font-size: 2.5vh;
+        justify-content: center;
+        color: #f24e6b;
+        font-family: 'Montserrat-Semibold';
+        text-align: center;
+    }
 }
 
 .logo {
@@ -162,6 +172,16 @@
         width: 40%;
         bottom: 40%;
         height: 0px;
+    }
+
+    .super-liked-me {
+        display: flex;
+        width: 40%;
+        font-size: 2.5vh;
+        justify-content: center;
+        color: #f24e6b;
+        font-family: 'Montserrat-Semibold';
+        text-align: center;
     }
 }
 

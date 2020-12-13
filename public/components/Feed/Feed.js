@@ -27,6 +27,9 @@ export class Feed {
         div.appendChild(this.#createPhotosCell());
         div.appendChild(this.#createPersonProfile());
         div.appendChild(this.#createPreviousNextPhoto());
+        if (this.#data.feed.isSuperLikeMe) {
+            div.appendChild(this.#modifyToSuperLiked());
+        }
         div.appendChild(this.#createReactionButton());
 
         const formBackUser = document.getElementById('back-user-form');
@@ -190,6 +193,14 @@ export class Feed {
 
         infoLogo.appendChild(link);
         div.appendChild(infoLogo);
+
+        return div;
+    }
+
+    #modifyToSuperLiked = () => {
+        const div = this.#createDiv('super-liked-me');
+
+        div.innerText = 'Вы очень понравились этому пользователю!';
 
         return div;
     }

@@ -9,6 +9,8 @@ export class ChatContent {
     #parent
     chatModel
     listenerSend
+    getCommentsListener
+
     constructor(parent, chatModel) {
         this.#parent = parent;
         this.chatModel = chatModel;
@@ -36,9 +38,9 @@ export class ChatContent {
                 profile.data = this.chatModel.partner;
                 profile.render();
 
-                // const comments = document.getElementById('profile-comments');
-                // comments.addEventListener(this._context['comments'].event.getMyComments.type,
-                //     this._context['comments'].event.getMyComments.listener);
+                const comments = document.getElementById('profile-comments');
+                comments.addEventListener(this.getCommentsListener.type,
+                    this.getCommentsListener.listener);
             }
         );
 

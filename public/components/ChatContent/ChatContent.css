@@ -66,6 +66,7 @@
     border-radius: 50%;
     height:8vh;
     width: 8vh;
+    cursor: pointer;
     object-fit: cover;
 }
 .chat__box__top__left {

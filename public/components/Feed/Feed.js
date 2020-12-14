@@ -1,5 +1,6 @@
 import {yoomoney, yoomoneyUrl} from '../../modules/yoomoney';
 import './Feed.css';
+import {FeedEnd} from '../FeedEnd/FeedEnd';
 
 export class Feed {
     #parent
@@ -23,6 +24,13 @@ export class Feed {
         div.classList.add('inner-feed-section');
 
         this.#parent.appendChild(div);
+
+        if (!this.#data.feed) {
+            const feedEnd = new FeedEnd(div);
+            feedEnd.render();
+            
+            return;
+        }
 
         div.appendChild(this.#createPhotosCell());
         div.appendChild(this.#createPersonProfile());

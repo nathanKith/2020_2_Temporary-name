@@ -28,7 +28,6 @@ export class UserListModel {
                 
                 if (responseObject['user_feed']) {
                     this.#userListJson = responseObject['user_feed'];
-                } else {
                 }
 
                 this.#parseJson();

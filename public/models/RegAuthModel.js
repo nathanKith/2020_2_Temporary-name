@@ -54,6 +54,7 @@ export class RegAuthModel extends UserModel{
         return {
             telephone: this.telephone,
             password: this.password,
+            // isLogin:,
         };
     }
 

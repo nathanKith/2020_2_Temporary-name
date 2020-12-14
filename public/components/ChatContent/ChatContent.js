@@ -2,6 +2,7 @@ import ChatContentHbs from './ChatContent.hbs';
 import ChatMyMessage from './ChatMyMessage.hbs';
 import ChatOtherMessage from './ChatOtherMessage.hbs';
 import './ChatContent.css';
+import {Profile} from "../Profile/Profile";
 
 //parent = profile-chat-section
 export class ChatContent {
@@ -21,7 +22,25 @@ export class ChatContent {
             {
                 path_photo: this.chatModel.partner.linkImages[0],
                 nameUser: this.chatModel.partner.name,
+                userId: 'user' + this.chatModel.partner.id,
             }));
+
+        document.getElementById('user' + this.chatModel.partner.id).addEventListener(
+            'click', (evt) => {
+                evt.preventDefault();
+
+                const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
+                profileChatSection.innerHTML = '';
+                const profile = new Profile(profileChatSection);
+
+                profile.data = this.chatModel.partner;
+                profile.render();
+
+                // const comments = document.getElementById('profile-comments');
+                // comments.addEventListener(this._context['comments'].event.getMyComments.type,
+                //     this._context['comments'].event.getMyComments.listener);
+            }
+        );
 
         const messages = document.getElementById('chat-box-text-area');
         console.log(this.chatModel.messages);

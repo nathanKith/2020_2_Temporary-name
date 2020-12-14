@@ -207,6 +207,8 @@ export class FeedController {
                     message_text: dataJSON.messages[0].message,
                     time_delivery: dataJSON.messages[0].timeDelivery,
                 }));
+                const scroll = document.getElementById('chat-box-text-area');
+                scroll.scrollTop = scroll.scrollHeight;
             } else {
                 this.pushEvent();
             }

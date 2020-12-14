@@ -10,12 +10,7 @@ export class LandingController {
     }
 
     async control() {
-        await this.#tryRedirect();
-        this.#view.render();
-    }
-
-    async #tryRedirect() {
-        await ajax.get(backend.me)
+        await this.#tryRedirect()
             .then(({status, responseObject}) => {
                 if (status === 200) {
                     router.redirect('/feed');
@@ -24,7 +19,11 @@ export class LandingController {
                 }
             })
             .catch((err) => {
-                console.log(err.message);
+                console.log('unathorized');
             });
+    }
+
+    async #tryRedirect() {
+        return await ajax.get(backend.me);
     }
 }

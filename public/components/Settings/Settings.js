@@ -1,5 +1,6 @@
 import './Settings.css';
 import settingsTemplate from './Settings.hbs';
+import {mask} from '../../modules/mask';
 
 export class Settings {
     #parent
@@ -22,5 +23,10 @@ export class Settings {
         document
             .getElementById('logout')
             .addEventListener(this.#data.event.logout.type, this.#data.event.logout.listener);
+
+        const telephone = document.getElementById('account-tel');
+        telephone.addEventListener('input', mask);
+        telephone.addEventListener('focus', mask);
+        telephone.addEventListener('blur', mask);
     }
 }

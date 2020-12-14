@@ -71,8 +71,6 @@ export class RegistrationView extends BaseView {
         number.addEventListener('focus', mask, false);
         number.addEventListener('blur', mask, false);
 
-
-        const button = document.getElementById('nextButton');
         Form.addEventListener('submit', (evt) => {
             evt.preventDefault();
             const mes = document.getElementById('mes');
@@ -99,17 +97,6 @@ export class RegistrationView extends BaseView {
                 });
         });
 
-        const form = this.divFormView.appendChild(Form);
-
-        (new RegistrationTop(form)).render('TopBegin','Регистрация');
-        (new RegistrationContent(form)).render('FirstStep');
-        (new RegistrationButton(form)).render();
-
-        const number = document.getElementById('number');
-        number.addEventListener("input", mask);
-        number.addEventListener("focus", mask);
-        number.addEventListener("blur", mask);
-
 
         const button = document.getElementById('nextButton');
         button.type = 'submit';
@@ -132,7 +119,7 @@ export class RegistrationView extends BaseView {
                 return;
             }
             this.renderBirth();
-        })
+        });
 
         const form = this.divFormView.appendChild(Form);
 
@@ -174,7 +161,7 @@ export class RegistrationView extends BaseView {
             this.model.setMonth(document.getElementById('month').value);
             this.model.setYear(document.getElementById('year').value);
             this.renderSex();
-        })
+        });
 
         const form = this.divFormView.appendChild(Form);
 

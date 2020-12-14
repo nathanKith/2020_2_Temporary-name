@@ -33,6 +33,8 @@ export class AuthorizationController {
             mes.innerHTML = message;
             return false;
         }
+        const button = document.getElementById('next');
+        button.disabled = true;
         await model.authorization()
             .then( () => {
                 if (document.documentElement.clientWidth < 1024) {
@@ -40,8 +42,10 @@ export class AuthorizationController {
                 } else {
                     router.redirect('/feed');   
                 }
+                // button.disabled = false;
             })
             .catch( (err) => {
+                button.disabled = false;
                 console.log(err.message);
                 mes.innerHTML = 'Неверный пароль';
             });

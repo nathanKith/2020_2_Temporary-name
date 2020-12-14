@@ -22,6 +22,10 @@ module.exports = {
                     from: '*',
                     to: 'img/',
                 },
+                {
+                    from: 'public/sw.worker.js',
+                    to: '',
+                }
             ],
         }),
     ],

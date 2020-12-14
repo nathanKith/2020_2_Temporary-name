@@ -63,6 +63,18 @@ const albumMobileController = new AlbumMobileController(albumMobileView, userMod
 
 export const router = new Router();
 
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.worker.js', {scope: '/'})
+        .then((reg) => {
+            console.log('Успешная регистрация сервис-воркера. Scope is ' + reg);
+
+        }).catch((error) => {
+        console.log('Не удалось зарегистрировать сервис воркер: ' + error);
+    });
+}
+
+
 const doLanding = () => {
     landingController.control();
 };
@@ -146,4 +158,4 @@ router.add('/malbums/{userId}', doAlbumsMobile);
 
 router.start();
 
-window.onresize = resizeListener;
+//window.onresize = resizeListener;

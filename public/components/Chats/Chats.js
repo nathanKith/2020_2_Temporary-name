@@ -1,5 +1,6 @@
 import {ChatContent} from '../ChatContent/ChatContent';
 import './Chats.css';
+import LastMessage from './LastMessage.hbs';
 
 export class Chats {
     #parent
@@ -56,13 +57,15 @@ export class Chats {
             nameTime.insertAdjacentHTML('beforeend', `<span id="time-chat">${Chat.messages[Chat.messages.length - 1].timeDelivery}</span>`);
             information.appendChild(nameTime);
             const lastMessage = this.#createDiv('last-message');
-            lastMessage.insertAdjacentHTML('afterbegin', `<span id="last-message">${Chat.messages[Chat.messages.length - 1].message}</span>`);
+            lastMessage.insertAdjacentHTML('afterbegin', LastMessage({
+                last_message: Chat.messages[Chat.messages.length - 1].message,
+            }));
             information.appendChild(lastMessage);
         } else {
             nameTime.insertAdjacentHTML('beforeend', '<span id="time-chat"></span>');
             information.appendChild(nameTime);
             const lastMessage = this.#createDiv('last-message');
-            lastMessage.insertAdjacentHTML('afterbegin', '<span id="last-message"></span>');
+            lastMessage.insertAdjacentHTML('afterbegin', LastMessage());
             information.appendChild(lastMessage);
         }
     
@@ -89,7 +92,9 @@ export class Chats {
                 // .addEventListener('click', this.listenerBack.bind(this));
                 });
             const chatBox = document.getElementsByClassName('chat__box__top')[0];
-            chatBox.id = Chat.id;
+            if (chatBox) {
+                chatBox.id = Chat.id;
+            } 
         });
 
         return chat;

@@ -57,9 +57,9 @@ export class AuthorizationView extends BaseView {
 
         const number = document.getElementById('number');
 
-        number.addEventListener("input", mask);
-        number.addEventListener("focus", mask);
-        number.addEventListener("blur", mask);
+        number.addEventListener('input', mask);
+        number.addEventListener('focus', mask);
+        number.addEventListener('blur', mask);
 
         const button = document.getElementById('next');
         button.type = 'submit';

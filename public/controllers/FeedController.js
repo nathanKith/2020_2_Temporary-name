@@ -397,18 +397,46 @@ export class FeedController {
 
     async sendOtherComments(evt) {
         evt.preventDefault();
+        if (!this.validationComments()) {
+                return;
+        }
+        // if (!document.getElementById('text-comment').value) {
+        //     return;
+        // }
+        // const text = document.getElementById('text-comment').value;
+        // let textComments = text.replaceAll(' ', '');
+        // if (textComments === '') {
+        //     return;
+        // }
+
         const comment = new CommentModel({
             user: this.#profile,
             commentText: document.getElementById('text-comment').value,
             timeDelivery: '',
         });
-        await comment.addComment(this.#view._context['comments']['profile']);
+        await comment.addComment(parseInt(this.#view._context['comments']['profile'], 10));
         this.#view.context.comments.comments.commentsList.push(comment);
         this.#view.renderOtherComments();
     }
 
+    validationComments() {
+        if (!document.getElementById('text-comment').value) {
+            return false
+        }
+        const text = document.getElementById('text-comment').value;
+        let textComments = text.replaceAll(' ', '');
+        if (textComments === '') {
+            return false;
+        }
+        return true;
+    }
+
     async sendCommentListener(evt) {
         evt.preventDefault();
+        if (!this.validationComments()) {
+            return;
+    }
+
         const comment = new CommentModel({
             user: this.#profile,
             commentText: document.getElementById('text-comment').value,
@@ -421,6 +449,10 @@ export class FeedController {
 
     async sendMyCommentsListener(evt) {
         evt.preventDefault();
+        if (!this.validationComments()) {
+            return;
+        }
+
         const comment = new CommentModel({
             user: this.#profile,
             commentText: document.getElementById('text-comment').value,

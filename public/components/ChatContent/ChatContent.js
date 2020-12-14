@@ -36,7 +36,11 @@ export class ChatContent {
                 const profile = new Profile(profileChatSection);
 
                 profile.data = this.chatModel.partner;
+                profile._userId = this.chatModel.partner.id;
                 profile.render();
+            
+
+                console.log(this.getCommentsListener);
 
                 const comments = document.getElementById('profile-comments');
                 comments.addEventListener(this.getCommentsListener.type,

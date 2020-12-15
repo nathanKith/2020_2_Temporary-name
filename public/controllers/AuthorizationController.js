@@ -50,7 +50,7 @@ export class AuthorizationController {
             return false;
         }
 
-        const button = document.getElementById('next');
+        const button = document.getElementById('sign-in-button');
         button.disabled = true;
 
         await model.authorization()
@@ -70,7 +70,7 @@ export class AuthorizationController {
     }
 
     async authorizeListener(phoneNumber, password) {
-        const button = document.getElementById('next');
+        const button = document.getElementById('sign-in-button');
         button.disabled = true;
 
         this.authorizationModel.setTelephonePasswordAuth(

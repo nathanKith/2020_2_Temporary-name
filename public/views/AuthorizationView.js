@@ -64,7 +64,6 @@ export class AuthorizationView extends BaseView {
         const button = document.getElementById('next');
         button.type = 'submit';
 
-        generateRecaptcha();
         // button.addEventListener('click', this.listenerAuthorization);
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
@@ -77,14 +76,23 @@ export class AuthorizationView extends BaseView {
         const telephone = document.querySelector('#number').value;
         const password = document.querySelector('#password').value;
 
-        console.log(this.validationNumberPassword);
-
         const validationMessage = this.validationNumberPassword(telephone, password);
         if (validationMessage) {
             document.querySelector('#mes').innerHTML = validationMessage;
             return;
         }
 
+
+        this.divFormView.innerHTML = '';
+
+        const Form = document.createElement('form');
+        Form.classList.add('form');
+
+        const form = this.divFormView.appendChild(Form);
+
+        (new AuthVerification(form)).render();
+        generateRecaptcha();
+        
         try {
             const phoneNumber = '+7' + telephone.replaceAll(' ', '')
                 .replace('(', '')
@@ -94,19 +102,15 @@ export class AuthorizationView extends BaseView {
             sendSms(phoneNumber, window.recaptcha);
         } catch(err) {
             console.log(err.message);
-            //window.recaptcha.render().then(widgetId => grecaptcha.reset(widgetId));
+            window.recaptcha.render().then(widgetId => grecaptcha.reset(widgetId));
         }
 
-        const form = document.querySelector('.form');
-        form.removeEventListener('submit', this.renderVerification);
-
-        (new AuthVerification(form)).render();
         const codeInput = document.querySelector('#code-input');
         codeInput.addEventListener('input', maskCode);
         codeInput.addEventListener('focus', maskCode);
         codeInput.addEventListener('blur', maskCode);
 
-        const button = document.getElementById('next');
+        const button = document.getElementById('sign-in-button');
         button.type = 'submit';
 
         const cancel = document.getElementsByClassName('cancelButton')[0];

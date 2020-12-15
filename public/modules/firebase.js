@@ -25,3 +25,7 @@ export function loginWithCode(code) {
             console.log('number:', user.phoneNumber, ' ', user.uid);
         });
 }
+
+export function logoutFirebase() {
+    return firebase.auth().signOut();
+}

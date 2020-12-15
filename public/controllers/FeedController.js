@@ -5,6 +5,7 @@ import {CommentModel} from '../models/CommentModel';
 import ChatOtherMessage from '../components/ChatContent/ChatOtherMessage.hbs';
 import {ChatModel} from '../models/ChatModel';
 import {Chats} from '../components/Chats/Chats';
+import {logoutFirebase} from '../modules/firebase';
 
 export class FeedController {
     #view
@@ -403,12 +404,19 @@ export class FeedController {
 
     async logoutListener(evt) {
         evt.preventDefault();
-        await ajax.post(backend.logout, {})
-            .then(({ status, responseObject }) => {
-                if (status === 500 || status === 401) {
-                    throw new Error(`${status} logout error`);
-                }
-                router.redirect('/');
+        logoutFirebase()
+            .then(async () => {
+                await ajax.post(backend.logout, {})
+                    .then(({ status, responseObject }) => {
+                        if (status === 500 || status === 401) {
+                            throw new Error(`${status} logout error`);
+                        }
+                        router.redirect('/');
+                    })
+                    .catch((err) => {
+                        console.log(err.message);
+                        router.redirect('/');
+                    });
             })
             .catch((err) => {
                 console.log(err.message);

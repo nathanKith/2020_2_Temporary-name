@@ -194,14 +194,16 @@ export class FeedView extends BaseView{
             .getElementsByClassName('inner-settings')[0]
             .addEventListener('click', this.#renderBackSettingsListener);
 
-        this._app.addEventListener('click', this.#renderBackSettingsListener);
 
         document
-            .getElementsByClassName('settings-open')[0]
+            .getElementsByClassName('settings')[0]
             .addEventListener('click', (evt) => {
-                evt.preventDefault();
                 evt.stopPropagation();
+                
+                evt.stopImmediatePropagation();
             });
+        
+        this._app.addEventListener('click', this.#renderBackSettingsListener);
     }
 
     rerenderSettings() {
@@ -211,9 +213,6 @@ export class FeedView extends BaseView{
 
     getSettingsData() {
         return {
-            telephone: document.getElementById('account-tel').value,
-            password: document.getElementById('password').value,
-            repeatPassword: document.getElementById('repeat-password').value,
             name: document.getElementById('settings-name').value,
             education: document.getElementById('education').value,
             job: document.getElementById('job').value,
@@ -223,11 +222,16 @@ export class FeedView extends BaseView{
 
     #renderBackSettings(evt) {
         evt.preventDefault();
+        console.log(evt.target.classList);
+        // if ('settings-open' in evt.target.classList || 'settings' in evt.target.classList) {
+        //     return;
+        // }
+
+        this._app.removeEventListener('click', this.#renderBackSettingsListener);
+        
         document
             .getElementsByClassName('inner-settings')[0]
             .removeEventListener('click', this.#renderBackSettingsListener);
-
-        this._app.removeEventListener('click', this.#renderBackSettingsListener);
 
         document
             .getElementsByClassName('feed-container')[0]

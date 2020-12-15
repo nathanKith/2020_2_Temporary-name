@@ -81,7 +81,7 @@ export class AuthorizationController {
             });
     }
 
-    async authorizeListener(phoneNumber, password) {
+    async authorizeListener(phoneNumber) {
         const button = document.getElementById('sign-in-button');
         button.disabled = true;
 

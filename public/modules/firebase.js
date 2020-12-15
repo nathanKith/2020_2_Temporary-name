@@ -25,9 +25,10 @@ export function logoutFirebase() {
     return firebase.auth().signOut();
 }
 
-export function isLoggedIn() {
+export async function isLoggedIn() {
     let result;
-    firebase.auth().onAuthStateChanged((user) => {
+    await firebase.auth().onAuthStateChanged((user) => {
+        console.log('ХАХАХАХА');
         if (user) {
             result = true;
             return;
@@ -35,6 +36,8 @@ export function isLoggedIn() {
 
         result = false;
     });
+
+    console.log(result);
 
     return result;
 }

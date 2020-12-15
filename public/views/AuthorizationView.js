@@ -75,9 +75,9 @@ export class AuthorizationView extends BaseView {
         evt.preventDefault();
 
         const telephone = document.querySelector('#number').value;
-        const password = document.querySelector('#password').value;
+        //const password = document.querySelector('#password').value;
 
-        const validationMessage = this.validationNumberPassword(telephone, password);
+        const validationMessage = this.validationNumberPassword(telephone);
         if (validationMessage) {
             document.querySelector('#mes').innerHTML = validationMessage;
             return;
@@ -137,7 +137,7 @@ export class AuthorizationView extends BaseView {
                 .then((result) => {
                     const user = result.user;
                     console.log('number:', user.phoneNumber, ' ', user.uid);
-                    this.listenerAuthorization(telephone, password);
+                    this.listenerAuthorization(telephone);
                 })
                 .catch((err) => {
                     document.querySelector('#mes').innerHTML = 'Неправильный код.';

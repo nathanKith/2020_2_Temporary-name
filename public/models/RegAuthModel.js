@@ -25,6 +25,7 @@ export class RegAuthModel extends UserModel{
         // if (password === repeatPassword){
         //     return ['', true];
         // }
+        return ['', true];
     }
 
     validationAuth(number) {
@@ -44,14 +45,18 @@ export class RegAuthModel extends UserModel{
     }
 
     async authorization() {
-        return await ajax.post(backend.login, this.JsonAuth());
+        const data = await this.JsonAuth();
+        return await ajax.post(backend.login, data);
     }
 
-    JsonAuth() {
+    async JsonAuth() {
+        console.log('Я В СТАТУ АУФ');
+        const statusAuth = await isLoggedIn();
+        console.log(statusAuth);
         return {
             telephone: this.telephone,
             password: this.password,
-            is_logged_in: isLoggedIn(),
+            is_logged_in: statusAuth,
         };
     }
 

@@ -130,6 +130,7 @@ export class AuthorizationView extends BaseView {
             const code = document.querySelector('#code-input').value.replaceAll(' ', '');
             if (code.length !== 6) {
                 document.querySelector('#mes').innerHTML = 'Неверный код';
+                return;
             }
 
             loginWithCode(code)

@@ -4,9 +4,11 @@ import {RegistrationContent} from '../components/RegistrationContent/Registratio
 import {RegistrationButton} from '../components/RegistrationButton/RegistrationButton';
 import './../components/Registration/Registration.css';
 import {LandingHeader} from '../components/LandingHeader/LandingHeader';
-import {mask} from '../modules/mask';
+import {mask, maskCode} from '../modules/mask';
 import {readImage} from  '../modules/previewAvatar';
 import {popupLanding} from '../modules/popupLanding';
+import {AuthVerification} from "../components/AuthVerification/AuthVerification";
+import {generateRecaptcha, loginWithCode, sendSms} from "../modules/firebase";
 
 
 export class RegistrationView extends BaseView {
@@ -84,10 +86,11 @@ export class RegistrationView extends BaseView {
             console.log('Хаве доневалидатион');
             console.log(this);
             this.listenerCheck()
-                .then( ({status, responseObject}) => {
+                .then( async ({status, responseObject}) => {
                     console.log(responseObject);
                     if (!responseObject['telephone']) {
-                        this.renderName();
+                        //this.renderName();
+                        await this.renderVerification();
                     } else {
                         throw new Error('Такой номер уже существует');
                     }
@@ -103,6 +106,83 @@ export class RegistrationView extends BaseView {
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
         cancel.addEventListener('click', popupLanding);
+    }
+
+    async renderVerification(evt) {
+        evt.preventDefault();
+
+        const telephone = document.querySelector('#number').value;
+        //const password = document.querySelector('#password').value;
+
+        // const validationMessage = this.validationNumberPassword(telephone, password);
+        // if (validationMessage) {
+        //     document.querySelector('#mes').innerHTML = validationMessage;
+        //     return;
+        // }
+        //
+        // const haveNumber = await this.checkNumber(telephone);
+        // console.log(haveNumber);
+        // if (haveNumber) {
+        //     document.querySelector('#mes').innerHTML = haveNumber;
+        //     return;
+        // }
+
+
+        this.divFormView.innerHTML = '';
+
+        const Form = document.createElement('form');
+        Form.classList.add('form');
+
+        const form = this.divFormView.appendChild(Form);
+
+        (new AuthVerification(form)).render();
+        generateRecaptcha();
+
+        try {
+            const phoneNumber = '+7' + telephone.replaceAll(' ', '')
+                .replace('(', '')
+                .replace(')', '');
+            console.log(phoneNumber);
+
+            sendSms(phoneNumber, window.recaptcha);
+        } catch (err) {
+            console.log(err.message);
+            grecaptcha.reset(widgetId);
+        }
+
+        const codeInput = document.querySelector('#code-input');
+        codeInput.addEventListener('input', maskCode);
+        codeInput.addEventListener('focus', maskCode);
+        codeInput.addEventListener('blur', maskCode);
+
+        const button = document.getElementById('sign-in-button');
+        button.type = 'submit';
+
+        const cancel = document.getElementsByClassName('cancelButton')[0];
+        cancel.addEventListener('click', popupLanding);
+
+        form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+
+            const code = document.querySelector('#code-input').value.replaceAll(' ', '');
+            if (code.length !== 6) {
+                document.querySelector('#mes').innerHTML = 'Неверный код';
+                return;
+            }
+
+            button.disabled = true;
+
+            loginWithCode(code)
+                .then((result) => {
+                    const user = result.user;
+                    console.log('number:', user.phoneNumber, ' ', user.uid);
+                    this.renderName();
+                    //this.listenerAuthorization(telephone, password);
+                })
+                .catch((err) => {
+                    document.querySelector('#mes').innerHTML = 'Неправильный код.';
+                });
+        });
     }
 
     renderName = () => {

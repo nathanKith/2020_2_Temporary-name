@@ -131,10 +131,27 @@ export class FeedView extends BaseView{
         // backToChats.addEventListener('click', this.#renderBackChats.bind(this));
     }
 
+    renderOtherComments() {
+        const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
+        const comments = new Comments(profileChatSection);
+        comments.data = this._context['comments'].comments.commentsList;
+        comments.render();
+        const sendButton = document.getElementById('send-comment');
+        sendButton.addEventListener(this._context['comments'].event.sendOtherComment.type,
+            this._context['comments'].event.sendOtherComment.listener);
+    }
+
 
     renderAlbum = () => {
         const feedSection = document.getElementsByClassName('feed-section')[0];
         const album = new Album(feedSection, this._context['feed']['feed'].linkImages);
+        album.isMy = false;
+        album.render();
+    }
+
+    renderOtherAlbum(user) {
+        const feedSection = document.getElementsByClassName('feed-section')[0];
+        const album = new Album(feedSection, user.linkImages);
         album.isMy = false;
         album.render();
     }

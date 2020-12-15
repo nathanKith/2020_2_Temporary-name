@@ -5,6 +5,7 @@ import {CommentModel} from '../models/CommentModel';
 import ChatOtherMessage from '../components/ChatContent/ChatOtherMessage.hbs';
 import {ChatModel} from '../models/ChatModel';
 import {Chats} from '../components/Chats/Chats';
+import {UserModel} from "../models/UserModel";
 
 export class FeedController {
     #view
@@ -59,6 +60,10 @@ export class FeedController {
                 chats: this.#chats.chatList,
                 user_id: this.#profile.id,
                 onSendWebsocket: this.onSendWebsocket.bind(this),
+                getOtherComment: {
+                    type: 'click',
+                    listener: this.getOtherCommentsListener.bind(this),
+                },
             },
             feed: {
                 feed: this.#feed.userList[this.#currentUserFeed],
@@ -111,6 +116,7 @@ export class FeedController {
             },
             comments: {
                 comments: this.#comments,
+                profile: null,
                 event: {
                     getComments: {
                         type: 'click',
@@ -131,6 +137,14 @@ export class FeedController {
                     getProfileByComment: {
                         type: 'click',
                         listener: this.getProfileByComment.bind(this),
+                    },
+                    getOtherComment: {
+                        type: 'click',
+                        listener: this.getOtherCommentsListener.bind(this),
+                    },
+                    sendOtherComment: {
+                        type: 'click',
+                        listener: this.sendOtherComments.bind(this),
                     },
                 },
             },
@@ -207,6 +221,8 @@ export class FeedController {
                     message_text: dataJSON.messages[0].message,
                     time_delivery: dataJSON.messages[0].timeDelivery,
                 }));
+                const scroll = document.getElementById('chat-box-text-area');
+                scroll.scrollTop = scroll.scrollHeight;
             } else {
                 this.pushEvent();
             }
@@ -367,8 +383,60 @@ export class FeedController {
         this.#view.renderComments();
     }
 
+    async getOtherCommentsListener(evt) {
+        evt.preventDefault();
+        const profileId = document.getElementsByClassName('profile')[0];
+        this.#view._context['comments']['profile'] = profileId.id;
+        await this.#comments.update(profileId.id);
+        const user = new UserModel();
+        await user.updateOtherUser(profileId.id);
+
+        this.#view.renderOtherAlbum(user);
+        this.#view.renderOtherComments();
+    }
+
+    async sendOtherComments(evt) {
+        evt.preventDefault();
+        if (!this.validationComments()) {
+                return;
+        }
+        // if (!document.getElementById('text-comment').value) {
+        //     return;
+        // }
+        // const text = document.getElementById('text-comment').value;
+        // let textComments = text.replaceAll(' ', '');
+        // if (textComments === '') {
+        //     return;
+        // }
+
+        const comment = new CommentModel({
+            user: this.#profile,
+            commentText: document.getElementById('text-comment').value,
+            timeDelivery: '',
+        });
+        await comment.addComment(parseInt(this.#view._context['comments']['profile'], 10));
+        this.#view.context.comments.comments.commentsList.push(comment);
+        this.#view.renderOtherComments();
+    }
+
+    validationComments() {
+        if (!document.getElementById('text-comment').value) {
+            return false
+        }
+        const text = document.getElementById('text-comment').value;
+        let textComments = text.replaceAll(' ', '');
+        if (textComments === '') {
+            return false;
+        }
+        return true;
+    }
+
     async sendCommentListener(evt) {
         evt.preventDefault();
+        if (!this.validationComments()) {
+            return;
+    }
+
         const comment = new CommentModel({
             user: this.#profile,
             commentText: document.getElementById('text-comment').value,
@@ -381,6 +449,10 @@ export class FeedController {
 
     async sendMyCommentsListener(evt) {
         evt.preventDefault();
+        if (!this.validationComments()) {
+            return;
+        }
+
         const comment = new CommentModel({
             user: this.#profile,
             commentText: document.getElementById('text-comment').value,

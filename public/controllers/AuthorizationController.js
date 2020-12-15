@@ -37,7 +37,7 @@ export class AuthorizationController {
         }
         const [message, result] = this.authorizationModel.setTelephonePasswordAuth(
             number,
-            password,
+            //password,
         );
         if (!result) {
             return message;
@@ -55,7 +55,7 @@ export class AuthorizationController {
         }
         const [message, result] = model.setTelephonePasswordAuth(
             document.getElementById('number').value,
-            document.getElementById('password').value
+            //document.getElementById('password').value
         );
         if (!result) {
             mes.innerHTML = message;
@@ -87,7 +87,7 @@ export class AuthorizationController {
 
         this.authorizationModel.setTelephonePasswordAuth(
             phoneNumber,
-            password,
+            //password,
         );
         await this.authorizationModel.authorization()
             .then(({status, responseObject}) => {

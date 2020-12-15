@@ -76,9 +76,9 @@ export class RegistrationView extends BaseView {
         Form.addEventListener('submit', (evt) => {
             evt.preventDefault();
             const mes = document.getElementById('mes');
-            const [message, result] = this.model.setTelephonePassword(number.value, number.value.length,
-                document.getElementById('password').value,
-                document.getElementById('repeat-password').value);
+            const [message, result] = this.model.setTelephonePassword(number.value, number.value.length);
+                //document.getElementById('password').value,
+                //document.getElementById('repeat-password').value);
             if (!result) {
                 mes.innerHTML = message;
                 return;

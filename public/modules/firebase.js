@@ -24,3 +24,17 @@ export function loginWithCode(code) {
 export function logoutFirebase() {
     return firebase.auth().signOut();
 }
+
+export function isLoggedIn() {
+    let result;
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            result = true;
+            return;
+        }
+
+        result = false;
+    });
+
+    return result;
+}

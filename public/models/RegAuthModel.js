@@ -1,6 +1,7 @@
 import {ajax} from '../modules/ajax';
 import {backend} from '../modules/url';
 import {UserModel} from './UserModel';
+import {isLoggedIn} from "../modules/firebase";
 
 export class RegAuthModel extends UserModel{
     linkImage
@@ -8,35 +9,36 @@ export class RegAuthModel extends UserModel{
     constructor() {
         super();
         this.linkImage = [];
+        this.password = '';
     }
 
-    validationPassword(validityNumber, password, repeatPassword) {
+    validationPassword(validityNumber) {
         if (validityNumber !== 15) {
             return ['Неверно введен номер телефона', false];
         }
-        if (password === '' || repeatPassword === ''){
-            return ['Введены не все поля', false];
-        }
-        if (password !== repeatPassword) {
-            return ['Пароли не совпадают', false];
-        }
-        if (password === repeatPassword){
-            return ['', true];
-        }
+        // if (password === '' || repeatPassword === ''){
+        //     return ['Введены не все поля', false];
+        // }
+        // if (password !== repeatPassword) {
+        //     return ['Пароли не совпадают', false];
+        // }
+        // if (password === repeatPassword){
+        //     return ['', true];
+        // }
     }
 
-    validationAuth(number, password) {
-        if (password === '' || number === ''){
+    validationAuth(number) {
+        if (number === ''){
             return ['Введены не все поля', false];
         }
         return ['', true];
     }
 
-    setTelephonePasswordAuth(number, password){
-        let [message, result] = this.validationAuth(number, password);
+    setTelephonePasswordAuth(number){
+        let [message, result] = this.validationAuth(number);
         if (result) {
             this.telephone = number;
-            this.password = password;
+            // this.password = password;
         }
         return [message, result];
     }
@@ -49,17 +51,17 @@ export class RegAuthModel extends UserModel{
         return {
             telephone: this.telephone,
             password: this.password,
-            // isLogin:,
+            is_logged_in: isLoggedIn(),
         };
     }
 
-    setTelephonePassword(number, validityNumber, password, repeatPassword) {
-        let [message, result] = this.validationPassword(validityNumber, password, repeatPassword);
+    setTelephonePassword(number, validityNumber) {
+        let [message, result] = this.validationPassword(validityNumber);
         if (!result) {
             return [message, result];
         }
         this.telephone = number;
-        this.password = password;
+        //this.password = password;
         return ['', true];
     }
 

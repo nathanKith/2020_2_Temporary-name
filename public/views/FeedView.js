@@ -10,8 +10,12 @@ import {Album} from '../components/Album/Album';
 
 
 export class FeedView extends BaseView{
+    #renderBackSettingsListener
+
     constructor(app = document.getElementById('application')) {
         super(app);
+
+        this.#renderBackSettingsListener = this.#renderBackSettings.bind(this);
     }
 
     render() {
@@ -186,7 +190,16 @@ export class FeedView extends BaseView{
 
         document
             .getElementsByClassName('inner-settings')[0]
-            .addEventListener('click', this.#renderBackSettings.bind(this));
+            .addEventListener('click', this.#renderBackSettingsListener);
+
+        this._app.addEventListener('click', this.#renderBackSettingsListener);
+
+        document
+            .getElementsByClassName('settings-open')[0]
+            .addEventListener('click', (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+            });
     }
 
     rerenderSettings() {
@@ -210,7 +223,9 @@ export class FeedView extends BaseView{
         evt.preventDefault();
         document
             .getElementsByClassName('inner-settings')[0]
-            .removeEventListener('click', this.#renderBackSettings.bind(this));
+            .removeEventListener('click', this.#renderBackSettingsListener);
+
+        this._app.removeEventListener('click', this.#renderBackSettingsListener);
 
         document
             .getElementsByClassName('feed-container')[0]

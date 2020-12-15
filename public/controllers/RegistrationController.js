@@ -1,4 +1,5 @@
 import {router} from '../main';
+import {isMobile} from "../modules/resizing";
 
 export class RegistrationController {
     RegAuthModel
@@ -44,9 +45,25 @@ export class RegistrationController {
         mes.innerHTML = 'Загружаем фото, пожалуйста, подождите';
 
         await model.registration(document.getElementById('form-photo'))
-            .then(({status, responseObject}) => {
+            .then(async ({status, responseObject}) => {
                 if (status === 200) {
-                    router.redirect('/login');
+                    await model.authorization()
+                        .then(({status, responseObject}) => {
+                            if (status === 500) {
+                                throw new Error('Какие-то неожиданные проблемы.');
+                            }
+
+                            if (status === 401) {
+                                throw new Error('Нет пользователя с таким номером телефона');
+                            }
+
+                            if (isMobile()) {
+                                router.redirect('/mfeed');
+                                return;
+                            }
+
+                            router.redirect('/feed');
+                        })
                 } else {
                     throw Error('Неизвестная ошибка, пожалуйста, попробуйте позже');
                 }

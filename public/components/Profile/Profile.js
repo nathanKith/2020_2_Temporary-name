@@ -2,7 +2,7 @@ import './Profile.css';
 import {router} from '../../main';
 
 export class Profile {
-
+    _userId
     #parent
     #data
 
@@ -16,6 +16,9 @@ export class Profile {
 
     render() {
         const div = this.#createDiv('profile');
+        if (this._userId) {
+            div.id = this._userId;
+        }
         const innerDiv = this.#createDiv('inner-profile');
         div.appendChild(innerDiv);
 

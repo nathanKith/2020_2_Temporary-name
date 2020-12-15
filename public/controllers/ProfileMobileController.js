@@ -1,3 +1,6 @@
+import {tryRedirect} from '../modules/tryRedirect';
+import {router} from '../main';
+
 export class ProfileMobileController {
     #view
     #profile
@@ -26,6 +29,12 @@ export class ProfileMobileController {
     }
 
     async control() {
+        const isAuth = await tryRedirect();
+        if (!isAuth) {
+            router.redirect('/');
+            return;
+        }
+
         await this.update();
         this.#view.context = this.#makeContext();
         this.#view.render();

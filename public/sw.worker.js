@@ -1,7 +1,7 @@
-'use strict'
+/* eslint-disable */
+'use strict';
 
 const cacheName = 'mi-ami-v1';
-const api = 'api/v1';
 
 const cacheUrls = [
     '/feed',
@@ -155,12 +155,12 @@ self.addEventListener('fetch', async (evt) => {
             //     return plainRequestManager.fetch(evt.request);
             // }).catch( async () => {
             //     await complicatedRequestManager.fetch(evt.request);
-                // if (navigator.onLine) {
-                //     return await fetch(evt.request);
-                // } else {
-                //     return await (new FakeResponse(null)).get({},
-                //         {'errors':[{'code':200,'message':'offline'}]});
-                // }
+            // if (navigator.onLine) {
+            //     return await fetch(evt.request);
+            // } else {
+            //     return await (new FakeResponse(null)).get({},
+            //         {'errors':[{'code':200,'message':'offline'}]});
+            // }
             
 
         );

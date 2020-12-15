@@ -1,6 +1,7 @@
 import {ajax} from '../modules/ajax';
 import {backend} from '../modules/url';
 import {router} from '../main';
+import {tryRedirect} from '../modules/tryRedirect';
 
 export class SettingsMobileController {
     #view
@@ -92,6 +93,12 @@ export class SettingsMobileController {
     }
 
     async control() {
+        const isAuth = await tryRedirect();
+        if (!isAuth) {
+            router.redirect('/');
+            return;
+        }
+
         await this.update();
         this.#view.context = this.#makeContext();
         this.#view.render();

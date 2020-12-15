@@ -23,10 +23,5 @@ export class Settings {
         document
             .getElementById('logout')
             .addEventListener(this.#data.event.logout.type, this.#data.event.logout.listener);
-
-        const telephone = document.getElementById('account-tel');
-        telephone.addEventListener('input', mask);
-        telephone.addEventListener('focus', mask);
-        telephone.addEventListener('blur', mask);
     }
 }

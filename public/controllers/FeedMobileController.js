@@ -1,5 +1,7 @@
 import {backend} from '../modules/url';
 import {ajax} from '../modules/ajax';
+import {tryRedirect} from '../modules/tryRedirect';
+import {router} from '../main';
 
 
 export class FeedMobileController{
@@ -136,6 +138,12 @@ export class FeedMobileController{
     }
 
     async control() {
+        const isAuth = await tryRedirect();
+        if (!isAuth) {
+            router.redirect('/');
+            return;
+        }
+
         await this.update()
             .then(() => {
                 this.#view.context = this.#makeContext();

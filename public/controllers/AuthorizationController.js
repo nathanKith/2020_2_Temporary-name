@@ -13,7 +13,7 @@ export class AuthorizationController {
 
         this.authorizationView.validationNumberPassword = this.validationNumberPassword.bind(this);
 
-        this.authorizationView.checkNumber = this.authorizationModel.checkNumber;
+        this.authorizationView.checkNumber = this.checkNumber.bind(this);
     }
 
     control() {

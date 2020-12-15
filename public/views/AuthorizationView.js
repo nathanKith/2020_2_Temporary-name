@@ -1,10 +1,10 @@
-import {BaseView} from './BaseView';
-import {AuthorizationContent} from '../components/AuthorizationContent/AuthorizationContent';
-import {LandingHeader} from '../components/LandingHeader/LandingHeader';
-import {mask, maskCode} from '../modules/mask';
-import {popupLanding} from '../modules/popupLanding';
-import {AuthVerification} from '../components/AuthVerification/AuthVerification';
-import {generateRecaptcha, sendSms, loginWithCode} from '../modules/firebase';
+import { BaseView } from './BaseView';
+import { AuthorizationContent } from '../components/AuthorizationContent/AuthorizationContent';
+import { LandingHeader } from '../components/LandingHeader/LandingHeader';
+import { mask, maskCode } from '../modules/mask';
+import { popupLanding } from '../modules/popupLanding';
+import { AuthVerification } from '../components/AuthVerification/AuthVerification';
+import { generateRecaptcha, sendSms, loginWithCode } from '../modules/firebase';
 
 
 export class AuthorizationView extends BaseView {
@@ -83,11 +83,12 @@ export class AuthorizationView extends BaseView {
             return;
         }
 
-        // const haveNumber = await this.checkNumber(telephone);
-        // if (haveNumber) {
-        //     document.querySelector('#mes').innerHTML = haveNumber;
-        //     return;
-        // }
+        const haveNumber = await this.checkNumber(telephone);
+        console.log(haveNumber);
+        if (haveNumber) {
+            document.querySelector('#mes').innerHTML = haveNumber;
+            return;
+        }
 
 
         this.divFormView.innerHTML = '';
@@ -99,7 +100,7 @@ export class AuthorizationView extends BaseView {
 
         (new AuthVerification(form)).render();
         generateRecaptcha();
-        
+
         try {
             const phoneNumber = '+7' + telephone.replaceAll(' ', '')
                 .replace('(', '')
@@ -107,9 +108,9 @@ export class AuthorizationView extends BaseView {
             console.log(phoneNumber);
 
             sendSms(phoneNumber, window.recaptcha);
-        } catch(err) {
+        } catch (err) {
             console.log(err.message);
-            //window.recaptcha.render().then(widgetId => grecaptcha.reset(widgetId));
+            grecaptcha.reset(widgetId);
         }
 
         const codeInput = document.querySelector('#code-input');
@@ -130,13 +131,16 @@ export class AuthorizationView extends BaseView {
             if (code.length !== 6) {
                 document.querySelector('#mes').innerHTML = 'Неверный код';
             }
-            try {
-                loginWithCode(code);
 
-                this.listenerAuthorization(telephone, password);
-            } catch(err) {
-                document.querySelector('#mes').innerHTML = err.message;
-            }
+            loginWithCode(code)
+                .then((result) => {
+                    const user = result.user;
+                    console.log('number:', user.phoneNumber, ' ', user.uid);
+                    this.listenerAuthorization(telephone, password);
+                })
+                .catch((err) => {
+                    document.querySelector('#mes').innerHTML = 'Неправильный код.';
+                });
         });
     }
 }

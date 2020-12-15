@@ -18,12 +18,7 @@ export function sendSms(phoneNumber, appVerifier) {
 }
 
 export function loginWithCode(code) {
-    window.confirmResult
-        .confirm(code)
-        .then((result) => {
-            const user = result.user;
-            console.log('number:', user.phoneNumber, ' ', user.uid);
-        });
+    return window.confirmResult.confirm(code);
 }
 
 export function logoutFirebase() {

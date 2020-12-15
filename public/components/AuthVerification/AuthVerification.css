@@ -14,3 +14,9 @@
     font-size: 3vh;
     font-family: 'Montserrat-Light';
 }
+
+#recaptcha-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

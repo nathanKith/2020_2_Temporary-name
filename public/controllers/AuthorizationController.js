@@ -1,4 +1,5 @@
 import {router} from '../main';
+import {isMobile} from '../modules/resizing';
 
 export class AuthorizationController {
     authorizationView
@@ -11,10 +12,21 @@ export class AuthorizationController {
         this.authorizationView.listenerAuthorization = this.authorizeListener.bind(this);
 
         this.authorizationView.validationNumberPassword = this.validationNumberPassword.bind(this);
+
+        this.authorizationView.checkNumber = this.authorizationModel.checkNumber;
     }
 
     control() {
         this.authorizationView.render();
+    }
+
+    async checkNumber(number) {
+        const {responseObject} = await this.authorizationModel.checkNumber(number);
+        if (responseObject['telephone']) {
+            return;
+        }
+
+        return 'Нет пользователя с таким номером телефона.';
     }
 
     validationNumberPassword(number, password) {
@@ -78,11 +90,24 @@ export class AuthorizationController {
             password,
         );
         await this.authorizationModel.authorization()
-            .then(() => {
-                console.log('все харашо');
+            .then(({status, responseObject}) => {
+                if (status === 500) {
+                    throw new Error('Какие-то неожиданные проблемы.');
+                }
+
+                if (status === 401) {
+                    throw new Error('Нет пользователя с таким номером телефона');
+                }
+
+                if (isMobile()) {
+                    router.redirect('/mfeed');
+                    return;
+                }
+
+                router.redirect('/feed');
             })
             .catch((err) => {
-                console.log(err.message);
+                document.querySelector('#mes').innerHTML = err.message;
             });
     }
 }

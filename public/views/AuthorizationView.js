@@ -12,6 +12,7 @@ export class AuthorizationView extends BaseView {
     divFormView
     listenerAuthorization
     validationNumberPassword
+    checkNumber
 
     constructor(app) {
         super(app);
@@ -70,7 +71,7 @@ export class AuthorizationView extends BaseView {
         cancel.addEventListener('click', popupLanding);
     }
 
-    renderVerification(evt) {
+    async renderVerification(evt) {
         evt.preventDefault();
 
         const telephone = document.querySelector('#number').value;
@@ -81,6 +82,12 @@ export class AuthorizationView extends BaseView {
             document.querySelector('#mes').innerHTML = validationMessage;
             return;
         }
+
+        // const haveNumber = await this.checkNumber(telephone);
+        // if (haveNumber) {
+        //     document.querySelector('#mes').innerHTML = haveNumber;
+        //     return;
+        // }
 
 
         this.divFormView.innerHTML = '';
@@ -102,7 +109,7 @@ export class AuthorizationView extends BaseView {
             sendSms(phoneNumber, window.recaptcha);
         } catch(err) {
             console.log(err.message);
-            window.recaptcha.render().then(widgetId => grecaptcha.reset(widgetId));
+            //window.recaptcha.render().then(widgetId => grecaptcha.reset(widgetId));
         }
 
         const codeInput = document.querySelector('#code-input');
@@ -120,6 +127,9 @@ export class AuthorizationView extends BaseView {
             evt.preventDefault();
 
             const code = document.querySelector('#code-input').value.replaceAll(' ', '');
+            if (code.length !== 6) {
+                document.querySelector('#mes').innerHTML = 'Неверный код';
+            }
             try {
                 loginWithCode(code);
 

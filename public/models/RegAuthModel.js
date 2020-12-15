@@ -42,12 +42,7 @@ export class RegAuthModel extends UserModel{
     }
 
     async authorization() {
-        return await ajax.post(backend.login, this.JsonAuth())
-            .then(({status, responseObject}) => {
-                if (status !== 200) {
-                    throw new Error(`${status} error auth: have not this user`);
-                }
-            });
+        return await ajax.post(backend.login, this.JsonAuth());
     }
 
     JsonAuth() {

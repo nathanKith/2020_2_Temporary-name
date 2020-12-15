@@ -11,11 +11,13 @@ import {Album} from '../components/Album/Album';
 
 export class FeedView extends BaseView{
     #renderBackSettingsListener
+    #renderSettingsListener
 
     constructor(app = document.getElementById('application')) {
         super(app);
 
         this.#renderBackSettingsListener = this.#renderBackSettings.bind(this);
+        this.#renderSettingsListener = this.#renderSettings.bind(this);
     }
 
     render() {
@@ -40,7 +42,7 @@ export class FeedView extends BaseView{
 
         settings
             .getElementsByClassName('inner-settings')[0]
-            .addEventListener('click', this.#renderSettings.bind(this));
+            .addEventListener('click', this.#renderSettingsListener);
 
         const feedSection = document.createElement('div');
         feedSection.classList.add('feed-section');
@@ -242,7 +244,7 @@ export class FeedView extends BaseView{
 
         document
             .getElementsByClassName('inner-settings')[0]
-            .addEventListener('click', this.#renderSettings.bind(this));
+            .addEventListener('click', this.#renderSettingsListener);
     }
 
     #renderBackChats(evt) {

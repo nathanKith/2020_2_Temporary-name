@@ -1,4 +1,6 @@
 import {UserModel} from '../models/UserModel';
+import {tryRedirect} from '../modules/tryRedirect';
+import {router} from '../main';
 
 export class AlbumMobileController {
     #view
@@ -117,6 +119,12 @@ export class AlbumMobileController {
     }
 
     async control(userId) {
+        const isAuth = await tryRedirect();
+        if (!isAuth) {
+            router.redirect('/');
+            return;
+        }
+
         await this.update(userId);
 
         let isMy = false;

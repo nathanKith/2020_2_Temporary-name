@@ -6,6 +6,7 @@ import ChatOtherMessage from '../components/ChatContent/ChatOtherMessage.hbs';
 import {ChatModel} from '../models/ChatModel';
 import {Chats} from '../components/Chats/Chats';
 import {logoutFirebase} from '../modules/firebase';
+import {tryRedirect} from '../modules/tryRedirect';
 
 export class FeedController {
     #view
@@ -524,6 +525,12 @@ export class FeedController {
     }
 
     async control() {
+        const isAuth = await tryRedirect();
+        if (!isAuth) {
+            router.redirect('/');
+            return;
+        }
+
         await this.update()
             .then(() => {
                 this.#view.context = this.#makeContext();

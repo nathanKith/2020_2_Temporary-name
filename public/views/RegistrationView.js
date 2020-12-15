@@ -7,8 +7,8 @@ import {LandingHeader} from '../components/LandingHeader/LandingHeader';
 import {mask, maskCode} from '../modules/mask';
 import {readImage} from  '../modules/previewAvatar';
 import {popupLanding} from '../modules/popupLanding';
-import {AuthVerification} from "../components/AuthVerification/AuthVerification";
-import {generateRecaptcha, loginWithCode, sendSms} from "../modules/firebase";
+import {AuthVerification} from '../components/AuthVerification/AuthVerification';
+import {generateRecaptcha, loginWithCode, sendSms} from '../modules/firebase';
 
 
 export class RegistrationView extends BaseView {

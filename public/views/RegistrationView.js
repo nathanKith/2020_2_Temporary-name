@@ -69,9 +69,9 @@ export class RegistrationView extends BaseView {
         (new RegistrationButton(form)).render();
 
         const number = document.getElementById('number');
-        number.addEventListener('input', mask, false);
-        number.addEventListener('focus', mask, false);
-        number.addEventListener('blur', mask, false);
+        number.addEventListener('input', mask);
+        number.addEventListener('focus', mask);
+        number.addEventListener('blur', mask);
 
         Form.addEventListener('submit', (evt) => {
             evt.preventDefault();
@@ -224,6 +224,8 @@ export class RegistrationView extends BaseView {
         back.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.render();
+            const number = document.getElementById('number');
+            number.value = this.model.telephone;
         });
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
@@ -257,6 +259,7 @@ export class RegistrationView extends BaseView {
         back.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.renderName();
+            document.getElementById('miami-name').value = this.model.name;
         });
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
@@ -293,6 +296,9 @@ export class RegistrationView extends BaseView {
         back.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.renderBirth();
+            document.getElementById('month').value = this.model.month;
+            document.getElementById('day').value = this.model.day;
+            document.getElementById('year').value = this.model.year;
         });
 
         const cancel = document.getElementsByClassName('cancelButton')[0];
@@ -360,6 +366,9 @@ export class RegistrationView extends BaseView {
         back.addEventListener('click', (evt) => {
             evt.preventDefault();
             this.renderAboutMe();
+            document.getElementById('job').value = this.model.job;
+            document.getElementById('about').value = this.model.aboutMe;
+            document.getElementById('univer').value = this.model.education;
         });
 
         const button = document.getElementById('end');

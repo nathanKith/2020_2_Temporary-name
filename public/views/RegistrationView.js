@@ -108,8 +108,8 @@ export class RegistrationView extends BaseView {
         cancel.addEventListener('click', popupLanding);
     }
 
-    async renderVerification(evt) {
-        evt.preventDefault();
+    async renderVerification() {
+        //evt.preventDefault();
 
         const telephone = document.querySelector('#number').value;
         //const password = document.querySelector('#password').value;
@@ -170,7 +170,7 @@ export class RegistrationView extends BaseView {
                 return;
             }
 
-            button.disabled = true;
+            //button.disabled = true;
 
             loginWithCode(code)
                 .then((result) => {

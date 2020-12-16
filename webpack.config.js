@@ -4,9 +4,25 @@ require("babel-polyfill");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 module.exports = {
     plugins: [
+        new WebpackPwaManifest({
+            name: 'MIAMI',
+            short_name: 'MIAMI',
+            description: 'Самый милый сервис знакомств, который вы когда-либо видели.',
+            icons: [
+                {
+                    src: path.resolve('public/img/small_classic_label.png'),
+                    sizes: [96, 128, 192, 256, 384, 512],
+                },
+            ],
+            start_url: '/',
+            display: 'fullscreen',
+            theme_color: '#f24e6a',
+            background_color: 'white',
+        }),
         new MiniCssExtractPlugin({
         filename: 'bundle.css',
         }),

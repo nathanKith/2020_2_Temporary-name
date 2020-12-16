@@ -53,6 +53,10 @@ export class Router {
         return this;
     }
 
+    goBack = () => {
+        window.history.back();
+    }
+
     redirect = (url, data = {}, title = '') => {
         window.history.pushState(data, title, url);
         return this.start();

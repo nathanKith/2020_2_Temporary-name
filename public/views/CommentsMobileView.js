@@ -41,8 +41,23 @@ export class CommentsMobileView extends BaseView {
         photo.src = '../img/camera.svg';
         albumButton.appendChild(photo);
 
-        albumButton.addEventListener('click', this.#getAlbumsListener.bind(this));
+        const backButton = document.createElement('button');
+        backButton.type = 'button';
+        backButton.classList.add('profile__top__right__button');
 
+        profileButtonSection.appendChild(backButton);
+
+        const arrow = document.createElement('img');
+        arrow.classList.add('album-icon');
+        arrow.src = '../img/left_arrow_white.svg';
+
+        backButton.append(arrow);
+
+        albumButton.addEventListener('click', this.#getAlbumsListener.bind(this));
+        backButton.addEventListener('click', (evt) => {
+            evt.preventDefault();
+            router.goBack();
+        });
 
         const sendButton = document.getElementById('send-comment');
         if (isMy) {

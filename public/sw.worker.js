@@ -13,7 +13,6 @@ const cacheUrls = [
     '/mcomments/',
     '/msettings',
     '/malbums/',
-    // api + '/feed',
 
     '/bundle.js',
     '/index.html',
@@ -86,7 +85,7 @@ class FakeResponse {
     }
 }
 
-class PlainRequestManager{
+class GetRequestManager {
     constructor(){}
 
     async _handleRequest(request){
@@ -115,7 +114,7 @@ class PlainRequestManager{
     }
 }
 
-class ComplicatedRequestManager{
+class PostRequestManager {
     constructor(){}
 
     async fetch(request){
@@ -128,9 +127,9 @@ class ComplicatedRequestManager{
     }
 }
 
-const plainRequestManager = new PlainRequestManager();
-const complicatedRequestManager = new ComplicatedRequestManager();
-console.log(self);
+const getRequestManager = new GetRequestManager();
+const postRequestManager = new PostRequestManager();
+
 
 self.addEventListener('install', (evt) => {
     evt.waitUntil(new Promise(resolve => {
@@ -146,29 +145,15 @@ self.addEventListener('activate', (evt) => {
 
 
 self.addEventListener('fetch', async (evt) => {
-    console.log(evt.request.url);
-    // const cache = await caches.open(cacheName);
     if(evt.request.method === 'GET') {
         evt.respondWith(
-            plainRequestManager.fetch(evt.request)
-            // caches.match(evt.request).then( (response) => {
-            //     return plainRequestManager.fetch(evt.request);
-            // }).catch( async () => {
-            //     await complicatedRequestManager.fetch(evt.request);
-            // if (navigator.onLine) {
-            //     return await fetch(evt.request);
-            // } else {
-            //     return await (new FakeResponse(null)).get({},
-            //         {'errors':[{'code':200,'message':'offline'}]});
-            // }
-            
-
+            getRequestManager.fetch(evt.request)
         );
     } else {
         console.log('Post');
         console.log(evt.request.url);
         evt.respondWith(
-            complicatedRequestManager.fetch(evt.request)
+            postRequestManager.fetch(evt.request)
         );
     }
 });

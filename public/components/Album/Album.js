@@ -5,6 +5,8 @@ import {readImage} from '../../modules/previewAvatar';
 import {AlbumPhoto} from './../AlbumPhoto/AlbumPhoto';
 //import {popupPhoto} from '../../modules/popupPhoto';
 import './Album.css';
+import {router} from '../../main';
+import {isMobile} from '../../modules/resizing'
 
 export class Album {
     #parent
@@ -26,6 +28,25 @@ export class Album {
 
     render = () => {
         this.#parent.innerHTML = '';
+
+        if (isMobile()) {
+            const backButton = document.createElement('button');
+            backButton.type = 'button';
+            backButton.classList.add('back-button');
+
+            this.#parent.appendChild(backButton);
+
+            const arrow = document.createElement('img');
+            arrow.classList.add('album-icon');
+            arrow.src = '../img/left_arrow_gray.svg';
+
+            backButton.append(arrow);
+
+            backButton.addEventListener('click', (evt) => {
+                evt.preventDefault();
+                router.goBack();
+            });
+        }
 
         const albumSection = document.createElement('div');
         albumSection.classList.add('album-section');

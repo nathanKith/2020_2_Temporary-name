@@ -3,7 +3,7 @@ import AlbumPreview from './AlbumPreview.hbs';
 import AlbumButtons from './AlbumButtons.hbs';
 import {readImage} from '../../modules/previewAvatar';
 import {AlbumPhoto} from './../AlbumPhoto/AlbumPhoto';
-//import {popupPhoto} from '../../modules/popupPhoto';
+import {popupPhoto} from '../../modules/popupPhoto';
 import './Album.css';
 import {router} from '../../main';
 import {isMobile} from '../../modules/resizing'
@@ -66,8 +66,10 @@ export class Album {
                 ind = 1;
             }
             const albumPhoto = document.getElementsByClassName('album-img')[index + ind];
-            albumPhoto.addEventListener('click', async (evt) => {
+            albumPhoto.addEventListener('click', (evt) => {
                 evt.preventDefault();
+                evt.stopPropagation();
+
                 const feedContainer = document.getElementsByClassName('feed-container')[0];
                 const photoFromAlbum = new AlbumPhoto(feedContainer);
                 photoFromAlbum.photo = image;
@@ -76,15 +78,15 @@ export class Album {
                 if (this.#listImages.length === 1){
                     photoFromAlbum.isMy = false;
                 }
-                await photoFromAlbum.render()
-                    .then(() => {
-                    // const photo = document.getElementsByClassName('photo-view')[0];
-                    // photo.addEventListener('click', (evt) => {
-                    //     evt.stopPropagation();
-                    // });
-                    // document.getElementsByClassName('feed-container')[0].addEventListener('click', popupPhoto);
-                    // document.getElementById('application').addEventListener('click', popupPhoto);
-                    });
+                photoFromAlbum.render();
+
+                const photo = document.getElementsByClassName('photo-img')[0];
+                photo.addEventListener('click', (evt) => {
+                    evt.stopPropagation();
+                    evt.stopImmediatePropagation();
+                });
+
+                document.getElementById('application').addEventListener('click', popupPhoto);
             });
         });
 

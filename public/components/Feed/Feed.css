@@ -142,6 +142,7 @@
     position: absolute;
     left: 90%;
     bottom: 5px;
+    cursor: pointer
 }
 
 .reactions {

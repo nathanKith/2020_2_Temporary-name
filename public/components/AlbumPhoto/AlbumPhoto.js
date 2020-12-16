@@ -12,7 +12,7 @@ export class AlbumPhoto {
         this.#parent = parent;
     }
 
-    async render() {
+    render() {
         // const feedContainer = document.getElementsByClassName('feed-container')[0];
         console.log(this.#parent.classList);
         this.#parent.classList.add('dark-photo');
@@ -40,7 +40,7 @@ export class AlbumPhoto {
 
         if(this.isMy) {
             const deleteButton = document.getElementById('delete-button');
-            await deleteButton.addEventListener(this.listenerDelete.type, this.listenerDelete.listener);
+            deleteButton.addEventListener(this.listenerDelete.type, this.listenerDelete.listener);
         }
 
     }

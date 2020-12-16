@@ -11,6 +11,8 @@ export class ProfileChatIcon {
         const div = this.#createDiv('profile-chat-icons');
 
         const profile = this.#createDiv('profile-icon');
+        profile.classList.add('tooltip');
+
         const chats = this.#createDiv('chats-icon');
         const feed = this.#createDiv('feed-icon');
 
@@ -18,6 +20,10 @@ export class ProfileChatIcon {
         profileButton.classList.add('profile-icon-button');
         profileButton.type = 'button';
         profileButton.innerHTML = '<img src="./../../img/profile.svg">';
+
+        const toolTipProfile = document.createElement('span');
+        toolTipProfile.classList.add('tooltiptext');
+        toolTipProfile.innerText = 'Профиль';
 
         const chatsButton = document.createElement('button');
         chatsButton.classList.add('chats-icon-button');
@@ -30,6 +36,7 @@ export class ProfileChatIcon {
         feedButton.innerHTML = '<img src="./img/small_classic_label.png">';
 
         profile.appendChild(profileButton);
+        profile.appendChild(toolTipProfile);
         chats.appendChild(chatsButton);
         feed.appendChild(feedButton);
 

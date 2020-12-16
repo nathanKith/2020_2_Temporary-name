@@ -305,7 +305,7 @@ export class RegistrationView extends BaseView {
         cancel.addEventListener('click', popupLanding);
     }
 
-    renderAboutMe = () => {
+    renderAboutMe = async () => {
         this.divFormView.innerHTML = '';
 
         this.divFormView.classList.remove('inner-formView');
@@ -317,7 +317,7 @@ export class RegistrationView extends BaseView {
         const form = this.divFormView.appendChild(Form);
 
         (new RegistrationTop(form)).render('TopAbout');
-        (new RegistrationContent(form)).render('AboutMe')
+        await (new RegistrationContent(form)).render('AboutMe')
             .then( () => {
                 (new RegistrationButton(form)).render();
 
@@ -365,10 +365,12 @@ export class RegistrationView extends BaseView {
         const back = document.getElementById('arrow');
         back.addEventListener('click', (evt) => {
             evt.preventDefault();
-            this.renderAboutMe();
-            document.getElementById('job').value = this.model.job;
-            document.getElementById('about').value = this.model.aboutMe;
-            document.getElementById('univer').value = this.model.education;
+            this.renderAboutMe()
+                .then( () => {
+                    document.getElementById('job').value = this.model.job;
+                    document.getElementById('univer').value = this.model.education;
+                    document.getElementById('about').value = this.model.aboutMe;
+                });
         });
 
         const button = document.getElementById('end');

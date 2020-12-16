@@ -12,12 +12,14 @@ import {Album} from '../components/Album/Album';
 export class FeedView extends BaseView{
     #renderBackSettingsListener
     #renderSettingsListener
+    #renderFeedBackListener
 
     constructor(app = document.getElementById('application')) {
         super(app);
 
         this.#renderBackSettingsListener = this.#renderBackSettings.bind(this);
         this.#renderSettingsListener = this.#renderSettings.bind(this);
+        this.#renderFeedBackListener = this.#renderFeedBack.bind(this);
     }
 
     render() {
@@ -37,7 +39,7 @@ export class FeedView extends BaseView{
 
         const settings = document.createElement('div');
         settings.classList.add('settings');
-        settings.insertAdjacentHTML('afterbegin', '<div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>');
+        settings.insertAdjacentHTML('afterbegin', '<span class="tooltip-settings">Настройки</span><div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>');
         container.appendChild(settings);
 
         settings
@@ -69,12 +71,25 @@ export class FeedView extends BaseView{
             const profile = new Profile(profileChatSection);
             profile.data = this._context['profile'];
             profile.render();
+
+            profileChatSection.addEventListener('click', (evt) => {
+                evt.stopPropagation();
+                evt.stopImmediatePropagation();
+            });
+
+            profileButton.addEventListener('click', (evt) => {
+                evt.stopPropagation();
+                evt.stopImmediatePropagation();
+            });
+
+            this._app.addEventListener('click', this.#renderFeedBackListener);
+
             const comments = document.getElementById('profile-comments');
             comments.addEventListener(this._context['comments'].event.getMyComments.type,
                 this._context['comments'].event.getMyComments.listener);
 
             feedSection.classList.add('dark');
-        });
+        }, true);
 
 
         chatsButton.addEventListener('click', (evt) => {
@@ -86,18 +101,44 @@ export class FeedView extends BaseView{
             chats.render();
         });
 
+        // feedButton.addEventListener('click', (evt) => {
+        //     profileChatSection.innerHTML = '';
+        //     feedSection.innerHTML = '';
+        //     feedSection.classList.remove('dark');
+
+        //     const feed = new Feed(feedSection);
+        //     feed.data = this._context['feed'];
+        //     feed.render();
+
+        //     chats.data = this._context['chats'];
+        //     chats.render();
+
+        //     const informationLogo = document.getElementById('information-logo');
+        //     informationLogo.addEventListener(this._context['comments'].event.getComments.type,
+        //         this._context['comments'].event.getComments.listener);
+        // });
+
         feedButton.addEventListener('click', (evt) => {
+            evt.preventDefault();
+
+            this._app.removeEventListener('click', this.#renderFeedBackListener);
+    
+            const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
             profileChatSection.innerHTML = '';
+    
+            const feedSection = document.getElementsByClassName('feed-section')[0];
             feedSection.innerHTML = '';
             feedSection.classList.remove('dark');
-
+    
             const feed = new Feed(feedSection);
             feed.data = this._context['feed'];
             feed.render();
-
+    
+            const chats = new Chats(profileChatSection);
+            chats.listenerBack = this.#renderBackChats.bind(this);
             chats.data = this._context['chats'];
             chats.render();
-
+    
             const informationLogo = document.getElementById('information-logo');
             informationLogo.addEventListener(this._context['comments'].event.getComments.type,
                 this._context['comments'].event.getComments.listener);
@@ -106,6 +147,29 @@ export class FeedView extends BaseView{
         const informationLogo = document.getElementById('information-logo');
         informationLogo.addEventListener(this._context['comments'].event.getComments.type,
             this._context['comments'].event.getComments.listener);
+    }
+
+    #renderFeedBack(evt) {
+        evt.preventDefault();
+
+        this._app.removeEventListener('click', this.#renderFeedBackListener);
+
+        const feedSection = document.getElementsByClassName('feed-section')[0];
+        feedSection.classList.remove('dark');
+
+        const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
+        profileChatSection.innerHTML = '';
+
+        const chats = new Chats(profileChatSection);
+        chats.listenerBack = this.#renderBackChats.bind(this);
+        chats.data = this._context['chats'];
+        chats.render();
+
+        const informationLogo = document.getElementById('information-logo');
+        if (informationLogo) {
+            informationLogo.addEventListener(this._context['comments'].event.getComments.type,
+                                             this._context['comments'].event.getComments.listener);
+        }
     }
 
     renderComments(isMy=false) {
@@ -153,6 +217,8 @@ export class FeedView extends BaseView{
         const album = new Album(feedSection, this._context['feed']['feed'].linkImages);
         album.isMy = false;
         album.render();
+
+        //this._app.removeEventListener('click', this.#renderFeedBackListener);
     }
 
     renderOtherAlbum(user) {
@@ -172,13 +238,15 @@ export class FeedView extends BaseView{
         album.listenerCancel = this._context['albums'].cancelPhoto;
         album.listenerDelete = this._context['albums'].deletePhoto;
         album.render();
+
+        this._app.removeEventListener('click', this.#renderFeedBackListener);
     }
 
     #renderSettings(evt) {
         evt.preventDefault();
         document
             .getElementsByClassName('inner-settings')[0]
-            .removeEventListener('click', this.#renderSettings);
+            .removeEventListener('click', this.#renderSettingsListener);
 
         document
             .getElementsByClassName('feed-container')[0]

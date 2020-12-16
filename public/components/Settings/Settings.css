@@ -6,6 +6,7 @@
 @media screen and (max-width: 1024px) {
     .settings {
         position: relative;
+        display: inline-block;
         z-index: 99;
         height: 88vh;
         width: 100vw;
@@ -34,10 +35,29 @@
     }
 }
 
+.settings .tooltip-settings {
+    visibility: hidden;
+    text-align: center;
+    font-family: 'Montserrat-Light';
+    position: absolute;
+    color: #f24e6a;
+    z-index: 1;
+    left: 70px;
+    top: 29px;
+
+    position: absolute;
+    z-index: 1;
+}
+
+.settings:hover .tooltip-settings {
+    visibility: visible;
+}
+
 @media screen and (min-width: 1024px) {
     .settings {
         position: relative;
         z-index: 99;
+        display: inline-block;
     }
 
     .settings-open {

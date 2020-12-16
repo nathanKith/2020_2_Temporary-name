@@ -39,6 +39,18 @@ export class Feed {
             div.appendChild(this.#modifyToSuperLiked());
         }
         div.appendChild(this.#createReactionButton());
+        //TODO: если когда нибудь захочеь сделать тул типы, вот они: я пытался
+        // const toolTipBack = document.createElement('span');
+        // toolTipBack.classList.add('reaction-button-tooltipText');
+        // toolTipBack.innerText = 'Предыдущий';
+
+        // const toolTipSuperLike = document.createElement('span');
+        // toolTipSuperLike.classList.add('reaction-button-tooltipText');
+        // toolTipSuperLike.innerText = 'Супер Лайк';
+
+        // document.getElementsByClassName('reaction-button')[0].appendChild(toolTipBack);
+        // document.getElementsByClassName('reaction-button')[3].appendChild(toolTipSuperLike);
+
 
         const formBackUser = document.getElementById('back-user-form');
         formBackUser.addEventListener(this.#data.event.backUser.type, this.#data.event.backUser.listener);
@@ -113,25 +125,47 @@ export class Feed {
             // './../../img/super-like.svg',
         ];
 
+        const iconsName = [
+            'Дизлайк',
+            'Лайк',
+        ]
+
         const div = this.#createDiv('reactions');
 
         const formBackUser = this.#createForm('back-user-form', './../../img/go-back-arrow.svg');
+
+        // const toolTipBack = document.createElement('span');
+        // toolTipBack.classList.add('reaction-button-tooltipText');
+        // toolTipBack.innerText = 'Предыдущий';
+
+        
         div.appendChild(formBackUser);
 
-        icons.forEach((imgSrc) => {
+        icons.forEach((imgSrc, index) => {
             const button = document.createElement('button');
             button.classList.add('reaction-button');
             button.innerHTML += `<img src="${imgSrc}">`;
+            const toolTipProfile = document.createElement('span');
+            toolTipProfile.classList.add('reaction-button-tooltipText');
+            toolTipProfile.innerText = iconsName[index];
             // button.addEventListener('click', (evt) => {
             //     this.#currentPhoto = 0;
             // })
 
             div.appendChild(button);
+            // button.appendChild(toolTipProfile); //осторожно, это может вернуть тултипы к жизни
         });
 
         const formSuperLike = this.#createForm('super-like-form', './../../img/super-like.svg');
+        // const toolTipSuperLike = document.createElement('span');
+        // toolTipSuperLike.classList.add('reaction-button-tooltipText');
+        // toolTipSuperLike.innerText = 'Супер Лайк';
+
+        
         div.appendChild(formSuperLike);
 
+       
+        
         return div;
     }
 

@@ -205,3 +205,22 @@
 #back-user-form {
     display: flex;
 }
+
+.reaction-button .reaction-button-tooltipText {
+    /* visibility: hidden; */
+    display: none;
+    width: 85px;
+    color: #f24e6b;
+    font-family: 'Montserrat-Light';
+    text-align: center;
+    border-radius: 6px;
+    /* margin-top: 20%; */
+    z-index: 1;
+    left: 15%;
+}
+
+.reaction-button:hover .reaction-button-tooltipText {
+    /* visibility: visible; */
+    display: inline-block;
+    position: absolute;
+}

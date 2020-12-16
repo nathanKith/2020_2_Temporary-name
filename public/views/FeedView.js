@@ -39,7 +39,7 @@ export class FeedView extends BaseView{
 
         const settings = document.createElement('div');
         settings.classList.add('settings');
-        settings.insertAdjacentHTML('afterbegin', '<div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>');
+        settings.insertAdjacentHTML('afterbegin', '<span class="tooltip-settings">Настройки</span><div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>');
         container.appendChild(settings);
 
         settings

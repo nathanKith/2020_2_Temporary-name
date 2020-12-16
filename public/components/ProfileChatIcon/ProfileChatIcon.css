@@ -120,19 +120,37 @@
 
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 120px;
     color: #f24e6b;
+    font-family: 'Montserrat-Light';
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;
- 
-    /* Position the tooltip text - see examples below! */
+    margin-top: 20%;
     position: absolute;
     z-index: 1;
-    top: -5px;
-    right: 105%;
+    right: 100%;
 }
 
 .tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+.tooltip-chat{
+    display: inline-block;
+}
+
+.tooltip-chat .tooltiptext {
+    visibility: hidden;
+    color: #f24e6b;
+    font-family: 'Montserrat-Light';
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    margin-top: 20%;
+    position: absolute;
+    z-index: 1;
+    right: 100%;
+}
+
+.tooltip-chat:hover .tooltiptext {
     visibility: visible;
 }

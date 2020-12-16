@@ -32,13 +32,13 @@ export class Album {
         if (isMobile()) {
             const backButton = document.createElement('button');
             backButton.type = 'button';
-            backButton.classList.add('profile__top__right__button');
+            backButton.classList.add('back-button');
 
             this.#parent.appendChild(backButton);
 
             const arrow = document.createElement('img');
             arrow.classList.add('album-icon');
-            arrow.src = '../img/left_arrow_white.svg';
+            arrow.src = '../img/left_arrow_gray.svg';
 
             backButton.append(arrow);
 

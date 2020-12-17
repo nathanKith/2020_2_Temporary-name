@@ -7,6 +7,7 @@ export class ChatModel {
     #partner
     #id
     #messages
+    #filter
 
     constructor(data = {}) {
         this.#fillChatData(data);
@@ -32,6 +33,14 @@ export class ChatModel {
         return this.#messages;
     }
 
+    get filter() {
+        return this.#filter;
+    }
+
+    set filter(filter) {
+        this.#filter = filter;
+    }
+
     async update() {
         await ajax.get(backend.chatId + this.#id)
             .then( ({status,responseObject}) => {
@@ -49,6 +58,7 @@ export class ChatModel {
         this.#id = data['id'];
         this.#partner = new UserModel(data['partner']);
         this.#messages = data['messages'];
+        this.#filter = data['filter'];
     }
 
     validationMessage(message) {

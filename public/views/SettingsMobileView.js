@@ -32,9 +32,6 @@ export class SettingsMobileView extends BaseView {
 
     getSettingsData() {
         return {
-            telephone: document.getElementById('account-tel').value,
-            password: document.getElementById('password').value,
-            repeatPassword: document.getElementById('repeat-password').value,
             name: document.getElementById('settings-name').value,
             education: document.getElementById('education').value,
             job: document.getElementById('job').value,

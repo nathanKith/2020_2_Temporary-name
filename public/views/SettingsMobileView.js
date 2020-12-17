@@ -36,6 +36,7 @@ export class SettingsMobileView extends BaseView {
             education: document.getElementById('education').value,
             job: document.getElementById('job').value,
             aboutMe: document.getElementById('aboutMe').value,
+            filter: document.getElementById('filter').value,
         };
     }
 

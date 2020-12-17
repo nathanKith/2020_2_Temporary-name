@@ -231,6 +231,16 @@ textarea {
     color: #f24e6a;
 }
 
-.filter-font {
+.account-filter-font {
     font-family: Montserrat-Semibold;
+}
+.account-filter {
+    background-color: white;
+    height: 100%;
+    width: 70%;
+    outline: none;
+    border: none;
+    font-size: 20px;
+    font-family: Montserrat-Regular;
+    padding-left: 5%;
 }

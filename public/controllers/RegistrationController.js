@@ -71,6 +71,7 @@ export class RegistrationController {
             })
             .catch( (err) => {
                 mes.innerHTML = err.message;
+                button.disabled = false;
             });
         console.log(mes);
     }

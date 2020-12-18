@@ -37,7 +37,9 @@ export class FeedMobileView extends BaseView {
         feed.render();
 
         const informationLogo = document.getElementById('information-logo');
-        informationLogo.addEventListener('click', this.#getCommentsListener.bind(this));
+        if (informationLogo) {
+            informationLogo.addEventListener('click', this.#getCommentsListener.bind(this));
+        }
     }
 
     #getCommentsListener(evt) {

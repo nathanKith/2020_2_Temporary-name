@@ -64,6 +64,8 @@ export class AlbumMobileController {
                         this.cancelPhotoListener();
                     } else if (status === 400){
                         throw new Error('Не удалось загрузить фото(');
+                    } else if (status === 403){
+                        throw new Error('Пожалуйста, загрузите фото с вашим лицом');
                     } else {
                         throw new Error('Не удалось загрузить фото(');
                     }

@@ -100,6 +100,7 @@ export class FeedController {
                     aboutMe: this.#profile.aboutMe,
                     linkImages: this.#profile.linkImages,
                     age: this.#profile.age,
+                    filter: this.#profile.filter,
                 },
                 event: {
                     logout: {
@@ -316,6 +317,8 @@ export class FeedController {
                         this.cancelPhotoListener();
                     } else if (status === 400){
                         throw new Error('Слишком большой размер фото');
+                    } else if (status === 403) {
+                        throw new Error('Пожалуйста, загрузите фото с вашим лицом');
                     } else {
                         throw new Error('Не удалось загрузить фото(');
                     }

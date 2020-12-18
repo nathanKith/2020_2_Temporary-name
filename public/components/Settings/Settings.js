@@ -17,6 +17,8 @@ export class Settings {
     render() {
         this.#parent.insertAdjacentHTML('afterbegin', settingsTemplate(this.#data.settings));
 
+        document.getElementById('filter').value = this.#data.settings.filter;
+
         document
             .getElementById('save-button')
             .addEventListener(this.#data.event.save.type, this.#data.event.save.listener);

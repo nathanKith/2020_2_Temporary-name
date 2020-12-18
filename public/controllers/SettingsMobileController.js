@@ -62,11 +62,6 @@ export class SettingsMobileController {
     async editUserListener(evt) {
         evt.preventDefault();
         const data = this.#view.getSettingsData();
-        if (data.password !== data.repeatPassword) {
-            this.#view.context.settings.validate.passwords.message = 'Пароли не совпадают';
-            this.#view.rerenderSettings();
-            return;
-        }
 
         await ajax.post(backend.settings, data)
             .then(async ({status, responseObject}) => {

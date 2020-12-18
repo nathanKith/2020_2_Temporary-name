@@ -40,6 +40,12 @@ export class Chats {
         chat.href = '#';
         chat.classList.add('chat');
 
+        if (Chat.filter === 'love') {
+            chat.classList.add('love-chat');
+        } else if (Chat.filter === 'friends') {
+            chat.classList.add('friend-chat');
+        }
+
         const avatar = this.#createDiv('chat-avatar');
         avatar.insertAdjacentHTML('afterbegin', `<img class="chat-avatar-photo" src="${Chat.partner.linkImages[0]}">`);
         // const numberMessage = this.#createDiv('message-number');

@@ -32,7 +32,7 @@ const cacheUrls = [
 
 ];
 
-class FakeResponse {
+class Response {
     constructor(response) {
         this._response = response;
     }
@@ -91,7 +91,7 @@ class GetRequestManager {
     async _handleRequest(request){
         const response = await fetch(request);
         if(response && response.ok){
-            const fakeResponse = await (new FakeResponse(response.clone())).get({'Csrf':null});
+            const fakeResponse = await (new Response(response.clone())).get({'Csrf':null});
             let cache = await caches.open(cacheName);
             await cache.put(request, fakeResponse);
         }
@@ -101,7 +101,7 @@ class GetRequestManager {
     async _offlineRequestHandler(request){
         let cache = await caches.open(cacheName);
         const match = await cache.match(request);
-        return await (new FakeResponse(match)).get({},
+        return await (new Response(match)).get({},
             {'errors':[{'code':200,'message':'offline'}]});
     }
 
@@ -121,7 +121,7 @@ class PostRequestManager {
         if(navigator.onLine){
             return await fetch(request);
         } else {
-            return await (new FakeResponse(null)).get({},
+            return await (new Response(null)).get({},
                 {'errors':[{'code':400,'message':'offline'}]});
         }
     }

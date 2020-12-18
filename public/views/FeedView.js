@@ -140,13 +140,17 @@ export class FeedView extends BaseView{
             chats.render();
     
             const informationLogo = document.getElementById('information-logo');
-            informationLogo.addEventListener(this._context['comments'].event.getComments.type,
-                this._context['comments'].event.getComments.listener);
+            if (informationLogo) {
+                informationLogo.addEventListener(this._context['comments'].event.getComments.type,
+                    this._context['comments'].event.getComments.listener);
+            }
         });
 
         const informationLogo = document.getElementById('information-logo');
-        informationLogo.addEventListener(this._context['comments'].event.getComments.type,
-            this._context['comments'].event.getComments.listener);
+        if (informationLogo) {
+            informationLogo.addEventListener(this._context['comments'].event.getComments.type,
+                this._context['comments'].event.getComments.listener);
+        }
     }
 
     #renderFeedBack(evt) {
@@ -285,6 +289,7 @@ export class FeedView extends BaseView{
             education: document.getElementById('education').value,
             job: document.getElementById('job').value,
             aboutMe: document.getElementById('aboutMe').value,
+            filter: document.getElementById('filter').value,
         };
     }
 
@@ -312,7 +317,7 @@ export class FeedView extends BaseView{
 
         const settingsDiv = document.getElementsByClassName('settings')[0];
         settingsDiv.innerHTML = '';
-        settingsDiv.insertAdjacentHTML('afterbegin', '<div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>');
+        settingsDiv.insertAdjacentHTML('afterbegin', '<span class="tooltip-settings">Настройки</span><div class="inner-settings" id="settings"><img src="../img/configuration.svg"/></div>');
 
         document
             .getElementsByClassName('inner-settings')[0]
@@ -346,8 +351,10 @@ export class FeedView extends BaseView{
         feed.render();
 
         const informationLogo = document.getElementById('information-logo');
-        informationLogo.addEventListener(this._context['comments'].event.getComments.type,
-            this._context['comments'].event.getComments.listener);
+        if (informationLogo) {
+            informationLogo.addEventListener(this._context['comments'].event.getComments.type,
+                this._context['comments'].event.getComments.listener);
+        }
     }
 
     renderOtherProfile() {

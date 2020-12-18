@@ -128,7 +128,7 @@
     margin-top: 20%;
     position: absolute;
     z-index: 1;
-    right: 100%;
+    right: 105%;
 }
 
 .tooltip:hover .tooltiptext {
@@ -148,7 +148,7 @@
     margin-top: 20%;
     position: absolute;
     z-index: 1;
-    right: 100%;
+    right: 105%;
 }
 
 .tooltip-chat:hover .tooltiptext {

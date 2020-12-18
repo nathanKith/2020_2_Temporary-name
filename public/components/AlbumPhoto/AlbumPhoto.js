@@ -31,6 +31,8 @@ export class AlbumPhoto {
 
         document.getElementsByClassName('cancel-button')[0].addEventListener('click', (evt) => {
             evt.preventDefault();
+            evt.stopPropagation();
+            evt.stopImmediatePropagation();
             const feedContainer = document.getElementsByClassName('feed-container')[0];
             feedContainer.classList.remove('dark-photo');
 

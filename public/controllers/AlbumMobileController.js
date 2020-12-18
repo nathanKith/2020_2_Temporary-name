@@ -88,6 +88,8 @@ export class AlbumMobileController {
 
     async deletePhotoListener(evt) {
         evt.preventDefault();
+        evt.stopPropagation();
+        evt.stopImmediatePropagation();
         console.log('deleting photo');
         const photo = document.getElementById('current-photo');
         const images = this.#otherProfile.linkImages;

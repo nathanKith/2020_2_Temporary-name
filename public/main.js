@@ -68,7 +68,6 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.worker.js', {scope: '/'})
         .then((reg) => {
             console.log('Успешная регистрация сервис-воркера. Scope is ' + reg);
-
         }).catch((error) => {
             console.log('Не удалось зарегистрировать сервис воркер: ' + error);
         });

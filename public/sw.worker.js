@@ -14,8 +14,8 @@ const cacheUrls = [
     '/msettings',
     '/malbums/',
 
-    '/bundle.js',
-    '/index.html',
+    // '/bundle.js',
+    // '/index.html',
 
     '/fonts',
     '/fonts/Montserrat-Bold.ttf',
@@ -32,7 +32,7 @@ const cacheUrls = [
 
 ];
 
-class Response {
+class FakeResponse {
     constructor(response) {
         this._response = response;
     }
@@ -77,7 +77,7 @@ class Response {
                 status = 400;
             }
         } 
-        return new Response(blobResponse, {
+        return new FakeResponse(blobResponse, {
             status: this._response ? this._response.status : status,
             statusText: this._response ? this._response.statusText : 'ok',
             headers: headersResponse
@@ -91,9 +91,12 @@ class GetRequestManager {
     async _handleRequest(request){
         const response = await fetch(request);
         if(response && response.ok){
-            const fakeResponse = await (new Response(response.clone())).get({'Csrf':null});
+            console.log('я записываю в кеш');
             let cache = await caches.open(cacheName);
-            await cache.put(request, fakeResponse);
+            await cache.put(request, response.clone());
+            // const fakeResponse = await (new FakeResponse(response.clone())).get({'Csrf':null});
+            // let cache = await caches.open(cacheName);
+            // await cache.put(request, fakeResponse);
         }
         return response;
     }
@@ -101,8 +104,11 @@ class GetRequestManager {
     async _offlineRequestHandler(request){
         let cache = await caches.open(cacheName);
         const match = await cache.match(request);
-        return await (new Response(match)).get({},
-            {'errors':[{'code':200,'message':'offline'}]});
+        // const response =  await (new FakeResponse(match)).get({},
+        //     {'errors':[{'code':200,'message':'offline'}]});
+        //     console.log(response);
+        // return response;
+        return match;
     }
 
     async fetch(request){
@@ -121,8 +127,11 @@ class PostRequestManager {
         if(navigator.onLine){
             return await fetch(request);
         } else {
-            return await (new Response(null)).get({},
-                {'errors':[{'code':400,'message':'offline'}]});
+            const response = new Response( {result: 'offline'},{ headers: { 'Content-Type': 'apllication/json' }, status: 400});
+            response.body = { message: 'offline' };
+            // return await (new FakeResponse(null)).get({},
+            //     {'errors':[{'code':400,'message':'offline'}]});
+            return response;
         }
     }
 }

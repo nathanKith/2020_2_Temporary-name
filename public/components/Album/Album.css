@@ -50,14 +50,16 @@
 .album-button {
     width: 12vw;
     padding: 5px 10px;
-    background-color: white;
-    color: #1F2041;
+    color: white;
     outline: none;
-    border-color:#1F2041;
+    background-color: #1F2041;
+    border-color: #1F2041;
     border-radius: 7px;
     font-size: 2.5vh;
     text-decoration: none;
     text-align: center;
+    font-family: 'Montserrat-Semibold';
+    cursor: pointer;
 }
 .album-buttons {
     display: flex;

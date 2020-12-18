@@ -340,6 +340,8 @@ export class FeedController {
 
     async deletePhotoListener(evt) {
         evt.preventDefault();
+        evt.stopPropagation();
+        evt.stopImmediatePropagation();
         console.log('deleting photo');
         const photo = document.getElementById('current-photo');
         const images = this.#profile.linkImages;

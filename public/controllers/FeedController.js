@@ -520,7 +520,10 @@ export class FeedController {
                 saveButton.classList.add('pink-save');
 
                 await this.#profile.update();
+                await this.#feed.update();
+                
                 this.#view.context = this.#makeContext();
+                this.#view.rerenderFeed();
             })
             .catch((err) => {
                 console.log(err.message);

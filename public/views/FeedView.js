@@ -140,13 +140,17 @@ export class FeedView extends BaseView{
             chats.render();
     
             const informationLogo = document.getElementById('information-logo');
-            informationLogo.addEventListener(this._context['comments'].event.getComments.type,
-                this._context['comments'].event.getComments.listener);
+            if (informationLogo) {
+                informationLogo.addEventListener(this._context['comments'].event.getComments.type,
+                    this._context['comments'].event.getComments.listener);
+            }
         });
 
         const informationLogo = document.getElementById('information-logo');
-        informationLogo.addEventListener(this._context['comments'].event.getComments.type,
-            this._context['comments'].event.getComments.listener);
+        if (informationLogo) {
+            informationLogo.addEventListener(this._context['comments'].event.getComments.type,
+                this._context['comments'].event.getComments.listener);
+        }
     }
 
     #renderFeedBack(evt) {
@@ -347,8 +351,10 @@ export class FeedView extends BaseView{
         feed.render();
 
         const informationLogo = document.getElementById('information-logo');
-        informationLogo.addEventListener(this._context['comments'].event.getComments.type,
-            this._context['comments'].event.getComments.listener);
+        if (informationLogo) {
+            informationLogo.addEventListener(this._context['comments'].event.getComments.type,
+                this._context['comments'].event.getComments.listener);
+        }
     }
 
     renderOtherProfile() {

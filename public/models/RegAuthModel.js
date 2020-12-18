@@ -150,7 +150,10 @@ export class RegAuthModel extends UserModel{
 
                 if (status === 400) {
                     throw new Error('Слишком большой размер фото, пожалуйста, загрузите фото меньшего размера');
-                    
+                }
+
+                if (status === 403) {
+                    throw new Error('Пожалуйста, загрузите фото с вашим лицом');
                 }
 
                 if (status === 500) {

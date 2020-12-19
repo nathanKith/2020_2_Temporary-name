@@ -179,8 +179,8 @@ export class FeedController {
         evt.stopImmediatePropagation();
 
         await ajax.post(backend.mask, {
-            image: document.getElementById('current-photo').src,
-            mask_name: evt.target.id,
+            linkImages: document.getElementById('current-photo').src,
+            mask: evt.target.id,
         })
             .then(({status, responseObject}) => {
                 if (status !== 500) {

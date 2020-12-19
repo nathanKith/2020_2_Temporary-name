@@ -32,59 +32,6 @@ const cacheUrls = [
 
 ];
 
-class FakeResponse {
-    constructor(response) {
-        this._response = response;
-    }
-
-    _copyHeaders(headers = {}) {
-        let headersCopy = new Headers(this._response ? this._response.headers : []);
-        if(headers instanceof Object){
-            for (const [header, value] of Object.entries(headers)) {
-                if(value){
-                    headersCopy.set(header, value);
-                } else {
-                    headersCopy.delete(header);
-                }
-            }
-        }
-        return headersCopy;
-    }
-
-    async _copyBlob(body = {}){
-        if(this._response &&
-            this._response.headers &&
-            this._response.headers.get('content-type') === 'text/plain; charset=utf-8'){
-            const jsonBody = Object.assign({}, await this._response.clone().json(), body);
-            return new Blob([JSON.stringify(jsonBody)],
-                {type : 'text/plain; charset=utf-8'});
-        }
-        if(this._response){
-            return (await this._response.blob());
-        } else {
-            return new Blob([JSON.stringify(body)],{type : 'text/plain; charset=utf-8'});
-        }
-    }
-
-    async get(headers = {}, body){
-        const blobResponse = await this._copyBlob(body);
-        const headersResponse = await this._copyHeaders(headers);
-        let status = 200;
-        if (body) {
-            const errBody = body['errors'][0]['code'];
-            if (errBody && errBody === 400) {
-                console.log('я в ошибке!');
-                status = 400;
-            }
-        } 
-        return new FakeResponse(blobResponse, {
-            status: this._response ? this._response.status : status,
-            statusText: this._response ? this._response.statusText : 'ok',
-            headers: headersResponse
-        });
-    }
-}
-
 class GetRequestManager {
     constructor(){}
 
@@ -94,20 +41,15 @@ class GetRequestManager {
             console.log('я записываю в кеш');
             let cache = await caches.open(cacheName);
             await cache.put(request, response.clone());
-            // const fakeResponse = await (new FakeResponse(response.clone())).get({'Csrf':null});
-            // let cache = await caches.open(cacheName);
-            // await cache.put(request, fakeResponse);
         }
+
         return response;
     }
 
     async _offlineRequestHandler(request){
         let cache = await caches.open(cacheName);
         const match = await cache.match(request);
-        // const response =  await (new FakeResponse(match)).get({},
-        //     {'errors':[{'code':200,'message':'offline'}]});
-        //     console.log(response);
-        // return response;
+        
         return match;
     }
 
@@ -129,8 +71,7 @@ class PostRequestManager {
         } else {
             const response = new Response( {result: 'offline'},{ headers: { 'Content-Type': 'apllication/json' }, status: 400});
             response.body = { message: 'offline' };
-            // return await (new FakeResponse(null)).get({},
-            //     {'errors':[{'code':400,'message':'offline'}]});
+
             return response;
         }
     }

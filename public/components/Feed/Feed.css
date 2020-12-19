@@ -224,3 +224,8 @@
     display: inline-block;
     position: absolute;
 }
+
+.like-swipe {
+    height: 3vh;
+    margin: 1vh;
+}

@@ -59,15 +59,15 @@ export class FeedMobileController{
 
     async likeListener(evt) {
         evt.preventDefault();
-        await this.#likeDislikeAjax(backend.like);
+        await this.likeDislikeAjax(backend.like);
     }
 
     async dislikeListener(evt) {
         evt.preventDefault();
-        await this.#likeDislikeAjax(backend.dislike);
+        await this.likeDislikeAjax(backend.dislike);
     }
 
-    async #likeDislikeAjax(url) {
+    async likeDislikeAjax(url) {
         await ajax.post(url, {
             'user_id2': this.#feed.userList[this.#currentUserFeed].id
         })

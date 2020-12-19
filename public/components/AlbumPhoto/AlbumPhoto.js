@@ -1,11 +1,13 @@
 import AlbumPhotoHbs from './AlbumPhoto.hbs';
 //import {popupPhoto} from '../../modules/popupPhoto';
 import './Album.css';
+import {Masks} from '../Masks/Masks';
 
 export class AlbumPhoto {
     #parent
     photo
     listenerDelete
+    listenerMasks
     isMy
 
     constructor(parent) {
@@ -43,6 +45,14 @@ export class AlbumPhoto {
         if(this.isMy) {
             const deleteButton = document.getElementById('delete-button');
             deleteButton.addEventListener(this.listenerDelete.type, this.listenerDelete.listener);
+
+            const masks = new Masks();
+            masks.render(this.#parent);
+
+            const maskImages = document.getElementsByClassName('masks__img');
+            maskImages.forEach((mask) => {
+                mask.addEventListener(this.listenerMasks.type, this.listenerMasks.listener);
+            });
         }
 
     }

@@ -164,9 +164,42 @@ export class FeedController {
                 deletePhoto: {
                     type: 'click',
                     listener: this.deletePhotoListener.bind(this),
+                },
+                overlayMask: {
+                    type: 'click',
+                    listener: this.overlayMaskListener.bind(this),
                 }
             }
         };
+    }
+
+    async overlayMaskListener(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        evt.stopImmediatePropagation();
+
+        await ajax.post(backend.mask, {
+            image: document.getElementById('current-photo').src,
+            mask_name: evt.target.id,
+        })
+            .then(({status, responseObject}) => {
+                if (status !== 500) {
+                    throw new Error(`${status} error on url /mask`);
+                }
+
+                const masks = document.getElementsByClassName('masks__mask');
+                masks.forEach((mask) => {
+                    mask.classList.remove('masks__mask_focused');
+                });
+
+                const maskImage = document.getElementById(evt.target.id);
+                maskImage.parentElement.classList.add('masks__mask_focused');
+
+                maskImage.src = responseObject['image'];
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
     }
 
     onSendWebsocket(user_id, chat_id, message, delivery) {

@@ -91,6 +91,10 @@ class Backend {
     get user() {
         return this.#url + this.#api + '/user/';
     }
+
+    get mask() {
+        return this.#url + this.#api + '/mask';
+    }
 }
 
 export const backend = new Backend();

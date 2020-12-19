@@ -1,0 +1,39 @@
+.masks {
+    display: flex;
+    width: 100%;
+    height: 20%;
+    background-color: white;
+    margin-left: 1vh;
+    border-radius: 20px;
+    justify-content: space-between;
+    align-items: center;
+    overflow: scroll;
+    overflow-y: hidden;
+}
+
+.masks::-webkit-scrollbar {
+    display: none;
+}
+
+.masks__mask {
+    height: 12vh;
+    width: 12vh;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    flex: none;
+    margin: 0 2%;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
+
+.masks__mask_focused {
+    border: 8px solid #1F2041;
+}
+
+.masks__img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}

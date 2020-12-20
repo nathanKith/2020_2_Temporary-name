@@ -183,19 +183,21 @@ export class FeedController {
             mask: evt.target.id,
         })
             .then(({status, responseObject}) => {
-                if (status !== 500) {
+                if (status !== 200) {
                     throw new Error(`${status} error on url /mask`);
                 }
 
                 const masks = document.getElementsByClassName('masks__mask');
-                masks.forEach((mask) => {
+                for (const mask of masks) {
                     mask.classList.remove('masks__mask_focused');
-                });
+                }
 
                 const maskImage = document.getElementById(evt.target.id);
                 maskImage.parentElement.classList.add('masks__mask_focused');
 
-                maskImage.src = responseObject['image'];
+                // TODO: подменять фотку
+                const albumImg = document.getElementById('current-photo');
+                albumImg.src = responseObject['linkImages'];
             })
             .catch((err) => {
                 console.log(err.message);

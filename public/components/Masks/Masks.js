@@ -9,6 +9,6 @@ export class Masks {
     }
 
     render() {
-        this.#parent.insertAdjacentElement('beforeend', MasksTemplate());
+        this.#parent.insertAdjacentHTML('beforeend', MasksTemplate());
     }
 }

@@ -46,13 +46,14 @@ export class AlbumPhoto {
             const deleteButton = document.getElementById('delete-button');
             deleteButton.addEventListener(this.listenerDelete.type, this.listenerDelete.listener);
 
-            const masks = new Masks();
-            masks.render(this.#parent);
+            const photoView = document.getElementsByClassName('photo-view')[0];
+            const masks = new Masks(photoView);
+            masks.render();
 
             const maskImages = document.getElementsByClassName('masks__img');
-            maskImages.forEach((mask) => {
+            for (const mask of maskImages) {
                 mask.addEventListener(this.listenerMasks.type, this.listenerMasks.listener);
-            });
+            }
         }
 
     }

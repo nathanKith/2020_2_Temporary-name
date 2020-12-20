@@ -53,6 +53,7 @@ export class FeedMobileController{
                         listener: this.backUserListener.bind(this),
                     },
                 },
+                likeDislikeAjax: this.likeDislikeAjax.bind(this),
             },
         };
     }
@@ -76,6 +77,8 @@ export class FeedMobileController{
                     throw new Error(`${status} unauthorized: cannot get json on url /like`);
                 }
 
+                console.log(url);
+                console.log('Я в отправке лайка или дизлайка');
                 this.#getNextUser();
                 this.#backUserClick = 0;
             })

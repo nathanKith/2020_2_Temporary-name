@@ -65,6 +65,11 @@ export class FeedMobileView extends BaseView {
         feed.data = this._context['feed'];
         feed.render();
 
+        const profilePerson = document.getElementsByClassName('profile-person')[0];
+        const swipes = new Swipes(profilePerson);
+        swipes.data = this._context['feed'];
+        swipes.control();
+
         const newInformationLogo = document.getElementById('information-logo');
         newInformationLogo.addEventListener('click', this.#getCommentsListener.bind(this));
     }

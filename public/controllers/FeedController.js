@@ -530,10 +530,10 @@ export class FeedController {
             });
     }
 
-    #getNextUser() {
+    async #getNextUser() {
         if (this.#currentUserFeed === this.#feed.userList.length - 1) {
+            await this.#feed.update();
             this.#currentUserFeed = 0;
-            this.#feed.update();
         } else {
             this.#currentUserFeed++;
         }
@@ -556,12 +556,12 @@ export class FeedController {
         await ajax.post(url, {
             'user_id2': this.#feed.userList[this.#currentUserFeed].id
         })
-            .then(({ status, responseObject }) => {
+            .then(async ({ status, responseObject }) => {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /like`);
                 }
 
-                this.#getNextUser();
+                await this.#getNextUser();
                 this.#backUserClick = 0;
             })
             .catch((err) => {
@@ -575,12 +575,12 @@ export class FeedController {
             await ajax.post(backend.superLike, {
                 'user_id2': this.#feed.userList[this.#currentUserFeed].id,
             })
-                .then(({ status, responseObject }) => {
+                .then(async ({ status, responseObject }) => {
                     if (status === 401) {
                         throw new Error(`${status} unauthorized: cannot get json on url /like`);
                     }
 
-                    this.#getNextUser();
+                    await this.#getNextUser();
                     this.#backUserClick = 0;
                 })
                 .catch((err) => {

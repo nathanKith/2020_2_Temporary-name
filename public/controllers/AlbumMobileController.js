@@ -69,9 +69,9 @@ export class AlbumMobileController {
                 const albumImg = document.getElementById('current-photo');
                 albumImg.src = responseObject['linkImages'];
 
-                await this.#profile.update();
-                this.#view._context['profile'].linkImages = this.#profile.linkImages;
-                this.#view.renderMyAlbum();
+                await this.#otherProfile.update();
+                this.#view._context['albums'].linkImages = this.#otherProfile.linkImages;
+                this.#view.rerenderAlbums(true);
             })
             .catch((err) => {
                 console.log(err.message);

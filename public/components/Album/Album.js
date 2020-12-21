@@ -57,7 +57,7 @@ export class Album {
             albumSection.insertAdjacentHTML('beforeend', AlbumPreview());
         }
 
-
+        console.log(document.getElementsByClassName('album-img')[0]);
         this.#listImages.forEach( (image, index) => {
             albumSection.insertAdjacentHTML('beforeend', AlbumImg({
                 photo: image,
@@ -67,6 +67,8 @@ export class Album {
                 ind = 1;
             }
             const albumPhoto = document.getElementsByClassName('album-img')[index + ind];
+            console.log(albumPhoto);
+            console.log(index + ind);
             albumPhoto.addEventListener('click', (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();

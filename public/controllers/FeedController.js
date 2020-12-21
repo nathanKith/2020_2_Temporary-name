@@ -164,9 +164,47 @@ export class FeedController {
                 deletePhoto: {
                     type: 'click',
                     listener: this.deletePhotoListener.bind(this),
+                },
+                overlayMask: {
+                    type: 'click',
+                    listener: this.overlayMaskListener.bind(this),
                 }
             }
         };
+    }
+
+    async overlayMaskListener(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        evt.stopImmediatePropagation();
+
+        await ajax.post(backend.mask, {
+            linkImages: document.getElementById('current-photo').src,
+            mask: evt.target.id,
+        })
+            .then(async ({status, responseObject}) => {
+                if (status !== 200) {
+                    throw new Error(`${status} error on url /mask`);
+                }
+
+                const masks = document.getElementsByClassName('masks__mask');
+                for (const mask of masks) {
+                    mask.classList.remove('masks__mask_focused');
+                }
+
+                const maskImage = document.getElementById(evt.target.id);
+                maskImage.parentElement.classList.add('masks__mask_focused');
+
+                const albumImg = document.getElementById('current-photo');
+                albumImg.src = responseObject['linkImages'];
+
+                await this.#profile.update();
+                this.#view._context['profile'].linkImages = this.#profile.linkImages;
+                this.#view.renderMyAlbum();
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
     }
 
     onSendWebsocket(user_id, chat_id, message, delivery) {

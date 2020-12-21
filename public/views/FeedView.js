@@ -250,6 +250,7 @@ export class FeedView extends BaseView{
         album.listenerSave = this._context['albums'].savePhoto;
         album.listenerCancel = this._context['albums'].cancelPhoto;
         album.listenerDelete = this._context['albums'].deletePhoto;
+        album.listenerMasks = this._context['albums'].overlayMask;
         album.render();
 
         this._app.removeEventListener('click', this.#renderFeedBackListener);

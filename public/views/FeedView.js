@@ -7,6 +7,7 @@ import {Settings} from '../components/Settings/Settings';
 import {Comments} from '../components/Comments/Comments';
 import {popupLanding} from '../modules/popupLanding';
 import {Album} from '../components/Album/Album';
+import {Swipes} from '../components/Swipes/swipes';
 
 
 export class FeedView extends BaseView{
@@ -53,6 +54,14 @@ export class FeedView extends BaseView{
         const feed = new Feed(feedSection);
         feed.data = this._context['feed'];
         feed.render();
+
+
+        //попытка свайпов на компе
+        const profilePerson = document.getElementsByClassName('profile-person')[0];
+        const swipes = new Swipes(profilePerson);
+        swipes.data = this._context['feed'];
+        swipes.control();
+        //конец попытки
 
         const profileChatIcon = new ProfileChatIcon(container);
         const {profileButton, chatsButton, feedButton} = profileChatIcon.render();
@@ -349,6 +358,11 @@ export class FeedView extends BaseView{
         const feed = new Feed(feedSection);
         feed.data = this._context['feed'];
         feed.render();
+
+        const profilePerson = document.getElementsByClassName('profile-person')[0];
+        const swipes = new Swipes(profilePerson);
+        swipes.data = this._context['feed'];
+        swipes.control();
 
         const informationLogo = document.getElementById('information-logo');
         if (informationLogo) {

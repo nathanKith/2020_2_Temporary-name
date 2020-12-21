@@ -17,9 +17,9 @@ export class Swipes {
             this.#parent.addEventListener('touchstart', this.TouchStart.bind(this));
             this.#parent.addEventListener('touchmove', this.TouchMove.bind(this));
             this.#parent.addEventListener('touchend', this.TouchEnd.bind(this));
-            this.#parent.addEventListener('mousedown', this.TouchStart.bind(this));
-            this.#parent.addEventListener('mousemove', this.TouchMove.bind(this));
-            this.#parent.addEventListener('mouseup', this.TouchEnd.bind(this));
+            // this.#parent.addEventListener('mousedown', this.TouchStart.bind(this));
+            // this.#parent.addEventListener('mousemove', this.TouchMove.bind(this));
+            // this.#parent.addEventListener('mouseup', this.TouchEnd.bind(this));
         }
 
     }

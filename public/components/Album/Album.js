@@ -15,6 +15,7 @@ export class Album {
     listenerSave
     listenerCancel
     listenerDelete
+    listenerMasks
 
     set isMy(isMy){
         this.#isMy = isMy;
@@ -74,7 +75,10 @@ export class Album {
                 const photoFromAlbum = new AlbumPhoto(feedContainer);
                 photoFromAlbum.photo = image;
                 photoFromAlbum.listenerDelete = this.listenerDelete;
+                photoFromAlbum.listenerMasks = this.listenerMasks;
                 photoFromAlbum.isMy = this.#isMy;
+                photoFromAlbum.forMask = this.#isMy;
+
                 if (this.#listImages.length === 1){
                     photoFromAlbum.isMy = false;
                 }

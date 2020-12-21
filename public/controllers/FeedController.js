@@ -100,6 +100,7 @@ export class FeedController {
                     aboutMe: this.#profile.aboutMe,
                     linkImages: this.#profile.linkImages,
                     age: this.#profile.age,
+                    filter: this.#profile.filter,
                 },
                 event: {
                     logout: {
@@ -163,9 +164,47 @@ export class FeedController {
                 deletePhoto: {
                     type: 'click',
                     listener: this.deletePhotoListener.bind(this),
+                },
+                overlayMask: {
+                    type: 'click',
+                    listener: this.overlayMaskListener.bind(this),
                 }
             }
         };
+    }
+
+    async overlayMaskListener(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        evt.stopImmediatePropagation();
+
+        await ajax.post(backend.mask, {
+            linkImages: document.getElementById('current-photo').src,
+            mask: evt.target.id,
+        })
+            .then(async ({status, responseObject}) => {
+                if (status !== 200) {
+                    throw new Error(`${status} error on url /mask`);
+                }
+
+                const masks = document.getElementsByClassName('masks__mask');
+                for (const mask of masks) {
+                    mask.classList.remove('masks__mask_focused');
+                }
+
+                const maskImage = document.getElementById(evt.target.id);
+                maskImage.parentElement.classList.add('masks__mask_focused');
+
+                const albumImg = document.getElementById('current-photo');
+                albumImg.src = responseObject['linkImages'];
+
+                await this.#profile.update();
+                this.#view._context['profile'].linkImages = this.#profile.linkImages;
+                this.#view.renderMyAlbum();
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
     }
 
     onSendWebsocket(user_id, chat_id, message, delivery) {
@@ -316,6 +355,8 @@ export class FeedController {
                         this.cancelPhotoListener();
                     } else if (status === 400){
                         throw new Error('Слишком большой размер фото');
+                    } else if (status === 403) {
+                        throw new Error('Пожалуйста, загрузите фото с вашим лицом');
                     } else {
                         throw new Error('Не удалось загрузить фото(');
                     }
@@ -517,17 +558,20 @@ export class FeedController {
                 saveButton.classList.add('pink-save');
 
                 await this.#profile.update();
+                await this.#feed.update();
+                
                 this.#view.context = this.#makeContext();
+                this.#view.rerenderFeed();
             })
             .catch((err) => {
                 console.log(err.message);
             });
     }
 
-    #getNextUser() {
+    async #getNextUser() {
         if (this.#currentUserFeed === this.#feed.userList.length - 1) {
+            await this.#feed.update();
             this.#currentUserFeed = 0;
-            this.#feed.update();
         } else {
             this.#currentUserFeed++;
         }
@@ -550,12 +594,12 @@ export class FeedController {
         await ajax.post(url, {
             'user_id2': this.#feed.userList[this.#currentUserFeed].id
         })
-            .then(({ status, responseObject }) => {
+            .then(async ({ status, responseObject }) => {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /like`);
                 }
 
-                this.#getNextUser();
+                await this.#getNextUser();
                 this.#backUserClick = 0;
             })
             .catch((err) => {
@@ -569,12 +613,12 @@ export class FeedController {
             await ajax.post(backend.superLike, {
                 'user_id2': this.#feed.userList[this.#currentUserFeed].id,
             })
-                .then(({ status, responseObject }) => {
+                .then(async ({ status, responseObject }) => {
                     if (status === 401) {
                         throw new Error(`${status} unauthorized: cannot get json on url /like`);
                     }
 
-                    this.#getNextUser();
+                    await this.#getNextUser();
                     this.#backUserClick = 0;
                 })
                 .catch((err) => {

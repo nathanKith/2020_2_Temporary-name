@@ -24,6 +24,7 @@ export class SettingsMobileController {
                     aboutMe: this.#profile.aboutMe,
                     linkImages: this.#profile.linkImages,
                     age: this.#profile.age,
+                    filter: this.#profile.filter,
                 },
                 event: {
                     logout: {

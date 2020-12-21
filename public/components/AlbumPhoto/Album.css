@@ -96,30 +96,6 @@
     border-right: none;
 }
 
-.photo-view {
-    height: 85%;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    width: 35%;
-    border-radius: 25px;
-    position: absolute;
-    margin-left: 22%;
-    z-index: 10;
-}
-.photo-img {
-    border-radius: 20px 20px 20px 20px;
-    border: 2px;
-    height: 95%;
-    width: 100%;
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-    margin: 1vh;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    justify-content: center;
-}
-
 @media screen and (max-width: 1024px) {
     .album-body {
         width: 100% !important;
@@ -128,20 +104,30 @@
     .album-section {
         width: 100% !important;
     }
-    .photo-img{
-        height: 100% !important;
+
+    .photo-img {
+        border: 2px;
+        height: 100%;
+        width: 100%;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        justify-content: center;
     }
     .photo-view {
-        margin-left: 0 !important;
-        margin-top: 11vh !important;
-        width: 100% !important;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        z-index: 10;
     }
     .basket-button {
         margin-top:1vh !important;
     }
-    .photo-img {
-        margin: 0 !important;
-    }
+
     .photo-buttons {
         margin-top: 0.5vh !important;
         margin-right: 0.5vw;

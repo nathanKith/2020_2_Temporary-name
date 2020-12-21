@@ -77,6 +77,8 @@ export class Album {
                 photoFromAlbum.listenerDelete = this.listenerDelete;
                 photoFromAlbum.listenerMasks = this.listenerMasks;
                 photoFromAlbum.isMy = this.#isMy;
+                photoFromAlbum.forMask = this.#isMy;
+
                 if (this.#listImages.length === 1){
                     photoFromAlbum.isMy = false;
                 }

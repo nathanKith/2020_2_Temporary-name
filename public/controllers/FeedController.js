@@ -182,7 +182,7 @@ export class FeedController {
             linkImages: document.getElementById('current-photo').src,
             mask: evt.target.id,
         })
-            .then(({status, responseObject}) => {
+            .then(async ({status, responseObject}) => {
                 if (status !== 200) {
                     throw new Error(`${status} error on url /mask`);
                 }
@@ -195,9 +195,12 @@ export class FeedController {
                 const maskImage = document.getElementById(evt.target.id);
                 maskImage.parentElement.classList.add('masks__mask_focused');
 
-                // TODO: подменять фотку
                 const albumImg = document.getElementById('current-photo');
                 albumImg.src = responseObject['linkImages'];
+
+                await this.#profile.update();
+                this.#view._context['profile'].linkImages = this.#profile.linkImages;
+                this.#view.renderMyAlbum();
             })
             .catch((err) => {
                 console.log(err.message);

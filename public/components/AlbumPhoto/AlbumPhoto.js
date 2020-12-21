@@ -9,6 +9,7 @@ export class AlbumPhoto {
     listenerDelete
     listenerMasks
     isMy
+    forMask
 
     constructor(parent) {
         this.#parent = parent;
@@ -45,7 +46,9 @@ export class AlbumPhoto {
         if(this.isMy) {
             const deleteButton = document.getElementById('delete-button');
             deleteButton.addEventListener(this.listenerDelete.type, this.listenerDelete.listener);
+        }
 
+        if (this.forMask) {
             const photoView = document.getElementsByClassName('photo-view')[0];
             const masks = new Masks(photoView);
             masks.render();
@@ -55,6 +58,5 @@ export class AlbumPhoto {
                 mask.addEventListener(this.listenerMasks.type, this.listenerMasks.listener);
             }
         }
-
     }
 }

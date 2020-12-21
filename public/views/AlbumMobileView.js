@@ -35,4 +35,18 @@ export class AlbumMobileView extends BaseView{
         }
         album.render();
     }
+
+    rerenderAlbums(isMy) {
+        const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
+
+        const album = new Album(profileChatSection, this._context['albums'].linkImages);
+        album.isMy = isMy;
+        if (isMy) {
+            album.listenerSave = this._context['albums'].savePhoto;
+            album.listenerCancel = this._context['albums'].cancelPhoto;
+            album.listenerDelete = this._context['albums'].deletePhoto;
+            album.listenerMasks = this._context['albums'].overlayMask;
+        }
+        album.render();
+    }
 }

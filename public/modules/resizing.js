@@ -1,13 +1,13 @@
 import {router} from '../main';
 
 export const isMobile = () => {
-    return document.documentElement.clientWidth <= 1024;
-}
+    return window.innerWidth <= 1024;
+};
 
 export const resizeListener = (evt) => {
-    const url = window.location.pathname;
-    console.log(url);
+    //console.log(url);
     if (isMobile) {
+        const url = window.location.pathname;
         if (url.indexOf('/m') === -1) {
             if (url === '/login' || url === '/' || url === '/signup') {
                 return;
@@ -15,11 +15,9 @@ export const resizeListener = (evt) => {
             router.redirect('/mfeed');
         }
     } else {
+        const url = window.location.pathname;
         if (url.indexOf('/m') !== -1) {
-            if (url === '/login' || url === '/' || url === '/signup') {
-                return;
-            }
             router.redirect('/feed');
         }
     }
-}
+};

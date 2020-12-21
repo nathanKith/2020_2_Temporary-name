@@ -7,6 +7,7 @@ export function readImage(file) {
     reader.addEventListener('load', (event) => {
         img.src = event.target.result;
         avatar = reader.result;
+        console.log(avatar);
     });
     reader.readAsDataURL(file);
     // console.log(avatar.width);

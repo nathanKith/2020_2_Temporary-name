@@ -1,16 +1,16 @@
-import ChatContentHbs from './ChatContent.hbs'
-import ChatMyMessage from './ChatMyMessage.hbs'
-import {ChatModel} from "../../models/ChatModel";
-import ChatOtherMessage from './ChatOtherMessage.hbs'
+import ChatContentHbs from './ChatContent.hbs';
+import ChatMyMessage from './ChatMyMessage.hbs';
+import ChatOtherMessage from './ChatOtherMessage.hbs';
 import './ChatContent.css';
-import {backend} from "../../modules/url";
-import {Chats} from "../Chats/Chats";
+import {Profile} from "../Profile/Profile";
 
 //parent = profile-chat-section
 export class ChatContent {
     #parent
     chatModel
     listenerSend
+    getCommentsListener
+
     constructor(parent, chatModel) {
         this.#parent = parent;
         this.chatModel = chatModel;
@@ -24,13 +24,35 @@ export class ChatContent {
             {
                 path_photo: this.chatModel.partner.linkImages[0],
                 nameUser: this.chatModel.partner.name,
+                userId: 'user' + this.chatModel.partner.id,
             }));
+
+        document.getElementById('user' + this.chatModel.partner.id).addEventListener(
+            'click', (evt) => {
+                evt.preventDefault();
+
+                const profileChatSection = document.getElementsByClassName('profile-chat-section')[0];
+                profileChatSection.innerHTML = '';
+                const profile = new Profile(profileChatSection);
+
+                profile.data = this.chatModel.partner;
+                profile._userId = this.chatModel.partner.id;
+                profile.render();
+            
+
+                console.log(this.getCommentsListener);
+
+                const comments = document.getElementById('profile-comments');
+                comments.addEventListener(this.getCommentsListener.type,
+                    this.getCommentsListener.listener);
+            }
+        );
 
         const messages = document.getElementById('chat-box-text-area');
         console.log(this.chatModel.messages);
             
         if (this.chatModel.messages) {
-        this.chatModel.messages.forEach( (message) => {
+            this.chatModel.messages.forEach( (message) => {
                 if (message.user_id === this.chatModel.partner.id) {
                     messages.insertAdjacentHTML('beforeend', ChatOtherMessage({
                         message_text: message.message,
@@ -42,7 +64,7 @@ export class ChatContent {
                         time_delivery: message.timeDelivery,
                     }));
                 }
-        });
+            });
         }
 
         const scroll = document.getElementById('chat-box-text-area');
@@ -62,7 +84,7 @@ export class ChatContent {
             }));
             this.listenerSend( this.chatModel.user_id, this.chatModel.id ,document.getElementById('message').value, delivery);
             document.getElementById('message').value = '';
-        })
+        });
     }
 
 

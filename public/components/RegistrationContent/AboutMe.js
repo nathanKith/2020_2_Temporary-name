@@ -1,4 +1,4 @@
-import EducationTemplate from './Education.hbs'
+import EducationTemplate from './Education.hbs';
 
 export class Education {
     _form
@@ -8,9 +8,9 @@ export class Education {
 
     async render() {
         const div = document.createElement('div');
-        div.id = "education_univ";
+        div.id = 'education_univ';
 
-        const divUniv = document.createElement("div");
+        const divUniv = document.createElement('div');
         divUniv.classList.add('radio');
 
         const radioEl = this.createRadio('radio-elems', 'radio-elem', 'Учусь', 'text', 'rad1');
@@ -23,22 +23,22 @@ export class Education {
         divUniv.appendChild(radioElem);
 
 
-             await radioEl.addEventListener('click', (evt) => {
-                const div = document.getElementById('education_univ');
-                div.innerHTML = '<label class="nameFormText">Я учусь</label>' +
+        await radioEl.addEventListener('click', (evt) => {
+            const div = document.getElementById('education_univ');
+            div.innerHTML = '<label class="nameFormText">Я учусь</label>' +
                     '<div class="pass">'+ EducationTemplate()+'</div>';
-            });
+        });
 
-            await RadioEl.addEventListener('click', (evt) => {
-                const div = document.getElementById('education_univ');
-                div.innerHTML = '<label class="nameFormText">Я окончил</label>' +
+        await RadioEl.addEventListener('click', (evt) => {
+            const div = document.getElementById('education_univ');
+            div.innerHTML = '<label class="nameFormText">Я окончил</label>' +
                 '<div class="pass">'+ EducationTemplate()+'</div>';
-            });
+        });
 
-            await radioElem.addEventListener('click', (evt) => {
-                const div = document.getElementById('education_univ');
-                div.innerHTML = '';
-            });
+        await radioElem.addEventListener('click', (evt) => {
+            const div = document.getElementById('education_univ');
+            div.innerHTML = '';
+        });
 
         div.innerHTML = '<label class="nameFormText">Я учусь</label>' +
                         '<div class="pass">'+ EducationTemplate()+'</div>';
@@ -77,6 +77,6 @@ export class Education {
         input.type = type;
         input.placeholder = placeholder;
         input.classList.add(inputClasses);
-        return input
+        return input;
     }
 }

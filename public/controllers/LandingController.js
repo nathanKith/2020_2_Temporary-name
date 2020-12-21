@@ -10,21 +10,20 @@ export class LandingController {
     }
 
     async control() {
-        // this.#tryRedirect();
-        this.#view.render();
+        await this.#tryRedirect()
+            .then(({status, responseObject}) => {
+                if (status === 200) {
+                    router.redirect('/feed');
+                } else {
+                    this.#view.render();
+                }
+            })
+            .catch((err) => {
+                console.log('unathorized');
+            });
     }
 
     async #tryRedirect() {
-        // await ajax.get(backend.me)
-        // .then(({status, responseObject}) => {
-        //     if (status === 200) {
-        //         router.redirect('/feed');
-        //     } else {
-        //         this.#view.render();
-        //     }
-        // })
-        // .catch((err) => {
-        //     console.log(err.message);
-        // });
+        return await ajax.get(backend.me);
     }
 }

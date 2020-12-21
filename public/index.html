@@ -3,9 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./img/small_classic_label.png" type="image/png">
+    <meta name="theme-color" content="#f5486b">
     <title>MIAMI</title>
 </head>
 <body>
 <div id="application"></div>
+<script src="https://www.google.com/recaptcha/api.js?hl=ru" async defer></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
+<script>
+    var firebaseConfig = {
+        apiKey: 'AIzaSyDEr5rJ-ZGsmhRz4KmZHuY-D0_feP9FdCs',
+        authDomain: 'miami-8ea9c.firebaseapp.com',
+        projectId: 'miami-8ea9c',
+        storageBucket: 'miami-8ea9c.appspot.com',
+        messagingSenderId: '425661437081',
+        appId: '1:425661437081:web:be89aa1aa20ccbdcd35408'
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().language = 'ru';
+</script>
 </body>
 </html>

@@ -25,7 +25,14 @@ export class UserListModel {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /feed`);
                 }
+                
+                if (!responseObject['user_feed']) {
+                    this.#userList = [];
+                    return;
+                } 
+
                 this.#userListJson = responseObject['user_feed'];
+
                 this.#parseJson();
             })
             .catch((err) => {
@@ -34,6 +41,7 @@ export class UserListModel {
     }
 
     #parseJson() {
+        this.#userList = [];
         this.#userListJson.forEach((userJson) => {
             const user = new UserModel(userJson);
             this.#userList.push(user);

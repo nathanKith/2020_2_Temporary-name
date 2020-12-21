@@ -1,7 +1,7 @@
 import {ajax} from '../modules/ajax';
 import {backend} from '../modules/url';
-import {UserModel} from "./UserModel";
-import {feedPage} from "../main";
+import {UserModel} from './UserModel';
+import {isLoggedIn} from "../modules/firebase";
 
 export class RegAuthModel extends UserModel{
     linkImage
@@ -9,62 +9,64 @@ export class RegAuthModel extends UserModel{
     constructor() {
         super();
         this.linkImage = [];
+        this.password = '';
     }
 
-    validationPassword(validityNumber, password, repeatPassword) {
+    validationPassword(validityNumber) {
         if (validityNumber !== 15) {
             return ['Неверно введен номер телефона', false];
         }
-        if (password === '' || repeatPassword === ''){
-            return ['Введены не все поля', false];
-        }
-        if (password !== repeatPassword) {
-            return ['Пароли не совпадают', false];
-        }
-        if (password === repeatPassword){
-            return ['', true];
-        }
+        // if (password === '' || repeatPassword === ''){
+        //     return ['Введены не все поля', false];
+        // }
+        // if (password !== repeatPassword) {
+        //     return ['Пароли не совпадают', false];
+        // }
+        // if (password === repeatPassword){
+        //     return ['', true];
+        // }
+        return ['', true];
     }
 
-    validationAuth(number, password) {
-        if (password === '' || number === ''){
+    validationAuth(number) {
+        if (number === ''){
             return ['Введены не все поля', false];
         }
         return ['', true];
     }
 
-    setTelephonePasswordAuth(number, password){
-        let [message, result] = this.validationAuth(number, password);
+    setTelephonePasswordAuth(number){
+        let [message, result] = this.validationAuth(number);
         if (result) {
             this.telephone = number;
-            this.password = password;
+            // this.password = password;
         }
         return [message, result];
     }
 
     async authorization() {
-        return await ajax.post(backend.login, this.JsonAuth())
-            .then(({status, responseObject}) => {
-                if (status !== 200) {
-                    throw new Error(`${status} error auth: have not this user`);
-                }
-            })
+        const data = await this.JsonAuth();
+        return await ajax.post(backend.login, data);
     }
 
-    JsonAuth() {
+    async JsonAuth() {
+        console.log('Я В СТАТУ АУФ');
+        const statusAuth = await isLoggedIn();
+        console.log(statusAuth);
         return {
             telephone: this.telephone,
             password: this.password,
-        }
+            is_logged_in: statusAuth,
+        };
     }
 
-    setTelephonePassword(number, validityNumber, password, repeatPassword) {
-        let [message, result] = this.validationPassword(validityNumber, password, repeatPassword);
+    setTelephonePassword(number, validityNumber) {
+        let [message, result] = this.validationPassword(validityNumber);
         if (!result) {
             return [message, result];
         }
         this.telephone = number;
-        this.password = password;
+        //this.password = password;
         return ['', true];
     }
 
@@ -129,7 +131,7 @@ export class RegAuthModel extends UserModel{
             education: this.education,
             aboutMe: this.aboutMe,
             linkImages: this.linkImage,
-        }
+        };
     }
 
     async registration(Form) {
@@ -148,7 +150,10 @@ export class RegAuthModel extends UserModel{
 
                 if (status === 400) {
                     throw new Error('Слишком большой размер фото, пожалуйста, загрузите фото меньшего размера');
-                    
+                }
+
+                if (status === 403) {
+                    throw new Error('Пожалуйста, загрузите фото с вашим лицом');
                 }
 
                 if (status === 500) {
@@ -159,6 +164,7 @@ export class RegAuthModel extends UserModel{
 
 
     async checkNumber(number) {
+        console.log('checkNumber');
         return await ajax.post(backend.telephone, {
             telephone: number,
         });

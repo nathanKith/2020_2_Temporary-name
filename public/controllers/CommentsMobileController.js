@@ -1,4 +1,6 @@
-import {CommentModel} from "../models/CommentModel";
+import {CommentModel} from '../models/CommentModel';
+import {tryRedirect} from '../modules/tryRedirect';
+import {router} from '../main';
 
 export class CommentsMobileController {
     #view
@@ -45,6 +47,12 @@ export class CommentsMobileController {
     }
 
     async control(userId) {
+        const isAuth = await tryRedirect();
+        if (!isAuth) {
+            router.redirect('/');
+            return;
+        }
+
         this.#userId = userId;
         await this.update(userId);
         this.#view.context = this.#makeContext();

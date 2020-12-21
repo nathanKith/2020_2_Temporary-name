@@ -16,9 +16,11 @@ export class UserModel {
     #linkImages
     #age
     #isPremium
+    #isSuperLikeMe
+    #filter
 
     constructor(data = {}) {
-        this.#fillUserData(data)
+        this.#fillUserData(data);
     }
 
     get id() {
@@ -114,7 +116,7 @@ export class UserModel {
     }
 
     deleteImage(link_image) {
-        console.log(link_image)
+        console.log(link_image);
         console.log(this.#linkImages);
         this.#linkImages = this.#linkImages.filter( (item) => {
             return item !== link_image;
@@ -138,6 +140,18 @@ export class UserModel {
         this.#isPremium = isPremium;
     }
 
+    get isSuperLikeMe() {
+        return this.#isSuperLikeMe;
+    }
+
+    get filter() {
+        return this.#filter;
+    }
+
+    set filter(filter) {
+        this.#filter = filter;
+    }
+
     #fillUserData(data) {
         this.#id = data['id'];
         this.#telephone = data['telephone'];
@@ -152,6 +166,8 @@ export class UserModel {
         this.#month = data['month'];
         this.#year = data['year'];
         this.#password = data['password'];
+        this.#isSuperLikeMe = data['is_superlike'];
+        this.#filter = data['filter'];
     }
 
     async update() {

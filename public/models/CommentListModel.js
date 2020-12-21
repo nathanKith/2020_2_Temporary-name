@@ -1,7 +1,6 @@
-import {CommentModel} from "./CommentModel";
-import {ajax} from "../modules/ajax";
-import {backend} from "../modules/url";
-import {UserModel} from "./UserModel";
+import {CommentModel} from './CommentModel';
+import {ajax} from '../modules/ajax';
+import {backend} from '../modules/url';
 
 export class CommentListModel {
     #commentsList

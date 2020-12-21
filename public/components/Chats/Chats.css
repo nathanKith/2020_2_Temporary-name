@@ -206,3 +206,11 @@
     right: 50%;
     border: 3px solid #1877F2;
 }
+
+.love-chat {
+    background-color: #fb718a;
+}
+
+.friend-chat {
+    background-color: #1F2041;
+}

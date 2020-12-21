@@ -112,3 +112,45 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, .2);
     border-right: none;
 }
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    color: #f24e6b;
+    font-family: 'Montserrat-Light';
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    margin-top: 20%;
+    position: absolute;
+    z-index: 1;
+    right: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+.tooltip-chat{
+    display: inline-block;
+}
+
+.tooltip-chat .tooltiptext {
+    visibility: hidden;
+    color: #f24e6b;
+    font-family: 'Montserrat-Light';
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    margin-top: 20%;
+    position: absolute;
+    z-index: 1;
+    right: 105%;
+}
+
+.tooltip-chat:hover .tooltiptext {
+    visibility: visible;
+}

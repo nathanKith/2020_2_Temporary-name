@@ -52,6 +52,27 @@
     .reactions{
         width: 70% !important;
     }
+
+    .next-prev-photo {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+        bottom: 40%;
+        height: 0px;
+    }
+
+    .super-liked-me {
+        display: flex;
+        width: 80%;
+        font-size: 2.5vh;
+        justify-content: center;
+        color: #f24e6b;
+        font-family: 'Montserrat-Semibold';
+        text-align: center;
+    }
 }
 
 .logo {
@@ -121,6 +142,7 @@
     position: absolute;
     left: 90%;
     bottom: 5px;
+    cursor: pointer
 }
 
 .reactions {
@@ -137,36 +159,38 @@
     cursor: pointer;
 }
 
-.next-photo {
-    position: absolute;
-    display: flex;
-    left: 210px;
-    bottom: 300px;
-}
-
-.prev-photo {
-    position: absolute;
-    display: flex;
-    right: 210px;
-    bottom: 300px;
-}
-
 .inner-prev-photo {
     transform: scale(-1, 1);
 }
 
-.next-prev-photo {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+@media screen and (min-width: 1024px) {
+    .next-prev-photo {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 40%;
+        bottom: 40%;
+        height: 0px;
+    }
+
+    .super-liked-me {
+        display: flex;
+        width: 40%;
+        font-size: 2.5vh;
+        justify-content: center;
+        color: #f24e6b;
+        font-family: 'Montserrat-Semibold';
+        text-align: center;
+    }
 }
 
 .next-prev-photo-button {
-    background-color: white;
+    background-color: inherit;
     outline: none;
     border: none;
+    cursor: pointer;
 }
 
 .outer-img {
@@ -176,4 +200,32 @@
     display: flex;
     justify-content: center;
     border-radius: 25px;
+}
+
+#back-user-form {
+    display: flex;
+}
+
+.reaction-button .reaction-button-tooltipText {
+    /* visibility: hidden; */
+    display: none;
+    width: 85px;
+    color: #f24e6b;
+    font-family: 'Montserrat-Light';
+    text-align: center;
+    border-radius: 6px;
+    /* margin-top: 20%; */
+    z-index: 1;
+    left: 15%;
+}
+
+.reaction-button:hover .reaction-button-tooltipText {
+    /* visibility: visible; */
+    display: inline-block;
+    position: absolute;
+}
+
+.like-swipe {
+    height: 3vh;
+    margin: 1vh;
 }

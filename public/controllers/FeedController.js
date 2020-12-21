@@ -1,13 +1,14 @@
 import {ajax} from '../modules/ajax';
 import {backend} from '../modules/url';
-import {router} from "../main";
+import {router} from '../main';
 import {CommentModel} from '../models/CommentModel';
-import ChatOtherMessage from "../components/ChatContent/ChatOtherMessage.hbs";
-import {ChatModel} from "../models/ChatModel";
+import ChatOtherMessage from '../components/ChatContent/ChatOtherMessage.hbs';
+import {ChatModel} from '../models/ChatModel';
 import {Chats} from '../components/Chats/Chats';
-import {Album} from "../components/Album/Album";
-import AlbumImg from "./../components/Album/AlbumImg.hbs";
-import { yoomoney, yoomoneyUrl } from "../modules/yoomoney";
+import {logoutFirebase} from '../modules/firebase';
+import {tryRedirect} from '../modules/tryRedirect';
+import {UserModel} from "../models/UserModel";
+
 
 export class FeedController {
     #view
@@ -62,9 +63,14 @@ export class FeedController {
                 chats: this.#chats.chatList,
                 user_id: this.#profile.id,
                 onSendWebsocket: this.onSendWebsocket.bind(this),
+                getOtherComment: {
+                    type: 'click',
+                    listener: this.getOtherCommentsListener.bind(this),
+                },
             },
             feed: {
                 feed: this.#feed.userList[this.#currentUserFeed],
+                id: this.#profile.id,
                 event: {
                     like: {
                         type: 'click',
@@ -94,6 +100,7 @@ export class FeedController {
                     aboutMe: this.#profile.aboutMe,
                     linkImages: this.#profile.linkImages,
                     age: this.#profile.age,
+                    filter: this.#profile.filter,
                 },
                 event: {
                     logout: {
@@ -113,6 +120,7 @@ export class FeedController {
             },
             comments: {
                 comments: this.#comments,
+                profile: null,
                 event: {
                     getComments: {
                         type: 'click',
@@ -134,6 +142,14 @@ export class FeedController {
                         type: 'click',
                         listener: this.getProfileByComment.bind(this),
                     },
+                    getOtherComment: {
+                        type: 'click',
+                        listener: this.getOtherCommentsListener.bind(this),
+                    },
+                    sendOtherComment: {
+                        type: 'click',
+                        listener: this.sendOtherComments.bind(this),
+                    },
                 },
             },
             albums: {
@@ -148,9 +164,47 @@ export class FeedController {
                 deletePhoto: {
                     type: 'click',
                     listener: this.deletePhotoListener.bind(this),
+                },
+                overlayMask: {
+                    type: 'click',
+                    listener: this.overlayMaskListener.bind(this),
                 }
             }
         };
+    }
+
+    async overlayMaskListener(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        evt.stopImmediatePropagation();
+
+        await ajax.post(backend.mask, {
+            linkImages: document.getElementById('current-photo').src,
+            mask: evt.target.id,
+        })
+            .then(async ({status, responseObject}) => {
+                if (status !== 200) {
+                    throw new Error(`${status} error on url /mask`);
+                }
+
+                const masks = document.getElementsByClassName('masks__mask');
+                for (const mask of masks) {
+                    mask.classList.remove('masks__mask_focused');
+                }
+
+                const maskImage = document.getElementById(evt.target.id);
+                maskImage.parentElement.classList.add('masks__mask_focused');
+
+                const albumImg = document.getElementById('current-photo');
+                albumImg.src = responseObject['linkImages'];
+
+                await this.#profile.update();
+                this.#view._context['profile'].linkImages = this.#profile.linkImages;
+                this.#view.renderMyAlbum();
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
     }
 
     onSendWebsocket(user_id, chat_id, message, delivery) {
@@ -159,7 +213,7 @@ export class FeedController {
             chat_id: chat_id,
             message: message,
             timeDelivery: delivery,
-        }
+        };
         this.#websocket.send(JSON.stringify(mes));
         const scroll = document.getElementById('chat-box-text-area');
         scroll.scrollTop = scroll.scrollHeight;
@@ -209,6 +263,8 @@ export class FeedController {
                     message_text: dataJSON.messages[0].message,
                     time_delivery: dataJSON.messages[0].timeDelivery,
                 }));
+                const scroll = document.getElementById('chat-box-text-area');
+                scroll.scrollTop = scroll.scrollHeight;
             } else {
                 this.pushEvent();
             }
@@ -231,7 +287,7 @@ export class FeedController {
 
         const userID = evt.target.id;
         const comment = this.#comments.commentsList.find((comment) => {
-            console.log(comment.user.id)
+            console.log(comment.user.id);
             return comment.user.id == userID;
         }, this);
 
@@ -268,35 +324,46 @@ export class FeedController {
     }
 
     async savePhotoListener(evt) {
-        console.log('я навесился!')
+        console.log('я навесился!');
         evt.preventDefault();
         const save = document.getElementById('save');
         const photo = document.getElementById('file');
         if (photo.value) {
-            console.log('фото загружено')
+            console.log('фото загружено');
             save.innerHTML = 'Сохранить';
+            if (photo.files[0].size > 3000000) {
+                save.innerHTML = 'Слишком большой размер фото, пожалуйста, выберите фото размера менее 3Мб';
+                return;
+            }
+            save.disabled = true;
+            save.innerHTML = 'Загружаем...';
+
+
             await this.#profile.addPhoto(document.getElementById('send'))
-            .then( ({status, responseObject}) => {
-                if (status === 200) {
-                    console.log('я разрезолвился!')
-                    console.log(responseObject);
-                    const link = responseObject['linkImages'];
-                    this.#profile.appendLinkImages(link);
-                    this.#view._context['profile'].linkImages = this.#profile.linkImages;
-                    this.#view.renderMyAlbum();
-                    // const albumSection = document.getElementsByClassName('album-section')[0];
-                    // albumSection.insertAdjacentHTML('beforeend', AlbumImg({
-                    //     photo: link,
-                    // }));
-                    this.cancelPhotoListener();
-                } else if (status === 400){
-                    throw new Error('Слишком большой размер фото')
-                } else {
-                    throw new Error('Не удалось загрузить фото(')
-                }
-            }).catch( (err) => {
-                save.innerHTML = err.message;
-            })
+                .then( ({status, responseObject}) => {
+                    if (status === 200) {
+                        console.log('я разрезолвился!');
+                        console.log(responseObject);
+                        const link = responseObject['linkImages'];
+                        this.#profile.appendLinkImages(link);
+                        this.#view._context['profile'].linkImages = this.#profile.linkImages;
+                        this.#view.renderMyAlbum();
+                        // const albumSection = document.getElementsByClassName('album-section')[0];
+                        // albumSection.insertAdjacentHTML('beforeend', AlbumImg({
+                        //     photo: link,
+                        // }));
+                        this.cancelPhotoListener();
+                    } else if (status === 400){
+                        throw new Error('Слишком большой размер фото');
+                    } else if (status === 403) {
+                        throw new Error('Пожалуйста, загрузите фото с вашим лицом');
+                    } else {
+                        throw new Error('Не удалось загрузить фото(');
+                    }
+                }).catch( (err) => {
+                    save.innerHTML = err.message;
+                    save.disabled = false;
+                });
         } else {
             save.innerHTML = 'Выберите фото!';
             return;
@@ -314,7 +381,9 @@ export class FeedController {
 
     async deletePhotoListener(evt) {
         evt.preventDefault();
-        console.log('deleting photo')
+        evt.stopPropagation();
+        evt.stopImmediatePropagation();
+        console.log('deleting photo');
         const photo = document.getElementById('current-photo');
         const images = this.#profile.linkImages;
 
@@ -360,8 +429,60 @@ export class FeedController {
         this.#view.renderComments();
     }
 
+    async getOtherCommentsListener(evt) {
+        evt.preventDefault();
+        const profileId = document.getElementsByClassName('profile')[0];
+        this.#view._context['comments']['profile'] = profileId.id;
+        await this.#comments.update(profileId.id);
+        const user = new UserModel();
+        await user.updateOtherUser(profileId.id);
+
+        this.#view.renderOtherAlbum(user);
+        this.#view.renderOtherComments();
+    }
+
+    async sendOtherComments(evt) {
+        evt.preventDefault();
+        if (!this.validationComments()) {
+                return;
+        }
+        // if (!document.getElementById('text-comment').value) {
+        //     return;
+        // }
+        // const text = document.getElementById('text-comment').value;
+        // let textComments = text.replaceAll(' ', '');
+        // if (textComments === '') {
+        //     return;
+        // }
+
+        const comment = new CommentModel({
+            user: this.#profile,
+            commentText: document.getElementById('text-comment').value,
+            timeDelivery: '',
+        });
+        await comment.addComment(parseInt(this.#view._context['comments']['profile'], 10));
+        this.#view.context.comments.comments.commentsList.push(comment);
+        this.#view.renderOtherComments();
+    }
+
+    validationComments() {
+        if (!document.getElementById('text-comment').value) {
+            return false
+        }
+        const text = document.getElementById('text-comment').value;
+        let textComments = text.replaceAll(' ', '');
+        if (textComments === '') {
+            return false;
+        }
+        return true;
+    }
+
     async sendCommentListener(evt) {
         evt.preventDefault();
+        if (!this.validationComments()) {
+            return;
+    }
+
         const comment = new CommentModel({
             user: this.#profile,
             commentText: document.getElementById('text-comment').value,
@@ -374,6 +495,10 @@ export class FeedController {
 
     async sendMyCommentsListener(evt) {
         evt.preventDefault();
+        if (!this.validationComments()) {
+            return;
+        }
+
         const comment = new CommentModel({
             user: this.#profile,
             commentText: document.getElementById('text-comment').value,
@@ -396,12 +521,19 @@ export class FeedController {
 
     async logoutListener(evt) {
         evt.preventDefault();
-        await ajax.post(backend.logout, {})
-            .then(({ status, responseObject }) => {
-                if (status === 500 || status === 401) {
-                    throw new Error(`${status} logout error`);
-                }
-                router.redirect('/');
+        logoutFirebase()
+            .then(async () => {
+                await ajax.post(backend.logout, {})
+                    .then(({ status, responseObject }) => {
+                        if (status === 500 || status === 401) {
+                            throw new Error(`${status} logout error`);
+                        }
+                        router.redirect('/');
+                    })
+                    .catch((err) => {
+                        console.log(err.message);
+                        router.redirect('/');
+                    });
             })
             .catch((err) => {
                 console.log(err.message);
@@ -412,11 +544,6 @@ export class FeedController {
     async editUserListener(evt) {
         evt.preventDefault();
         const data = this.#view.getSettingsData();
-        if (data.password !== data.repeatPassword) {
-            this.#view.context.settings.validate.passwords.message = 'Пароли не совпадают';
-            this.#view.rerenderSettings();
-            return;
-        }
 
         await ajax.post(backend.settings, data)
             .then(async ({ status, responseObject }) => {
@@ -431,17 +558,20 @@ export class FeedController {
                 saveButton.classList.add('pink-save');
 
                 await this.#profile.update();
+                await this.#feed.update();
+                
                 this.#view.context = this.#makeContext();
+                this.#view.rerenderFeed();
             })
             .catch((err) => {
                 console.log(err.message);
             });
     }
 
-    #getNextUser() {
+    async #getNextUser() {
         if (this.#currentUserFeed === this.#feed.userList.length - 1) {
+            await this.#feed.update();
             this.#currentUserFeed = 0;
-            this.#feed.update();
         } else {
             this.#currentUserFeed++;
         }
@@ -464,12 +594,12 @@ export class FeedController {
         await ajax.post(url, {
             'user_id2': this.#feed.userList[this.#currentUserFeed].id
         })
-            .then(({ status, responseObject }) => {
+            .then(async ({ status, responseObject }) => {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /like`);
                 }
 
-                this.#getNextUser();
+                await this.#getNextUser();
                 this.#backUserClick = 0;
             })
             .catch((err) => {
@@ -483,12 +613,12 @@ export class FeedController {
             await ajax.post(backend.superLike, {
                 'user_id2': this.#feed.userList[this.#currentUserFeed].id,
             })
-                .then(({ status, responseObject }) => {
+                .then(async ({ status, responseObject }) => {
                     if (status === 401) {
                         throw new Error(`${status} unauthorized: cannot get json on url /like`);
                     }
 
-                    this.#getNextUser();
+                    await this.#getNextUser();
                     this.#backUserClick = 0;
                 })
                 .catch((err) => {
@@ -509,11 +639,18 @@ export class FeedController {
     }
 
     async control() {
+        const isAuth = await tryRedirect();
+        if (!isAuth) {
+            router.redirect('/');
+            return;
+        }
+
         await this.update()
             .then(() => {
                 this.#view.context = this.#makeContext();
                 this.#view.render();
-                yoomoney.label = `${this.#profile.id}`;
+                // yoomoney.label = `${this.#profile.id}`;
+                // console.log(yoomoney.json());
             });
     }
 }

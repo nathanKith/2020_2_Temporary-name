@@ -5,7 +5,7 @@ export class LandingContent {
     #parent
 
     constructor(parent) {
-        this.#parent = parent
+        this.#parent = parent;
     }
 
     render() {

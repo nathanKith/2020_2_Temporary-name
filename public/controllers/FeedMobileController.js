@@ -1,8 +1,7 @@
-import {backend} from "../modules/url";
-import {ChatModel} from "../models/ChatModel";
-import ChatOtherMessage from "../components/ChatContent/ChatOtherMessage.hbs";
-import {ajax} from "../modules/ajax";
-import {ChatsMobileController} from "./ChatsMobileController";
+import {backend} from '../modules/url';
+import {ajax} from '../modules/ajax';
+import {tryRedirect} from '../modules/tryRedirect';
+import {router} from '../main';
 
 
 export class FeedMobileController{
@@ -35,6 +34,7 @@ export class FeedMobileController{
         return {
             feed: {
                 feed: this.#feed.userList[this.#currentUserFeed],
+                id: this.#profile.id,
                 event: {
                     like: {
                         type: 'click',
@@ -53,30 +53,33 @@ export class FeedMobileController{
                         listener: this.backUserListener.bind(this),
                     },
                 },
+                likeDislikeAjax: this.likeDislikeAjax.bind(this),
             },
         };
     }
 
     async likeListener(evt) {
         evt.preventDefault();
-        await this.#likeDislikeAjax(backend.like);
+        await this.likeDislikeAjax(backend.like);
     }
 
     async dislikeListener(evt) {
         evt.preventDefault();
-        await this.#likeDislikeAjax(backend.dislike);
+        await this.likeDislikeAjax(backend.dislike);
     }
 
-    async #likeDislikeAjax(url) {
+    async likeDislikeAjax(url) {
         await ajax.post(url, {
             'user_id2': this.#feed.userList[this.#currentUserFeed].id
         })
-            .then(({status, responseObject}) => {
+            .then(async ({status, responseObject}) => {
                 if (status === 401) {
                     throw new Error(`${status} unauthorized: cannot get json on url /like`);
                 }
 
-                this.#getNextUser();
+                console.log(url);
+                console.log('Я в отправке лайка или дизлайка');
+                await this.#getNextUser();
                 this.#backUserClick = 0;
             })
             .catch((err) => {
@@ -84,10 +87,10 @@ export class FeedMobileController{
             });
     }
 
-    #getNextUser() {
+    async #getNextUser() {
         if (this.#currentUserFeed === this.#feed.userList.length - 1) {
+            await this.#feed.update();
             this.#currentUserFeed = 0;
-            this.#feed.update();
         } else {
             this.#currentUserFeed++;
         }
@@ -102,12 +105,12 @@ export class FeedMobileController{
             await ajax.post(backend.superLike, {
                 'user_id2': this.#feed.userList[this.#currentUserFeed].id,
             })
-                .then(({ status, responseObject }) => {
+                .then(async ({ status, responseObject }) => {
                     if (status === 401) {
                         throw new Error(`${status} unauthorized: cannot get json on url /like`);
                     }
 
-                    this.#getNextUser();
+                    await this.#getNextUser();
                     this.#backUserClick = 0;
                 })
                 .catch((err) => {
@@ -138,10 +141,18 @@ export class FeedMobileController{
     }
 
     async control() {
+        const isAuth = await tryRedirect();
+        if (!isAuth) {
+            router.redirect('/');
+            return;
+        }
+
         await this.update()
             .then(() => {
                 this.#view.context = this.#makeContext();
                 this.#view.render();
+                // yoomoney.label = `${this.#profile.id}`;
+                // console.log(yoomoney.json());
             });
     }
 }

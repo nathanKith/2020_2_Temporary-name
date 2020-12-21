@@ -1,6 +1,7 @@
-import {ajax} from "../modules/ajax";
-import {backend} from "../modules/url";
-import {router} from "../main";
+import {ajax} from '../modules/ajax';
+import {backend} from '../modules/url';
+import {router} from '../main';
+import {tryRedirect} from '../modules/tryRedirect';
 
 export class SettingsMobileController {
     #view
@@ -23,6 +24,7 @@ export class SettingsMobileController {
                     aboutMe: this.#profile.aboutMe,
                     linkImages: this.#profile.linkImages,
                     age: this.#profile.age,
+                    filter: this.#profile.filter,
                 },
                 event: {
                     logout: {
@@ -40,7 +42,7 @@ export class SettingsMobileController {
                     }
                 }
             }
-        }
+        };
     }
 
     async logoutListener(evt) {
@@ -61,11 +63,6 @@ export class SettingsMobileController {
     async editUserListener(evt) {
         evt.preventDefault();
         const data = this.#view.getSettingsData();
-        if (data.password !== data.repeatPassword) {
-            this.#view.context.settings.validate.passwords.message = 'Пароли не совпадают';
-            this.#view.rerenderSettings();
-            return;
-        }
 
         await ajax.post(backend.settings, data)
             .then(async ({status, responseObject}) => {
@@ -92,6 +89,12 @@ export class SettingsMobileController {
     }
 
     async control() {
+        const isAuth = await tryRedirect();
+        if (!isAuth) {
+            router.redirect('/');
+            return;
+        }
+
         await this.update();
         this.#view.context = this.#makeContext();
         this.#view.render();

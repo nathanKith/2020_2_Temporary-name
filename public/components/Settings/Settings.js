@@ -1,5 +1,6 @@
 import './Settings.css';
 import settingsTemplate from './Settings.hbs';
+import {mask} from '../../modules/mask';
 
 export class Settings {
     #parent
@@ -15,6 +16,8 @@ export class Settings {
 
     render() {
         this.#parent.insertAdjacentHTML('afterbegin', settingsTemplate(this.#data.settings));
+
+        document.getElementById('filter').value = this.#data.settings.filter;
 
         document
             .getElementById('save-button')

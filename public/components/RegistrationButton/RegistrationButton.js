@@ -1,5 +1,4 @@
-import Button from './Button.hbs'
-import AboutMePart2 from "../RegistrationContent/AboutMePart2.hbs";
+import Button from './Button.hbs';
 
 export class RegistrationButton {
     #parent

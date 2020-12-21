@@ -1,13 +1,13 @@
-import {UserModel} from "./UserModel";
-import {ajax} from "../modules/ajax";
-import {backend} from "../modules/url";
+import {UserModel} from './UserModel';
+import {ajax} from '../modules/ajax';
+import {backend} from '../modules/url';
 
 export class ChatModel {
     #user_id
     #partner
     #id
     #messages
-    // #websocket
+    #filter
 
     constructor(data = {}) {
         this.#fillChatData(data);
@@ -33,30 +33,21 @@ export class ChatModel {
         return this.#messages;
     }
 
-    // get websocket() {
-    //     return this.#websocket;
-    // }
+    get filter() {
+        return this.#filter;
+    }
 
-    // set websocket(websocket) {
-    //     this.#websocket = websocket;
-    // }
-
-    // async WebSocket() {
-    //     this.#websocket =  await new WebSocket(backend.websocket);
-    // }
-    //
-    // async WebSocketClose() {
-    //     return await this.#websocket.close();
-    // }
-
+    set filter(filter) {
+        this.#filter = filter;
+    }
 
     async update() {
         await ajax.get(backend.chatId + this.#id)
             .then( ({status,responseObject}) => {
-                    if (status === 401) {
-                        throw new Error(`${status} unauthorized: cannot get json on url /chats/chat_id`);
-                    }
-                    this.#fillChatData(responseObject);
+                if (status === 401) {
+                    throw new Error(`${status} unauthorized: cannot get json on url /chats/chat_id`);
+                }
+                this.#fillChatData(responseObject);
             }).catch((err) => {
                 console.log(err.message);
             });
@@ -67,17 +58,8 @@ export class ChatModel {
         this.#id = data['id'];
         this.#partner = new UserModel(data['partner']);
         this.#messages = data['messages'];
+        this.#filter = data['filter'];
     }
-
-    // listenerSend(message, delivery) {
-    //     const mes = {
-    //         user_id: this.#user_id,
-    //         chat_id: this.#id,
-    //         message: message,
-    //         timeDelivery: delivery,
-    //     }
-    //     this.#websocket.send(JSON.stringify(mes));
-    // }
 
     validationMessage(message) {
         return message.replaceAll(' ', '') === '' ? null : message;

@@ -1,0 +1,11 @@
+.feed-end {
+    display: flex;
+    font-family: 'Montserrat-Semibold';
+    font-size: 3vh;
+    color: #f24e6a;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 50%;
+    flex-direction: column;
+}

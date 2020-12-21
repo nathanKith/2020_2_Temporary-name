@@ -1,10 +1,12 @@
-import AlbumImg from './AlbumImg.hbs'
-import AlbumPreview from './AlbumPreview.hbs'
-import AlbumButtons from './AlbumButtons.hbs'
-import {readImage} from '../../modules/previewAvatar'
-import {AlbumPhoto} from "./../AlbumPhoto/AlbumPhoto";
-import {popupPhoto} from '../../modules/popupPhoto'
-import './Album.css'
+import AlbumImg from './AlbumImg.hbs';
+import AlbumPreview from './AlbumPreview.hbs';
+import AlbumButtons from './AlbumButtons.hbs';
+import {readImage} from '../../modules/previewAvatar';
+import {AlbumPhoto} from './../AlbumPhoto/AlbumPhoto';
+import {popupPhoto} from '../../modules/popupPhoto';
+import './Album.css';
+import {router} from '../../main';
+import {isMobile} from '../../modules/resizing'
 
 export class Album {
     #parent
@@ -13,6 +15,7 @@ export class Album {
     listenerSave
     listenerCancel
     listenerDelete
+    listenerMasks
 
     set isMy(isMy){
         this.#isMy = isMy;
@@ -27,6 +30,25 @@ export class Album {
     render = () => {
         this.#parent.innerHTML = '';
 
+        if (isMobile()) {
+            const backButton = document.createElement('button');
+            backButton.type = 'button';
+            backButton.classList.add('back-button');
+
+            this.#parent.appendChild(backButton);
+
+            const arrow = document.createElement('img');
+            arrow.classList.add('album-icon');
+            arrow.src = '../img/left_arrow_gray.svg';
+
+            backButton.append(arrow);
+
+            backButton.addEventListener('click', (evt) => {
+                evt.preventDefault();
+                router.goBack();
+            });
+        }
+
         const albumSection = document.createElement('div');
         albumSection.classList.add('album-section');
         this.#parent.appendChild(albumSection);
@@ -35,7 +57,7 @@ export class Album {
             albumSection.insertAdjacentHTML('beforeend', AlbumPreview());
         }
 
-
+        console.log(document.getElementsByClassName('album-img')[0]);
         this.#listImages.forEach( (image, index) => {
             albumSection.insertAdjacentHTML('beforeend', AlbumImg({
                 photo: image,
@@ -45,25 +67,32 @@ export class Album {
                 ind = 1;
             }
             const albumPhoto = document.getElementsByClassName('album-img')[index + ind];
-            albumPhoto.addEventListener('click', async (evt) => {
+            console.log(albumPhoto);
+            console.log(index + ind);
+            albumPhoto.addEventListener('click', (evt) => {
                 evt.preventDefault();
+                evt.stopPropagation();
+
                 const feedContainer = document.getElementsByClassName('feed-container')[0];
                 const photoFromAlbum = new AlbumPhoto(feedContainer);
                 photoFromAlbum.photo = image;
                 photoFromAlbum.listenerDelete = this.listenerDelete;
+                photoFromAlbum.listenerMasks = this.listenerMasks;
                 photoFromAlbum.isMy = this.#isMy;
+                photoFromAlbum.forMask = this.#isMy;
+
                 if (this.#listImages.length === 1){
                     photoFromAlbum.isMy = false;
                 }
-                await photoFromAlbum.render()
-                .then(() => {
-                    // const photo = document.getElementsByClassName('photo-view')[0];
-                    // photo.addEventListener('click', (evt) => {
-                    //     evt.stopPropagation();
-                    // });
-                    // document.getElementsByClassName('feed-container')[0].addEventListener('click', popupPhoto);
-                    // document.getElementById('application').addEventListener('click', popupPhoto);
+                photoFromAlbum.render();
+
+                const photo = document.getElementsByClassName('photo-img')[0];
+                photo.addEventListener('click', (evt) => {
+                    evt.stopPropagation();
+                    evt.stopImmediatePropagation();
                 });
+
+                document.getElementById('application').addEventListener('click', popupPhoto);
             });
         });
 
@@ -80,9 +109,7 @@ export class Album {
                     document.getElementById('delete').addEventListener(this.listenerCancel.type,
                         this.listenerCancel.listener);
                 }
-            }
+            };
         }
     }
-
-
 }

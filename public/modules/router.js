@@ -53,6 +53,10 @@ export class Router {
         return this;
     }
 
+    goBack = () => {
+        window.history.back();
+    }
+
     redirect = (url, data = {}, title = '') => {
         window.history.pushState(data, title, url);
         return this.start();
@@ -76,13 +80,13 @@ export class Router {
 
     #convertToRegExp(route) {
         let regExp = route.url.replace(/\//g, '\\/')
-                                .replace(/\./g, '\\.')
-                                .replace('/', '/?');
+            .replace(/\./g, '\\.')
+            .replace('/', '/?');
 
         if (this.#hasParameters(route.url)) {
             regExp.replace(/{\w+}/g, (parameter) => {
                 const parameterName = parameter.replace('{', '')
-                                               .replace('}', '');
+                    .replace('}', '');
                 route.parameters.some((param) => {
                     if (param[parameterName] !== undefined) {
                         regExp = regExp.replace(parameter, param[parameterName].regExp);
@@ -111,7 +115,7 @@ export class Router {
                         sn: sn,
                         regExp: '([^\\/]+)',
                         value: null,
-                    }
+                    };
                     parameters.push(obj);
                 });
             });
@@ -141,7 +145,7 @@ export class Router {
         });
 
         window.addEventListener('popstate', () => {
-            console.log('')
+            console.log('');
             this.start();
         });
 

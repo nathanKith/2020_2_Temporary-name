@@ -1,6 +1,6 @@
-import {backend} from "../../modules/url";
-import {yoomoney, yoomoneyUrl} from "../../modules/yoomoney";
+import {yoomoney, yoomoneyUrl} from '../../modules/yoomoney';
 import './Feed.css';
+import {FeedEnd} from '../FeedEnd/FeedEnd';
 
 export class Feed {
     #parent
@@ -25,10 +25,32 @@ export class Feed {
 
         this.#parent.appendChild(div);
 
+        if (!this.#data.feed) {
+            const feedEnd = new FeedEnd(div);
+            feedEnd.render();
+            
+            return;
+        }
+
         div.appendChild(this.#createPhotosCell());
         div.appendChild(this.#createPersonProfile());
         div.appendChild(this.#createPreviousNextPhoto());
+        if (this.#data.feed.isSuperLikeMe) {
+            div.appendChild(this.#modifyToSuperLiked());
+        }
         div.appendChild(this.#createReactionButton());
+        //TODO: если когда нибудь захочеь сделать тул типы, вот они: я пытался
+        // const toolTipBack = document.createElement('span');
+        // toolTipBack.classList.add('reaction-button-tooltipText');
+        // toolTipBack.innerText = 'Предыдущий';
+
+        // const toolTipSuperLike = document.createElement('span');
+        // toolTipSuperLike.classList.add('reaction-button-tooltipText');
+        // toolTipSuperLike.innerText = 'Супер Лайк';
+
+        // document.getElementsByClassName('reaction-button')[0].appendChild(toolTipBack);
+        // document.getElementsByClassName('reaction-button')[3].appendChild(toolTipSuperLike);
+
 
         const formBackUser = document.getElementById('back-user-form');
         formBackUser.addEventListener(this.#data.event.backUser.type, this.#data.event.backUser.listener);
@@ -59,7 +81,7 @@ export class Feed {
         buttonNext.innerHTML = '';
 
         if (this.#data.feed.linkImages.length > 1) {
-            buttonNext.innerHTML = `<img src="./../../img/button-next.svg" />`;
+            buttonNext.innerHTML = '<img src="./../../img/button-next.svg" />';
         }
 
         const img = document.querySelector('#feedAvatar');
@@ -69,7 +91,7 @@ export class Feed {
             if (this.#currentPhoto === this.#data.feed.linkImages.length - 1) {
                 buttonNext.innerHTML = '';
             }
-            buttonPrev.innerHTML = `<img class="inner-prev-photo" src="./../../img/button-next.svg">`;
+            buttonPrev.innerHTML = '<img class="inner-prev-photo" src="./../../img/button-next.svg">';
             document.getElementById(`cell-${this.#currentPhoto - 1}`).classList.remove('cell-on');
             document.getElementById(`cell-${this.#currentPhoto}`).classList.add('cell-on');
             img.src = this.#data.feed.linkImages[this.#currentPhoto];
@@ -80,7 +102,7 @@ export class Feed {
             if (this.#currentPhoto === 0) {
                 buttonPrev.innerHTML = '';
             }
-            buttonNext.innerHTML = `<img src="./../../img/button-next.svg"/>`;
+            buttonNext.innerHTML = '<img src="./../../img/button-next.svg"/>';
             document.getElementById(`cell-${this.#currentPhoto + 1}`).classList.remove('cell-on');
             document.getElementById(`cell-${this.#currentPhoto}`).classList.add('cell-on');
             img.src = this.#data.feed.linkImages[this.#currentPhoto];
@@ -101,27 +123,49 @@ export class Feed {
             './../../img/cancel.svg',
             './../../img/like.svg',
             // './../../img/super-like.svg',
+        ];
+
+        const iconsName = [
+            'Дизлайк',
+            'Лайк',
         ]
 
         const div = this.#createDiv('reactions');
 
         const formBackUser = this.#createForm('back-user-form', './../../img/go-back-arrow.svg');
+
+        // const toolTipBack = document.createElement('span');
+        // toolTipBack.classList.add('reaction-button-tooltipText');
+        // toolTipBack.innerText = 'Предыдущий';
+
+        
         div.appendChild(formBackUser);
 
-        icons.forEach((imgSrc) => {
+        icons.forEach((imgSrc, index) => {
             const button = document.createElement('button');
             button.classList.add('reaction-button');
             button.innerHTML += `<img src="${imgSrc}">`;
+            const toolTipProfile = document.createElement('span');
+            toolTipProfile.classList.add('reaction-button-tooltipText');
+            toolTipProfile.innerText = iconsName[index];
             // button.addEventListener('click', (evt) => {
             //     this.#currentPhoto = 0;
             // })
 
             div.appendChild(button);
+            // button.appendChild(toolTipProfile); //осторожно, это может вернуть тултипы к жизни
         });
 
         const formSuperLike = this.#createForm('super-like-form', './../../img/super-like.svg');
+        // const toolTipSuperLike = document.createElement('span');
+        // toolTipSuperLike.classList.add('reaction-button-tooltipText');
+        // toolTipSuperLike.innerText = 'Супер Лайк';
+
+        
         div.appendChild(formSuperLike);
 
+       
+        
         return div;
     }
 
@@ -187,10 +231,18 @@ export class Feed {
         infoLogo.id = 'information-logo';
 
         const link = document.createElement('a');
-        link.innerHTML += `<img class="logo" src="./../../img/info.svg">`;
+        link.innerHTML += '<img class="logo" src="./../../img/info.svg">';
 
         infoLogo.appendChild(link);
         div.appendChild(infoLogo);
+
+        return div;
+    }
+
+    #modifyToSuperLiked = () => {
+        const div = this.#createDiv('super-liked-me');
+
+        div.innerText = 'Вы очень понравились этому пользователю!';
 
         return div;
     }

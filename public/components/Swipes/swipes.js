@@ -7,6 +7,8 @@ export class Swipes {
     xEnd
     yEnd
     data
+    timeStart
+    timeEnd
 
     constructor(parent) {
         this.#parent = parent;
@@ -26,6 +28,7 @@ export class Swipes {
 
     TouchStart(evt) {
         const touch = evt.touches[0];
+        this.timeStart = new Date().getMilliseconds();
         this.xStart = touch.clientX;
         this.yStart = touch.clientY;
     }
@@ -83,6 +86,8 @@ export class Swipes {
     }
 
     TouchEnd(evt) {
+        this.timeEnd = new Date().getMilliseconds();
+        console.log(this.timeEnd - this.timeStart);
         console.log('заканчивай свой свайп!');
         this.#parent.style.transform = `translate3d(0px, 0px, 0px)`;
         console.log(this.xEnd - this.xStart);

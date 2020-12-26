@@ -28,7 +28,9 @@ export class Swipes {
 
     TouchStart(evt) {
         const touch = evt.touches[0];
-        this.timeStart = new Date().getMilliseconds();
+        this.timeStart = Date.now();
+        console.log('время начала');
+        console.log(this.timeStart);
         this.xStart = touch.clientX;
         this.yStart = touch.clientY;
     }
@@ -53,7 +55,7 @@ export class Swipes {
         let yDiff = this.yEnd - this.yStart;
 
         if (Math.abs(xDiff)) {
-            if (xDiff < -25) {
+            if (xDiff < -40) {
                 console.log('свайп влево');
                 if ( !(like || dislike) ) {
                     feedSection.insertAdjacentHTML('afterbegin', 
@@ -64,7 +66,7 @@ export class Swipes {
                     '<img src="./../../img/cancel.svg" class="like-swipe" id="swipe-dislike">');
                 }
           
-            } else if (xDiff > 25) {
+            } else if (xDiff > 40) {
                 console.log('свайп вправо');
 
                 if ( !(like || dislike) ) {
@@ -86,26 +88,32 @@ export class Swipes {
     }
 
     TouchEnd(evt) {
-        this.timeEnd = new Date().getMilliseconds();
+        this.timeEnd =  Date.now();
+        console.log('время end');
+        console.log(this.timeEnd);
+        console.log('differ');
         console.log(this.timeEnd - this.timeStart);
         console.log('заканчивай свой свайп!');
         this.#parent.style.transform = `translate3d(0px, 0px, 0px)`;
         console.log(this.xEnd - this.xStart);
-
         const feedSection = document.getElementsByClassName('inner-feed-section')[0];
         const swipe = document.getElementsByClassName('like-swipe')[0];
         if (swipe) {
             feedSection.removeChild(swipe);
         }
 
-        const diff = this.xEnd - this.xStart;
-
-        if (diff < -25) {
-            this.data['likeDislikeAjax'](backend.dislike);
-        } else if (diff > 25) {
-            this.data['likeDislikeAjax'](backend.like);
+        if (this.timeEnd - this.timeStart > 140) {
+            const diff = this.xEnd - this.xStart;
+    
+            if (diff < -40) {
+                this.data['likeDislikeAjax'](backend.dislike);
+            } else if (diff > 40) {
+                this.data['likeDislikeAjax'](backend.like);
+            }
         }
 
+        this.timeStart = null;
+        this.timeEnd = null;
         this.xStart = null;
         this.yStart = null;
         this.xEnd = null;

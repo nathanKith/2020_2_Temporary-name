@@ -160,6 +160,7 @@
     padding-bottom: 1vh;
     margin-bottom: 1%;
     margin-top: 2%;
+    overflow-wrap: anywhere;
 }
 
 .chat__box__text-area__my-message:focus {
@@ -180,6 +181,7 @@
 .chat__box__text-area__other-message {
     width: 70%;
     border-radius: 25px 25px 25px 0px;
+    overflow-wrap: anywhere;
     resize: none;
     padding-left: 1vw;
     padding-top: 1vh;

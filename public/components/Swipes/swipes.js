@@ -36,7 +36,7 @@ export class Swipes {
     }
 
     TouchMove(evt) {
-        const feedSection = document.getElementsByClassName('inner-feed-section')[0];
+        const feedSection = document.getElementsByClassName('profile-person')[0];
         const like = document.getElementById('swipe-like');
         const dislike = document.getElementById('swipe-dislike');
         const swipe = document.getElementsByClassName('like-swipe')[0];
@@ -96,7 +96,7 @@ export class Swipes {
         console.log('заканчивай свой свайп!');
         this.#parent.style.transform = `translate3d(0px, 0px, 0px)`;
         console.log(this.xEnd - this.xStart);
-        const feedSection = document.getElementsByClassName('inner-feed-section')[0];
+        const feedSection = document.getElementsByClassName('profile-person')[0];
         const swipe = document.getElementsByClassName('like-swipe')[0];
         if (swipe) {
             feedSection.removeChild(swipe);
@@ -114,9 +114,9 @@ export class Swipes {
 
         this.timeStart = null;
         this.timeEnd = null;
-        this.xStart = null;
+        this.xStart = 0;
         this.yStart = null;
-        this.xEnd = null;
+        this.xEnd = 0;
         this.yEnd = null;
     }
 }

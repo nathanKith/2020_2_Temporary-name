@@ -95,6 +95,10 @@ class Backend {
     get mask() {
         return this.#url + this.#api + '/mask';
     }
+
+    get changeAvatar() {
+        return this.#url + this.#api + '/change';
+    }
 }
 
 export const backend = new Backend();

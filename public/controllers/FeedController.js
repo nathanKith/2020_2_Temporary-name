@@ -168,7 +168,11 @@ export class FeedController {
                 overlayMask: {
                     type: 'click',
                     listener: this.overlayMaskListener.bind(this),
-                }
+                },
+                changeAvatar: {
+                    type: 'click',
+                    listener: this.changeAvatarListener.bind(this),
+                },
             }
         };
     }
@@ -409,6 +413,28 @@ export class FeedController {
                     throw new Error('ошибка удаления');
                 }
             }).catch( (err) => {
+                console.log(err.message);
+            });
+    }
+
+    async changeAvatarListener(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        evt.stopImmediatePropagation();
+
+        const linkImage = document.getElementById('current-photo').src;
+        await ajax.post(backend.changeAvatar, {
+            link_image: linkImage
+        })
+            .then(async ({status, responseObject}) => {
+                if (status !== 200) {
+                    throw new Error('some problems');
+                }
+                await this.#profile.update();
+                this.#view._context['profile'].linkImages = this.#profile.linkImages;
+                this.#view.renderMyAlbum();
+            })
+            .catch((err) => {
                 console.log(err.message);
             });
     }

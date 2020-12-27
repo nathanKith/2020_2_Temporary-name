@@ -40,6 +40,10 @@ export class AlbumMobileController {
                     type: 'click',
                     listener: this.overlayMaskListener.bind(this),
                 },
+                changeAvatar: {
+                    type: 'click',
+                    listener: this.changeAvatarListener.bind(this),
+                },
             },
         };
     }
@@ -158,6 +162,29 @@ export class AlbumMobileController {
                     throw new Error('ошибка удаления');
                 }
             }).catch( (err) => {
+                console.log(err.message);
+            });
+    }
+
+    async changeAvatarListener(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        evt.stopImmediatePropagation();
+
+        const linkImage = document.getElementById('current-photo').src;
+        await ajax.post(backend.changeAvatar, {
+            link_image: linkImage
+        })
+            .then(async ({status, responseObject}) => {
+                if (status !== 200) {
+                    throw new Error('some problems');
+                }
+
+                this.#otherProfile.deleteImage(linkImage.src);
+                this.#view._context['albums'].linkImages = this.#otherProfile.linkImages;
+                this.#view.render(true);
+            })
+            .catch((err) => {
                 console.log(err.message);
             });
     }

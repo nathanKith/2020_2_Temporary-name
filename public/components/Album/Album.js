@@ -16,6 +16,7 @@ export class Album {
     listenerCancel
     listenerDelete
     listenerMasks
+    listenerChangeAvatar
 
     set isMy(isMy){
         this.#isMy = isMy;
@@ -78,6 +79,7 @@ export class Album {
                 photoFromAlbum.photo = image;
                 photoFromAlbum.listenerDelete = this.listenerDelete;
                 photoFromAlbum.listenerMasks = this.listenerMasks;
+                photoFromAlbum.listenerChangeAvatar = this.listenerChangeAvatar;
                 photoFromAlbum.isMy = this.#isMy;
                 photoFromAlbum.forMask = this.#isMy;
 

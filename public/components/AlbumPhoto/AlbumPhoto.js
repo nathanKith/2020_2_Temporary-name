@@ -8,6 +8,7 @@ export class AlbumPhoto {
     photo
     listenerDelete
     listenerMasks
+    listenerChangeAvatar
     isMy
     forMask
 
@@ -48,6 +49,9 @@ export class AlbumPhoto {
         if(this.isMy) {
             const deleteButton = document.getElementById('delete-button');
             deleteButton.addEventListener(this.listenerDelete.type, this.listenerDelete.listener);
+
+            const changeAvatarButton = document.getElementById('avatar-button');
+            changeAvatarButton.addEventListener(this.listenerChangeAvatar.type, this.listenerChangeAvatar.listener);
         }
 
         if (this.forMask) {

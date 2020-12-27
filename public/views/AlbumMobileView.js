@@ -32,6 +32,7 @@ export class AlbumMobileView extends BaseView{
             album.listenerCancel = this._context['albums'].cancelPhoto;
             album.listenerDelete = this._context['albums'].deletePhoto;
             album.listenerMasks = this._context['albums'].overlayMask;
+            album.listenerChangeAvatar = this._context['albums'].changeAvatar;
         }
         album.render();
     }
@@ -46,6 +47,7 @@ export class AlbumMobileView extends BaseView{
             album.listenerCancel = this._context['albums'].cancelPhoto;
             album.listenerDelete = this._context['albums'].deletePhoto;
             album.listenerMasks = this._context['albums'].overlayMask;
+            album.listenerChangeAvatar = this._context['albums'].changeAvatar;
         }
         album.render();
     }

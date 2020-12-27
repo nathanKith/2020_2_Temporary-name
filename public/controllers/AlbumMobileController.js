@@ -180,7 +180,7 @@ export class AlbumMobileController {
                     throw new Error('some problems');
                 }
 
-                this.#otherProfile.deleteImage(linkImage.src);
+                await this.#otherProfile.update();
                 this.#view._context['albums'].linkImages = this.#otherProfile.linkImages;
                 this.#view.render(true);
             })

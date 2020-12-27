@@ -28,8 +28,10 @@ export class AlbumPhoto {
 
         if(!this.isMy) {
             const photoButtons = document.getElementsByClassName('photo-buttons')[0];
+            const avatar = document.getElementById('avatar-button');
             const basket = document.getElementById('basket-button');
             photoButtons.removeChild(basket);
+            photoButtons.removeChild(avatar);
         }
 
         document.getElementsByClassName('cancel-button')[0].addEventListener('click', (evt) => {

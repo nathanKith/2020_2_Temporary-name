@@ -211,3 +211,8 @@
 .cancel-img{
     box-shadow: 0 0 2px rgba(0, 0, 0, .2);
 }
+.avatar-img {
+    height: 4.5vh;
+    margin-right: 1vh;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+}

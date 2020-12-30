@@ -331,8 +331,8 @@ export class FeedController {
         if (photo.value) {
             console.log('фото загружено');
             save.innerHTML = 'Сохранить';
-            if (photo.files[0].size > 3000000) {
-                save.innerHTML = 'Слишком большой размер фото, пожалуйста, выберите фото размера менее 3Мб';
+            if (photo.files[0].size > 5000000) {
+                save.innerHTML = 'Слишком большой размер фото, пожалуйста, выберите фото размера менее 5Мб';
                 return;
             }
             save.disabled = true;
